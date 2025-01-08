@@ -1,0 +1,80 @@
+.modal {
+  background: #fff;
+  width: 400px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  position: relative;
+  font-family: Arial, sans-serif;
+}
+
+.modal h2 {
+  margin: 0 0 20px;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.modal .close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 1.5rem;
+  color: #aaa;
+  cursor: pointer;
+}
+
+.modal .field {
+  margin-bottom: 20px;
+}
+
+.modal label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.modal .amountControls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.modal .amountControls button {
+  width: 30px;
+  height: 30px;
+  font-size: 1.2rem;
+  color: #fff;
+  background-color: #333;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.modal .amountControls span {
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.modal input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.modal button.save {
+  width: 100%;
+  padding: 10px;
+  background-color: #36c;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.modal button.save:hover {
+  background-color: #2a9;
+}
