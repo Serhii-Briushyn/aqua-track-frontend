@@ -1,27 +1,8 @@
 #root {
   max-width: 100%;
-  padding: 16px;
   margin: 0 auto;
 }
 
-@media screen and (min-width: 375px) {
-  #root {
-    max-width: 343px;
-  }
-}
-
-@media screen and (min-width: 768px) {
-  #root {
-    max-width: 704px;
-    padding: 32px;
-  }
-}
-
-@media screen and (min-width: 1440px) {
-  #root {
-    max-width: 1376px;
-  }
-}
 .h1 {
   background-color: blue;
 }

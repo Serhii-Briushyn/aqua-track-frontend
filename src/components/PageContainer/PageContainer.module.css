@@ -1,0 +1,27 @@
+.pageContainer {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    padding: 32px;
+    gap: 32px;
+    box-sizing: border-box;
+    justify-content: space-between;
+
+    @media screen and (max-width: 768px) {
+        flex-direction: column;
+    }
+}
+
+.leftSideWrapper, .rightSideWrapper {
+    flex: 1;
+    padding: 32px;
+    height: auto;
+    border-radius: 30px;
+}
+
+.leftSideWrapper{
+    background: #9BE1A0;
+}
+.rightSideWrapper {
+    background: #F0EFF4;
+}

@@ -21,10 +21,10 @@ import SignUpPage from "./pages/SignUpPage/SignUpPage";
 const App = () => {
   return (
     <div>
-      App
-      <TrackerPage />
-      <SignInPage />
-      <SignUpPage />
+      {/*App*/}
+      {/*<TrackerPage />*/}
+      {/*<SignInPage />*/}
+      {/*<SignUpPage />*/}
       <HomePage />
     </div>
   );
