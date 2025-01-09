@@ -69,7 +69,7 @@ const SignInForm = () => {
           </button>
           <div className={s.no_account}>
             <p className={s.text}>Don’t have an account?</p>
-            <Link to="/signin" className={s.link} type="submit">
+            <Link to="/signup" className={s.link} type="submit">
               Sign Up
             </Link>
           </div>
