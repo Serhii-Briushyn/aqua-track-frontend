@@ -57,7 +57,9 @@
   padding: 13px 27px;
   border: 1px solid #323f47;
   cursor: pointer;
-  transition: border 0.4s ease, color 0.4s ease;
+  transition:
+    border 0.4s ease,
+    color 0.4s ease;
 }
 
 .login_btn:hover {

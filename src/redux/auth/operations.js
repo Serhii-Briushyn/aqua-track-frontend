@@ -25,7 +25,7 @@ aquaTrackApi.interceptors.request.use(
   },
   (error) => {
     return Promise.reject(error);
-  }
+  },
 );
 
 // -------------------- Axios Response Interceptor --------------------
@@ -43,9 +43,8 @@ aquaTrackApi.interceptors.response.use(
 
         localStorage.setItem("accessToken", accessToken);
 
-        aquaTrackApi.defaults.headers.common[
-          "Authorization"
-        ] = `Bearer ${accessToken}`;
+        aquaTrackApi.defaults.headers.common["Authorization"] =
+          `Bearer ${accessToken}`;
 
         return aquaTrackApi(originalRequest);
       } catch (refreshError) {
@@ -56,7 +55,7 @@ aquaTrackApi.interceptors.response.use(
       }
     }
     return Promise.reject(error);
-  }
+  },
 );
 
 // -------------------- Register User Thunk --------------------
@@ -70,7 +69,7 @@ export const register = createAsyncThunk(
     } catch (error) {
       return handleApiError(error, thunkAPI);
     }
-  }
+  },
 );
 
 // -------------------- Log In User Thunk --------------------
@@ -85,7 +84,7 @@ export const logIn = createAsyncThunk(
     } catch (error) {
       return handleApiError(error, thunkAPI);
     }
-  }
+  },
 );
 
 // -------------------- Log Out User Thunk --------------------
@@ -114,7 +113,7 @@ export const updateUser = createAsyncThunk(
     } catch (error) {
       return handleApiError(error, thunkAPI);
     }
-  }
+  },
 );
 
 // -------------------- Update Password Thunk --------------------
@@ -131,7 +130,7 @@ export const updatePassword = createAsyncThunk(
     } catch (error) {
       return handleApiError(error, thunkAPI);
     }
-  }
+  },
 );
 
 // -------------------- Get User Count Thunk --------------------
@@ -145,7 +144,7 @@ export const getUserCount = createAsyncThunk(
     } catch (error) {
       return handleApiError(error, thunkAPI);
     }
-  }
+  },
 );
 
 // -------------------- Send Reset Password Email Thunk --------------------
@@ -156,13 +155,13 @@ export const sendResetPasswordEmail = createAsyncThunk(
     try {
       const response = await aquaTrackApi.post(
         "/users/reset-password-request",
-        { email }
+        { email },
       );
       return response.data;
     } catch (error) {
       return handleApiError(error, thunkAPI);
     }
-  }
+  },
 );
 
 // -------------------- Reset Password Thunk --------------------
@@ -179,7 +178,7 @@ export const resetPassword = createAsyncThunk(
     } catch (error) {
       return handleApiError(error, thunkAPI);
     }
-  }
+  },
 );
 
 // -------------------- Get Google OAuth URL Thunk --------------------
@@ -193,7 +192,7 @@ export const getGoogleOAuthUrl = createAsyncThunk(
     } catch (error) {
       return handleApiError(error, thunkAPI);
     }
-  }
+  },
 );
 
 // -------------------- Login With Google Thunk --------------------
@@ -207,5 +206,5 @@ export const loginWithGoogle = createAsyncThunk(
     } catch (error) {
       return handleApiError(error, thunkAPI);
     }
-  }
+  },
 );

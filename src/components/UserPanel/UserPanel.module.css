@@ -1,21 +1,21 @@
 .userPanel {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-bottom: 40px;
-    @media screen and (min-width: 768px) {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-    }
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 40px;
+  @media screen and (min-width: 768px) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
 }
-.h1{
-    font-size: 34px;
-    margin-bottom: 20px;
-    @media screen and (min-width: 768px) {
-        margin-bottom: 0;
-    }
-    span{
-        font-weight: 400;
-    }
+.h1 {
+  font-size: 34px;
+  margin-bottom: 20px;
+  @media screen and (min-width: 768px) {
+    margin-bottom: 0;
+  }
+  span {
+    font-weight: 400;
+  }
 }

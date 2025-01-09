@@ -6,12 +6,12 @@ const DailyInfo = () => {
   return (
     <div>
       <div className={css.infoHeader}>
-          <h2 className={css.selectedDate}>Today</h2>
-          <AddWaterBtn />
+        <h2 className={css.selectedDate}>Today</h2>
+        <AddWaterBtn />
       </div>
 
       <WaterList />
-        {/*<ChooseDate />*/}
+      {/*<ChooseDate />*/}
     </div>
   );
 };

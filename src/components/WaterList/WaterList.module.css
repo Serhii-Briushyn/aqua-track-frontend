@@ -1,11 +1,10 @@
-.waterList{
-    margin-bottom: 72px;
+.waterList {
+  margin-bottom: 72px;
 }
 .waterItemsList {
-    display: flex;
+  display: flex;
 }
 
 .scrollableItemContainer {
-    min-width: 208px;
+  min-width: 208px;
 }
-

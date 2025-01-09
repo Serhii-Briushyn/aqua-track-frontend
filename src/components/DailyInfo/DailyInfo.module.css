@@ -1,21 +1,20 @@
 .dailyInfo {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .infoHeader {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 24px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 24px;
 }
 
-.h2{
-    font-family: "Poppins", sans-serif;
-    font-size: 28px;
-    color: #323F47;
+.h2 {
+  font-family: "Poppins", sans-serif;
+  font-size: 28px;
+  color: #323f47;
 }
 
 .selectedDate {
-
 }

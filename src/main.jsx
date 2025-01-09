@@ -15,13 +15,13 @@ import "./fonts.css";
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     {/* <Provider store={store}> */}
-      {/* <PersistGate loading={null} persistor={persistor}> */}
-        <BrowserRouter>
-          <HelmetProvider>
-            <App />
-          </HelmetProvider>
-        </BrowserRouter>
-      {/* </PersistGate> */}
+    {/* <PersistGate loading={null} persistor={persistor}> */}
+    <BrowserRouter>
+      <HelmetProvider>
+        <App />
+      </HelmetProvider>
+    </BrowserRouter>
+    {/* </PersistGate> */}
     {/* </Provider> */}
-  </StrictMode>
+  </StrictMode>,
 );
