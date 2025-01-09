@@ -1,13 +1,16 @@
+import { useMediaQuery } from "@mui/material";
+import AdvantagesSection from "../../components/AdvantagesSection/AdvantagesSection";
 import DocumentTitle from "../../components/DocumentTitle";
 import SignInForm from "../../components/SignInForm/SignInForm";
-import Logo from "../../components/Logo/Logo";
 
 export default function SignInPage() {
+  const isLargeScreen = useMediaQuery("(min-width:1440px)");
+
   return (
     <>
       <DocumentTitle>SignIn</DocumentTitle>
       <SignInForm />
-      <Logo />
+      {isLargeScreen && <AdvantagesSection />}
     </>
   );
 }
