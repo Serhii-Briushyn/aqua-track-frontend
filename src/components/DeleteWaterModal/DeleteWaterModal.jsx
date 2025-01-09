@@ -1,5 +1,8 @@
-const DeleteWaterModal = () => {
-  return <div>DeleteWaterModal</div>;
-};
 
-export default DeleteWaterModal;
+const DeleteWaterModal = () => {
+  return (
+    <div>DeleteWaterModal</div>
+  )
+}
+
+export default DeleteWaterModal

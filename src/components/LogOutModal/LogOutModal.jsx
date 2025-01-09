@@ -1,5 +1,7 @@
 const LogOutModal = () => {
-  return <div>LogOutModal</div>;
-};
+  return (
+    <div>LogOutModal</div>
+  )
+}
 
-export default LogOutModal;
+export default LogOutModal

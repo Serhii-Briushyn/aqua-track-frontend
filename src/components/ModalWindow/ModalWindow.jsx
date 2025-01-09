@@ -1,5 +1,7 @@
 const ModalWindow = () => {
-  return <div>ModalWindow</div>;
-};
+  return (
+    <div>ModalWindow</div>
+  )
+}
 
-export default ModalWindow;
+export default ModalWindow
