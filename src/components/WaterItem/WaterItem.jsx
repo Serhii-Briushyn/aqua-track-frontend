@@ -3,9 +3,9 @@ import WaterModal from "../WaterModal/WaterModal"
 
 const WaterItem = () => {
   return (
-      <div>WaterItem
-          <WaterModal />
-          <DeleteWaterModal/>
+      <div className={css.waterItem}>
+          {/*<WaterModal />*/}
+          {/*<DeleteWaterModal/>*/}
     </div>
   )
 }

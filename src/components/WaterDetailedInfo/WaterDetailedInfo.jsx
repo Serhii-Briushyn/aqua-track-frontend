@@ -7,13 +7,7 @@ const WaterDetailedInfo = () => {
   return (
     <div className={css.waterDetailedInfo}>
       <UserPanel />
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
-      {/*<DailyInfo />*/}
+      <DailyInfo />
       {/*<MonthInfo />*/}
     </div>
   );
