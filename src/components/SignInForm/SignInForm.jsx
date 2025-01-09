@@ -121,9 +121,6 @@ const SignInForm = () => {
         <button type="submit" className={css.submit} disabled={loading}>
           {loading ? "Signing in..." : "Sign in"}
         </button>
-
-        {/* <p className={css.questionText}>or</p>
-        <GoogleAuthBtn>Sign In with Google</GoogleAuthBtn> */}
       </form>
       <div className={css.questionOnLogIn}>
         <p className={css.questionText}>
