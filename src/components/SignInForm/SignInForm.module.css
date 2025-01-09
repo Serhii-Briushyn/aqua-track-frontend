@@ -1,5 +1,13 @@
-.login {
-  width: 311px;
+.signin_wrapper {
+  border-radius: 30px;
+  padding: 24px 16px 212px 16px;
+  width: 343px;
+  background-color: #f0eff4;
+}
+
+.signin_form {
+  max-width: 311px;
+  margin-top: 172px;
 }
 
 .title {
@@ -104,7 +112,13 @@
 }
 
 @media screen and (min-width: 768px) {
-  .login {
+  .signin_wrapper {
+    width: 704px;
+    padding: 32px 32px 281px 32px;
+  }
+
+  .signin_form {
+    margin: 225px auto 0 auto;
     width: 436px;
   }
 
@@ -134,4 +148,12 @@
 }
 
 @media screen and (min-width: 1440px) {
+  .signin_wrapper {
+    width: 672px;
+    padding: 32px 32px 166px 32px;
+  }
+
+  .signin_form {
+    margin: 130px auto 0 auto;
+  }
 }
