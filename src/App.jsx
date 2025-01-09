@@ -9,6 +9,7 @@ import Loader from "./components/Loader/Loader";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 
 import "./App.css";
+import UserSettingsForm from "./components/UserSettingsForm/UserSettingsForm";
 
 const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
 const SignInPage = lazy(() => import("./pages/SignInPage/SignInPage"));
@@ -60,6 +61,7 @@ function App() {
             />
           </Route>
           <Route path="*" element={<NotFoundPage />} />
+          <Route path="user-settings" element={<UserSettingsForm />} />
         </Routes>
       </Suspense>
       {/* )} */}
