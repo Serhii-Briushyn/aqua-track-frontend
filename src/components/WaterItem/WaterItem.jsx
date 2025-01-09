@@ -1,7 +1,10 @@
 import DeleteWaterModal from "../DeleteWaterModal/DeleteWaterModal";
 import WaterModal from "../WaterModal/WaterModal";
-import css from "./WaterItem.module.css";
+import { FiEdit2, FiTrash } from "react-icons/fi";
+
 import icons from "../../assets/icons/icons.svg";
+import css from "./WaterItem.module.css";
+
 const WaterItem = () => {
   return (
     <div className={css.waterItem}>
@@ -14,15 +17,18 @@ const WaterItem = () => {
         <span className={css.time}>11:00 AM</span>
       </div>
       <div className={css.actions}>
+        {/*temp*/}
+
         <button role="button">
-          <svg width="16" height="16">
-            <use href={`${icons}#icon-edit`} />
-          </svg>
+          <FiEdit2 style={{ color: "#323F47" }} />
         </button>
         <button role="button">
-          <svg width="16" height="16">
-            <use href={`${icons}#icon-delete`} />
-          </svg>
+          {/*temp*/}
+
+          <FiTrash style={{ color: "#323F47" }} />
+          {/*<svg width="16" height="16">*/}
+          {/*  <use href={`${icons}#icon-delete`} />*/}
+          {/*</svg>*/}
         </button>
       </div>
       {/*<WaterModal />*/}

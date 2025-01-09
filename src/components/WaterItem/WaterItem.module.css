@@ -15,11 +15,18 @@
 }
 
 .waterItem .actions button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 20px;
   height: 20px;
   background: none;
   border: none;
   cursor: pointer;
+}
+
+.waterItem .actions button:first-child {
+  margin-left: 6px;
 }
 
 .indicators .volume,

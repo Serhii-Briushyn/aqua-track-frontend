@@ -6,12 +6,16 @@
   background: #f0eff4;
   border-radius: 30px;
   overflow: hidden;
+}
 
-  @media screen and (min-width: 768px) {
+@media screen and (min-width: 768px) {
+  .waterDetailedInfo {
     width: 704px;
   }
+}
 
-  @media screen and (min-width: 1440px) {
+@media screen and (min-width: 1440px) {
+  .waterDetailedInfo {
     width: 672px;
   }
 }
