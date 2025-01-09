@@ -24,7 +24,7 @@
   border-radius: 9px;
   height: 100%;
   background-color: #9be1a0;
-  transition: width 0.3s ease;
+  transition: width 2s ease;
 }
 
 .movingCircle {
@@ -38,7 +38,7 @@
   background-color: #fff;
   border-radius: 50%;
   border: 1px solid #9be1a0;
-  transition: left 0.3s ease-in-out;
+  transition: left 2s ease;
 }
 
 .marks {
@@ -64,6 +64,16 @@
   color: #323f47;
   text-align: left;
 }
+.percentageText {
+  position: absolute;
+  top: -18px;
+  right: 0;
+  font-size: 14px;
+  color: #80ee76;
+  transition: opacity 2s ease;
+  opacity: 1;
+}
+
 @media (min-width: 768px) {
   .swater_progress_bar_wrapper {
     border-radius: 15px;
