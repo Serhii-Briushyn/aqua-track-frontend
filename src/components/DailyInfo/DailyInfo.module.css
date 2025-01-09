@@ -7,6 +7,7 @@
 .infoHeader {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 24px;
 }
 
 .h2{

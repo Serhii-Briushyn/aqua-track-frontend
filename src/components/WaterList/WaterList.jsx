@@ -27,16 +27,9 @@ const WaterList = () => {
         <div className={css.waterList}>
             <SimpleBar key={resizeKey} autoHide={false}>
                 <div className={css.waterItemsList}>
-                    {Array.from({ length: 13 }).map((_, index) => (
-                        <div
-                            key={index}
-                            style={{
-                                width: "100px",
-                                height: "100px",
-                                border: "1px solid red",
-                            }}
-                        >
-                            <WaterItem />
+                    {Array.from({ length: 8 }).map((_, index) => (
+                        <div key={index} className={css.scrollableItemContainer}>
+                            <WaterItem index={index} key={index} />
                         </div>
                     ))}
                 </div>

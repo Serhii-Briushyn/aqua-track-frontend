@@ -33,11 +33,12 @@
 }
 
 .simplebar-scrollbar:before {
-    top: 0px;
-    bottom: 0px;
+    top: 0;
+    bottom: 0;
 }
 
 .simplebar-track.simplebar-horizontal {
+    transform: translateY(32px);
     height: 8px
 }
 
