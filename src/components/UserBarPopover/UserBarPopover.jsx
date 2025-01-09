@@ -1,6 +1,9 @@
 import LogOutModal from "../LogOutModal/LogOutModal";
 import UserSettingsModal from "../UserSettingsModal/UserSettingsModal";
+import { FiSettings, FiLogOut } from "react-icons/fi";
+
 import css from "./UserBarPopover.module.css";
+
 const UserBarPopover = () => {
   return (
     <div className={css.userBarPopover}>
@@ -9,7 +12,9 @@ const UserBarPopover = () => {
                 <button
                     className={css.setting}
                     onClick={() => {}}
-                >Setting
+                >
+                    <FiSettings />
+                    <span className={css.btnTxt}>Setting</span>
                 </button>
             </li>
             <li>
@@ -17,7 +22,8 @@ const UserBarPopover = () => {
                     className={css.logout}
                     onClick={() => {}}
                 >
-                    Log out
+                    <FiLogOut />
+                    <span className={css.btnTxt}>Log out</span>
                 </button>
             </li>
         </ul>
