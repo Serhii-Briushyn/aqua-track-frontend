@@ -1,0 +1,71 @@
+.water_daily_norma_container {
+  display: flex;
+  flex-direction: column;
+
+  border-radius: 15px;
+  padding: 12px;
+  width: 102px;
+  height: 54px;
+  box-shadow: 0 4px 50px 0 rgba(0, 0, 0, 0.1);
+  background: #fff;
+  position: absolute;
+  top: 122px;
+  left: 16px;
+}
+.WaterDailyNorma {
+  width: 78px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1;
+  color: #323f47;
+  margin-bottom: 6px;
+  text-align: left;
+}
+.WaterDailyNorma_p {
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 1;
+  color: rgba(47, 47, 47, 0.6);
+}
+@media (min-width: 768px) {
+  .water_daily_norma_container {
+    border-radius: 15px;
+    padding: 14px 18px;
+    width: 129px;
+    height: 78px;
+    top: 157px;
+    left: 32px;
+  }
+  .WaterDailyNorma {
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 1.49;
+    margin-bottom: 4px;
+  }
+  .WaterDailyNorma_p {
+    font-size: 12px;
+    line-height: 1.86;
+  }
+}
+@media (min-width: 1440px) {
+  .water_daily_norma_container {
+    border-radius: 15px;
+    padding: 14px 18px;
+    width: 129px;
+    height: 78px;
+    top: 157px;
+    left: 64px;
+  }
+  .WaterDailyNorma {
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 1.49;
+    color: #323f47;
+    margin-bottom: 4px;
+  }
+  .WaterDailyNorma_p {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 1.86;
+  }
+}

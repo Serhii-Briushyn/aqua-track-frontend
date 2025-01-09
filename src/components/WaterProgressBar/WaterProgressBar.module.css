@@ -1,0 +1,135 @@
+.swater_progress_bar {
+  position: relative;
+  border-radius: 15px;
+  padding: 12px;
+  width: 198px;
+  height: 70px;
+  background-color: #f3f3f3;
+  overflow: hidden;
+  position: absolute;
+  bottom: 120px;
+  right: 72px;
+  margin: 0 auto;
+}
+
+.water {
+  position: absolute;
+  top: 34px;
+  left: 0;
+  border-radius: 9px;
+  width: 174px;
+  height: 6px;
+  background: #9be1a0;
+  margin-bottom: 8px;
+  transition: transform 0.3s ease;
+  transform: translateX(0);
+  transform-origin: left;
+}
+
+.movingCircle {
+  top: 31px; /* Початкова позиція круга по вертикалі */
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background-color: #fff;
+  border-radius: 50%;
+  border: 1px solid #9be1a0;
+  transition: left 0.3s ease-in-out;
+}
+
+.marks {
+  position: absolute;
+  bottom: 5px;
+  left: 10px;
+  width: 174px;
+  height: 10px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #00796b;
+}
+
+.mark {
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 1;
+  color: rgba(47, 47, 47, 0.6);
+}
+
+.todayLabel {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1;
+  color: #323f47;
+}
+@media (min-width: 768px) {
+  .swater_progress_bar {
+    border-radius: 15px;
+    padding: 20px;
+    width: 295px;
+    height: 106px;
+    bottom: 150px;
+    right: 205px;
+  }
+  .water {
+    border-radius: 9px;
+    width: 255px;
+    height: 8px;
+    background: #9be1a0;
+  }
+  .movingCircle {
+    top: 47px;
+  }
+  .marks {
+    width: 255px;
+    height: 23px;
+    font: 400 12px / 1.86667 "Poppins", sans-serif;
+  }
+  .mark {
+    font-size: 10px;
+  }
+  .todayLabel {
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 1.49;
+  }
+}
+
+@media (min-width: 1440px) {
+  .swater_progress_bar {
+    border-radius: 15px;
+    padding: 20px;
+    width: 295px;
+    height: 106px;
+    bottom: 180px;
+    right: 189px;
+  }
+  .water {
+    border-radius: 9px;
+    width: 255px;
+    height: 8px;
+  }
+  .movingCircle {
+    width: 12px;
+    height: 12px;
+  }
+  .marks {
+    width: 255px;
+    height: 23px;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 1.86;
+  }
+  .mark {
+    font-size: 10px;
+  }
+  .todayLabel {
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 1.49;
+    color: #323f47;
+  }
+}
