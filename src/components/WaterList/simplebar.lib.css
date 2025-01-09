@@ -1,5 +1,9 @@
 /*specific styles for simplebar lib*/
 
+.simplebar-content {
+  height: 118px;
+}
+
 .simplebar-track {
   background: #fff;
   border-radius: 9px;
@@ -37,7 +41,6 @@
 }
 
 .simplebar-track.simplebar-horizontal {
-  transform: translateY(32px);
   height: 8px;
 }
 
