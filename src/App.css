@@ -2,6 +2,15 @@
   max-width: 100%;
   padding: 16px;
   margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.shared-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 @media screen and (min-width: 375px) {
@@ -20,8 +29,11 @@
 @media screen and (min-width: 1440px) {
   #root {
     max-width: 1376px;
+    min-height: 100vh;
   }
-}
-.h1 {
-  background-color: blue;
+  .shared-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
 }

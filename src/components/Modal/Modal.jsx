@@ -1,33 +1,41 @@
 import { useEffect } from "react";
-import ReactDOM from "react-dom";
+
+import css from "./Modal.module.css";
 
 const Modal = ({ isOpen, onClose, children }) => {
   useEffect(() => {
-    const handleEscape = (e) => {
-      if (e.key === "Escape") {
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
         onClose();
       }
     };
 
     if (isOpen) {
-      document.addEventListener("keydown", handleEscape);
+      document.addEventListener("keydown", handleKeyDown);
+    } else {
+      document.removeEventListener("keydown", handleKeyDown);
     }
 
     return () => {
-      document.removeEventListener("keydown", handleEscape);
+      document.removeEventListener("keydown", handleKeyDown);
     };
   }, [isOpen, onClose]);
 
-  if (!isOpen) return null;
+  if (!isOpen) {
+    return null;
+  }
 
-  return ReactDOM.createPortal(
-    <div onClick={onClose}>
-      <div onClick={(e) => e.stopPropagation()}>
-        <button onClick={onClose}>Close</button>
+  return (
+    <div className={css.overlay} onClick={onClose}>
+      <div className={css.window} onClick={(e) => e.stopPropagation()}>
+        <button className={css.button} onClick={onClose}>
+          <svg className={css.icon} aria-hidden="true">
+            <use xlinkHref="/src/assets/icons/icons.svg#icon-close" />
+          </svg>
+        </button>
         {children}
       </div>
-    </div>,
-    document.getElementById("modal-root")
+    </div>
   );
 };
 
