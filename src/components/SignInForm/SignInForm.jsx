@@ -160,4 +160,3 @@ export default SignInForm;
 
 // //____________________________SIGNIN___________________________________//
 
-export default SignInForm;
