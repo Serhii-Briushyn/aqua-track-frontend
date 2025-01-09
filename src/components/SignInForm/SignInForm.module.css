@@ -1,159 +1,139 @@
-.signin_wrapper {
-  border-radius: 30px;
-  padding: 24px 16px 212px 16px;
-  width: 343px;
-  background-color: #f0eff4;
+.signInContainer {
+  width: 100%;
+  margin: 172px auto 216px;
+  padding: 16px;
 }
-
-.signin_form {
-  max-width: 311px;
-  margin-top: 172px;
-}
-
 .title {
   font-weight: 700;
   font-size: 32px;
   line-height: 1;
   letter-spacing: -0.01em;
-  color: #323f47;
   margin-bottom: 32px;
 }
 
-.list {
-  margin-bottom: 32px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.label {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 1.5;
-  letter-spacing: -0.01em;
-  color: #2f2f2f;
-}
-
-.password {
-  position: relative;
-}
-
-.input {
-  border: 1px solid rgba(47, 47, 47, 0.2);
-  border-radius: 15px;
-  padding: 16px 16px 16px 16px;
-  height: 50px;
-  outline: none;
-}
-
-.icon {
-  position: absolute;
-  top: 56%;
-  right: 15px;
-  cursor: pointer;
-  stroke: #2f2f2f;
-  fill: #ffffff;
-  width: 20px;
-  height: 20px;
-}
-
-.input::placeholder {
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 1.28571;
-  letter-spacing: -0.01em;
-  color: rgba(47, 47, 47, 0.6);
-}
-
-.btn {
-  border: none;
-  border-radius: 30px;
+.form {
   width: 100%;
-  height: 50px;
-  font-weight: 700;
-  font-size: 14px;
-  line-height: 1.28571;
-  letter-spacing: -0.01em;
-  text-align: center;
-  color: #323f47;
-  background-color: #9be1a0;
-  margin-bottom: 16px;
-  cursor: pointer;
-  transition: background-color 0.4s ease;
-}
-
-.btn:hover {
-  background-color: #87d28d;
-}
-
-.no_account {
   display: flex;
-  gap: 4px;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
 }
 
-.text {
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 1.28571;
-  letter-spacing: -0.01em;
-  color: rgba(47, 47, 47, 0.5);
-}
-
-.link {
+.field {
   font-weight: 700;
-  text-decoration: underline;
-  text-decoration-skip-ink: none;
+  line-height: 1.28;
+  letter-spacing: -0.01em;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 8px;
+  position: relative;
+  margin-bottom: 12px;
+}
+
+.field:last-of-type {
+  margin-bottom: 0;
+}
+
+.input {
+  width: 100%;
+  line-height: 18px;
+  letter-spacing: -0.01em;
+  text-align: left;
   color: #2f2f2f;
+  border-radius: 15px;
+  border: 1px solid rgba(47, 47, 47, 0.2);
+  padding: 16px;
+  background-color: transparent;
 }
 
-@media screen and (min-width: 768px) {
-  .signin_wrapper {
-    width: 704px;
-    padding: 32px 32px 281px 32px;
-  }
-
-  .signin_form {
-    margin: 225px auto 0 auto;
-    width: 436px;
-  }
-
-  .title {
-    font-size: 36px;
-    line-height: 1.05556;
-  }
-
-  .input {
-    height: 56px;
-  }
-
-  .input::placeholder {
-    font-size: 16px;
-    line-height: 1.5;
-  }
-
-  .btn {
-    font-size: 16px;
-    line-height: 1.5;
-  }
-
-  .text {
-    font-size: 16px;
-    line-height: 1.5;
-  }
+.input:hover,
+.input:focus {
+  border: 1px solid rgba(47, 47, 47, 0.4);
 }
 
-@media screen and (min-width: 1440px) {
-  .signin_wrapper {
-    width: 672px;
-    padding: 32px 32px 166px 32px;
-  }
+.submit {
+  margin-top: 32px;
+  font-weight: 700;
+  border: none;
+  width: 100%;
+  color: #323f47;
+  border-radius: 30px;
+  height: 50px;
+  background: #9be1a0;
+  transition: all 0.7s ease-in-out;
+  cursor: pointer;
+}
 
-  .signin_form {
-    margin: 130px auto 0 auto;
-  }
+.submit:hover {
+  background-color: #87d28d;
+}
+
+.questionOnLogIn {
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+  margin-top: 16px;
+  align-items: center;
+}
+
+.questionText {
+  color: rgba(47, 47, 47, 0.5);
+  font-weight: 400;
+  line-height: 1.28;
+  letter-spacing: -0.01em;
+  text-align: center;
+}
+
+.signUpLink {
+  line-height: 1.28;
+  font-weight: 700;
+  color: #2f2f2f;
+  text-decoration: underline;
+}
+
+.errorMessage {
+  color: #ef5050;
+  font-size: 13px;
+  margin-top: 12px;
+}
+
+.inputError {
+  border: 1px solid #ef5050;
+  color: #ef5050;
+  transition: all 0.7s ease-in-out;
+}
+
+.showPasswordBtn {
+  display: none;
+}
+
+.icon {
+  fill: none;
+  stroke: #2f2f2f;
+  width: 100%;
+  height: 100%;
+  width: 20px;
+  height: 20px;
+  border: none;
+}
+
+.inputField {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.forgotPasswordContainer {
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+  margin-top: 16px;
+  align-items: center;
+}
+
+.forgotPasswordLink {
+  line-height: 1.28;
+  font-weight: 700;
+  color: #2f2f2f;
+  text-decoration: underline;
 }

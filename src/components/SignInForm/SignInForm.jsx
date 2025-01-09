@@ -1,83 +1,140 @@
-// import { useDispatch } from "react-redux"
-// import { login } from "../../redux/auth/operations"
-import { Formik, Form, Field } from "formik";
-import { Link } from "react-router-dom";
-import s from "./SignInForm.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { NavLink, useNavigate } from "react-router-dom";
+import { login } from "../../redux/auth/operations.js";
 import { useState } from "react";
-import icons from "../../assets/icons/icons.svg";
-import Logo from "../Logo/Logo";
+import { toast } from "react-hot-toast";
+import * as Yup from "yup";
+import { selectAuthError } from "../../redux/auth/selectors.js";
+
+const signInFormSchema = Yup.object({
+  email: Yup.string()
+    .email("Invalid email address")
+    .required("Email is required"),
+  password: Yup.string()
+    .min(6, "Must contain at least 6 characters")
+    .max(64, "Password can't be longer than 64 characters")
+    .required("Password is required"),
+});
 
 const SignInForm = () => {
-  //   const dispatch = useDispatch()
-
-  // const initialValues = {
-  //   email: '',
-  //   password: '',
-  // }
-
-  // const handleSubmit = (values, options) => {
-  //   if (!values.email || !values.password) {
-  //     return "oops"
-  //   }
-  //     dispatch(login(values))
-  //     options.resetForm()
-  // }
-
+  const dispatch = useDispatch();
+  const reduxError = useSelector(selectAuthError);
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const togglePasswordVisibility = () => {
+  const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(signInFormSchema),
+    mode: "onSubmit",
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+
+  const onSubmit = async (data) => {
+    const { email, password } = data;
+    setLoading(true);
+    try {
+      const loginResult = await dispatch(login({ email, password }));
+      if (login.fulfilled.match(loginResult)) {
+        navigate("/tracker");
+        reset();
+      } else {
+        toast.error("Failed to login, please sign up");
+      }
+    } catch (error) {
+      toast.error("Failed to login: " + (error.message || "Unknown error"));
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
   };
 
   return (
-    <div className={s.signin_wrapper}>
-      <Logo />
-      <div className={s.signin_form}>
-        <h2 className={s.title}>Sign In</h2>
-        <Formik>
-          <Form className={s.form}>
-            <ul className={s.list}>
-              <li>
-                <label className={s.label}>
-                  Email
-                  <Field
-                    name="email"
-                    type="email"
-                    className={s.input}
-                    placeholder="Enter your email"
-                  />
-                </label>
-              </li>
-              <li>
-                <label className={`${s.password} ${s.label}`}>
-                  Password
-                  <Field
-                    name="password"
-                    type={showPassword ? "text" : "password"}
-                    className={`${s.password} ${s.input}`}
-                    placeholder="Enter your password"
-                  />
-                  <svg className={s.icon} onClick={togglePasswordVisibility}>
-                    <use
-                      href={`${icons}#${
-                        showPassword ? "icon-view" : "icon-hide"
-                      }`}
-                    />
-                  </svg>
-                </label>
-              </li>
-            </ul>
-            <button className={s.btn} type="submit">
-              Sing in
+    <div className={css.signInContainer}>
+      <h2 className={css.title}>Sign In</h2>
+      <form className={css.form} onSubmit={handleSubmit(onSubmit)}>
+        <label className={css.field}>
+          <span className={css.label}>Email: </span>
+          <input
+            type="email"
+            {...register("email")}
+            placeholder={
+              errors.email ? errors.email.message : "Enter your email"
+            }
+            className={clsx(css.input, { [css.inputError]: errors.email })}
+          />
+          <p className={css.errorMessage}>{errors.email?.message}</p>
+        </label>
+        <label className={css.field}>
+          <span className={css.label}>Password: </span>
+          <div className={css.inputField}>
+            <input
+              type={showPassword ? "text" : "password"}
+              {...register("password")}
+              placeholder={
+                errors.password
+                  ? errors.password.message
+                  : "Enter your password"
+              }
+              className={clsx(css.input, { [css.inputError]: errors.password })}
+            />
+            <button
+              className={css.showPasswordBtn}
+              type="button"
+              onClick={handleClickShowPassword}
+              aria-label={showPassword ? "Hide password" : "Show password"}
+            >
+              {showPassword ? (
+                <svg className={css.icon}>
+                  <use href={`${iconSprite}#icon-eye`}></use>
+                </svg>
+              ) : (
+                <svg className={css.icon}>
+                  <use href={`${iconSprite}#icon-eye-off`}></use>
+                </svg>
+              )}
             </button>
-            <div className={s.no_account}>
-              <p className={s.text}>Don’t have an account?</p>
-              <Link to="/signup" className={s.link} type="submit">
-                Sign Up
-              </Link>
-            </div>
-          </Form>
-        </Formik>
+          </div>
+          <p className={css.errorMessage}>{errors.password?.message}</p>
+        </label>
+
+        {reduxError ? (
+          <div className={css.errorMessage}>
+            Invalid email or password, try again
+          </div>
+        ) : (
+          ""
+        )}
+
+        <button type="submit" className={css.submit} disabled={loading}>
+          {loading ? "Signing in..." : "Sign in"}
+        </button>
+      </form>
+      <div className={css.questionOnLogIn}>
+        <p className={css.questionText}>
+          Don’t have an account?{" "}
+          <NavLink to="/signup" className={css.signUpLink}>
+            Sign Up
+          </NavLink>
+        </p>
+      </div>
+      <div className={css.forgotPasswordContainer}>
+        <p className={css.questionText}>Forgot Password?</p>
+        <NavLink to="/forgot-password" className={css.forgotPasswordLink}>
+          Reset
+        </NavLink>
       </div>
     </div>
   );
@@ -103,15 +160,4 @@ export default SignInForm;
 
 // //____________________________SIGNIN___________________________________//
 
-// export const login = createAsyncThunk(
-//   "auth/signin",
-//   async (credentials, thunkApi) => {
-//     try {
-//       const { data } = await aquaTrackApi.post("/users/signin", credentials);
-//       setAuthHeader(data.token);
-//       return data;
-//     } catch (error) {
-//       return thunkApi.rejectWithValue(error.message);
-//     }
-//   }
-// );
+export default SignInForm;
