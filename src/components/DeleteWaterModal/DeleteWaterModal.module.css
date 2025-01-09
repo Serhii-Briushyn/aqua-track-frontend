@@ -37,7 +37,6 @@
     transition: opacity 0.3s;
     display: flex;
     flex-direction: column;
-
 }
 
 .btnClose {
@@ -90,20 +89,65 @@
 }
 
 .btnCancel {
-display: flex;
+    display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: row;
     gap: 10px;
-border-radius: 30px;
+    border-radius: 30px;
     padding: 14px 126px;
     width: 304px;
     height: 46px;
     background: #f0eff4;
-font: 700 14px / 1.28571 "Poppins", sans-serif;
+    font: 700 14px / 1.28571 "Poppins", sans-serif;
     letter-spacing: -0.01em;
     text-align: center;
     color: rgba(50, 63, 71, 0.3);
     margin-top: 9px;
     border: none;
+}
+
+@media screen and (min-width: 768px) {
+    .modalContent {
+        padding: 40px;
+        width: 516px;
+        height: 244px;
+    }
+    .btnClose {
+        top: 20px;
+        right: 20px;
+        width: 28px;
+        height: 28px;
+    }
+    .boxForBtn {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-end;
+        gap: 10px;
+        margin-top: 24px;
+    }
+    .btnDelete {
+        padding: 18px 67px;
+        width: 170px;
+        height: 60px;
+    }
+    .btnCancel {
+        padding: 18px 67px;
+        width: 170px;
+        height: 60px;
+    }
+    .titleDelete {
+        font: 700 28px / 1.14286 "Poppins", sans-serif;
+        letter-spacing: -0.01em;
+        text-align: center;
+        color: #323f47;
+    }
+    .textDelete {
+        font: 400 18px / 1.33333 "Poppins", sans-serif;
+        letter-spacing: -0.01em;
+        text-align: center;
+        color: #323f47;
+        margin-top: 24px;
+    }
 }

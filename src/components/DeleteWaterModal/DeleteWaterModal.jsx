@@ -13,8 +13,10 @@ const DeleteWaterModal = () => {
           </button>
           <h2 className={css.titleDelete}>Delete entry</h2>   
           <p className={css.textDelete}>Are you sure you want to delete the entry?</p>
-          <button className={css.btnDelete}>Delete</button>
-          <button className={css.btnCancel}>Cancel</button>
+          <div className={css.boxForBtn}>
+            <button className={css.btnDelete}>Delete</button>
+            <button className={css.btnCancel}>Cancel</button>
+          </div>
         </div>
 
       </div>
