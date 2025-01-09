@@ -1,6 +1,41 @@
 .waterItem {
+  display: flex;
+  justify-content: space-between;
   width: 192px;
   height: 86px;
+  padding: 20px;
   border-radius: 15px;
   background: #fff;
+}
+
+.waterItem .indicators,
+.waterItem .actions {
+  display: flex;
+  flex-direction: column;
+}
+
+.waterItem .actions button {
+  width: 20px;
+  height: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.indicators .volume,
+.indicators.time {
+  font-family: "Poppins", sans-serif;
+  line-height: 22px;
+}
+
+.indicators .volume {
+  font-size: 15px;
+  font-weight: 700;
+  color: #323f47;
+}
+
+.indicators .time {
+  font-size: 12px;
+  font-weight: 400;
+  color: rgba(47, 47, 47, 0.6);
 }
