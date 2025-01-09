@@ -1,0 +1,11 @@
+.userPanel {
+    display: flex;
+    justify-content: space-between;
+}
+.h1{
+    font-size: 34px;
+
+    span{
+        font-weight: 400;
+    }
+}

@@ -1,0 +1,39 @@
+.userBar{
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 6px 12px;
+    background: #323F47;
+    border-radius: 30px;
+}
+
+.h2{
+    font-size: 16px;
+    color: #fff;
+}
+
+.userAvatar{
+    width: 44px;
+    height: 44px;
+    margin:0 10px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+}
+
+.userAvatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.btn{
+    width: 20px;
+    height: 20px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}

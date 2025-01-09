@@ -1,0 +1,26 @@
+.userBarPopover{
+    position: absolute;
+    right: 0;
+    min-width: 156px;
+    padding: 14px 20px;
+    background: #fff;
+    border-radius: 15px;
+    transform: translateY(100%);
+}
+
+.setting, .logout {
+    font-family: Poppins, sans-serif;
+    background: none;
+    border: none;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.setting {
+    color: #323f47;
+    margin-bottom: 8px;
+}
+
+.logout {
+    color: rgba(50, 63, 71, 0.4);
+}
