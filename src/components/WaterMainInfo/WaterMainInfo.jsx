@@ -7,7 +7,7 @@ import s from "./WaterMainInfo.module.css";
 // Імпортуємо зображення
 import bottleImageMobile from "../../assets/images/bottle-image-mob-min.png";
 import bottleImageTablet from "../../assets/images/bottle-image-tab-min.png";
-import bottleImageDesktop from "../../assets/images/bottle-image-desk@2x-min.png";
+import bottleImageDesktop from "../../assets/images/bottle-image-desk-min.png";
 
 const WaterMainInfo = () => {
   return (
