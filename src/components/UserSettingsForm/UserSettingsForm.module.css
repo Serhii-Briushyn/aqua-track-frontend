@@ -4,29 +4,17 @@ fieldset {
   border: none;
 }
 
-.userAvatarContainer {
-  width: auto;
-  height: 103px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 40px;
+h2,
+h3,
+h4,
+p,
+legend {
+  margin: 0;
+  padding: 0;
 }
 
-.userAvatar {
-  width: 75px;
-  height: 75px;
-  border-radius: 100%;
-  border: 1px solid black;
-}
-
-.iconUser {
-  width: 75px;
-  height: 75px;
-  color: rgb(73, 72, 72);
+.amountOfWaterText {
+  margin-bottom: 5px;
 }
 
 .uploadPhotoBtn {
@@ -46,13 +34,6 @@ fieldset {
   column-gap: 8px;
 }
 
-.inputText {
-  color: rgb(47, 47, 47);
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 18px;
-}
-
 .fileInput {
   position: absolute;
   top: 0;
@@ -61,34 +42,6 @@ fieldset {
   height: 100%;
   opacity: 0;
   cursor: pointer;
-}
-
-.settingsForm {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: repeat(4, auto);
-  grid-row-gap: 24px;
-}
-
-.genderLegend {
-  margin-bottom: 14px;
-}
-
-.inputTitle {
-  color: rgb(50, 63, 71);
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 20px;
-}
-
-.genderLabel {
-  display: inline-flex;
-  gap: 10px;
-  align-items: center;
-}
-
-.genderLabel:first-of-type {
-  margin-right: 20px;
 }
 
 .genderInput::before {
@@ -124,6 +77,47 @@ input[type="radio"] {
   outline: none;
 }
 
+.greenText {
+  color: rgb(155, 225, 160);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 18px;
+}
+
+.amountOfWaterText {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 18px;
+  letter-spacing: 0%;
+  color: rgb(155, 225, 160);
+}
+
+.formulaDescription {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+  color: rgba(47, 47, 47, 0.6);
+}
+
+.userInfoField:active,
+.userInfoField:focus {
+  outline: none;
+  border: 1px solid rgba(47, 47, 47, 0.4);
+}
+
+.genderLabel {
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+}
+.genderLabel:first-of-type {
+  margin-right: 20px;
+}
+
+.genderLegend {
+  margin-bottom: 14px;
+}
+
 .userInfoContainer {
   display: flex;
   flex-direction: column;
@@ -136,23 +130,6 @@ input[type="radio"] {
   gap: 8px;
 }
 
-.userInfoField {
-  border: 1px solid rgba(47, 47, 47, 0.15);
-  border-radius: 15px;
-  padding: 14px 0px 14px 16px;
-}
-
-.amountOfWaterText {
-  margin-bottom: 5px;
-}
-
-.formulaDescription {
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 18px;
-  color: rgba(47, 47, 47, 0.6);
-}
-
 .normaWaterContainer {
   display: flex;
   flex-direction: column;
@@ -161,6 +138,13 @@ input[type="radio"] {
 
 .normaGenderTitle {
   margin-bottom: 4px;
+}
+
+.settingsForm {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(4, auto);
+  grid-row-gap: 24px;
 }
 
 .saveBtn {
@@ -176,16 +160,145 @@ input[type="radio"] {
   cursor: pointer;
 }
 
+.userAvatarContainer {
+  width: auto;
+  height: 103px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 40px;
+}
+.formulaDescriptionContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.userAvatar {
+  width: 75px;
+  height: 75px;
+  border-radius: 100%;
+  border: 1px solid black;
+}
+
+.userInfoField {
+  border: 1px solid rgba(47, 47, 47, 0.15);
+  border-radius: 15px;
+  padding: 14px 0px 14px 16px;
+}
+
+.inputTitle {
+  color: rgb(50, 63, 71);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20px;
+}
+
+.inputText {
+  color: rgb(47, 47, 47);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18px;
+}
+
+.iconUser {
+  width: 75px;
+  height: 75px;
+  color: rgb(73, 72, 72);
+}
+
 .saveBtn:hover,
 .saveBtn:focus {
   background: rgb(135, 210, 141);
 }
 
-h2,
-h3,
-h4,
-p,
-legend {
-  margin: 0;
-  padding: 0;
+@media screen and (min-width: 768px) {
+  .inputText,
+  .formulaDescription,
+  .greenText {
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  .inputTitle {
+    font-size: 18px;
+    line-height: 24px;
+  }
+
+  .userInfoField {
+    padding: 16px 0px 16px 16px;
+  }
+
+  .amountOfWaterText {
+    font-size: 15px;
+    line-height: 22.4px;
+  }
+
+  .saveBtn {
+    padding: 16px 50px 16px 50px;
+  }
+
+  .normaWaterContainer {
+    flex-direction: row;
+    gap: 28px;
+  }
+
+  .formulaDescriptionContainer {
+    display: block;
+  }
+  .amountOfWaterContainer {
+    display: flex;
+    align-items: end;
+    gap: 5px;
+  }
+
+  .userAvatarContainer {
+    height: 134px;
+  }
+
+  .userAvatar {
+    width: 100px;
+    height: 100px;
+  }
+
+  .iconUser {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .settingsForm {
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 40px;
+    grid-row-gap: 24px;
+    grid-template-rows: repeat(3, auto);
+    grid-auto-flow: column;
+  }
+
+  .settingsForm > div:nth-child(4) {
+    grid-row: 2;
+  }
+}
+.normaWaterTextContainer {
+  padding: 16px;
+  border: 1px solid rgba(47, 47, 47, 0.15);
+  border-radius: 15px;
+}
+.userInfoField.error {
+  border-color: rgb(239, 80, 80);
+}
+
+.error {
+  color: rgb(239, 80, 80);
+}
+/* svg {
+  fill: transparent;
+  stroke: currentColor;
+} */
+.activeTimeContainer {
+  display: flex;
+  column-gap: 12.69px;
 }

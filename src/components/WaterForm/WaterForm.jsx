@@ -2,9 +2,6 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { IconPlus } from "../../components/Icons/IconPlus";
-import { IconMinus } from "../Icons/IconMinus";
-
 import { getCurrentTime } from "../../helpers/getCurrentTime";
 
 import css from "./WaterForm.module.css";
@@ -114,7 +111,9 @@ export const WaterForm = ({ subtitle, onClose, toggleHandle, water }) => {
           type="button"
           disabled={getValues("amount") === 0 ? true : false}
         >
-          <IconMinus className={css.icon} />
+          <svg className={css.icon} aria-hidden="true">
+            <use xlinkHref="/src/assets/icons/icons.svg#icon-minus-circle" />
+          </svg>
         </button>
 
         <span className={css.amountValue}>{`${watch("amount")} ml`}</span>
@@ -125,7 +124,9 @@ export const WaterForm = ({ subtitle, onClose, toggleHandle, water }) => {
           type="button"
           disabled={getValues("amount") === 5000 ? true : false}
         >
-          <IconPlus className={css.icon} />
+          <svg className={css.icon} aria-hidden="true">
+            <use xlinkHref="/src/assets/icons/icons.svg#icon-plus-circle" />
+          </svg>
         </button>
       </div>
 
@@ -162,7 +163,6 @@ export const WaterForm = ({ subtitle, onClose, toggleHandle, water }) => {
       <button className={css.submitButton} type="submit">
         Save
       </button>
-      <button>check button</button>
     </form>
   );
 };
