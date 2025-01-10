@@ -162,7 +162,6 @@ export const WaterForm = ({ subtitle, onClose, toggleHandle, water }) => {
       <button className={css.submitButton} type="submit">
         Save
       </button>
-      <button>check button</button>
     </form>
   );
 };
