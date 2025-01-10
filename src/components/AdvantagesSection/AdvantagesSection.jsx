@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getUserCount } from "../../redux/auth/operations";
 import Loader from "../Loader/Loader";
+import icons from "../../assets/icons/icons.svg";
 
 import cust1Mob from "../../assets/images/1-customers-mob-min.png";
 import cust1Mob2x from "../../assets/images/1-customers-mob@2x-min.png";
@@ -83,7 +84,9 @@ const AdvantagesSection = () => {
       <div className={s.benefits}>
         <div className={s.commonCont}>
           <div className={s.firstBen}>
-            <div className={s.point}></div>
+            <svg className={s.point}>
+              <use xlinkHref={`${icons}#icon-circle`} />
+            </svg>
             <p className={s.benText}>Habit drive</p>
           </div>
           <p className={s.secBen}>View statistics</p>
