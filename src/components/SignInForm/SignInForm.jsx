@@ -127,5 +127,25 @@ const SignInForm = () => {
     </div>
   );
 };
+export default SignInForm;
+
+// __________OPERATIONS___________//
+// import { createAsyncThunk } from "@reduxjs/toolkit";
+
+// import axios from "axios";
+
+// export const aquaTrackApi = axios.create({
+//   baseURL: "",
+// });
+
+// export const setAuthHeader = (token) => {
+//   aquaTrackApi.defaults.headers.common.Authorization = `Bearer ${token}`;
+// };
+
+// export const clearAuthHeader = () => {
+//   aquaTrackApi.defaults.headers.common.Authorization = "";
+// };
+
+// //____________________________SIGNIN___________________________________//
 
 export default SignInForm;
