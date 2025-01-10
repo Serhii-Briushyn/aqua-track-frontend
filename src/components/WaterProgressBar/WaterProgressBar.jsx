@@ -12,9 +12,19 @@ const WaterProgressBar = ({ consumed, dailyGoal, date }) => {
     setWaterLevel(boundedProgress);
 
     const today = new Date();
-    const todayFormatted = today.toLocaleDateString(navigator.language);
+    const todayFormatted = today.toLocaleDateString(navigator.language, {
+      day: "numeric",
+      month: "long",
+    });
+
     const inputDate = new Date(date);
-    const inputDateFormatted = inputDate.toLocaleDateString(navigator.language);
+    const inputDateFormatted = inputDate.toLocaleDateString(
+      navigator.language,
+      {
+        day: "numeric",
+        month: "long",
+      }
+    );
 
     if (inputDateFormatted === todayFormatted) {
       setFormattedDate("Today");

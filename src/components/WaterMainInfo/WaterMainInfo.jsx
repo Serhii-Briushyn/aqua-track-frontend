@@ -5,36 +5,39 @@ import Logo from "../Logo/Logo";
 import s from "./WaterMainInfo.module.css";
 
 import bottleImageMobile from "../../assets/images/bottle-image-mob-min.png";
-import bottleImageMobile2 from "../../assets/images/bottle-image-mob@2x-min.png";
-
 import bottleImageTablet from "../../assets/images/bottle-image-tab-min.png";
-import bottleImageTablet2 from "../../assets/images/bottle-image-tab@2x-min.png";
-
-import bottleImageDesktop2 from "../../assets/images/bottle-image-desk@2x-min.png";
 import bottleImageDesktop from "../../assets/images/bottle-image-desk-min.png";
 
+import { useState, useEffect } from "react";
+
+const getImageSource = () => {
+  if (window.innerWidth >= 1440) {
+    return bottleImageDesktop;
+  } else if (window.innerWidth >= 768) {
+    return bottleImageTablet;
+  } else {
+    return bottleImageMobile;
+  }
+};
+
 const WaterMainInfo = () => {
+  const [imageSource, setImageSource] = useState(getImageSource());
+
+  useEffect(() => {
+    const handleSize = () => {
+      setImageSource(getImageSource());
+    };
+
+    window.addEventListener("resize", handleSize);
+
+    return () => {
+      window.removeEventListener("resize", handleSize);
+    };
+  }, []);
+
   return (
     <div className={s.water_main_info}>
-      <picture className={s.water_picture} alt="water-icon">
-        <source
-          srcSet={`${bottleImageDesktop} 1x, ${bottleImageDesktop2}@2x 2x`}
-          media="(min-width: 1440px)"
-        />
-        <source
-          srcSet={`${bottleImageTablet} 1x, ${bottleImageTablet2}@2x 2x`}
-          media="(min-width: 768px)"
-        />
-        <source
-          srcSet={`${bottleImageMobile} 1x, ${bottleImageMobile2}@2x 2x`}
-          media="(max-width: 767px)"
-        />
-        <img
-          src={bottleImageMobile}
-          alt="water-icon"
-          className={s.water_icon}
-        />
-      </picture>
+      <img src={imageSource} alt="water-icon" className={s.water_icon} />
       <Logo />
       <WaterDailyNorma />
       <WaterProgressBar consumed={1000} dailyGoal={1500} date="2025-01-12" />
@@ -42,5 +45,4 @@ const WaterMainInfo = () => {
     </div>
   );
 };
-
 export default WaterMainInfo;
