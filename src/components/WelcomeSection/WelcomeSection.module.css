@@ -1,0 +1,125 @@
+.welcome_section {
+  border-radius: 30px;
+  padding: 24px 16px 67px 16px;
+  width: 343px;
+  background-color: #f0eff4;
+}
+
+.basic_container {
+  margin-top: 74px;
+}
+
+.h2 {
+  margin-bottom: 16px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.28571;
+  letter-spacing: 0.06em;
+  color: #2f2f2f;
+}
+
+.h1 {
+  margin-bottom: 32px;
+  font-weight: 700;
+  font-size: 38px;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: #323f47;
+}
+
+.link_container {
+  display: flex;
+  gap: 10px;
+}
+
+.register_btn {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.28571;
+  letter-spacing: -0.01em;
+  text-align: center;
+  color: #323f47;
+  border-radius: 30px;
+  padding: 14px 19px;
+  background: #9be1a0;
+  cursor: pointer;
+  transition: background-color 0.4s ease;
+}
+
+.login_btn {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.28571;
+  letter-spacing: -0.01em;
+  text-align: center;
+  color: #323f47;
+  border-radius: 30px;
+  padding: 13px 27px;
+  border: 1px solid #323f47;
+  cursor: pointer;
+  transition: border 0.4s ease, color 0.4s ease;
+}
+
+.login_btn:hover {
+  border: 1px solid #87d28d;
+  color: #87d28d;
+}
+
+.register_btn:hover {
+  background-color: #87d28d;
+}
+
+@media screen and (min-width: 768px) {
+  .welcome_section {
+    width: 704px;
+    padding: 32px 32px 50px 32px;
+  }
+
+  .basic_container {
+    margin-top: 50px;
+    padding-left: 32px;
+    padding-right: 61px;
+  }
+
+  .h2 {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .h1 {
+    font-size: 64px;
+    line-height: 1.09375;
+  }
+
+  .register_btn {
+    font-size: 16px;
+    line-height: 1.5;
+    padding: 18px 40px;
+  }
+
+  .login_btn {
+    font-size: 16px;
+    line-height: 1.5;
+    padding: 17px 39px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .welcome_section {
+    padding-bottom: 178px;
+    width: 672px;
+  }
+
+  .basic_container {
+    margin-top: 132px;
+    padding-right: 29px;
+  }
+
+  .h2 {
+  }
+
+  .h1 {
+    font-size: 80px;
+    line-height: 0.95;
+  }
+}

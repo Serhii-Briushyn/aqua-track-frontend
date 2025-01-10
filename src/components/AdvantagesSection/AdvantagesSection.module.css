@@ -1,0 +1,180 @@
+.main {
+  height: 353px;
+  background-image: url("../../assets/images/hero-image-mob-min.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  border-radius: 30px;
+  position: relative;
+}
+
+.customers {
+  position: absolute;
+  left: 16px;
+  bottom: 96px;
+  padding: 10px 14px;
+  border-radius: 30px;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 17px;
+  box-shadow: 0px 4px 50px 0px rgba(0, 0, 0, 0.1);
+}
+
+.customer {
+  border-radius: 50%;
+  border: 2px solid #fff;
+  object-fit: cover;
+  margin-left: -8px;
+}
+
+.text {
+  width: 80px;
+  color: #323f47;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 1.17;
+}
+
+.coloredText {
+  color: #9be1a0;
+}
+
+.benefits {
+  font-size: 8px;
+  line-height: 1;
+  font-weight: 700;
+  position: absolute;
+  right: 16px;
+  bottom: 32px;
+}
+
+.commonCont {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+
+.firstBen {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background-color: #323f47;
+  border-radius: 30px;
+  padding: 9px 12px;
+  width: max-content;
+}
+
+.iconOEllips {
+  width: 8px;
+  height: 8px;
+}
+
+.benText {
+  color: #fff;
+}
+
+.secBen {
+  background-color: #9be1a0;
+  color: #323f47;
+  border-radius: 30px;
+  padding: 9px 12px;
+  width: max-content;
+}
+
+.thirdBen {
+  background-color: #fff;
+  color: #323f47;
+  border-radius: 30px;
+  padding: 9px 12px;
+  width: max-content;
+}
+
+@media screen and (min-resolution: 192dpi) and (min-width: 375px),
+  screen and (min-resolution: 2dppx) and (min-width: 375px),
+  screen and (min-device-pixel-ratio: 2) and (min-width: 375px) {
+  .main {
+    background-image: url("../../assets/images/hero-image-mob@2x-min.jpg");
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .main {
+    width: 704px;
+    height: 446px;
+    background-image: url("../../assets/images/hero-image-tab-min.jpg");
+  }
+
+  .customers {
+    left: 32px;
+    bottom: 96px;
+    padding: 10px 20px;
+    gap: 24px;
+  }
+
+  .customer {
+    margin-left: -19px;
+  }
+
+  .benefits {
+    right: 32px;
+  }
+
+  .text {
+    font-size: 15px;
+    line-height: 1.49;
+    width: 100px;
+  }
+
+  .benefits {
+    font-size: 12px;
+  }
+
+  .commonCont {
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .firstBen {
+    padding: 11px 16px;
+  }
+
+  .secBen {
+    padding: 11px 16px;
+  }
+
+  .thirdBen {
+    padding: 11px 16px;
+  }
+}
+@media screen and (min-resolution: 192dpi) and (min-width: 768px),
+  screen and (min-resolution: 2dppx) and (min-width: 768px),
+  screen and (min-device-pixel-ratio: 2) and (min-width: 768px) {
+  .main {
+    background-image: url("../../assets/images/hero-image-tab@2x-min.jpg");
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .main {
+    width: 672px;
+    height: 736px;
+    background-image: url("../../");
+  }
+
+  .customers {
+    bottom: 132px;
+  }
+
+  .benefits {
+    bottom: 64px;
+  }
+}
+
+@media screen and (min-resolution: 192dpi) and (min-width: 1440px),
+  screen and (min-resolution: 2dppx) and (min-width: 1440px),
+  screen and (min-device-pixel-ratio: 2) and (min-width: 1440px) {
+  .main {
+    background-image: url("../../");
+  }
+}

@@ -1,0 +1,45 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(47, 47, 47, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.window {
+  position: relative;
+  background-color: #fff;
+  border-radius: 15px;
+  width: max-content;
+  box-shadow: 0 4px 50px 0 rgba(0, 0, 0, 0.1);
+}
+
+.button {
+  position: absolute;
+  top: 20px;
+  right: 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  stroke: #2f2f2f;
+}
+
+@media screen and (min-width: 768px) {
+  .button {
+    right: 20px;
+  }
+  .icon {
+    width: 28px;
+    height: 28px;
+  }
+}
