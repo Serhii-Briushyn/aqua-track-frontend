@@ -28,12 +28,18 @@ const SignUpForm = () => {
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+
+  const [showPasswordRepeat, setShowPasswordRepeat] = useState(false);
+
+  const togglePasswordRVisibility = () => {
+    setShowPasswordRepeat(!showPasswordRepeat);
+  };
   return (
     <div>
       <div className={s.signin_wrapper}>
         <Logo />
         <div className={s.signin_form}>
-          <h2 className={s.title}>Sign In</h2>
+          <h2 className={s.title}>Sign Up</h2>
           <Formik>
             <Form className={s.form}>
               <ul className={s.list}>
@@ -70,15 +76,15 @@ const SignUpForm = () => {
                   <label className={`${s.password} ${s.label}`}>
                     Repeat password
                     <Field
-                      name="password"
-                      type={showPassword ? "text" : "password"}
+                      name="repeat"
+                      type={showPasswordRepeat ? "text" : "password"}
                       className={`${s.password} ${s.input}`}
                       placeholder="Repeat password"
                     />
-                    <svg className={s.icon} onClick={togglePasswordVisibility}>
+                    <svg className={s.icon} onClick={togglePasswordRVisibility}>
                       <use
                         href={`${icons}#${
-                          showPassword ? "icon-view" : "icon-hide"
+                          showPasswordRepeat ? "icon-view" : "icon-hide"
                         }`}
                       />
                     </svg>
