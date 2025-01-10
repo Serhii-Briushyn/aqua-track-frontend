@@ -37,9 +37,13 @@ const UserSettingsForm = () => {
     }
   };
 
+  const onSubmit = (data) => {
+    console.log(data);
+  };
+
   return (
     <Modal isOpen={isOpen} onRequestClose={() => setIsOpen(false)}>
-      <form className={css.userSettingsForm}>
+      <form onSubmit={handleSubmit(onSubmit)} className={css.userSettingsForm}>
         <div className={css.userAvatarContainer}>
           {avatarURL ? (
             <img src={avatarURL} alt="User Avatar" className={css.userAvatar} />
@@ -74,6 +78,7 @@ const UserSettingsForm = () => {
                   className={css.genderInput}
                   value="woman"
                   name="gender"
+                  {...register("gender")}
                 />
                 Woman
               </label>
@@ -83,6 +88,7 @@ const UserSettingsForm = () => {
                   className={css.genderInput}
                   value="man"
                   name="gender"
+                  {...register("gender")}
                 />
                 Man
               </label>
@@ -95,6 +101,7 @@ const UserSettingsForm = () => {
                 type="text"
                 name="name"
                 className={`${css.userInfoField} ${css.inputText}`}
+                {...register("name")}
               />
             </label>
             <label className={`${css.userInfoLabel} ${css.inputTitle}`}>
@@ -103,6 +110,7 @@ const UserSettingsForm = () => {
                 type="email"
                 name="email"
                 className={`${css.userInfoField} ${css.inputText}`}
+                {...register("email")}
               />
             </label>
           </div>
@@ -176,8 +184,7 @@ const UserSettingsForm = () => {
           <div className={css.userInfoContainer}>
             <div className={css.amountOfWaterContainer}>
               <p
-                className={`${css.amountOfWaterText} ${css.inputText} ${css.formulaDescriptionContainer}`}
-              >
+                className={`${css.amountOfWaterText} ${css.inputText} ${css.formulaDescriptionContainer}`}>
                 The required amount of water in liters per day:
               </p>
               <span className={css.amountOfWaterText}>0.0L</span>

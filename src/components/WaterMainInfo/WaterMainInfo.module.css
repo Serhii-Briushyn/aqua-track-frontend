@@ -1,0 +1,46 @@
+.water_main_info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-radius: 30px;
+  width: 343px;
+  height: 415px;
+  background: #9be1a0;
+  position: relative;
+}
+.water_picture {
+  position: absolute;
+  top: 35px;
+  left: 40px;
+}
+.water_icon {
+  max-width: 100%;
+  height: auto;
+}
+@media (min-width: 768px) {
+  .water_main_info {
+    border-radius: 30px;
+    width: 704px;
+    height: 578px;
+  }
+  .water_picture {
+    top: 69px;
+    left: 165px;
+  }
+}
+@media (min-width: 1440px) {
+  .water_main_info {
+    border-radius: 30px;
+    width: 672px;
+    height: 736px;
+  }
+
+  .water_picture {
+    width: 472px;
+    height: 604px;
+    top: 92px;
+    left: 100px;
+  }
+}

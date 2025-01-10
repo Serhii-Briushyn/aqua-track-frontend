@@ -1,0 +1,190 @@
+.subtitle {
+  color: var(--color-darkblue);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.16px;
+  margin-bottom: 20px;
+}
+
+.amountTitle {
+  color: var(--color-black);
+  font-size: 14px;
+  line-height: 1.28;
+  letter-spacing: -0.14px;
+  margin-bottom: 8px;
+  display: inline-block;
+}
+
+.amountWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.amountButton {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  height: 40px;
+}
+
+.amountButton svg {
+  width: 100%;
+  height: 100%;
+}
+
+.amountButton:hover svg path,
+.amountButton:hover svg rect,
+.amountButton:focus svg path,
+.amountButton:focus svg rect {
+  stroke: var(--color-lightgreenhover);
+  transition: stroke var(--animation);
+}
+
+.amountButton:disabled svg path,
+.amountButton:disabled svg rect {
+  stroke: #323f4750;
+}
+
+.amountValue {
+  padding: 11px 20px;
+  height: 40px;
+  background-color: var(--color-darkblue);
+  border-radius: 30px;
+
+  color: var(--color-white);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.28;
+}
+
+.timeLabel {
+  display: block;
+  color: var(--color-black);
+  font-size: 14px;
+  line-height: 1.28;
+  letter-spacing: -0.14px;
+  margin-bottom: 8px;
+}
+
+.input {
+  border-radius: 15px;
+  border: 1px solid rgba(47, 47, 47, 0.15);
+  width: 100%;
+  padding: 14px 16px;
+  margin-bottom: 24px;
+  outline: none;
+  transition: border-color var(--animation), transform var(--animation);
+
+  /*content styles*/
+  color: var(--color-black);
+  font-size: 14px;
+  line-height: 1.28;
+  letter-spacing: -0.14px;
+}
+
+.validationError {
+  display: block;
+  font-weight: 400;
+  color: var(--color-error);
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
+}
+
+.input:hover,
+.input:focus {
+  border-color: var(--color-lightgreenhover);
+}
+
+.input:focus {
+  border-color: var(--color-lightgreenhover);
+  transform: scale(1.01);
+}
+
+.valueLabel {
+  display: inline-block;
+  color: var(--color-darkblue);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.16px;
+  margin-bottom: 8px;
+}
+
+.submitButton {
+  padding: 14px 40px;
+  border-radius: 30px;
+  border: none;
+  background-color: var(--color-lightgreen);
+
+  /*content styles*/
+  color: var(--color-darkblue);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.28;
+  letter-spacing: -0.14px;
+  transition: background-color var(--animation);
+}
+
+.submitButton:hover,
+.submitButton:focus {
+  background-color: var(--color-lightgreenhover);
+}
+
+@media screen and (min-width: 768px) {
+  .subtitle {
+    font-size: 18px;
+    line-height: 1.33;
+    letter-spacing: -0.18px;
+  }
+
+  .amountTitle {
+    font-size: 14px;
+    line-height: 1.5;
+    letter-spacing: -0.16px;
+  }
+
+  .amountButton {
+    width: 43px;
+    height: 43px;
+  }
+
+  .amountValue {
+    height: 43px;
+    font-size: 15px;
+    line-height: 1.49;
+  }
+
+  .timeLabel {
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: -0.16px;
+  }
+
+  .input {
+    padding: 16px;
+    margin-bottom: 24px;
+
+    /*content styles*/
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: -0.16px;
+  }
+
+  .valueLabel {
+    font-size: 18px;
+    line-height: 1.33;
+    letter-spacing: -0.18px;
+  }
+
+  .submitButton {
+    padding: 18px 50px;
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: -0.16;
+  }
+}
