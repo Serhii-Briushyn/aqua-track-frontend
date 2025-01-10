@@ -11,6 +11,7 @@ import App from "./App.jsx";
 import "modern-normalize";
 import "./index.css";
 import "./fonts.css";
+// import DeleteWaterModal from "./components/DeleteWaterModal/DeleteWaterModal.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -18,7 +19,8 @@ createRoot(document.getElementById("root")).render(
       {/* <PersistGate loading={null} persistor={persistor}> */}
         <BrowserRouter>
           <HelmetProvider>
-            <App />
+        <App />
+              {/* <DeleteWaterModal/> */}
           </HelmetProvider>
         </BrowserRouter>
       {/* </PersistGate> */}
