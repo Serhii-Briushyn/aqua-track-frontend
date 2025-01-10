@@ -15,3 +15,9 @@
   font-size: 28px;
   color: #323f47;
 }
+
+@media screen and (max-width: 768px) {
+  .h2 {
+    font-size: 20px;
+  }
+}

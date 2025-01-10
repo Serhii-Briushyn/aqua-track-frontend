@@ -1,0 +1,45 @@
+.monthInfo .headingPanel {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.headingPanel .infoNav{
+  display: flex;
+  align-items: center;
+}
+
+.monthInfo .headingPanel .toggleView {
+  width: 24px;
+  height: 24px;
+  margin-left: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.monthInfo .headingPanel .toggleView svg {
+  width: 24px;
+  height: 24px;
+}
+
+.monthInfo .h2 {
+  font-family: "Poppins", sans-serif;
+  font-size: 28px;
+  color: #323f47;
+}
+
+@media screen and (max-width: 768px) {
+  .monthInfo .h2 {
+    font-size: 20px;
+  }
+
+  .monthInfo .headingPanel .toggleView {
+    margin-left: 14px;
+  }
+
+  .monthInfo .headingPanel .toggleView, .monthInfo .headingPanel .toggleView svg {
+    width: 20px;
+    height: 20px;
+  }
+}

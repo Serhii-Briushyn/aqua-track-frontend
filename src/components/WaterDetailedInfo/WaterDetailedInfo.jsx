@@ -8,7 +8,7 @@ const WaterDetailedInfo = () => {
     <div className={css.waterDetailedInfo}>
       <UserPanel />
       <DailyInfo />
-      {/*<MonthInfo />*/}
+      <MonthInfo />
     </div>
   );
 };
