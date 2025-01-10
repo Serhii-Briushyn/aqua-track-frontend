@@ -1,6 +1,5 @@
 import Logo from "../../components/Logo/Logo";
 import css from "./SignInPage.module.css";
-import DocumentTitle from "../../components/DocumentTitle.jsx";
 import { useMediaQuery } from "@mui/material";
 import AdvantagesSection from "../../components/AdvantagesSection/AdvantagesSection";
 import SignInForm from "../../components/SignInForm/SignInForm";
