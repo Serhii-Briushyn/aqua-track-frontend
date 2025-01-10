@@ -4,41 +4,45 @@ import WaterProgressBar from "../WaterProgressBar/WaterProgressBar";
 import Logo from "../Logo/Logo";
 import s from "./WaterMainInfo.module.css";
 
-// Імпортуємо зображення
 import bottleImageMobile from "../../assets/images/bottle-image-mob-min.png";
 import bottleImageTablet from "../../assets/images/bottle-image-tab-min.png";
 import bottleImageDesktop from "../../assets/images/bottle-image-desk-min.png";
 
+import { useState, useEffect } from "react";
+
+const getImageSource = () => {
+  if (window.innerWidth >= 1440) {
+    return bottleImageDesktop;
+  } else if (window.innerWidth >= 768) {
+    return bottleImageTablet;
+  } else {
+    return bottleImageMobile;
+  }
+};
+
 const WaterMainInfo = () => {
+  const [imageSource, setImageSource] = useState(getImageSource());
+
+  useEffect(() => {
+    const handleSize = () => {
+      setImageSource(getImageSource());
+    };
+
+    window.addEventListener("resize", handleSize);
+
+    return () => {
+      window.removeEventListener("resize", handleSize);
+    };
+  }, []);
+
   return (
-    <div className={s.water_main_info_container}>
-      <div className={s.water_main_info}>
-        <picture className={s.water_picture}>
-          <source
-            srcSet={`${bottleImageDesktop} 1x, ${bottleImageDesktop}@2x 2x`}
-            media="(min-width: 1440px)"
-          />
-          <source
-            srcSet={`${bottleImageTablet} 1x, ${bottleImageTablet}@2x 2x`}
-            media="(min-width: 768px)"
-          />
-          <source
-            srcSet={`${bottleImageMobile} 1x, ${bottleImageMobile}@2x 2x`}
-            media="(max-width: 767px)"
-          />
-          <img
-            src={bottleImageMobile}
-            alt="water-icon"
-            className={s.water_icon}
-          />
-        </picture>
-        <Logo />
-        <WaterDailyNorma />
-        <WaterProgressBar />
-        <AddWaterBtn />
-      </div>
+    <div className={s.water_main_info}>
+      <img src={imageSource} alt="water-icon" className={s.water_icon} />
+      <Logo />
+      <WaterDailyNorma />
+      <WaterProgressBar consumed={1000} dailyGoal={1500} date="2025-01-12" />
+      <AddWaterBtn />
     </div>
   );
 };
-
 export default WaterMainInfo;
