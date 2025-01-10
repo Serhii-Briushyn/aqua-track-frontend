@@ -127,7 +127,6 @@ const SignInForm = () => {
     </div>
   );
 };
-export default SignInForm;
 
 // __________OPERATIONS___________//
 // import { createAsyncThunk } from "@reduxjs/toolkit";
