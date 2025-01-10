@@ -11,6 +11,7 @@ import App from "./App.jsx";
 import "modern-normalize";
 import "./index.css";
 import "./fonts.css";
+// import LogOutModal from "./components/LogOutModal/LogOutModal.jsx";
 // import DeleteWaterModal from "./components/DeleteWaterModal/DeleteWaterModal.jsx";
 
 createRoot(document.getElementById("root")).render(
@@ -20,7 +21,8 @@ createRoot(document.getElementById("root")).render(
         <BrowserRouter>
           <HelmetProvider>
         <App />
-              {/* <DeleteWaterModal/> */}
+        {/* <DeleteWaterModal/> */}
+        {/* <LogOutModal/> */}
           </HelmetProvider>
         </BrowserRouter>
       {/* </PersistGate> */}
