@@ -23,6 +23,12 @@
     min-height: 100%;
 }
 
+.icon {
+    width: 24px;
+    height: 24px;
+    stroke: #2f2f2f;
+}
+
 .modalContent {
     position: absolute;
     top: 50%;
