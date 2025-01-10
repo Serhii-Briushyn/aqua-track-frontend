@@ -4,24 +4,26 @@ import s from "./SignUpForm.module.css";
 import { useState } from "react";
 import icons from "../../assets/icons/icons.svg";
 import Logo from "../Logo/Logo";
+import { useDispatch } from "react-redux";
+import { register } from "../../redux/auth/operations";
 // import { useDispatch } from "react-redux";
 // import { register } from "../../redux/auth/operations";
 
 const SignUpForm = () => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  // const initialValues = {
-  //   email: "",
-  //   password: "",
-  // };
+  const initialValues = {
+    email: "",
+    password: "",
+  };
 
-  // const handleSubmit = (values, options) => {
-  //   if (!values.email || !values.password || !values.password) {
-  //     return console.log("hello");
-  //   }
-  //   dispatch(register(values));
-  //   options.resetForm();
-  // };
+  const handleSubmit = (values, options) => {
+    if (!values.email || !values.password || !values.password) {
+      return console.log("hello");
+    }
+    dispatch(register(values));
+    options.resetForm();
+  };
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -40,7 +42,7 @@ const SignUpForm = () => {
         <Logo />
         <div className={s.signin_form}>
           <h2 className={s.title}>Sign Up</h2>
-          <Formik>
+          <Formik onSubmit={handleSubmit} initialValues={initialValues}>
             <Form className={s.form}>
               <ul className={s.list}>
                 <li>
