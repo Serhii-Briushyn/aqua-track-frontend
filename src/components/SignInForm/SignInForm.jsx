@@ -1,14 +1,18 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { NavLink, useNavigate } from "react-router-dom";
-import { login } from "../../redux/auth/operations.js";
 import { useState } from "react";
-import { toast } from "react-hot-toast";
+import { NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import toast from "react-hot-toast";
 import * as Yup from "yup";
-import { selectAuthError } from "../../redux/auth/selectors.js";
 
-const signInFormSchema = Yup.object({
+import { logIn } from "../../redux/auth/operations.js";
+import { selectIsLoading } from "../../redux/auth/selectors.js";
+import Loader from "../Loader/Loader.jsx";
+
+import css from "./SignInForm.module.css";
+import icons from "../../assets/icons/icons.svg";
+
+const validationSchema = Yup.object({
   email: Yup.string()
     .email("Invalid email address")
     .required("Email is required"),
@@ -20,143 +24,121 @@ const signInFormSchema = Yup.object({
 
 const SignInForm = () => {
   const dispatch = useDispatch();
-  const reduxError = useSelector(selectAuthError);
+  const isLoading = useSelector(selectIsLoading);
   const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  const navigate = useNavigate();
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(signInFormSchema),
-    mode: "onSubmit",
-    defaultValues: {
-      email: "",
-      password: "",
-    },
-  });
-
-  const onSubmit = async (data) => {
-    const { email, password } = data;
-    setLoading(true);
-    try {
-      const loginResult = await dispatch(login({ email, password }));
-      if (login.fulfilled.match(loginResult)) {
-        navigate("/tracker");
-        reset();
-      } else {
-        toast.error("Failed to login, please sign up");
-      }
-    } catch (error) {
-      toast.error("Failed to login: " + (error.message || "Unknown error"));
-    } finally {
-      setLoading(false);
-    }
+  const initialValues = {
+    email: "",
+    password: "",
   };
 
-  const handleClickShowPassword = () => {
-    setShowPassword(!showPassword);
+  const handleSubmit = (values, { setSubmitting, resetForm }) => {
+    dispatch(logIn(values))
+      .unwrap()
+      .then(() => {
+        resetForm();
+      })
+      .catch((error) => {
+        toast.error(error);
+      })
+      .finally(() => {
+        setSubmitting(false);
+      });
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
   };
 
   return (
-    <div className={css.signInContainer}>
-      <h2 className={css.title}>Sign In</h2>
-      <form className={css.form} onSubmit={handleSubmit(onSubmit)}>
-        <label className={css.field}>
-          <span className={css.label}>Email: </span>
-          <input
-            type="email"
-            {...register("email")}
-            placeholder={
-              errors.email ? errors.email.message : "Enter your email"
-            }
-            className={clsx(css.input, { [css.inputError]: errors.email })}
-          />
-          <p className={css.errorMessage}>{errors.email?.message}</p>
-        </label>
-        <label className={css.field}>
-          <span className={css.label}>Password: </span>
-          <div className={css.inputField}>
-            <input
-              type={showPassword ? "text" : "password"}
-              {...register("password")}
-              placeholder={
-                errors.password
-                  ? errors.password.message
-                  : "Enter your password"
-              }
-              className={clsx(css.input, { [css.inputError]: errors.password })}
-            />
-            <button
-              className={css.showPasswordBtn}
-              type="button"
-              onClick={handleClickShowPassword}
-              aria-label={showPassword ? "Hide password" : "Show password"}
-            >
-              {showPassword ? (
-                <svg className={css.icon}>
-                  <use href={`${iconSprite}#icon-eye`}></use>
-                </svg>
-              ) : (
-                <svg className={css.icon}>
-                  <use href={`${iconSprite}#icon-eye-off`}></use>
-                </svg>
-              )}
-            </button>
-          </div>
-          <p className={css.errorMessage}>{errors.password?.message}</p>
-        </label>
+    <div className={css.container}>
+      {isLoading && <Loader />}
+      <div className={css.content}>
+        <h2 className={css.title}>Sign In</h2>
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={handleSubmit}
+        >
+          {({ errors, touched, isSubmitting }) => (
+            <Form className={css.form} autoComplete="off">
+              <label className={css.label}>
+                <span className={css.span}>Email </span>
+                <Field
+                  className={`${css.input} ${
+                    errors.email && touched.email ? css.errorInput : ""
+                  }`}
+                  type="email"
+                  name="email"
+                  placeholder="Enter your email"
+                  autoComplete="email"
+                />
+                <ErrorMessage
+                  name="email"
+                  component="div"
+                  className={css.errorMessage}
+                />
+              </label>
+              <label className={css.label}>
+                <span className={css.span}>Password </span>
+                <div className={css.passwordContainer}>
+                  <Field
+                    className={`${css.input} ${
+                      errors.password && touched.password ? css.errorInput : ""
+                    }`}
+                    type={showPassword ? "text" : "password"}
+                    name="password"
+                    placeholder="Enter your password"
+                    autoComplete="current-password"
+                  />
+                  <button
+                    type="button"
+                    className={css.toggleButton}
+                    onClick={togglePasswordVisibility}
+                    aria-label="Toggle password visibility"
+                  >
+                    <svg className={css.icon}>
+                      <use
+                        href={`${icons}#${
+                          showPassword ? "icon-view" : "icon-hide"
+                        }`}
+                      />
+                    </svg>
+                  </button>
+                </div>
+                <ErrorMessage
+                  name="password"
+                  component="div"
+                  className={css.errorMessage}
+                />
+              </label>
 
-        {reduxError ? (
-          <div className={css.errorMessage}>
-            Invalid email or password, try again
-          </div>
-        ) : (
-          ""
-        )}
-
-        <button type="submit" className={css.submit} disabled={loading}>
-          {loading ? "Signing in..." : "Sign in"}
-        </button>
-      </form>
-      <div className={css.questionOnLogIn}>
-        <p className={css.questionText}>
-          Don’t have an account?{" "}
-          <NavLink to="/signup" className={css.signUpLink}>
-            Sign Up
-          </NavLink>
-        </p>
-      </div>
-      <div className={css.forgotPasswordContainer}>
-        <p className={css.questionText}>Forgot Password?</p>
-        <NavLink to="/forgot-password" className={css.forgotPasswordLink}>
-          Reset
-        </NavLink>
+              <button
+                className={css.button}
+                type="submit"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Signing in..." : "Sign in"}
+              </button>
+            </Form>
+          )}
+        </Formik>
+        <div className={css.footerContent}>
+          <p className={css.text}>
+            Don&apos;t have an account?{" "}
+            <NavLink to="/signup" className={css.link}>
+              Sign Up
+            </NavLink>
+          </p>
+          <p className={css.text}>
+            Forgot Password?{" "}
+            <NavLink to="/forgot-password" className={css.link}>
+              Reset
+            </NavLink>
+          </p>
+        </div>
       </div>
     </div>
   );
 };
+
 export default SignInForm;
-
-// __________OPERATIONS___________//
-// import { createAsyncThunk } from "@reduxjs/toolkit";
-
-// import axios from "axios";
-
-// export const aquaTrackApi = axios.create({
-//   baseURL: "",
-// });
-
-// export const setAuthHeader = (token) => {
-//   aquaTrackApi.defaults.headers.common.Authorization = `Bearer ${token}`;
-// };
-
-// export const clearAuthHeader = () => {
-//   aquaTrackApi.defaults.headers.common.Authorization = "";
-// };
-
-// //____________________________SIGNIN___________________________________//
-

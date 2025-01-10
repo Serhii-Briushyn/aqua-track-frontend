@@ -4,31 +4,62 @@ import { useEffect, useState } from "react";
 const WaterProgressBar = ({ consumed, dailyGoal, date }) => {
   const [waterLevel, setWaterLevel] = useState(0);
   const [formattedDate, setFormattedDate] = useState("");
+  const [isMoving, setIsMoving] = useState(false);
 
   useEffect(() => {
     const progress = (consumed / dailyGoal) * 100;
-    setWaterLevel(progress);
+    const boundedProgress = Math.min(progress, 100);
+    setWaterLevel(boundedProgress);
 
     const today = new Date();
-    const todayFormatted = today.toLocaleDateString(navigator.language);
+    const todayFormatted = today.toLocaleDateString(navigator.language, {
+      day: "numeric",
+      month: "long",
+    });
+
     const inputDate = new Date(date);
-    const inputDateFormatted = inputDate.toLocaleDateString(navigator.language);
+    const inputDateFormatted = inputDate.toLocaleDateString(
+      navigator.language,
+      {
+        day: "numeric",
+        month: "long",
+      }
+    );
 
     if (inputDateFormatted === todayFormatted) {
       setFormattedDate("Today");
     } else {
-      setFormattedDate(inputDate.getDate());
+      setFormattedDate(inputDate.toLocaleDateString(navigator.language));
     }
   }, [consumed, dailyGoal, date]);
+
+  const handleCircleMove = () => {
+    setIsMoving(true);
+    setTimeout(() => {
+      setIsMoving(false);
+    }, 2000);
+  };
+
+  useEffect(() => {
+    handleCircleMove();
+  }, [waterLevel]);
+
   return (
     <div className={styles.swater_progress_bar_wrapper}>
       <div className={styles.todayLabel}>{formattedDate}</div>
       <div className={styles.waterProgressBar}>
         <div className={styles.water} style={{ width: `${waterLevel}%` }} />
-        <div
-          className={styles.movingCircle}
-          style={{ left: `${waterLevel}%` }}
-        />
+        <div className={styles.movingCircleWrapper}>
+          {isMoving && (
+            <span className={styles.percentageText}>
+              {Math.round(waterLevel)}%
+            </span>
+          )}
+          <div
+            className={styles.movingCircle}
+            style={{ left: `${waterLevel}%` }}
+          />
+        </div>
       </div>
       <div className={styles.marks}>
         <span className={styles.mark}>0%</span>
