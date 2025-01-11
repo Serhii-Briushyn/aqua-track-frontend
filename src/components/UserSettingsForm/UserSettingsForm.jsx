@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useState, useEffect } from "react";
 import Modal from "react-modal";
 import { FaUserCircle } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
@@ -12,14 +11,11 @@ Modal.setAppElement("#modal-root");
 const UserSettingsForm = () => {
   const [avatarURL, setAvatarURL] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
+  const [normaWater, setNormaWater] = useState(0);
 
   const location = useLocation();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const { register, handleSubmit, watch } = useForm();
 
   useEffect(() => {
     if (location.pathname === "/user-settings") {
@@ -29,16 +25,32 @@ const UserSettingsForm = () => {
     }
   }, [location]);
 
+  const calculateWaterNorm = (gender, weight, timeSports) => {
+    if (gender && weight) {
+      let water = 0;
+      if (gender === "woman") {
+        water = weight * 0.03 + timeSports * 0.4;
+      } else if (gender === "man") {
+        water = weight * 0.04 + timeSports * 0.6;
+      }
+      return Math.round(water * 100) / 100;
+    }
+    return 0;
+  };
+
+  const onSubmit = (data) => {
+    const { gender, weight, timeSports } = data;
+    const waterAmount = calculateWaterNorm(gender, weight, timeSports);
+    setNormaWater(waterAmount);
+    console.log(data);
+  };
+
   const handleFileSelect = (event) => {
     const file = event.target.files[0];
     if (file) {
       const avatarURL = URL.createObjectURL(file);
       setAvatarURL(avatarURL);
     }
-  };
-
-  const onSubmit = (data) => {
-    console.log(data);
   };
 
   return (
@@ -114,8 +126,6 @@ const UserSettingsForm = () => {
               />
             </label>
           </div>
-        </div>
-        <div className={css.settingsForm}>
           <div className={css.userInfoContainer}>
             <h3 className={`${css.inputTitle}`}>My Daily Norma</h3>
             <div className={css.normaWaterContainer}>
@@ -123,28 +133,20 @@ const UserSettingsForm = () => {
                 <h4 className={`${css.normaGenderTitle} ${css.inputText}`}>
                   For Woman:
                 </h4>
-                <p className={css.greenText}>V=(M*0,03) + (T*0,4)</p>
+                <p className={css.greenText}>V=(M*0.03) + (T*0.4)</p>
               </div>
               <div>
                 <h4 className={`${css.normaGenderTitle} ${css.inputText}`}>
                   For Man:
                 </h4>
-                <p className={css.greenText}>V=(M*0,04) + (T*0,6)</p>
+                <p className={css.greenText}>V=(M*0.04) + (T*0.6)</p>
               </div>
             </div>
-            <div className={css.normaWaterTextContainer}>
-              <p className={`${css.normaWaterText} ${css.formulaDescription}`}>
-                <span className={css.greenText}>*</span> V is the volume of the
-                water norm in liters per day, M is your body weight, T is the
-                time of active sports, or another type of activity commensurate
-                in terms of loads (in the absence of these, you must set 0)
+            <div className={css.amountOfWaterContainer}>
+              <p className={`${css.amountOfWaterText} ${css.inputText}`}>
+                The required amount of water in liters per day:
               </p>
-            </div>
-            <div className={css.activeTimeContainer}>
-              <svg width="20" height="21">
-                <use href={`${icons}#icon-exclamation-mark`} />
-              </svg>
-              <p className={css.inputText}>Active Time in Hours</p>
+              <span className={css.amountOfWaterText}>{normaWater}L</span>
             </div>
           </div>
           <div className={css.userInfoContainer}>
@@ -153,48 +155,16 @@ const UserSettingsForm = () => {
               <input
                 type="number"
                 name="weight"
-                {...register("weight", { min: 0, max: 300 })}
-                className={`${css.userInfoField} ${css.inputText} ${
-                  errors.weight && css.error
-                }`}
+                {...register("weight")}
+                className={`${css.userInfoField} ${css.inputText}`}
               />
-              {errors.weight && (
-                <p className={`${css.inputText} ${css.error}`}>
-                  {errors.weight.message}
-                </p>
-              )}
             </label>
             <label className={`${css.userInfoLabel} ${css.inputText}`}>
-              The time of active participation in sports:
+              Active time in hours:
               <input
                 type="number"
                 name="timeSports"
-                {...register("timeSports", { min: 0, max: 8 })}
-                className={`${css.userInfoField} ${css.inputText} ${
-                  errors.timeSports && css.error
-                }`}
-              />
-              {errors.timeSports && (
-                <p className={`${css.inputText} ${css.error}`}>
-                  {errors.timeSports.message}
-                </p>
-              )}
-            </label>
-          </div>
-          <div className={css.userInfoContainer}>
-            <div className={css.amountOfWaterContainer}>
-              <p
-                className={`${css.amountOfWaterText} ${css.inputText} ${css.formulaDescriptionContainer}`}>
-                The required amount of water in liters per day:
-              </p>
-              <span className={css.amountOfWaterText}>0.0L</span>
-            </div>
-            <label className={`${css.userInfoLabel} ${css.inputTitle}`}>
-              Write down how much water you will drink:
-              <input
-                type="number"
-                name="waterRate"
-                {...register("waterRate")}
+                {...register("timeSports")}
                 className={`${css.userInfoField} ${css.inputText}`}
               />
             </label>
