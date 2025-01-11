@@ -8,10 +8,10 @@ import { HelmetProvider } from "react-helmet-async";
 import App from "./App.jsx";
 // import { persistor, store } from "./redux/store.js";
 import { store } from "./redux/store.js";
+
 import "modern-normalize";
 import "./index.css";
 import "./fonts.css";
-// import DeleteWaterModal from "./components/DeleteWaterModal/DeleteWaterModal.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -20,7 +20,6 @@ createRoot(document.getElementById("root")).render(
       <BrowserRouter>
         <HelmetProvider>
           <App />
-          {/* <DeleteWaterModal/> */}
         </HelmetProvider>
       </BrowserRouter>
       {/* </PersistGate> */}

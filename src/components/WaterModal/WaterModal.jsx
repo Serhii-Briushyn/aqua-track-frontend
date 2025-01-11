@@ -1,4 +1,4 @@
-import { WaterForm } from "../WaterForm/WaterForm";
+import  WaterForm  from "../WaterForm/WaterForm";
 import css from "./WaterModal.module.css";
 
 const WaterModal = ({ title, subtitle, onClose, toggleHandle, water }) => {
