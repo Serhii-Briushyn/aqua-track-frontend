@@ -1,13 +1,13 @@
-.signin_wrapper {
+.signup_wrapper {
   border-radius: 30px;
-  padding: 24px 16px 212px 16px;
-  width: 343px;
+  padding: 170px 16px 170px 16px;
+  max-width: 343px;
+  /* max-height: 780px; */
   background-color: #f0eff4;
 }
 
-.signin_form {
+.signup_form {
   max-width: 311px;
-  margin-top: 172px;
 }
 
 .title {
@@ -31,29 +31,57 @@
   flex-direction: column;
   gap: 8px;
   font-weight: 700;
-  font-size: 16px;
-  line-height: 1.5;
+  font-size: 14px;
+  line-height: 1.28571;
   letter-spacing: -0.01em;
   color: #2f2f2f;
 }
 
-.password {
-  position: relative;
+.input_error {
+  border: 1px solid #ef5050;
+  background-color: transparent;
+  border-radius: 15px;
+  padding: 16px 16px 16px 16px;
+  height: 50px;
+  color: #ef5050;
+  width: 100%;
+  outline: none;
+}
+
+.errors {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.28571;
+  letter-spacing: -0.01em;
+  color: #ef5050;
 }
 
 .input {
   border: 1px solid rgba(47, 47, 47, 0.2);
+  background-color: transparent;
   border-radius: 15px;
   padding: 16px 16px 16px 16px;
   height: 50px;
+  width: 100%;
   outline: none;
 }
 
-.icon {
+.input_wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.input_wrapper .icon {
   position: absolute;
-  top: 56%;
-  right: 15px;
-  cursor: pointer;
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
+}
+
+.input_wrapper .input {
+}
+
+.icon {
   stroke: #2f2f2f;
   fill: #ffffff;
   width: 20px;
@@ -112,19 +140,24 @@
 }
 
 @media screen and (min-width: 768px) {
-  .signin_wrapper {
-    width: 704px;
-    padding: 32px 32px 281px 32px;
+  .signup_wrapper {
+    max-width: 704px;
+    padding: 227px 32px 227px 32px;
   }
 
-  .signin_form {
-    margin: 225px auto 0 auto;
-    width: 436px;
+  .signup_form {
+    margin: 0 auto;
+    height: 506px;
+    max-width: 436px;
   }
 
   .title {
     font-size: 36px;
     line-height: 1.05556;
+  }
+
+  .list {
+    gap: 20px;
   }
 
   .input {
@@ -148,12 +181,8 @@
 }
 
 @media screen and (min-width: 1440px) {
-  .signin_wrapper {
-    width: 672px;
-    padding: 32px 32px 166px 32px;
-  }
-
-  .signin_form {
-    margin: 130px auto 0 auto;
+  .signup_wrapper {
+    max-width: 672px;
+    padding: 130px 32px 100px 32px;
   }
 }
