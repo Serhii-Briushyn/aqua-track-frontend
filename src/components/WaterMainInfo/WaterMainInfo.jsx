@@ -41,7 +41,7 @@ const WaterMainInfo = () => {
       <Logo />
       <WaterDailyNorma />
       <WaterProgressBar
-        consumed={600}
+        consumed={800}
         waterDailyNorma={1500}
         date="2025-01-11"
       />
