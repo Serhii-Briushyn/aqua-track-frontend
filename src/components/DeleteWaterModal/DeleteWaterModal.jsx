@@ -1,27 +1,34 @@
 import css from "./DeleteWaterModal.module.css"
+import Modal from "../Modal/Modal";
+import { useDispatch } from 'react-redux';
+import { deleteWater } from "../../redux/water/operations";
 
-const DeleteWaterModal = () => {
+const DeleteWaterModal = ({isOpen, onClose, id}) => {
+  const dispatch = useDispatch();
+
   return (
-    <div className={css.modal}>
+  <Modal isOpen={isOpen} onClose={onClose}>
+      <div className={css.modal}>
       <div className={css.modalWrapper}>
         <div className={css.modalContent}>
-          <button className={css.btnClose}>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M18 6L6 18" stroke="#2F2F2F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              <path d="M6 6L18 18" stroke="#2F2F2F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          <button type="button" className={css.btnClose} onClick={onClose}>
+            <svg className={css.icon} aria-hidden="true">
+              <use xlinkHref="/src/assets/icons/icons.svg#icon-close" />
             </svg>
           </button>
           <h2 className={css.titleDelete}>Delete entry</h2>   
           <p className={css.textDelete}>Are you sure you want to delete the entry?</p>
           <div className={css.boxForBtn}>
-            <button className={css.btnDelete}>Delete</button>
-            <button className={css.btnCancel}>Cancel</button>
+              <button type="button" className={css.btnDelete} onClick={() => dispatch(deleteWater(id))}>Delete</button>
+            <button type="button" className={css.btnCancel} onClick={onClose}>Cancel</button>
           </div>
         </div>
-
+        </div>      
       </div>
-    </div>
+  </Modal>   
   )
 }
 
-export default DeleteWaterModal
+
+
+  export default DeleteWaterModal;
