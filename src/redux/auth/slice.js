@@ -185,4 +185,4 @@ const userSlice = createSlice({
 
 export const { resetError } = userSlice.actions;
 
-export const authReducer = userSlice.reducer;
+export default userSlice.reducer;

@@ -1,19 +1,8 @@
-.container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.signInContainer {
   width: 100%;
-  min-height: 780px;
-  background-color: #f0eff4;
-  border-radius: 30px;
+  margin: 172px auto 216px;
   padding: 16px;
 }
-
-.content {
-  width: 100%;
-}
-
 .title {
   font-weight: 700;
   font-size: 32px;
@@ -29,179 +18,122 @@
   justify-content: center;
 }
 
-.label {
-  display: flex;
-  flex-direction: column;
-}
-
-.label:nth-child(1) {
-  margin-bottom: 16px;
-}
-
-.label:nth-child(2) {
-  margin-bottom: 32px;
-}
-.span {
+.field {
   font-weight: 700;
-  font-size: 14px;
   line-height: 1.28;
   letter-spacing: -0.01em;
-  color: #2f2f2f;
-  margin-bottom: 8px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 8px;
+  position: relative;
+  margin-bottom: 12px;
+}
+
+.field:last-of-type {
+  margin-bottom: 0;
 }
 
 .input {
   width: 100%;
+  line-height: 18px;
+  letter-spacing: -0.01em;
+  text-align: left;
+  color: #2f2f2f;
   border-radius: 15px;
   border: 1px solid rgba(47, 47, 47, 0.2);
   padding: 16px;
   background-color: transparent;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 1.28;
-  letter-spacing: -0.01em;
-  color: #2f2f2f;
-  outline: none;
 }
 
-.input::placeholder {
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 1.28;
-  letter-spacing: -0.01em;
-  color: rgba(47, 47, 47, 0.6);
+.input:hover,
+.input:focus {
+  border: 1px solid rgba(47, 47, 47, 0.4);
 }
 
-.passwordContainer {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-}
-
-.toggleButton {
-  position: absolute;
-  right: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 5px;
-}
-
-.icon {
-  stroke: #2f2f2f;
-  fill: #fff;
-  width: 20px;
-  height: 20px;
-}
-
-.errorMessage {
-  display: block;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 1.28;
-  letter-spacing: -0.01em;
-  color: #ef5050;
-  margin-top: 10px;
-  transition: all 0.2s ease-in-out;
-}
-
-.errorInput {
-  border: 1px solid #ef5050;
-  color: #ef5050;
-  transition: all 0.2s ease-in-out;
-}
-
-.button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-  border-radius: 30px;
-  border: none;
-  background-color: #9be1a0;
-  width: 100%;
-  height: 50px;
+.submit {
+  margin-top: 32px;
   font-weight: 700;
-  font-size: 14px;
-  line-height: 1.28;
-  letter-spacing: -0.01em;
+  border: none;
+  width: 100%;
   color: #323f47;
+  border-radius: 30px;
+  height: 50px;
+  background: #9be1a0;
+  transition: all 0.7s ease-in-out;
   cursor: pointer;
 }
 
-.button:hover {
+.submit:hover {
   background-color: #87d28d;
 }
 
-.footerContent {
+.questionOnLogIn {
   display: flex;
-  flex-direction: column;
+  gap: 4px;
   justify-content: center;
-  align-items: center;
   margin-top: 16px;
-  gap: 16px;
+  align-items: center;
 }
 
-.text {
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 1.5;
-  letter-spacing: -0.01em;
+.questionText {
   color: rgba(47, 47, 47, 0.5);
+  font-weight: 400;
+  line-height: 1.28;
+  letter-spacing: -0.01em;
+  text-align: center;
 }
 
-.link {
+.signUpLink {
+  line-height: 1.28;
   font-weight: 700;
-  text-decoration: underline;
-  text-decoration-skip-ink: none;
   color: #2f2f2f;
-  cursor: pointer;
+  text-decoration: underline;
 }
 
-@media screen and (min-width: 768px) {
-  .container {
-    min-height: 960px;
-  }
-  .content {
-    width: 436px;
-  }
-  .title {
-    font-size: 36px;
-    line-height: 1.05;
-  }
-  .label:nth-child(1) {
-    margin-bottom: 20px;
-  }
-  .span {
-    font-size: 16px;
-    line-height: 1.5;
-  }
-  .input {
-    font-size: 16px;
-    line-height: 1.5;
-    letter-spacing: -0.01em;
-  }
-  .input::placeholder {
-    font-size: 16px;
-    line-height: 1.5;
-    color: rgba(47, 47, 47, 0.6);
-  }
-  .errorMessage {
-    font-size: 16px;
-    line-height: 1.5;
-  }
-  .text {
-    font-size: 16px;
-  }
+.errorMessage {
+  color: #ef5050;
+  font-size: 13px;
+  margin-top: 12px;
 }
 
-@media screen and (min-width: 1440px) {
-  .container {
-    min-height: 736px;
-  }
+.inputError {
+  border: 1px solid #ef5050;
+  color: #ef5050;
+  transition: all 0.7s ease-in-out;
+}
+
+.showPasswordBtn {
+  display: none;
+}
+
+.icon {
+  fill: none;
+  stroke: #2f2f2f;
+  width: 100%;
+  height: 100%;
+  width: 20px;
+  height: 20px;
+  border: none;
+}
+
+.inputField {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.forgotPasswordContainer {
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+  margin-top: 16px;
+  align-items: center;
+}
+
+.forgotPasswordLink {
+  line-height: 1.28;
+  font-weight: 700;
+  color: #2f2f2f;
+  text-decoration: underline;
 }

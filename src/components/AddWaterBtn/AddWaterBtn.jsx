@@ -13,8 +13,14 @@ const AddWaterBtn = () => {
   return (
     <div>
       <button className={s.button} onClick={openModal}>
-        <svg className={s.icon}>
-          <use href="/src/assets/icons/icons.svg#icon-plus-circle-black" />
+        <svg
+          className={s.icon}
+          aria-hidden="true"
+          viewBox="0 0 16 16"
+          width="16"
+          height="16"
+        >
+          <use xlinkHref="/src/assets/icons/icons.svg#icon-plus-circle-black" />
         </svg>{" "}
         Add water
       </button>

@@ -40,7 +40,11 @@ const WaterMainInfo = () => {
       <img src={imageSource} alt="water-icon" className={s.water_icon} />
       <Logo />
       <WaterDailyNorma />
-      <WaterProgressBar consumed={1000} dailyGoal={1500} date="2025-01-12" />
+      <WaterProgressBar
+        consumed={600}
+        waterDailyNorma={1500}
+        date="2025-01-11"
+      />
       <AddWaterBtn />
     </div>
   );

@@ -24,20 +24,17 @@
     cursor: not-allowed;
   }
 }
-.button:hover {
-  color: #9be1a0;
-}
-
 .icon {
   width: 16px;
   height: 16px;
   margin-right: 10px;
   fill: #323f47;
   color: #fff;
-  transition: fill 0.3s;
-  :hover {
-    color: #9be1a0;
-  }
+  transition: color 0.3s;
+}
+.button:hover,
+.icon:hover {
+  color: #9be1a0;
 }
 @media (min-width: 768px) {
   .button {

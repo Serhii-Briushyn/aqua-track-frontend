@@ -18,7 +18,25 @@
 .water_icon {
   max-width: 100%;
   height: auto;
+  position: relative;
 }
+.water_icon:hover {
+  filter: brightness(0.9) contrast(1.2);
+}
+
+.water_icon:active {
+  filter: brightness(1.1) contrast(1);
+}
+.water_icon:hover::after {
+  opacity: 0.6;
+  animation: none;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.5) 20%,
+    rgba(255, 255, 255, 0) 60%
+  );
+}
+
 @media (min-width: 768px) {
   .water_main_info {
     border-radius: 30px;
