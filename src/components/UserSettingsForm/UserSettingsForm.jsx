@@ -5,8 +5,28 @@ import { FaUserCircle } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
 import css from "./UserSettingsForm.module.css";
 import icons from "../../assets/icons/icons.svg";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 Modal.setAppElement("#modal-root");
+
+const schema = yup.object().shape({
+  name: yup.string().required("Name is required!"),
+  email: yup.string().email("Email is invalid").required("Email is required!"),
+  gender: yup.string().oneOf(["man", "woman"]).required("Gender is required!"),
+  weight: yup
+    .number()
+    .typeError("Please, enter a number")
+    .min(0, "Weight must be greater or equal to 0 kg!")
+    .max(200, "Weight must be less than 200 kg!")
+    .required("Weight is required!"),
+  timeSports: yup
+    .number()
+    .typeError("Please, enter a number")
+    .min(0, "Active time must be greater or equal to 0 hours!")
+    .max(8, "Active time must be less than 8 hours!")
+    .required("Active time is required!"),
+});
 
 const UserSettingsForm = () => {
   const [avatarURL, setAvatarURL] = useState(null);
@@ -15,7 +35,13 @@ const UserSettingsForm = () => {
 
   const location = useLocation();
 
-  const { register, handleSubmit, watch } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
   useEffect(() => {
     if (location.pathname === "/user-settings") {
@@ -80,33 +106,34 @@ const UserSettingsForm = () => {
           </button>
         </div>
         <div className={css.settingsForm}>
-          <div>
-            <fieldset className={css.genderContainer}>
-              <legend className={`${css.genderLegend} ${css.inputTitle}`}>
-                Your Gender Identity
-              </legend>
-              <label className={`${css.genderLabel} ${css.inputText}`}>
-                <input
-                  type="radio"
-                  className={css.genderInput}
-                  value="woman"
-                  name="gender"
-                  {...register("gender")}
-                />
-                Woman
-              </label>
-              <label className={`${css.genderLabel} ${css.inputText}`}>
-                <input
-                  type="radio"
-                  className={css.genderInput}
-                  value="man"
-                  name="gender"
-                  {...register("gender")}
-                />
-                Man
-              </label>
-            </fieldset>
-          </div>
+          <fieldset className={css.genderContainer}>
+            <legend className={`${css.genderLegend} ${css.inputTitle}`}>
+              Your Gender Identity
+            </legend>
+            <label className={`${css.genderLabel} ${css.inputText}`}>
+              <input
+                type="radio"
+                className={css.genderInput}
+                value="woman"
+                name="gender"
+                {...register("gender")}
+              />
+              Woman
+            </label>
+            <label className={`${css.genderLabel} ${css.inputText}`}>
+              <input
+                type="radio"
+                className={css.genderInput}
+                value="man"
+                name="gender"
+                {...register("gender")}
+              />
+              Man
+            </label>
+            {errors.gender && (
+              <p className={css.errorText}>{errors.gender.message}</p>
+            )}{" "}
+          </fieldset>
           <div className={css.userInfoContainer}>
             <label className={`${css.userInfoLabel} ${css.inputTitle}`}>
               Your Name
@@ -116,6 +143,9 @@ const UserSettingsForm = () => {
                 className={`${css.userInfoField} ${css.inputText}`}
                 {...register("name")}
               />
+              {errors.name && (
+                <p className={`${css.error}`}>{errors.name.message}</p>
+              )}
             </label>
             <label className={`${css.userInfoLabel} ${css.inputTitle}`}>
               Email
@@ -125,24 +155,13 @@ const UserSettingsForm = () => {
                 className={`${css.userInfoField} ${css.inputText}`}
                 {...register("email")}
               />
+              {errors.email && (
+                <p className={`${css.error}`}>{errors.email.message}</p>
+              )}{" "}
             </label>
           </div>
           <div className={css.userInfoContainer}>
             <h3 className={`${css.inputTitle}`}>My Daily Norma</h3>
-            <div className={css.normaWaterContainer}>
-              <div>
-                <h4 className={`${css.normaGenderTitle} ${css.inputText}`}>
-                  For Woman:
-                </h4>
-                <p className={css.greenText}>V=(M*0.03) + (T*0.4)</p>
-              </div>
-              <div>
-                <h4 className={`${css.normaGenderTitle} ${css.inputText}`}>
-                  For Man:
-                </h4>
-                <p className={css.greenText}>V=(M*0.04) + (T*0.6)</p>
-              </div>
-            </div>
             <div className={css.amountOfWaterContainer}>
               <p className={`${css.amountOfWaterText} ${css.inputText}`}>
                 The required amount of water in liters per day:
@@ -159,6 +178,9 @@ const UserSettingsForm = () => {
                 {...register("weight")}
                 className={`${css.userInfoField} ${css.inputText}`}
               />
+              {errors.weight && (
+                <p className={`${css.error}`}>{errors.weight.message}</p>
+              )}{" "}
             </label>
             <label className={`${css.userInfoLabel} ${css.inputText}`}>
               Active time in hours:
@@ -168,6 +190,9 @@ const UserSettingsForm = () => {
                 {...register("timeSports")}
                 className={`${css.userInfoField} ${css.inputText}`}
               />
+              {errors.timeSports && (
+                <p className={`${css.error}`}>{errors.timeSports.message}</p>
+              )}{" "}
             </label>
           </div>
         </div>
