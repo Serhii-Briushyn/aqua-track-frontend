@@ -39,6 +39,12 @@
     flex-direction: column;
 }
 
+.icon {
+    width: 24px;
+    height: 24px;
+    stroke: #2f2f2f;
+}
+
 .btnClose {
     position: absolute;
     top: 20px;
