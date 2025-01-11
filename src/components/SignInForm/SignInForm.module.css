@@ -1,0 +1,207 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 780px;
+  background-color: #f0eff4;
+  border-radius: 30px;
+  padding: 16px;
+}
+
+.content {
+  width: 100%;
+}
+
+.title {
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  margin-bottom: 32px;
+}
+
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+}
+
+.label:nth-child(1) {
+  margin-bottom: 16px;
+}
+
+.label:nth-child(2) {
+  margin-bottom: 32px;
+}
+.span {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.28;
+  letter-spacing: -0.01em;
+  color: #2f2f2f;
+  margin-bottom: 8px;
+}
+
+.input {
+  width: 100%;
+  border-radius: 15px;
+  border: 1px solid rgba(47, 47, 47, 0.2);
+  padding: 16px;
+  background-color: transparent;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.28;
+  letter-spacing: -0.01em;
+  color: #2f2f2f;
+  outline: none;
+}
+
+.input::placeholder {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.28;
+  letter-spacing: -0.01em;
+  color: rgba(47, 47, 47, 0.6);
+}
+
+.passwordContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.toggleButton {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+}
+
+.icon {
+  stroke: #2f2f2f;
+  fill: #fff;
+  width: 20px;
+  height: 20px;
+}
+
+.errorMessage {
+  display: block;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.28;
+  letter-spacing: -0.01em;
+  color: #ef5050;
+  margin-top: 10px;
+  transition: all 0.2s ease-in-out;
+}
+
+.errorInput {
+  border: 1px solid #ef5050;
+  color: #ef5050;
+  transition: all 0.2s ease-in-out;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  border-radius: 30px;
+  border: none;
+  background-color: #9be1a0;
+  width: 100%;
+  height: 50px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.28;
+  letter-spacing: -0.01em;
+  color: #323f47;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #87d28d;
+}
+
+.footerContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 16px;
+  gap: 16px;
+}
+
+.text {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  color: rgba(47, 47, 47, 0.5);
+}
+
+.link {
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+  color: #2f2f2f;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 768px) {
+  .container {
+    min-height: 960px;
+  }
+  .content {
+    width: 436px;
+  }
+  .title {
+    font-size: 36px;
+    line-height: 1.05;
+  }
+  .label:nth-child(1) {
+    margin-bottom: 20px;
+  }
+  .span {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  .input {
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+  }
+  .input::placeholder {
+    font-size: 16px;
+    line-height: 1.5;
+    color: rgba(47, 47, 47, 0.6);
+  }
+  .errorMessage {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  .text {
+    font-size: 16px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .container {
+    min-height: 736px;
+  }
+}

@@ -1,17 +1,35 @@
-import WaterModal from "../WaterModal/WaterModal";
-import css from "./AddWaterBtn.module.css";
-import icons from "../../assets/icons/icons.svg";
+// AddWaterBtn.jsx
 
+import WaterModal from "../WaterModal/WaterModal";
+import { useState } from "react";
+
+import s from "./AddWaterBtn.module.css";
 const AddWaterBtn = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalSource, setModalSource] = useState("");
+
+  const openModal = () => {
+    setModalSource("AddWater");
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setModalSource("");
+  };
   return (
-    <div className={css.addWaterBtn}>
-      <button role="button" onClick={() => {}} className={css.btn}>
-        <svg width="30" height="30">
-          <use href={`${icons}#icon-plus-circle-green`} />
-        </svg>
-        <span className={css.btnTxt}>Add Water</span>
+    <div>
+      <button className={s.button} onClick={openModal}>
+        <svg className={s.icon}>
+          <use href="/src/assets/icons/icons.svg#icon-plus-circle-black" />
+        </svg>{" "}
+        Add water
       </button>
-      {/*<WaterModal/>*/}
+      <WaterModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        source={modalSource}
+      />
     </div>
   );
 };

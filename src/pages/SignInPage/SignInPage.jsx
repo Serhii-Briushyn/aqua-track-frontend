@@ -1,6 +1,6 @@
+import DocumentTitle from "../../components/DocumentTitle.jsx";
 import { useMediaQuery } from "@mui/material";
 import AdvantagesSection from "../../components/AdvantagesSection/AdvantagesSection";
-import DocumentTitle from "../../components/DocumentTitle";
 import SignInForm from "../../components/SignInForm/SignInForm";
 
 export default function SignInPage() {
@@ -8,7 +8,7 @@ export default function SignInPage() {
 
   return (
     <>
-      <DocumentTitle>SignIn</DocumentTitle>
+      <DocumentTitle>Sign In</DocumentTitle>
       <SignInForm />
       {isLargeScreen && <AdvantagesSection />}
     </>

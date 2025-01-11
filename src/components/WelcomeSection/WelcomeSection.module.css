@@ -1,7 +1,7 @@
 .welcome_section {
   border-radius: 30px;
   padding: 24px 16px 67px 16px;
-  width: 343px;
+  max-width: 343px;
   background-color: #f0eff4;
 }
 
@@ -71,7 +71,7 @@
 
 @media screen and (min-width: 768px) {
   .welcome_section {
-    width: 704px;
+    max-width: 704px;
     padding: 32px 32px 50px 32px;
   }
 
@@ -107,7 +107,7 @@
 @media screen and (min-width: 1440px) {
   .welcome_section {
     padding-bottom: 178px;
-    width: 672px;
+    max-width: 672px;
   }
 
   .basic_container {

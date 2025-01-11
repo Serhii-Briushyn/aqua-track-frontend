@@ -1,24 +1,77 @@
-.addWaterBtn .btn {
-  display: flex;
-  align-items: center;
-  background: none;
-  border: none;
-  cursor: pointer;
-}
+/* AddWaterBtn.module.css */
 
-.addWaterBtn .btnTxt {
-  font-family: Poppins, sans-serif;
-  font-size: 16px;
-  font-weight: 700;
-  color: #323f47;
-  margin-left: 8px;
-}
-.addWaterBtn .iconPlus {
+.button {
   display: flex;
-  align-items: center;
   justify-content: center;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background: #9be1a0;
+  border-radius: 30px;
+  padding: 14px 20px;
+  width: 140px;
+  height: 46px;
+  background: #323f47;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.28571;
+  letter-spacing: -0.01em;
+  text-align: center;
+  align-items: center;
+  color: #fff;
+  position: absolute;
+  bottom: 32px;
+  right: 16px;
+  cursor: pointer;
+  border: none;
+  transition: color 0.3s ease;
+  :disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+.icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 10px;
+  fill: #323f47;
+  color: #fff;
+  transition: color 0.3s;
+}
+.button:hover,
+.icon:hover {
+  color: #9be1a0;
+}
+@media (min-width: 768px) {
+  .button {
+    border-radius: 30px;
+    padding: 18px 30px;
+    width: 178px;
+    height: 60px;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+    text-align: center;
+    bottom: 64px;
+    right: 32px;
+  }
+  .icon {
+    width: 24px;
+    height: 24px;
+    fill: #323f47;
+    color: #fff;
+    transition: fill 0.3s;
+  }
+}
+@media (min-width: 1440px) {
+  .button {
+    border-radius: 30px;
+    padding: 18px 30px;
+    width: 178px;
+    height: 60px;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+    text-align: center;
+    bottom: 64px;
+    right: 32px;
+  }
 }

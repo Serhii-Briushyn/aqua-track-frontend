@@ -1,15 +1,29 @@
 .logo {
   font-weight: 700;
   font-size: 18px;
-  line-height: 1.11;
+  line-height: 1.1;
   letter-spacing: -0.01em;
   text-transform: uppercase;
   text-align: center;
+  color: #323f47;
+  position: absolute;
+  top: 24px;
+  left: 16px;
+  z-index: 100;
 }
 
 @media screen and (min-width: 768px) {
   .logo {
     font-size: 24px;
     line-height: 1;
+    top: 20px;
+    left: 33px;
+  }
+}
+@media screen and (min-width: 1440px) {
+  .logo {
+    font-size: 24px;
+    top: 32px;
+    left: 33px;
   }
 }
