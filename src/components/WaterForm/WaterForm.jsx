@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+import icons from "../../assets/icons/icons.svg";
+
 import css from "./WaterForm.module.css";
 
 const WaterForm = ({ source, isOpen, onClose, modalData }) => {
@@ -44,7 +46,7 @@ const WaterForm = ({ source, isOpen, onClose, modalData }) => {
           onClick={handleDecrease}
         >
           <svg className={css.icon} aria-hidden="true">
-            <use xlinkHref="/src/assets/icons/icons.svg#icon-minus-circle" />
+            <use href={`${icons}#icon-minus-circle`} />
           </svg>
         </button>
 
@@ -56,7 +58,7 @@ const WaterForm = ({ source, isOpen, onClose, modalData }) => {
           onClick={handleIncrease}
         >
           <svg className={css.icon} aria-hidden="true">
-            <use xlinkHref="/src/assets/icons/icons.svg#icon-plus-circle" />
+            <use href={`${icons}#icon-plus-circle`} />
           </svg>
         </button>
       </div>

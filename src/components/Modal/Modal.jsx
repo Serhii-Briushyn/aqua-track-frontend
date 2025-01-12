@@ -1,5 +1,8 @@
 import { useEffect } from "react";
 import ReactDOM from "react-dom";
+
+import icons from "../../assets/icons/icons.svg";
+
 import css from "./Modal.module.css";
 
 const Modal = ({ isOpen, onClose, children }) => {
@@ -33,7 +36,7 @@ const Modal = ({ isOpen, onClose, children }) => {
       <div className={css.window} onClick={(e) => e.stopPropagation()}>
         <button className={css.button} onClick={onClose}>
           <svg className={css.icon} aria-hidden="true">
-            <use xlinkHref="/src/assets/icons/icons.svg#icon-close" />
+            <use href={`${icons}#icon-close`} />
           </svg>
         </button>
         {children}
