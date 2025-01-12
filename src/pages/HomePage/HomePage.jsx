@@ -5,7 +5,7 @@ import AdvantagesSection from "../../components/AdvantagesSection/AdvantagesSect
 export default function HomePage() {
   return (
     <>
-      <DocumentTitle>Home</DocumentTitle>
+      <DocumentTitle>Welcome</DocumentTitle>
       <WelcomeSection />
       <AdvantagesSection />
     </>
