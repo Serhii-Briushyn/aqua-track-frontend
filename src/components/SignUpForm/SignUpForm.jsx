@@ -37,7 +37,7 @@ const SignUpForm = () => {
   const onSubmit = (data) => {
     const { repeatPassword, ...filteredData } = data;
     console.log("Data:", filteredData);
-    dispatch(signUp(data.email, data.password));
+    dispatch(signUp(filteredData));
     reset();
   };
 
