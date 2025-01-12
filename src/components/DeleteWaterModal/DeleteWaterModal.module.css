@@ -55,12 +55,14 @@
 
 .btnDelete {
   background-color: #9be1a0;
+  color: #323f47;
   &:hover {
     background-color: #87d28d;
   }
 }
 .btnCancel {
   background-color: #f0eff4;
+  color: rgba(50, 63, 71, 0.3);
   &:hover {
     color: #323f47;
   }

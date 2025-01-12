@@ -79,7 +79,7 @@ export const logIn = createAsyncThunk(
   "users/login",
   async (credentials, thunkAPI) => {
     try {
-      const response = await aquaTrackApi.post("/auth/login", credentials);
+      const response = await aquaTrackApi.post("/users/login", credentials);
       localStorage.setItem("accessToken", response.data.data.accessToken);
       return response.data;
     } catch (error) {
@@ -90,7 +90,7 @@ export const logIn = createAsyncThunk(
 
 // -------------------- Log Out User Thunk --------------------
 
-export const logout = createAsyncThunk("auth/logout", async (_, thunkAPI) => {
+export const logout = createAsyncThunk("users/logout", async (_, thunkAPI) => {
   try {
     await aquaTrackApi.post("/users/logout");
     localStorage.removeItem("accessToken");
