@@ -3,7 +3,6 @@
 import AddWaterBtn from "../AddWaterBtn/AddWaterBtn";
 import WaterDailyNorma from "../WaterDailyNorma/WaterDailyNorma";
 import WaterProgressBar from "../WaterProgressBar/WaterProgressBar";
-import Logo from "../Logo/Logo";
 import s from "./WaterMainInfo.module.css";
 
 import bottleImageMobile from "../../assets/images/bottle-image-mob-min.png";
@@ -40,7 +39,6 @@ const WaterMainInfo = () => {
   return (
     <div className={s.water_main_info}>
       <img src={imageSource} alt="water-icon" className={s.water_icon} />
-      <Logo />
       <WaterDailyNorma />
       <WaterProgressBar
         consumed={800}

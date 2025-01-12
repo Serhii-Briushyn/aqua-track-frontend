@@ -1,3 +1,7 @@
-export const selectWater = (state) => state.water.items;
-export const selectLoading = (state) => state.water.loadning;
-export const selectError = (state) => state.water.error;
+//src/redux/water/selectors.js
+export const selectWaterData = (state) => state.water.waterData;
+export const selectDailyData = (state) => state.water.dailyData;
+export const selectMonthlyData = (state) => state.water.monthlyData;
+export const selectIsLoading = (state) => state.water.isLoading;
+export const selectIsError = (state) => state.water.isError;
+export const selectCurrentItem = (state) => state.contacts.currentItem;

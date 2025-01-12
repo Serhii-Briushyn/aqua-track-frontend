@@ -5,7 +5,7 @@ import WaterMainInfo from "../../components/WaterMainInfo/WaterMainInfo";
 export default function TrackerPage() {
   return (
     <>
-      <DocumentTitle>Tracker</DocumentTitle>
+      <DocumentTitle>AquaTrack</DocumentTitle>
       <WaterMainInfo />
       <WaterDetailedInfo />
     </>
