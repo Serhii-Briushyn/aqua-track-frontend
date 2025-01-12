@@ -18,14 +18,17 @@ import cust3Mob from "../../assets/images/3-customers-mob-min.png";
 import cust3Mob2x from "../../assets/images/3-customers-mob@2x-min.png";
 import cust3Tab from "../../assets/images/3-customers-desk-tab-min.png";
 import cust3Tab2x from "../../assets/images/3-customers-desk-tab@2x-min.png";
+
 const AdvantagesSection = () => {
   const usersCount = useSelector(selectUserCount);
   const usersLoading = useSelector(selectIsLoading);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getUserCount());
-  }, [dispatch]);
+    if (!usersLoading && usersCount === null) {
+      dispatch(getUserCount());
+    }
+  }, [dispatch, usersLoading, usersCount]);
 
   return (
     <div className={s.main}>
