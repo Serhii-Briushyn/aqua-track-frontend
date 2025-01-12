@@ -1,10 +1,10 @@
 import css from "./DeleteWaterModal.module.css";
 import Modal from "../Modal/Modal";
-import { useDispatch } from "react-redux";
-import { deleteWater } from "../../redux/water/operations";
+// import { useDispatch } from "react-redux";
+// import { deleteWater } from "../../redux/water/operations";
 
-const DeleteWaterModal = ({ isOpen, onClose, id }) => {
-  const dispatch = useDispatch();
+const DeleteWaterModal = ({ isOpen, onClose,}) => {
+  // const dispatch = useDispatch();
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -17,7 +17,7 @@ const DeleteWaterModal = ({ isOpen, onClose, id }) => {
           <button
             type="button"
             className={css.btnDelete}
-            onClick={() => dispatch(deleteWater(id))}
+            // onClick={() => dispatch(deleteWater(id))}
           >
             Delete
           </button>

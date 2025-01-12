@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FiSettings, FiLogOut } from "react-icons/fi";
 
 import LogOutModal from "../LogOutModal/LogOutModal";
-import UserSettingsModal from "../UserSettingsModal/UserSettingsModal";
+// import UserSettingsModal from "../UserSettingsModal/UserSettingsModal";
 
 import css from "./UserBarPopover.module.css";
 
