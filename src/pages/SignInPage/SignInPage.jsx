@@ -1,4 +1,3 @@
-import Logo from "../../components/Logo/Logo";
 import DocumentTitle from "../../components/DocumentTitle.jsx";
 import { useMediaQuery } from "@mui/material";
 import AdvantagesSection from "../../components/AdvantagesSection/AdvantagesSection";
@@ -10,7 +9,6 @@ export default function SignInPage() {
   return (
     <>
       <DocumentTitle>Sign In</DocumentTitle>
-      <Logo />
       <SignInForm />
       {isLargeScreen && <AdvantagesSection />}
     </>
