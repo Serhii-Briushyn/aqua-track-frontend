@@ -1,190 +1,161 @@
-.subtitle {
-  color: var(--color-darkblue);
-  font-size: 16px;
+.amountSubtitle {
   font-weight: 700;
+  font-size: 16px;
   line-height: 1.25;
-  letter-spacing: -0.16px;
+  letter-spacing: -0.01em;
+  color: #323f47;
   margin-bottom: 20px;
 }
 
-.amountTitle {
-  color: var(--color-black);
+.text {
+  display: block;
+  font-weight: 400;
   font-size: 14px;
   line-height: 1.28;
-  letter-spacing: -0.14px;
+  letter-spacing: -0.01em;
+  color: #2f2f2f;
   margin-bottom: 8px;
-  display: inline-block;
 }
 
 .amountWrapper {
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  justify-content: start;
   gap: 8px;
   margin-bottom: 16px;
 }
 
 .amountButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: transparent;
   border: none;
-  padding: 0;
+  cursor: pointer;
+}
+
+.icon {
+  width: 40px;
   height: 40px;
+  stroke: #323f47;
+  fill: none;
+  transition: all 0.2s ease-in-out;
 }
 
-.amountButton svg {
-  width: 100%;
-  height: 100%;
-}
-
-.amountButton:hover svg path,
-.amountButton:hover svg rect,
-.amountButton:focus svg path,
-.amountButton:focus svg rect {
-  stroke: var(--color-lightgreenhover);
-  transition: stroke var(--animation);
-}
-
-.amountButton:disabled svg path,
-.amountButton:disabled svg rect {
-  stroke: #323f4750;
+.amountButton:hover .icon {
+  stroke: #9be1a0;
 }
 
 .amountValue {
-  padding: 11px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #323f47;
+  min-width: 89px;
   height: 40px;
-  background-color: var(--color-darkblue);
   border-radius: 30px;
-
-  color: var(--color-white);
-  font-size: 14px;
   font-weight: 700;
+  font-size: 14px;
   line-height: 1.28;
+  color: #fff;
 }
 
-.timeLabel {
+.fieldSubtitle {
   display: block;
-  color: var(--color-black);
-  font-size: 14px;
-  line-height: 1.28;
-  letter-spacing: -0.14px;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: #323f47;
   margin-bottom: 8px;
 }
 
 .input {
-  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
   border: 1px solid rgba(47, 47, 47, 0.15);
+  border-radius: 15px;
+  padding: 0px 16px;
   width: 100%;
-  padding: 14px 16px;
-  margin-bottom: 24px;
-  outline: none;
-  transition: border-color var(--animation), transform var(--animation);
-
-  /*content styles*/
-  color: var(--color-black);
+  height: 46px;
+  transition: all 0.2s ease-in-out;
+  cursor: text;
+  font-weight: 400;
   font-size: 14px;
   line-height: 1.28;
-  letter-spacing: -0.14px;
+  letter-spacing: -0.01em;
+  color: #2f2f2f;
+  margin-bottom: 24px;
 }
 
-.validationError {
-  display: block;
-  font-weight: 400;
-  color: var(--color-error);
-  font-size: 14px;
-  margin: 0;
-  padding: 0;
+.input[type="time"]::-webkit-calendar-picker-indicator {
+  display: none;
+  -webkit-appearance: none;
 }
 
 .input:hover,
 .input:focus {
-  border-color: var(--color-lightgreenhover);
-}
-
-.input:focus {
-  border-color: var(--color-lightgreenhover);
-  transform: scale(1.01);
-}
-
-.valueLabel {
-  display: inline-block;
-  color: var(--color-darkblue);
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 1.25;
-  letter-spacing: -0.16px;
-  margin-bottom: 8px;
+  outline: none;
+  border-color: #9be1a0;
 }
 
 .submitButton {
-  padding: 14px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 30px;
+  width: 116px;
+  height: 46px;
+  background-color: #9be1a0;
   border: none;
-  background-color: var(--color-lightgreen);
-
-  /*content styles*/
-  color: var(--color-darkblue);
-  font-size: 14px;
+  transition: all 0.2s ease-in-out;
   font-weight: 700;
+  font-size: 14px;
   line-height: 1.28;
-  letter-spacing: -0.14px;
-  transition: background-color var(--animation);
+  letter-spacing: -0.01em;
+  text-align: center;
+  color: #323f47;
+  cursor: pointer;
 }
 
-.submitButton:hover,
-.submitButton:focus {
-  background-color: var(--color-lightgreenhover);
+.submitButton:hover {
+  background-color: #87d28d;
 }
 
 @media screen and (min-width: 768px) {
-  .subtitle {
+  .fieldSubtitle,
+  .amountSubtitle {
     font-size: 18px;
     line-height: 1.33;
-    letter-spacing: -0.18px;
   }
 
-  .amountTitle {
-    font-size: 14px;
+  .text {
+    font-size: 16px;
     line-height: 1.5;
-    letter-spacing: -0.16px;
   }
 
-  .amountButton {
+  .icon {
     width: 43px;
     height: 43px;
   }
 
   .amountValue {
+    min-width: 92px;
     height: 43px;
     font-size: 15px;
     line-height: 1.49;
   }
-
-  .timeLabel {
+  .submitButton {
+    width: 141px;
+    height: 60px;
+    border: none;
     font-size: 16px;
     line-height: 1.5;
-    letter-spacing: -0.16px;
   }
 
   .input {
-    padding: 16px;
-    margin-bottom: 24px;
-
-    /*content styles*/
+    height: 56px;
     font-size: 16px;
     line-height: 1.5;
-    letter-spacing: -0.16px;
-  }
-
-  .valueLabel {
-    font-size: 18px;
-    line-height: 1.33;
-    letter-spacing: -0.18px;
-  }
-
-  .submitButton {
-    padding: 18px 50px;
-    font-size: 16px;
-    line-height: 1.5;
-    letter-spacing: -0.16;
   }
 }

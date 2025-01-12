@@ -11,12 +11,15 @@ const Modal = ({ isOpen, onClose, children }) => {
     };
 
     if (isOpen) {
+      document.body.style.overflow = "hidden";
       document.addEventListener("keydown", handleKeyDown);
     } else {
+      document.body.style.overflow = "";
       document.removeEventListener("keydown", handleKeyDown);
     }
 
     return () => {
+      document.body.style.overflow = "";
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, [isOpen, onClose]);
