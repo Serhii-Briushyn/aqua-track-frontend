@@ -141,7 +141,7 @@ export const getUserCount = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const response = await aquaTrackApi.get("/users/count");
-      return response.data.data;
+      return response.data;
     } catch (error) {
       return handleApiError(error, thunkAPI);
     }
