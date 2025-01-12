@@ -2,14 +2,9 @@ import { useEffect, useState } from "react";
 
 import css from "./WaterForm.module.css";
 
-const WaterForm = ({ source, isOpen }) => {
+const WaterForm = ({ source, isOpen, onClose, modalData }) => {
   const [amount, setAmount] = useState(250);
   const [currentTime, setCurrentTime] = useState("");
-
-  const getSubtitle = () => {
-    if (source === "AddWater") return "Choose a value";
-    if (source === "EditWater") return "Correct entered data:";
-  };
 
   const handleDecrease = () => {
     setAmount((prev) => Math.max(prev - 50, 0));
@@ -21,17 +16,26 @@ const WaterForm = ({ source, isOpen }) => {
 
   useEffect(() => {
     if (isOpen) {
-      // Получаем текущее время
-      const now = new Date();
-      const hours = now.getHours().toString().padStart(2, "0");
-      const minutes = now.getMinutes().toString().padStart(2, "0");
-      setCurrentTime(`${hours}:${minutes}`);
+      if (source === "AddWater") {
+        const now = new Date();
+        const hours = now.getHours().toString().padStart(2, "0");
+        const minutes = now.getMinutes().toString().padStart(2, "0");
+        setCurrentTime(`${hours}:${minutes}`);
+        setAmount(50);
+      } else if (source === "EditWater" && modalData) {
+        setCurrentTime(modalData.time || "");
+        setAmount(modalData.volume || 250);
+      }
     }
-  }, [isOpen]);
+  }, [isOpen, source, modalData]);
 
   return (
     <>
-      <p className={css.amountSubtitle}>{getSubtitle()}</p>
+      <p className={css.amountSubtitle}>
+        {source === "AddWater"
+          ? "Adding water to your daily log"
+          : "Editing water entry"}
+      </p>
       <span className={css.text}>Amount of water:</span>
       <div className={css.amountWrapper}>
         <button
@@ -73,9 +77,16 @@ const WaterForm = ({ source, isOpen }) => {
         <label className={css.fieldSubtitle} htmlFor="value">
           Enter the value of the water used:
         </label>
-        <input className={css.input} type="number" name="value" id="value" />
+        <input
+          className={css.input}
+          type="number"
+          name="value"
+          id="value"
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
+        />
       </div>
-      <button className={css.submitButton} type="submit">
+      <button onClick={onClose} className={css.submitButton} type="submit">
         Save
       </button>
     </>

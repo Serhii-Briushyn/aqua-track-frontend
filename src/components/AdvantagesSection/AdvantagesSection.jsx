@@ -27,7 +27,6 @@ const AdvantagesSection = () => {
     dispatch(getUserCount());
   }, [dispatch]);
 
-  console.log("Users Count:", usersCount);
   return (
     <div className={s.main}>
       <div className={s.customers}>
