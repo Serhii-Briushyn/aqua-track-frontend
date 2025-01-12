@@ -3,14 +3,20 @@ import { Link } from "react-router-dom";
 import s from "./SignUpForm.module.css";
 import { useState } from "react";
 import icons from "../../assets/icons/icons.svg";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { register as signUp } from "../../redux/auth/operations";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
+import toast, { Toaster } from "react-hot-toast";
+import { selectIsLoading } from "../../redux/auth/selectors";
+import Loader from "../Loader/Loader";
 
 const SignUpForm = () => {
   const dispatch = useDispatch();
+  const [showPassword, setShowPassword] = useState(false);
+  const [showPasswordRepeat, setShowPasswordRepeat] = useState(false);
+  const isLoading = useSelector(selectIsLoading);
 
   const validationSchema = Yup.object({
     email: Yup.string()
@@ -34,26 +40,23 @@ const SignUpForm = () => {
     resolver: yupResolver(validationSchema),
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     const { repeatPassword, ...filteredData } = data;
-    console.log("Data:", filteredData);
-    dispatch(signUp(filteredData));
-    reset();
+    const response = await dispatch(signUp(filteredData));
+    response.payload === "ConflictError" && toast.error("Email in use!");
+    response.ok && reset();
   };
-
-  const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
-
-  const [showPasswordRepeat, setShowPasswordRepeat] = useState(false);
 
   const togglePasswordRVisibility = () => {
     setShowPasswordRepeat(!showPasswordRepeat);
   };
   return (
     <div>
+      {isLoading && <Loader />}
       <div className={s.signup_wrapper}>
         <div className={s.signup_form}>
           <h2 className={s.title}>Sign Up</h2>
@@ -153,6 +156,7 @@ const SignUpForm = () => {
           </div>
         </div>
       </div>
+      <Toaster />
     </div>
   );
 };
