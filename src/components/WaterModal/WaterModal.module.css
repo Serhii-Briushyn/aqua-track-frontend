@@ -1,25 +1,32 @@
 .wrapper {
-  max-width: 303px;
+  width: 100%;
+  padding: 40px 20px;
+  text-align: left;
 }
 
 .title {
-  color: var(--color-darkblue);
-  font-size: 20px;
   font-weight: 700;
+  font-size: 20px;
   line-height: 1.2;
-  letter-spacing: -0.2px;
+  letter-spacing: -0.01em;
+  color: #323f47;
   margin-bottom: 24px;
-  max-width: 347px;
+}
+
+@media screen and (min-width: 375px) {
+  .wrapper {
+    width: 343px;
+  }
 }
 
 @media screen and (min-width: 768px) {
+  .wrapper {
+    width: 518px;
+    padding: 40px;
+  }
   .title {
     font-size: 28px;
     line-height: 1.14;
-    letter-spacing: -0.28px;
-  }
-
-  .wrapper {
-    max-width: 438px;
+    max-width: 347px;
   }
 }
