@@ -9,6 +9,11 @@ import DeleteWaterModal from "../DeleteWaterModal/DeleteWaterModal";
 const WaterItem = () => {
   const [activeModal, setActiveModal] = useState(null);
   const [modalData, setModalData] = useState(null);
+  const [waterData, setWaterData] = useState({
+    volume: 250,
+    time: "11:00",
+    id: 1,
+  });
 
   const openModal = (modalType, data = null) => {
     setActiveModal(modalType);
@@ -20,13 +25,10 @@ const WaterItem = () => {
     setModalData(null);
   };
 
-  //!  це треба буде прибрати коли будуть данні з backend-у
-  const waterData = {
-    volume: 250,
-    time: "11:00",
-    id: 1,
+  const handleSave = (updatedData) => {
+    setWaterData(updatedData);
+    closeModal();
   };
-  //!--------------------------
 
   return (
     <>
@@ -61,6 +63,7 @@ const WaterItem = () => {
           onClose={closeModal}
           source="EditWater"
           modalData={modalData}
+          onValid={handleSave}
         />
       )}
 
