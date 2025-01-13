@@ -25,21 +25,11 @@ const getImageSource = () => {
 
 const WaterMainInfo = ({ payload }) => {
   const [imageSource, setImageSource] = useState(getImageSource());
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
+
   const amount = useSelector(selectDailyData);
   const norm = useSelector(selectDailyData);
   const waterData = amount * 1000;
   const date = payload?.date || new Date();
-=======
-  const consumed = useSelector(selectDailyData);
-  const waterData = consumed * 1000;
->>>>>>> Stashed changes
-=======
-  const consumed = useSelector(selectDailyData);
-  const waterData = consumed * 1000;
->>>>>>> Stashed changes
-
   useEffect(() => {
     const handleSize = () => {
       setImageSource(getImageSource());
@@ -56,15 +46,7 @@ const WaterMainInfo = ({ payload }) => {
     <div className={s.water_main_info}>
       <img src={imageSource} alt="water-icon" className={s.water_icon} />
       <WaterDailyNorma />
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-      <WaterProgressBar consumed={waterData} dailyNorma={norm} date={date} />
-=======
-      <WaterProgressBar consumed={waterData} date="2025-01-11" />
->>>>>>> Stashed changes
-=======
-      <WaterProgressBar consumed={waterData} date="2025-01-11" />
->>>>>>> Stashed changes
+      <WaterProgressBar amount={waterData} norm={norm} date={date} />
       <AddWaterBtn />
     </div>
   );
