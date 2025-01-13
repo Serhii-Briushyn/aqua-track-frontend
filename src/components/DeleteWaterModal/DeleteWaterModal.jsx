@@ -1,10 +1,27 @@
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import css from "./DeleteWaterModal.module.css";
 import Modal from "../Modal/Modal";
-// import { useDispatch } from "react-redux";
-// import { deleteWater } from "../../redux/water/operations";
+import { deleteWaterOperation } from "../../redux/water/operations";
 
-const DeleteWaterModal = ({ isOpen, onClose,}) => {
-  // const dispatch = useDispatch();
+const DeleteWaterModal = ({ isOpen, onClose, id }) => {
+  const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const handleDelete = async () => {
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      await dispatch(deleteWaterOperation(id)).unwrap();
+      onClose();
+    } catch (err) {
+      setError("Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -13,13 +30,15 @@ const DeleteWaterModal = ({ isOpen, onClose,}) => {
         <p className={css.textDelete}>
           Are you sure you want to delete the entry?
         </p>
+        {error && <p className={css.errorMessage}>{error}</p>}
         <div className={css.boxForBtn}>
           <button
             type="button"
             className={css.btnDelete}
-            // onClick={() => dispatch(deleteWater(id))}
+            onClick={handleDelete}
+            disabled={isLoading}
           >
-            Delete
+            {isLoading ? "Deleting..." : "Delete"}
           </button>
           <button type="button" className={css.btnCancel} onClick={onClose}>
             Cancel

@@ -1,20 +1,37 @@
-import { useEffect, useState } from "react";
-
+import { useEffect } from "react";
 import icons from "../../assets/icons/icons.svg";
-
 import css from "./WaterForm.module.css";
+import { Controller, useForm } from "react-hook-form";
+import * as Yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 
-const WaterForm = ({ source, isOpen, onClose, modalData }) => {
-  const [amount, setAmount] = useState(250);
-  const [currentTime, setCurrentTime] = useState("");
+const WaterForm = ({ source, isOpen, modalData, onSubmit }) => {
+  const validationSchema = Yup.object().shape({
+    volume: Yup.number()
+      .required("The amount of water is required.")
+      .min(50, "Minimum value is 50ml.")
+      .max(5000, "Maximum value is 5000ml."),
+    time: Yup.string()
+      .required("The time of recording is required.")
+      .matches(/^([01]\d|2[0-3]):([0-5]\d)$/, "Invalid time format."),
+  });
 
-  const handleDecrease = () => {
-    setAmount((prev) => Math.max(prev - 50, 0));
-  };
+  const {
+    handleSubmit,
+    control,
+    setValue,
+    watch,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm({
+    resolver: yupResolver(validationSchema),
+    defaultValues: {
+      volume: 50,
+      time: "",
+    },
+  });
 
-  const handleIncrease = () => {
-    setAmount((prev) => Math.min(prev + 50, 5000));
-  };
+  const volume = watch("volume");
 
   useEffect(() => {
     if (isOpen) {
@@ -22,17 +39,29 @@ const WaterForm = ({ source, isOpen, onClose, modalData }) => {
         const now = new Date();
         const hours = now.getHours().toString().padStart(2, "0");
         const minutes = now.getMinutes().toString().padStart(2, "0");
-        setCurrentTime(`${hours}:${minutes}`);
-        setAmount(50);
+        reset({
+          volume: 50,
+          time: `${hours}:${minutes}`,
+        });
       } else if (source === "EditWater" && modalData) {
-        setCurrentTime(modalData.time || "");
-        setAmount(modalData.volume || 250);
+        reset({
+          volume: modalData.volume || 250,
+          time: modalData.time || "",
+        });
       }
     }
-  }, [isOpen, source, modalData]);
+  }, [isOpen, source, modalData, reset]);
+
+  const handleDecrease = () => {
+    setValue("volume", Math.max(volume - 50, 0));
+  };
+
+  const handleIncrease = () => {
+    setValue("volume", Math.min(volume + 50, 5000));
+  };
 
   return (
-    <>
+    <form className={css.form} onSubmit={handleSubmit(onSubmit)}>
       <p className={css.amountSubtitle}>
         {source === "AddWater"
           ? "Adding water to your daily log"
@@ -50,7 +79,7 @@ const WaterForm = ({ source, isOpen, onClose, modalData }) => {
           </svg>
         </button>
 
-        <span className={css.amountValue}>{amount} ml</span>
+        <span className={css.amountValue}>{volume} ml</span>
 
         <button
           className={css.amountButton}
@@ -62,36 +91,46 @@ const WaterForm = ({ source, isOpen, onClose, modalData }) => {
           </svg>
         </button>
       </div>
+      {errors.volume && <p className={css.error}>{errors.volume.message}</p>}
 
       <div className={css.fieldsWrapper}>
-        <label className={css.text} htmlFor="date">
+        <label className={css.text} htmlFor="time">
           Recording time:
         </label>
-        <input
-          className={css.input}
-          type="time"
-          name="date"
-          id="date"
-          value={currentTime}
-          onChange={(e) => setCurrentTime(e.target.value)}
+        <Controller
+          name="time"
+          control={control}
+          render={({ field }) => (
+            <input {...field} className={css.input} type="time" />
+          )}
         />
+        {errors.time && <p className={css.error}>{errors.time.message}</p>}
 
-        <label className={css.fieldSubtitle} htmlFor="value">
+        <label className={css.fieldSubtitle} htmlFor="volume">
           Enter the value of the water used:
         </label>
-        <input
-          className={css.input}
-          type="number"
-          name="value"
-          id="value"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
+              <Controller
+          name="volume"
+          control={control}
+          render={({ field }) => (
+            <input
+              {...field}
+              className={css.input}
+              type="number"
+              id="volume"
+              min="50"
+              max="5000"
+            />
+          )}
         />
       </div>
-      <button onClick={onClose} className={css.submitButton} type="submit">
-        Save
-      </button>
-    </>
+
+      <div className={css.actions}>
+        <button className={css.submitButton} type="submit" disabled={isSubmitting}>
+          {isSubmitting ? "Saving..." : "Save"}
+        </button>
+      </div>
+    </form>
   );
 };
 
