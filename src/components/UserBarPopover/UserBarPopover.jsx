@@ -1,9 +1,11 @@
-import Modal from "'react-modal'";
 import LogOutModal from "../LogOutModal/LogOutModal";
 import UserSettingsModal from "../UserSettingsModal/UserSettingsModal";
 import icons from "../../assets/icons/icons.svg";
 import css from "./UserBarPopover.module.css";
 import { useState } from "react";
+import React from "react";
+import Modal from "react-modal";
+import { CgClose } from "react-icons/cg";
 
 Modal.setAppElement("#root");
 
