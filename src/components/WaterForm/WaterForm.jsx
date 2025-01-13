@@ -4,8 +4,13 @@ import css from "./WaterForm.module.css";
 import { Controller, useForm } from "react-hook-form";
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useDispatch } from "react-redux";
+import { createWaterOperation, updateWaterOperation } from "../../redux/water/operations";
+import toast from "react-hot-toast";
 
-const WaterForm = ({ source, isOpen, modalData, onSubmit }) => {
+const WaterForm = ({ source, isOpen, modalData, onClose }) => {
+  const dispatch = useDispatch();
+
   const validationSchema = Yup.object().shape({
     volume: Yup.number()
       .required("The amount of water is required.")
@@ -53,11 +58,36 @@ const WaterForm = ({ source, isOpen, modalData, onSubmit }) => {
   }, [isOpen, source, modalData, reset]);
 
   const handleDecrease = () => {
-    setValue("volume", Math.max(volume - 50, 0));
+    setValue("volume", Math.max(volume - 50, 50));
   };
 
   const handleIncrease = () => {
     setValue("volume", Math.min(volume + 50, 5000));
+  };
+
+  const onSubmit = (data) => {
+    const waterData = {
+      amount: data.volume,
+      date: new Date().toISOString(),
+    };
+
+    const action =
+      source === "AddWater"
+        ? createWaterOperation(waterData)
+        : updateWaterOperation({ id: modalData.id, data: waterData });
+
+    dispatch(action)
+      .then(({ error }) => {
+        if (!error) {
+          toast.success("Operation successful!");
+          onClose();
+        } else {
+          toast.error("An error occurred. Please try again.");
+        }
+      })
+      .catch(() => {
+        toast.error("Dispatch failed. Please try again.");
+      });
   };
 
   return (
@@ -109,7 +139,7 @@ const WaterForm = ({ source, isOpen, modalData, onSubmit }) => {
         <label className={css.fieldSubtitle} htmlFor="volume">
           Enter the value of the water used:
         </label>
-              <Controller
+        <Controller
           name="volume"
           control={control}
           render={({ field }) => (
