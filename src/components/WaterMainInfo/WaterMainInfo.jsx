@@ -10,7 +10,9 @@ import bottleImageTablet from "../../assets/images/bottle-image-tab-min.png";
 import bottleImageDesktop from "../../assets/images/bottle-image-desk-min.png";
 
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
+import { selectDailyData } from "../../redux/water/selectors.js";
 const getImageSource = () => {
   if (window.innerWidth >= 1440) {
     return bottleImageDesktop;
@@ -21,9 +23,13 @@ const getImageSource = () => {
   }
 };
 
-const WaterMainInfo = () => {
+const WaterMainInfo = ({ payload }) => {
   const [imageSource, setImageSource] = useState(getImageSource());
 
+  const amount = useSelector(selectDailyData);
+  const norm = useSelector(selectDailyData);
+  const waterData = amount * 1000;
+  const date = payload?.date || new Date();
   useEffect(() => {
     const handleSize = () => {
       setImageSource(getImageSource());
@@ -40,11 +46,7 @@ const WaterMainInfo = () => {
     <div className={s.water_main_info}>
       <img src={imageSource} alt="water-icon" className={s.water_icon} />
       <WaterDailyNorma />
-      <WaterProgressBar
-        consumed={800}
-        waterDailyNorma={1500}
-        date="2025-01-11"
-      />
+      <WaterProgressBar amount={waterData} norm={norm} date={date} />
       <AddWaterBtn />
     </div>
   );

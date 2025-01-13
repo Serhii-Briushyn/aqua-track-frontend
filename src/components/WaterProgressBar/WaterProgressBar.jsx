@@ -3,13 +3,13 @@
 import styles from "./WaterProgressBar.module.css";
 import { useEffect, useState } from "react";
 
-const WaterProgressBar = ({ consumed, waterDailyNorma, date }) => {
+const WaterProgressBar = ({ amount, norm, date }) => {
   const [waterLevel, setWaterLevel] = useState(0);
   const [formattedDate, setFormattedDate] = useState("");
   const [isMoving, setIsMoving] = useState(false);
 
   useEffect(() => {
-    const progress = (consumed / waterDailyNorma) * 100;
+    const progress = ((amount / norm) * 100).toFixed(2);
     const boundedProgress = Math.min(progress, 100);
     setWaterLevel(boundedProgress);
 
@@ -33,7 +33,7 @@ const WaterProgressBar = ({ consumed, waterDailyNorma, date }) => {
     } else {
       setFormattedDate(inputDate.toLocaleDateString(navigator.language));
     }
-  }, [consumed, waterDailyNorma, date]);
+  }, [amount, norm, date]);
 
   const handleCircleMove = () => {
     setIsMoving(true);
