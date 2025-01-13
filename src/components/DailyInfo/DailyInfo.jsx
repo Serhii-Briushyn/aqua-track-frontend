@@ -1,5 +1,4 @@
-import AddWaterBtn from "../AddWaterBtn/AddWaterBtn";
-import ChooseDate from "../ChooseDate/ChooseDate";
+import AddWaterBtn from "./AddWaterBtn/AddWaterBtn.jsx";
 import WaterList from "../WaterList/WaterList";
 import css from "./DailyInfo.module.css";
 const DailyInfo = () => {
