@@ -3,6 +3,7 @@ import {useState} from "react";
 import css from "./MonthInfo.module.css";
 import CalendarPagination from "../CalendarPagination/CalendarPagination.jsx";
 import icons from "../../assets/icons/icons.svg";
+import Chart from "../Chart/Chart.jsx";
 
 const MonthInfo = () => {
 	const [isCalendarView, setIsCalendarView] = useState(true);
@@ -23,9 +24,9 @@ const MonthInfo = () => {
 					<CalendarPagination
 						selectedDate={selectedDate}
 						currentMonth={currentMonth}
-            handleMonthChange={changeMonth}
+						handleMonthChange={changeMonth}
 					/>
-					<button className={css.toggleView} >
+					<button className={css.toggleView}>
 						<svg>
 							<use href={`${icons}#icon-chart`}/>
 						</svg>
@@ -41,6 +42,13 @@ const MonthInfo = () => {
 				/>
 				: null
 			}
+			<br/>
+			<br/>
+
+			(Temporary here)
+			<br/>
+			<br/>
+			<Chart/>
 		</div>
 	);
 };
