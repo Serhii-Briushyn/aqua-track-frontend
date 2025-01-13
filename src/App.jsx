@@ -33,7 +33,15 @@ function App() {
       <Suspense fallback={<Loader />}>
         <Routes>
           <Route path="/" element={<SharedLayout />}>
-            <Route index element={<HomePage />} />
+            <Route
+              path="/"
+              element={
+                <RestrictedRoute
+                  component={<HomePage />}
+                  redirectTo="/tracker"
+                />
+              }
+            />
             <Route
               path="signup"
               element={
