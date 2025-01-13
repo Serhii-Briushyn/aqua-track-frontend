@@ -1,4 +1,7 @@
 import { useEffect } from "react";
+import ReactDOM from "react-dom";
+
+import icons from "../../assets/icons/icons.svg";
 
 import css from "./Modal.module.css";
 
@@ -11,12 +14,15 @@ const Modal = ({ isOpen, onClose, children }) => {
     };
 
     if (isOpen) {
+      document.body.style.overflow = "hidden";
       document.addEventListener("keydown", handleKeyDown);
     } else {
+      document.body.style.overflow = "";
       document.removeEventListener("keydown", handleKeyDown);
     }
 
     return () => {
+      document.body.style.overflow = "";
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, [isOpen, onClose]);
@@ -25,17 +31,18 @@ const Modal = ({ isOpen, onClose, children }) => {
     return null;
   }
 
-  return (
+  return ReactDOM.createPortal(
     <div className={css.overlay} onClick={onClose}>
       <div className={css.window} onClick={(e) => e.stopPropagation()}>
         <button className={css.button} onClick={onClose}>
           <svg className={css.icon} aria-hidden="true">
-            <use xlinkHref="/src/assets/icons/icons.svg#icon-close" />
+            <use href={`${icons}#icon-close`} />
           </svg>
         </button>
         {children}
       </div>
-    </div>
+    </div>,
+    document.getElementById("modal-root")
   );
 };
 

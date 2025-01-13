@@ -47,7 +47,7 @@
   height: 15px;
   background-color: #323f47;
   font-size: 9px;
-  color: var#fff;
+  color: #fff;
   border-radius: 30px;
   z-index: 5;
   position: absolute;
@@ -58,7 +58,7 @@
 
 .customer {
   border-radius: 50%;
-  border: 2px solid #fff;
+  border: 2px solid transparent;
   object-fit: cover;
   margin-left: -8px;
 }

@@ -1,9 +1,15 @@
 import axios from "axios";
 
 export const aquaTrackApi = axios.create({
-  baseURL: "http://localhost:3000",
+  // baseURL: "https://aqua-track-backend-4vct.onrender.com",
+  baseURL: "https://aqua-track-backend-4vct.onrender.com",
   withCredentials: true,
   headers: {
     "Content-Type": "application/json",
   },
+});
+
+export const publicApi = axios.create({
+  baseURL: "https://aqua-track-backend-4vct.onrender.com",
+  withCredentials: false,
 });

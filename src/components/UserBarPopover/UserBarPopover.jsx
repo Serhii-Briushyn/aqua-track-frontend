@@ -1,10 +1,22 @@
-import LogOutModal from "../LogOutModal/LogOutModal";
-import UserSettingsModal from "../UserSettingsModal/UserSettingsModal";
+import { useState } from "react";
 import { FiSettings, FiLogOut } from "react-icons/fi";
+
+import LogOutModal from "../LogOutModal/LogOutModal";
+// import UserSettingsModal from "../UserSettingsModal/UserSettingsModal";
 
 import css from "./UserBarPopover.module.css";
 
 const UserBarPopover = () => {
+  const [activeModal, setActiveModal] = useState(null);
+
+  const openModal = (modalType) => {
+    setActiveModal(modalType);
+  };
+
+  const closeModal = () => {
+    setActiveModal(null);
+  };
+
   return (
     <div className={css.userBarPopover}>
       <ul>
@@ -15,14 +27,16 @@ const UserBarPopover = () => {
           </button>
         </li>
         <li>
-          <button className={css.logout} onClick={() => {}}>
+          <button className={css.logout} onClick={() => openModal("LogOut")}>
             <FiLogOut />
             <span className={css.btnTxt}>Log out</span>
           </button>
         </li>
       </ul>
       {/*<UserSettingsModal />*/}
-      {/*<LogOutModal />*/}
+      {activeModal === "LogOut" && (
+        <LogOutModal isOpen={true} onClose={closeModal} />
+      )}
     </div>
   );
 };

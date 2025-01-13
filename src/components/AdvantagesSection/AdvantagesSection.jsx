@@ -1,11 +1,8 @@
 import s from "./AdvantagesSection.module.css";
 import { selectUserCount, selectIsLoading } from "../../redux/auth/selectors";
-import {
-  // useDispatch,
-  useSelector
-} from "react-redux";
-// import { useEffect } from "react";
-// import { getUserCount } from "../../redux/auth/operations";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getUserCount } from "../../redux/auth/operations";
 import Loader from "../Loader/Loader";
 import icons from "../../assets/icons/icons.svg";
 
@@ -21,14 +18,17 @@ import cust3Mob from "../../assets/images/3-customers-mob-min.png";
 import cust3Mob2x from "../../assets/images/3-customers-mob@2x-min.png";
 import cust3Tab from "../../assets/images/3-customers-desk-tab-min.png";
 import cust3Tab2x from "../../assets/images/3-customers-desk-tab@2x-min.png";
+
 const AdvantagesSection = () => {
   const usersCount = useSelector(selectUserCount);
   const usersLoading = useSelector(selectIsLoading);
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(getUserCount());
-  // }, [dispatch]);
+  useEffect(() => {
+    if (usersCount === null) {
+      dispatch(getUserCount());
+    }
+  }, [dispatch, usersCount]);
 
   return (
     <div className={s.main}>
