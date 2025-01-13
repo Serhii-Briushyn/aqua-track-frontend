@@ -1,0 +1,33 @@
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  min-width: 184px;
+}
+
+@media screen and (max-width: 768px) {
+  .pagination {
+    min-width: 150px;
+  }
+}
+
+.pagination .arrowBtn {
+  width: 22px;
+  height: 22px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.pagination .date {
+  font-family: Poppins, sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 23px;
+  color: #323F47;
+}
+
+@media screen and (max-width: 768px) {
+  .pagination .date {
+    font-size: 13px;
+  }
+}
