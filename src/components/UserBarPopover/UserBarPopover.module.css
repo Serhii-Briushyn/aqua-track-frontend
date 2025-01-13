@@ -1,34 +1,211 @@
-.userBarPopover {
-  position: absolute;
-  right: 0;
-  min-width: 156px;
-  padding: 14px 20px;
-  background: #fff;
+.wrapper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  gap: 8px;
   border-radius: 15px;
-  transform: translateY(100%);
+  padding: 14px 20px;
+  box-shadow: 0 4px 50px 0 rgba(0, 0, 0, 0.1);
+  background-color: var(--white);
+  width: fit-content;
+  position: absolute;
 }
-
-.setting,
-.logout {
+.btnSet,
+.btnLogOut {
+  background-color: inherit;
+  border: none;
   display: flex;
   align-items: center;
-  font-family: Poppins, sans-serif;
-  background: none;
-  border: none;
-  font-size: 15px;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: 8px;
   font-weight: 700;
-  cursor: pointer;
+  font-size: 14px;
+  line-height: 129%;
+  color: var(--main);
 }
-
-.setting {
-  color: #323f47;
-  margin-bottom: 8px;
-}
-
-.logout {
+.btnLogOut {
   color: rgba(50, 63, 71, 0.4);
+  fill: var(--white);
+  stroke: rgba(50, 63, 71, 0.4);
+  transition: var(--transition-color-color);
+}
+.btnLogOut:hover {
+  color: var(--color-font-main);
+  stroke: var(--color-font-main);
+}
+.wrapIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 16px;
+  height: 16px;
 }
 
-.btnTxt {
-  margin-left: 8px;
+.icon {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: var(--color-font-main);
+}
+
+.iconLog {
+  width: 16px;
+  height: 16px;
+}
+
+@media screen and (min-width: 768px) {
+  .btnSet,
+  .btnLogOut {
+    font-size: 15px;
+    line-height: 149%;
+  }
+}
+
+.modal {
+  display: block;
+}
+.overlay {
+  background-color: rgba(47, 47, 47, 0.6);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.btn {
+  border: none;
+  background-color: transparent;
+  position: absolute;
+  color: #2f2f2f;
+  right: 16px;
+  top: 20px;
+  padding: 0;
+  line-height: 0;
+  transition: all var(--transition-color-color);
+}
+
+.btn:hover {
+  color: red;
+  filter: drop-shadow(0 0 0.75rem crimson);
+}
+.info {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: 290px;
+  background-color: var(--white);
+  border-radius: 15px;
+  box-shadow: 0px 4px 50px 0px rgba(0, 0, 0, 0.1);
+  /* padding: 40px 14px; */
+}
+.svg {
+  stroke-width: 0.5;
+  font-size: 24px;
+}
+
+@media screen and (min-width: 343px) {
+  .btn {
+    right: 20px;
+  }
+  .info {
+    /* padding: 40px; */
+    max-width: 320px;
+  }
+}
+
+@media screen and (min-width: 360px) {
+  .info {
+    max-width: 343px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .btn {
+    right: 20px;
+  }
+  .info {
+    /* padding: 40px; */
+    max-width: 518px;
+  }
+  .svg {
+    font-size: 28px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .info {
+    max-width: 518px;
+  }
+}
+
+.modal {
+  display: fixed;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 375px;
+  max-height: 90%;
+  padding: 40px 20px;
+  box-shadow: 0 4px 50px 0 rgba(0, 0, 0, 0.1);
+  background: var(--white);
+  border-radius: 15px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  border: none;
+  scrollbar-width: none;
+}
+
+.modal:focus {
+  outline: none;
+}
+
+.overlay {
+  background-color: rgba(47, 47, 47, 0.6);
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 20px;
+  right: 16px;
+  border: none;
+  background: none;
+}
+
+.closeBtnSvg {
+  width: 24px;
+  height: 24px;
+  stroke: var(--color-font-second);
+}
+
+@media screen and (min-width: 768px) {
+  .modal {
+    max-width: 648px;
+    padding: 40px;
+  }
+
+  .title {
+    font-size: 28px;
+    line-height: 114%;
+  }
+
+  .closeBtnSvg {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .modal {
+    max-width: 920px;
+  }
 }
