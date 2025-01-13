@@ -1,6 +1,7 @@
 import { lazy, Suspense, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Toaster } from "react-hot-toast";
 
 import { PrivateRoute } from "./components/PrivateRoute";
 import { RestrictedRoute } from "./components/RestrictedRoute";
@@ -25,47 +26,47 @@ function App() {
     startTokenRefreshInterval();
   }, []);
 
-  return (
+  return IsLoading ? (
+    <Loader />
+  ) : (
     <>
-      {IsLoading ? (
-        <Loader />
-      ) : (
-        <Suspense fallback={<Loader />}>
-          <Routes>
-            <Route path="/" element={<SharedLayout />}>
-              <Route index element={<HomePage />} />
-              <Route
-                path="signup"
-                element={
-                  <RestrictedRoute
-                    component={<SignUpPage />}
-                    redirectTo="/tracker"
-                  />
-                }
-              />
-              <Route
-                path="signin"
-                element={
-                  <RestrictedRoute
-                    component={<SignInPage />}
-                    redirectTo="/tracker"
-                  />
-                }
-              />
-              <Route
-                path="tracker"
-                element={
-                  <PrivateRoute
-                    component={<TrackerPage />}
-                    redirectTo="/signin"
-                  />
-                }
-              />
-            </Route>
-            <Route path="*" element={<NotFoundPage />} />
-          </Routes>
-        </Suspense>
-      )}
+      <Suspense fallback={<Loader />}>
+        <Routes>
+          <Route path="/" element={<SharedLayout />}>
+            <Route index element={<HomePage />} />
+            <Route
+              path="signup"
+              element={
+                <RestrictedRoute
+                  component={<SignUpPage />}
+                  redirectTo="/tracker"
+                />
+              }
+            />
+            <Route
+              path="signin"
+              element={
+                <RestrictedRoute
+                  component={<SignInPage />}
+                  redirectTo="/tracker"
+                />
+              }
+            />
+            <Route
+              path="tracker"
+              element={
+                <PrivateRoute
+                  component={<TrackerPage />}
+                  redirectTo="/signin"
+                />
+              }
+            />
+          </Route>
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </Suspense>
+
+      <Toaster position="top-right" reverseOrder={false} />
     </>
   );
 }

@@ -5,7 +5,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import toast from "react-hot-toast";
 import * as Yup from "yup";
 
-import { logIn } from "../../redux/auth/operations.js";
+import { login } from "../../redux/auth/operations.js";
 import { selectIsLoading } from "../../redux/auth/selectors.js";
 import Loader from "../Loader/Loader.jsx";
 
@@ -32,7 +32,7 @@ const SignInForm = () => {
   };
 
   const handleSubmit = (values, { setSubmitting, resetForm }) => {
-    dispatch(logIn(values))
+    dispatch(login(values))
       .unwrap()
       .then(() => {
         resetForm();

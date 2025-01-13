@@ -1,12 +1,15 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { aquaTrackApi } from "../../services/apiClient";
+import { aquaTrackApi, publicApi } from "../../services/apiClient";
+
+import { stopTokenRefreshInterval } from "../../utils/tokenRefresh";
 
 // -------------------- Error Handling Function --------------------
 
 const handleApiError = (error, thunkAPI) => {
   if (error.response) {
     const backendMessage =
-      error.response.data?.message || "An error occurred. Please try again.";
+      error.response.data?.data?.message ||
+      "An error occurred. Please try again.";
     return thunkAPI.rejectWithValue(backendMessage);
   }
 
@@ -75,7 +78,7 @@ export const register = createAsyncThunk(
 
 // -------------------- Log In User Thunk --------------------
 
-export const logIn = createAsyncThunk(
+export const login = createAsyncThunk(
   "users/login",
   async (credentials, thunkAPI) => {
     try {
@@ -93,6 +96,7 @@ export const logIn = createAsyncThunk(
 export const logout = createAsyncThunk("users/logout", async (_, thunkAPI) => {
   try {
     await aquaTrackApi.post("/users/logout");
+    stopTokenRefreshInterval();
     localStorage.removeItem("accessToken");
   } catch (error) {
     return handleApiError(error, thunkAPI);
@@ -137,10 +141,10 @@ export const updatePassword = createAsyncThunk(
 // -------------------- Get User Count Thunk --------------------
 
 export const getUserCount = createAsyncThunk(
-  "user/getUserCount",
+  "getUserCount",
   async (_, thunkAPI) => {
     try {
-      const response = await aquaTrackApi.get("/users/count");
+      const response = await publicApi.get("/users/count");
       return response.data;
     } catch (error) {
       return handleApiError(error, thunkAPI);

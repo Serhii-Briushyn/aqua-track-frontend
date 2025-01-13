@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   register,
-  logIn,
+  login,
   logout,
   updateUser,
   updatePassword,
@@ -43,23 +43,23 @@ const userSlice = createSlice({
       })
       .addCase(register.rejected, (state, action) => {
         state.isLoading = false;
-        state.isError = action.payload.message;
+        state.isError = action.payload;
       });
 
     // -------------------- Log In --------------------
     builder
-      .addCase(logIn.pending, (state) => {
+      .addCase(login.pending, (state) => {
         state.isLoading = true;
         state.isError = null;
       })
-      .addCase(logIn.fulfilled, (state, action) => {
+      .addCase(login.fulfilled, (state, action) => {
         state.isLoading = false;
         state.user = action.payload.data.user;
         state.isLoggedIn = true;
       })
-      .addCase(logIn.rejected, (state, action) => {
+      .addCase(login.rejected, (state, action) => {
         state.isLoading = false;
-        state.isError = action.payload.message;
+        state.isError = action.payload;
       });
 
     // -------------------- Logout --------------------
@@ -75,7 +75,7 @@ const userSlice = createSlice({
       })
       .addCase(logout.rejected, (state, action) => {
         state.isLoading = false;
-        state.isError = action.payload.message;
+        state.isError = action.payload;
       });
 
     // -------------------- Update User --------------------
@@ -90,7 +90,7 @@ const userSlice = createSlice({
       })
       .addCase(updateUser.rejected, (state, action) => {
         state.isLoading = false;
-        state.isError = action.payload.message;
+        state.isError = action.payload;
       });
 
     // -------------------- Update Password --------------------
@@ -104,7 +104,7 @@ const userSlice = createSlice({
       })
       .addCase(updatePassword.rejected, (state, action) => {
         state.isLoading = false;
-        state.isError = action.payload.message;
+        state.isError = action.payload;
       });
 
     // -------------------- Get User Count --------------------
@@ -119,7 +119,7 @@ const userSlice = createSlice({
       })
       .addCase(getUserCount.rejected, (state, action) => {
         state.isLoading = false;
-        state.isError = action.payload.message;
+        state.isError = action.payload;
       });
 
     // -------------------- Send Reset Password Email --------------------
@@ -133,7 +133,7 @@ const userSlice = createSlice({
       })
       .addCase(sendResetPasswordEmail.rejected, (state, action) => {
         state.isLoading = false;
-        state.isError = action.payload.message;
+        state.isError = action.payload;
       });
 
     // -------------------- Reset Password --------------------
@@ -147,7 +147,7 @@ const userSlice = createSlice({
       })
       .addCase(resetPassword.rejected, (state, action) => {
         state.isLoading = false;
-        state.isError = action.payload.message;
+        state.isError = action.payload;
       });
 
     // -------------------- Get Google OAuth URL --------------------
@@ -162,7 +162,7 @@ const userSlice = createSlice({
       })
       .addCase(getGoogleOAuthUrl.rejected, (state, action) => {
         state.isLoading = false;
-        state.isError = action.payload.message;
+        state.isError = action.payload;
       });
 
     // -------------------- Login With Google --------------------
@@ -178,7 +178,7 @@ const userSlice = createSlice({
       })
       .addCase(loginWithGoogle.rejected, (state, action) => {
         state.isLoading = false;
-        state.isError = action.payload.message;
+        state.isError = action.payload;
       });
   },
 });

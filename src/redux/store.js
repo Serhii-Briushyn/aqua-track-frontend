@@ -15,7 +15,7 @@ import { authReducer } from "./auth/slice";
 import { waterReducer } from "./water/slice";
 
 const authPersistConfig = {
-  key: "auth",
+  key: "user",
   storage,
   whitelist: ["isLoggedIn"],
 };

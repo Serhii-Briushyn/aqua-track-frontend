@@ -25,10 +25,10 @@ const AdvantagesSection = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!usersLoading && usersCount === null) {
+    if (usersCount === null) {
       dispatch(getUserCount());
     }
-  }, [dispatch, usersLoading, usersCount]);
+  }, [dispatch, usersCount]);
 
   return (
     <div className={s.main}>
