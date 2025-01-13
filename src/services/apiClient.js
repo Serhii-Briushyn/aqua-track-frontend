@@ -11,5 +11,7 @@ export const aquaTrackApi = axios.create({
 
 export const publicApi = axios.create({
   baseURL: "https://aqua-track-backend-4vct.onrender.com",
-  withCredentials: false,
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
