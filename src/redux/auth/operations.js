@@ -152,16 +152,15 @@ export const getUserCount = createAsyncThunk(
   }
 );
 
-// -------------------- Send Reset Password Email Thunk --------------------
+// -------------------- Forgot Password Thunk --------------------
 
-export const sendResetPasswordEmail = createAsyncThunk(
-  "user/sendResetPasswordEmail",
-  async (email, thunkAPI) => {
+export const forgotPassword = createAsyncThunk(
+  "user/forgotPassword",
+  async (values, thunkAPI) => {
     try {
-      const response = await aquaTrackApi.post(
-        "/users/reset-password-request",
-        { email }
-      );
+      const response = await aquaTrackApi.post("/users/forgot-password", {
+        email: values.email,
+      });
       return response.data;
     } catch (error) {
       return handleApiError(error, thunkAPI);

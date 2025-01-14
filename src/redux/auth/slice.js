@@ -6,7 +6,7 @@ import {
   updateUser,
   updatePassword,
   getUserCount,
-  sendResetPasswordEmail,
+  forgotPassword,
   resetPassword,
   getGoogleOAuthUrl,
   loginWithGoogle,
@@ -124,14 +124,14 @@ const userSlice = createSlice({
 
     // -------------------- Send Reset Password Email --------------------
     builder
-      .addCase(sendResetPasswordEmail.pending, (state) => {
+      .addCase(forgotPassword.pending, (state) => {
         state.isLoading = true;
         state.isError = null;
       })
-      .addCase(sendResetPasswordEmail.fulfilled, (state) => {
+      .addCase(forgotPassword.fulfilled, (state) => {
         state.isLoading = false;
       })
-      .addCase(sendResetPasswordEmail.rejected, (state, action) => {
+      .addCase(forgotPassword.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = action.payload;
       });

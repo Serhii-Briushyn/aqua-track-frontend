@@ -17,6 +17,12 @@ import "./App.css";
 const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
 const SignInPage = lazy(() => import("./pages/SignInPage/SignInPage"));
 const SignUpPage = lazy(() => import("./pages/SignUpPage/SignUpPage"));
+const ResetPasswordPage = lazy(() =>
+  import("./pages/ResetPasswordPage/ResetPasswordPage")
+);
+const ForgotPasswordPage = lazy(() =>
+  import("./pages/ForgotPasswordPage/ForgotPasswordPage")
+);
 const TrackerPage = lazy(() => import("./pages/TrackerPage/TrackerPage"));
 
 function App() {
@@ -61,12 +67,27 @@ function App() {
               }
             />
             <Route
+              path="forgot-password"
+              element={
+                <RestrictedRoute
+                  component={<ForgotPasswordPage />}
+                  redirectTo="/forgot-password"
+                />
+              }
+            />
+            <Route
+              path="reset-password"
+              element={
+                <RestrictedRoute
+                  component={<ResetPasswordPage />}
+                  redirectTo="/tracker"
+                />
+              }
+            />
+            <Route
               path="tracker"
               element={
-                <PrivateRoute
-                  component={<TrackerPage />}
-                  redirectTo="/signin"
-                />
+                <PrivateRoute component={<TrackerPage />} redirectTo="/" />
               }
             />
           </Route>
