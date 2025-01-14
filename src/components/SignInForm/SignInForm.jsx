@@ -128,6 +128,19 @@ const SignInForm = () => {
           </Formik>
           <div className={css.footerContent}>
             <p className={css.text}>
+              Or sign in with{" "}
+              <button>
+                <div className={css.googleStyle}>
+                  <span className={css.g}>G</span>
+                  <span className={css.o}>o</span>
+                  <span className={css.o2}>o</span>
+                  <span className={css.g2}>g</span>
+                  <span className={css.l}>l</span>
+                  <span className={css.e}>e</span>
+                </div>
+              </button>
+            </p>
+            <p className={css.text}>
               Don&apos;t have an account?{" "}
               <NavLink to="/signup" className={css.link}>
                 Sign Up

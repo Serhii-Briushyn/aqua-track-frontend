@@ -38,7 +38,10 @@ const SignUpForm = () => {
   const [showPasswordRepeat, setShowPasswordRepeat] = useState(false);
 
   const handleSubmit = (values, { setSubmitting, resetForm }) => {
-    dispatch(register(values))
+    const requestData = { ...values }; 
+    delete requestData.repeatPassword;
+
+    dispatch(register(requestData))
       .unwrap()
       .then(() => {
         resetForm();

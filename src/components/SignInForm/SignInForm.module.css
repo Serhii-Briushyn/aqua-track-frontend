@@ -167,7 +167,34 @@
   color: #2f2f2f;
   cursor: pointer;
 }
+.google-style {
+  font-size: 48px;
+  font-weight: 700;
+}
 
+.g {
+  color: #4285f4;
+}
+
+.o {
+  color: #ea4335;
+}
+
+.o2 {
+  color: #fbbc05;
+}
+
+.g2 {
+  color: #4285f4;
+}
+
+.l {
+  color: #34a853;
+}
+
+.e {
+  color: #ea4335;
+}
 @media screen and (min-width: 768px) {
   .container {
     min-height: 960px;
