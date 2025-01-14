@@ -7,9 +7,9 @@ export function startTokenRefreshInterval() {
 
   refreshInterval = setInterval(async () => {
     try {
-      const refreshResponse = await aquaTrackApi.post("/auth/refresh");
+      const response = await aquaTrackApi.post("/users/refresh");
 
-      const { accessToken } = refreshResponse.data.data;
+      const accessToken = response.data.data.accessToken;
 
       localStorage.setItem("accessToken", accessToken);
 

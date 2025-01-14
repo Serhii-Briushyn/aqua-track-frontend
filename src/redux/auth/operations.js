@@ -40,9 +40,9 @@ aquaTrackApi.interceptors.response.use(
     if (error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
       try {
-        const refreshResponse = await aquaTrackApi.post("/users/refresh");
+        const response = await aquaTrackApi.post("/users/refresh");
 
-        const { accessToken } = refreshResponse.data.data;
+        const accessToken = response.data.data.accessToken;
 
         localStorage.setItem("accessToken", accessToken);
 
