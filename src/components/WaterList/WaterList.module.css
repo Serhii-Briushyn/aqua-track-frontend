@@ -1,6 +1,7 @@
 .waterList {
   margin-bottom: 40px;
 }
+
 .waterItemsList {
   display: flex;
 }
@@ -8,3 +9,11 @@
 .scrollableItemContainer {
   min-width: 208px;
 }
+
+
+@media screen and (max-width: 768px) {
+  .waterList .h3 {
+    font-size: 12px;
+  }
+}
+

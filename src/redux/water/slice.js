@@ -6,7 +6,7 @@ import {
   deleteWaterOperation,
   getDailyWaterOperation,
   getMonthlyWaterOperation,
-} from "../water/operations.js";
+} from "./operations.js";
 
 const initialState = {
   waterData: [],

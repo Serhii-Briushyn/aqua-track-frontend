@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
 import {
 	Chart as ChartJS,
@@ -10,6 +10,7 @@ import {
 	Filler,
 } from "chart.js";
 import {chartOptions} from "./utils/index.js";
+import css from "./Chart.module.css";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Filler);
 
@@ -44,16 +45,15 @@ const Chart = () => {
 		if (chart) {
 			const ctx = chart.ctx;
 			const gradient = ctx.createLinearGradient(0, 0, 0, chart.height);
-			gradient.addColorStop(0, "#9BE1A0"); // Top color
+			gradient.addColorStop(0, "#9BE1A0");
 			gradient.addColorStop(1, "rgba(255, 225, 255, 0)");
 			setGradientBackground(gradient);
 		}
 	}, []);
 
 	return (
-		<div style={{ width: "100%", height: "274px", margin: "0 auto" }}>
+		<div className={css.chart}>
 			<Line ref={chartRef} data={data} options={chartOptions} />
-
 		</div>
 	);
 };

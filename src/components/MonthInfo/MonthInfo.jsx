@@ -5,16 +5,8 @@ import CalendarPagination from "../CalendarPagination/CalendarPagination.jsx";
 import icons from "../../assets/icons/icons.svg";
 import Chart from "../Chart/Chart.jsx";
 
-const MonthInfo = () => {
+const MonthInfo = ({ monthlyData, selectedDate, currentMonth, onChangeMonth, onChangeDate }) => {
 	const [isCalendarView, setIsCalendarView] = useState(true);
-	const [selectedDate, setSelectedDate] = useState(new Date());
-	const [currentMonth, setCurrentMonth] = useState(new Date());
-
-	const changeMonth = (direction) => {
-		const newDate = new Date(currentMonth);
-		newDate.setMonth(currentMonth.getMonth() + direction); // Change month by +1 or -1
-		setCurrentMonth(newDate);
-	};
 
 	return (
 		<div className={css.monthInfo}>
@@ -24,7 +16,7 @@ const MonthInfo = () => {
 					<CalendarPagination
 						selectedDate={selectedDate}
 						currentMonth={currentMonth}
-						handleMonthChange={changeMonth}
+						handleMonthChange={onChangeMonth}
 					/>
 					<button
 						className={css.toggleView}
@@ -40,8 +32,9 @@ const MonthInfo = () => {
 				<Calendar
 					currentMonth={currentMonth}
 					selectedDate={selectedDate}
-					changeMonth={changeMonth}
-					onDateSelect={(date) => setSelectedDate(date)}
+					changeMonth={onChangeMonth}
+					monthValues={monthlyData}
+					onDateSelect={(date) => onChangeDate(date)}
 				/>
 				:
 				<Chart/>
