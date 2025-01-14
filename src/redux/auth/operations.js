@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { aquaTrackApi, publicApi } from "../../services/apiClient";
+import { aquaTrackApi } from "../../services/apiClient";
 
 import { stopTokenRefreshInterval } from "../../utils/tokenRefresh";
 
@@ -144,7 +144,7 @@ export const getUserCount = createAsyncThunk(
   "getUserCount",
   async (_, thunkAPI) => {
     try {
-      const response = await publicApi.get("/users/count");
+      const response = await aquaTrackApi.get("/users/count");
       return response.data;
     } catch (error) {
       return handleApiError(error, thunkAPI);
