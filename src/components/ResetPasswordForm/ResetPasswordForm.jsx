@@ -1,27 +1,22 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import toast from "react-hot-toast";
 import * as Yup from "yup";
 
-import { register } from "../../redux/auth/operations";
+import { resetPassword } from "../../redux/auth/operations";
 import { selectIsLoading } from "../../redux/auth/selectors";
 import Loader from "../Loader/Loader";
 
 import icons from "../../assets/icons/icons.svg";
-import s from "./SignUpForm.module.css";
+import ccs from "./ResetPasswordForm.module.css";
 
 const initialValues = {
-  email: "",
   password: "",
   repeatPassword: "",
 };
 
 const validationSchema = Yup.object({
-  email: Yup.string()
-    .email("Invalid email address")
-    .required("Email is required"),
   password: Yup.string()
     .min(6, "Must contain at least 6 characters")
     .max(64, "Password can't be longer than 64 characters")
@@ -31,14 +26,19 @@ const validationSchema = Yup.object({
     .required("Repeat password is required"),
 });
 
-const SignUpForm = () => {
+const ResetPasswordForm = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordRepeat, setShowPasswordRepeat] = useState(false);
 
+  const token = new URLSearchParams(location.search).get("token");
+  if (!token) {
+    console.error("Token is missing in the URL");
+    return <p>Invalid or missing token.</p>;
+  }
   const handleSubmit = (values, { setSubmitting, resetForm }) => {
-    dispatch(register(values))
+    dispatch(resetPassword({ token, newPassword: values.password }))
       .unwrap()
       .then(() => {
         resetForm();
@@ -61,40 +61,24 @@ const SignUpForm = () => {
   return (
     <>
       {isLoading && <Loader />}
-      <div className={s.container}>
-        <div className={s.content}>
-          <h2 className={s.title}>Sign Up</h2>
+      <div className={ccs.container}>
+        <div className={ccs.content}>
+          <h2 className={ccs.title}>Reset Password</h2>
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
             onSubmit={handleSubmit}
           >
             {({ errors, touched, isSubmitting }) => (
-              <Form className={s.form} autoComplete="off">
-                <label className={s.label}>
-                  <span className={s.span}>Email</span>
-                  <Field
-                    className={`${s.input} ${
-                      errors.email && touched.email ? s.errorInput : ""
-                    }`}
-                    type="email"
-                    name="email"
-                    placeholder="Enter your email"
-                    autoComplete="email"
-                  />
-                  <ErrorMessage
-                    name="email"
-                    component="div"
-                    className={s.errorMessage}
-                  />
-                </label>
-
-                <label className={s.label}>
-                  <span className={s.span}>Password</span>
-                  <div className={s.passwordContainer}>
+              <Form className={ccs.form} autoComplete="off">
+                <label className={ccs.label}>
+                  <span className={ccs.span}>New password</span>
+                  <div className={ccs.passwordContainer}>
                     <Field
-                      className={`${s.input} ${
-                        errors.password && touched.password ? s.errorInput : ""
+                      className={`${ccs.input} ${
+                        errors.password && touched.password
+                          ? ccs.errorInput
+                          : ""
                       }`}
                       type={showPassword ? "text" : "password"}
                       name="password"
@@ -103,11 +87,11 @@ const SignUpForm = () => {
                     />
                     <button
                       type="button"
-                      className={s.toggleButton}
+                      className={ccs.toggleButton}
                       onClick={togglePasswordVisibility}
                       aria-label="Toggle password visibility"
                     >
-                      <svg className={s.icon}>
+                      <svg className={ccs.icon}>
                         <use
                           href={`${icons}#${
                             showPassword ? "icon-view" : "icon-hide"
@@ -119,17 +103,17 @@ const SignUpForm = () => {
                   <ErrorMessage
                     name="password"
                     component="div"
-                    className={s.errorMessage}
+                    className={ccs.errorMessage}
                   />
                 </label>
 
-                <label className={s.label}>
-                  <span className={s.span}>Repeat password</span>
-                  <div className={s.passwordContainer}>
+                <label className={ccs.label}>
+                  <span className={ccs.span}>Repeat password</span>
+                  <div className={ccs.passwordContainer}>
                     <Field
-                      className={`${s.input} ${
+                      className={`${ccs.input} ${
                         errors.repeatPassword && touched.repeatPassword
-                          ? s.errorInput
+                          ? ccs.errorInput
                           : ""
                       }`}
                       type={showPasswordRepeat ? "text" : "password"}
@@ -139,11 +123,11 @@ const SignUpForm = () => {
                     />
                     <button
                       type="button"
-                      className={s.toggleButton}
+                      className={ccs.toggleButton}
                       onClick={togglePasswordRVisibility}
                       aria-label="Toggle password visibility"
                     >
-                      <svg className={s.icon}>
+                      <svg className={ccs.icon}>
                         <use
                           href={`${icons}#${
                             showPasswordRepeat ? "icon-view" : "icon-hide"
@@ -155,32 +139,24 @@ const SignUpForm = () => {
                   <ErrorMessage
                     name="repeatPassword"
                     component="div"
-                    className={s.errorMessage}
+                    className={ccs.errorMessage}
                   />
                 </label>
 
                 <button
-                  className={s.button}
+                  className={ccs.button}
                   type="submit"
                   disabled={isSubmitting}
                 >
-                  Sing up
+                  Confirm
                 </button>
               </Form>
             )}
           </Formik>
-          <div className={s.footerContent}>
-            <p className={s.text}>
-              Already have account?{" "}
-              <NavLink to="/signin" className={s.link} type="submit">
-                Sign In
-              </NavLink>
-            </p>
-          </div>
         </div>
       </div>
     </>
   );
 };
 
-export default SignUpForm;
+export default ResetPasswordForm;

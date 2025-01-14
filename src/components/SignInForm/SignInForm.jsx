@@ -9,8 +9,13 @@ import { login } from "../../redux/auth/operations.js";
 import { selectIsLoading } from "../../redux/auth/selectors.js";
 import Loader from "../Loader/Loader.jsx";
 
-import css from "./SignInForm.module.css";
 import icons from "../../assets/icons/icons.svg";
+import css from "./SignInForm.module.css";
+
+const initialValues = {
+  email: "",
+  password: "",
+};
 
 const validationSchema = Yup.object({
   email: Yup.string()
@@ -26,10 +31,6 @@ const SignInForm = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
   const [showPassword, setShowPassword] = useState(false);
-  const initialValues = {
-    email: "",
-    password: "",
-  };
 
   const handleSubmit = (values, { setSubmitting, resetForm }) => {
     dispatch(login(values))
@@ -50,94 +51,98 @@ const SignInForm = () => {
   };
 
   return (
-    <div className={css.container}>
+    <>
       {isLoading && <Loader />}
-      <div className={css.content}>
-        <h2 className={css.title}>Sign In</h2>
-        <Formik
-          initialValues={initialValues}
-          validationSchema={validationSchema}
-          onSubmit={handleSubmit}
-        >
-          {({ errors, touched, isSubmitting }) => (
-            <Form className={css.form} autoComplete="off">
-              <label className={css.label}>
-                <span className={css.span}>Email </span>
-                <Field
-                  className={`${css.input} ${
-                    errors.email && touched.email ? css.errorInput : ""
-                  }`}
-                  type="email"
-                  name="email"
-                  placeholder="Enter your email"
-                  autoComplete="email"
-                />
-                <ErrorMessage
-                  name="email"
-                  component="div"
-                  className={css.errorMessage}
-                />
-              </label>
-              <label className={css.label}>
-                <span className={css.span}>Password </span>
-                <div className={css.passwordContainer}>
+      <div className={css.container}>
+        <div className={css.content}>
+          <h2 className={css.title}>Sign In</h2>
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={handleSubmit}
+          >
+            {({ errors, touched, isSubmitting }) => (
+              <Form className={css.form} autoComplete="off">
+                <label className={css.label}>
+                  <span className={css.span}>Email</span>
                   <Field
                     className={`${css.input} ${
-                      errors.password && touched.password ? css.errorInput : ""
+                      errors.email && touched.email ? css.errorInput : ""
                     }`}
-                    type={showPassword ? "text" : "password"}
-                    name="password"
-                    placeholder="Enter your password"
-                    autoComplete="current-password"
+                    type="email"
+                    name="email"
+                    placeholder="Enter your email"
+                    autoComplete="email"
                   />
-                  <button
-                    type="button"
-                    className={css.toggleButton}
-                    onClick={togglePasswordVisibility}
-                    aria-label="Toggle password visibility"
-                  >
-                    <svg className={css.icon}>
-                      <use
-                        href={`${icons}#${
-                          showPassword ? "icon-view" : "icon-hide"
-                        }`}
-                      />
-                    </svg>
-                  </button>
-                </div>
-                <ErrorMessage
-                  name="password"
-                  component="div"
-                  className={css.errorMessage}
-                />
-              </label>
+                  <ErrorMessage
+                    name="email"
+                    component="div"
+                    className={css.errorMessage}
+                  />
+                </label>
+                <label className={css.label}>
+                  <span className={css.span}>Password</span>
+                  <div className={css.passwordContainer}>
+                    <Field
+                      className={`${css.input} ${
+                        errors.password && touched.password
+                          ? css.errorInput
+                          : ""
+                      }`}
+                      type={showPassword ? "text" : "password"}
+                      name="password"
+                      placeholder="Enter your password"
+                      autoComplete="current-password"
+                    />
+                    <button
+                      type="button"
+                      className={css.toggleButton}
+                      onClick={togglePasswordVisibility}
+                      aria-label="Toggle password visibility"
+                    >
+                      <svg className={css.icon}>
+                        <use
+                          href={`${icons}#${
+                            showPassword ? "icon-view" : "icon-hide"
+                          }`}
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                  <ErrorMessage
+                    name="password"
+                    component="div"
+                    className={css.errorMessage}
+                  />
+                </label>
 
-              <button
-                className={css.button}
-                type="submit"
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? "Signing in..." : "Sign in"}
-              </button>
-            </Form>
-          )}
-        </Formik>
-        <div className={css.footerContent}>
-          <p className={css.text}>
-            Don&apos;t have an account?{" "}
-            <NavLink to="/signup" className={css.link}>
-              Sign Up
-            </NavLink>
-          </p>
-          <p className={css.text}>
-            Forgot Password?{" "}
-            <NavLink to="/forgot-password" className={css.link}>
-              Reset
-            </NavLink>
-          </p>
+                <button
+                  className={css.button}
+                  type="submit"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? "Signing in..." : "Sign in"}
+                </button>
+              </Form>
+            )}
+          </Formik>
+          <div className={css.footerContent}>
+            <p className={css.text}>
+              Don&apos;t have an account?{" "}
+              <NavLink to="/signup" className={css.link}>
+                Sign Up
+              </NavLink>
+            </p>
+            <p className={css.text}>
+              Forgot Password?{" "}
+              <NavLink to="/forgot-password" className={css.link}>
+                Reset
+              </NavLink>
+            </p>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
