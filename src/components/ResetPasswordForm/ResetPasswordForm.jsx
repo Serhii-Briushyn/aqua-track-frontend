@@ -32,11 +32,9 @@ const ResetPasswordForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordRepeat, setShowPasswordRepeat] = useState(false);
 
-  const token = new URLSearchParams(location.search).get("token");
-  if (!token) {
-    console.error("Token is missing in the URL");
-    return <p>Invalid or missing token.</p>;
-  }
+  const fullToken = new URLSearchParams(location.search).get("token");
+  const token = fullToken?.split("token=")[1] || fullToken;
+
   const handleSubmit = (values, { setSubmitting, resetForm }) => {
     dispatch(resetPassword({ token, newPassword: values.password }))
       .unwrap()
