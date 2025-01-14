@@ -26,7 +26,10 @@ const MonthInfo = () => {
 						currentMonth={currentMonth}
 						handleMonthChange={changeMonth}
 					/>
-					<button className={css.toggleView}>
+					<button
+						className={css.toggleView}
+						onClick={() => setIsCalendarView(!isCalendarView)}
+					>
 						<svg>
 							<use href={`${icons}#icon-chart`}/>
 						</svg>
@@ -40,15 +43,9 @@ const MonthInfo = () => {
 					changeMonth={changeMonth}
 					onDateSelect={(date) => setSelectedDate(date)}
 				/>
-				: null
+				:
+				<Chart/>
 			}
-			<br/>
-			<br/>
-
-			(Temporary here)
-			<br/>
-			<br/>
-			<Chart/>
 		</div>
 	);
 };

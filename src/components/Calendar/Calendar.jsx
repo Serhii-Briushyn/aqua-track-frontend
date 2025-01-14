@@ -8,9 +8,9 @@ const Calendar = ({ currentMonth, selectedDate, onDateSelect }) => {
 	const monthDates = getMonthDates(currentMonth);
 
 	useEffect(() => {
-		const newValues = monthDates.map(() => Math.floor(Math.random() * 7) + 94); // Create a random value for each date
+		const newValues = monthDates.map(() => Math.floor(Math.random() * 7) + 94);
 		setMonthValues(newValues);
-	}, [currentMonth]); // Only re-run when the current month changes
+	}, [currentMonth]);
 
 	const handleDateClick = (date) => {
 		if (onDateSelect) {
