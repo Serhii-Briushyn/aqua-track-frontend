@@ -69,6 +69,7 @@ export const register = createAsyncThunk(
   async (credentials, thunkAPI) => {
     try {
       const response = await aquaTrackApi.post("/users/register", credentials);
+      localStorage.setItem("accessToken", response.data.data.accessToken);
       return response.data;
     } catch (error) {
       return handleApiError(error, thunkAPI);
