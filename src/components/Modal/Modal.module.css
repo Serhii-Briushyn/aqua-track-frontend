@@ -22,7 +22,8 @@
   box-shadow: 0 4px 50px 0 rgba(0, 0, 0, 0.1);
 }
 
-.button {
+.button,
+.userSettingsButton {
   position: absolute;
   top: 20px;
   right: 16px;
@@ -50,6 +51,11 @@
 
   .button {
     right: 20px;
+  }
+
+  .userSettingsButton {
+    top: 40px;
+    right: 40px;
   }
 
   .icon {

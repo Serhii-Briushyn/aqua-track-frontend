@@ -5,7 +5,7 @@ import icons from "../../assets/icons/icons.svg";
 
 import css from "./Modal.module.css";
 
-const Modal = ({ isOpen, onClose, children }) => {
+const Modal = ({ isOpen, onClose, children, type }) => {
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === "Escape") {
@@ -34,7 +34,12 @@ const Modal = ({ isOpen, onClose, children }) => {
   return ReactDOM.createPortal(
     <div className={css.overlay} onClick={onClose}>
       <div className={css.window} onClick={(e) => e.stopPropagation()}>
-        <button className={css.button} onClick={onClose}>
+        <button
+          className={`${css.button} ${
+            type === "userSettings" ? css.userSettingsButton : ""
+          }`}
+          onClick={onClose}
+        >
           <svg className={css.icon} aria-hidden="true">
             <use href={`${icons}#icon-close`} />
           </svg>
