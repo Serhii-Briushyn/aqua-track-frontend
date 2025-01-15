@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import Modal from "react-modal";
 import { FaUserCircle } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
 import css from "./UserSettingsForm.module.css";
@@ -8,7 +7,6 @@ import icons from "../../assets/icons/icons.svg";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
-Modal.setAppElement("#modal-root");
 
 const schema = yup.object().shape({
   name: yup.string().required("Name is required!"),
@@ -81,7 +79,7 @@ const UserSettingsForm = () => {
   };
 
   return (
-    <Modal isOpen={isOpen} onRequestClose={() => setIsOpen(false)}>
+    <>
       <form onSubmit={handleSubmit(onSubmit)} className={css.userSettingsForm}>
         <div className={css.userAvatarContainer}>
           {avatarURL ? (
@@ -200,7 +198,7 @@ const UserSettingsForm = () => {
           Save
         </button>
       </form>
-    </Modal>
+    </>
   );
 };
 
