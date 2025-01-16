@@ -1,5 +1,6 @@
 .welcome_section {
   border-radius: 30px;
+  position: relative;
   padding: 24px 16px 67px 16px;
   max-width: 343px;
   background-color: #f0eff4;
