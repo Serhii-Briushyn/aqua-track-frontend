@@ -1,16 +1,7 @@
 .wrapper {
-  position: fixed;
-  top: 5%;
-  bottom: 5%;
-  left: 50%;
-  transform: translateX(-50%);
-  max-height: 90%;
-  width: 90%;
-  overflow-y: auto;
-  background: #fff;
-  border-radius: 15px;
-  padding: 20px;
-  z-index: 1000;
+  width: 100%;
+  padding: 40px 20px;
+  text-align: left;
 }
 
 .title {
