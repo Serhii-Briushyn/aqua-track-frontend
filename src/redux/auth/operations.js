@@ -104,6 +104,20 @@ export const logout = createAsyncThunk("users/logout", async (_, thunkAPI) => {
   }
 });
 
+// -------------------- Fetch User Details Thunk --------------------
+
+export const fetchUserDetails = createAsyncThunk(
+  "user/fetchDetails",
+  async (_, thunkAPI) => {
+    try {
+      const response = await aquaTrackApi.get("/users/me");
+      return response.data;
+    } catch (error) {
+      return handleApiError(error, thunkAPI);
+    }
+  }
+);
+
 // -------------------- Update User Thunk --------------------
 
 export const updateUser = createAsyncThunk(

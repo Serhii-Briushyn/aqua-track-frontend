@@ -10,6 +10,7 @@ import {
   resetPassword,
   getGoogleOAuthUrl,
   loginWithGoogle,
+  fetchUserDetails,
 } from "./operations";
 
 const initialState = {
@@ -74,6 +75,23 @@ const userSlice = createSlice({
         state.isLoggedIn = false;
       })
       .addCase(logout.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = action.payload;
+      });
+
+    // -------------------- Fetch User --------------------
+
+    builder
+      .addCase(fetchUserDetails.pending, (state) => {
+        state.isLoading = true;
+        state.isError = null;
+      })
+      .addCase(fetchUserDetails.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.user = action.payload.data;
+        state.isLoggedIn = true;
+      })
+      .addCase(fetchUserDetails.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = action.payload;
       });
