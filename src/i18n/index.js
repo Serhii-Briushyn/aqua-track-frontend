@@ -8,7 +8,7 @@ i18n
   .use(LanguageDetector) // Определение языка
   .use(initReactI18next) // Интеграция с React
   .init({
-    supportedLngs: ["en", "uk"], // Доступные языки
+    supportedLngs: ["en", "uk", "pl"], // Доступные языки
     fallbackLng: "en", // Язык по умолчанию
     debug: false,
     backend: {

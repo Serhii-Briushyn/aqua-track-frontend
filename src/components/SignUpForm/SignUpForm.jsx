@@ -12,25 +12,25 @@ import Loader from "../Loader/Loader";
 import icons from "../../assets/icons/icons.svg";
 import css from "./SignUpForm.module.css";
 
-const validationSchema = Yup.object({
-  email: Yup.string()
-    .email("Invalid email address")
-    .required("Email is required"),
-  password: Yup.string()
-    .min(6, "Must contain at least 6 characters")
-    .max(64, "Password can't be longer than 64 characters")
-    .required("Password is required"),
-  repeatPassword: Yup.string()
-    .oneOf([Yup.ref("password"), null], "The passwords do not match")
-    .required("Repeat password is required"),
-});
-
 const SignUpForm = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordRepeat, setShowPasswordRepeat] = useState(false);
   const { t } = useTranslation();
+
+  const validationSchema = Yup.object({
+    email: Yup.string()
+      .email(t("enterValidEmail"))
+      .required(t("emailRequired")),
+    password: Yup.string()
+      .min(6, t("passwordTooShort"))
+      .max(64, t("passwordTooLong"))
+      .required(t("passwordRequired")),
+    repeatPassword: Yup.string()
+      .oneOf([Yup.ref("password"), null], t("repeatPasswordMustMatch"))
+      .required(t("repeatPasswordRequired")),
+  });
 
   const {
     register: formRegister,
