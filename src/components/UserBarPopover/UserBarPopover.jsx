@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { FiSettings, FiLogOut } from "react-icons/fi";
 
 import LogOutModal from "../LogOutModal/LogOutModal";
@@ -12,12 +12,20 @@ const UserBarPopover = () => {
     isLogOutModalOpen: false,
   });
 
-  const toggleModal = (modalName) => {
+  const toggleModal = useCallback((modalName) => {
     setModalsState((prevState) => ({
       ...prevState,
       [modalName]: !prevState[modalName],
     }));
-  };
+  }, []);
+
+  const closeSettingsModal = useCallback(() => {
+    toggleModal("isSettingsModalOpen");
+  }, [toggleModal]);
+
+  const closeLogOutModal = useCallback(() => {
+    toggleModal("isLogOutModalOpen");
+  }, [toggleModal]);
 
   return (
     <div className={css.userBarPopover}>
@@ -43,11 +51,11 @@ const UserBarPopover = () => {
       </ul>
       <UserSettingsModal
         isOpen={modalsState.isSettingsModalOpen}
-        onClose={() => toggleModal("isSettingsModalOpen")}
+        onClose={closeSettingsModal}
       />
       <LogOutModal
         isOpen={modalsState.isLogOutModalOpen}
-        onClose={() => toggleModal("isLogOutModalOpen")}
+        onClose={closeLogOutModal}
       />
     </div>
   );

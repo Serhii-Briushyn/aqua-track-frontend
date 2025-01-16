@@ -132,6 +132,7 @@
   letter-spacing: -0.01em;
   color: #323f47;
   cursor: pointer;
+  transition: all 0.2s ease-in-out;
 }
 
 .button:disabled {

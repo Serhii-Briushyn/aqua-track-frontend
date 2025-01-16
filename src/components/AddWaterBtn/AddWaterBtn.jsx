@@ -6,7 +6,7 @@ import { useState } from "react";
 import icons from "../../assets/icons/icons.svg";
 
 import s from "./AddWaterBtn.module.css";
-const AddWaterBtn = () => {
+const AddWaterBtn = ({ type }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalSource, setModalSource] = useState("");
 
@@ -19,11 +19,20 @@ const AddWaterBtn = () => {
     setIsModalOpen(false);
     setModalSource("");
   };
+
+  const buttonClass = `${
+    type === "waterMain" ? s.waterMainButton : s.waterDetailButton
+  }`;
+
+  const iconClass = `${
+    type === "waterMain" ? s.waterMainIcon : s.waterDetailIcon
+  }`;
+
   return (
     <div>
-      <button className={s.button} onClick={openModal}>
-        <svg className={s.icon}>
-          <use href={`${icons}#icon-plus-circle-black`} />
+      <button className={buttonClass} onClick={openModal}>
+        <svg className={iconClass}>
+          <use href={`${icons}#icon-plus`} />
         </svg>{" "}
         Add water
       </button>

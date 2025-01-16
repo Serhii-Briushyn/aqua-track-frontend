@@ -47,7 +47,7 @@ const WaterMainInfo = ({ payload }) => {
       <img src={imageSource} alt="water-icon" className={s.water_icon} />
       <WaterDailyNorma />
       <WaterProgressBar amount={waterData} norm={norm} date={date} />
-      <AddWaterBtn />
+      <AddWaterBtn type="waterMain"/>
     </div>
   );
 };

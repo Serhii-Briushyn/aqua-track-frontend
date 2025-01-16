@@ -15,7 +15,7 @@ const WaterModal = ({ isOpen, onClose, source, modalData, onValid }) => {
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={onClose} type="addWater">
       <div className={css.wrapper}>
         <h2 className={css.title}>{getTitle()}</h2>
         <WaterForm
@@ -31,5 +31,3 @@ const WaterModal = ({ isOpen, onClose, source, modalData, onValid }) => {
 };
 
 export default WaterModal;
-
-
