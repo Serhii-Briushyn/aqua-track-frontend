@@ -8,10 +8,11 @@
   position: absolute;
   top: 0;
   left: 0;
+  background-color: #9be1a0;
 }
 
 .image {
-  width: 100%;
+  width: auto;
   height: 100%;
   object-fit: cover;
 }
