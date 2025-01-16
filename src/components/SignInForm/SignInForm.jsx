@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import toast from "react-hot-toast";
 import * as Yup from "yup";
 
@@ -11,11 +12,6 @@ import Loader from "../Loader/Loader.jsx";
 
 import icons from "../../assets/icons/icons.svg";
 import css from "./SignInForm.module.css";
-
-const initialValues = {
-  email: "",
-  password: "",
-};
 
 const validationSchema = Yup.object({
   email: Yup.string()
@@ -32,18 +28,24 @@ const SignInForm = () => {
   const isLoading = useSelector(selectIsLoading);
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleSubmit = (values, { setSubmitting, resetForm }) => {
-    dispatch(login(values))
-      .unwrap()
-      .then(() => {
-        resetForm();
-      })
-      .catch((error) => {
-        toast.error(error);
-      })
-      .finally(() => {
-        setSubmitting(false);
-      });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm({
+    resolver: yupResolver(validationSchema),
+    mode: "onTouched",
+  });
+
+  const onSubmit = async (values) => {
+    try {
+      const response = await dispatch(login(values)).unwrap();
+      toast.success(response.message || "Login successful!");
+      reset();
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   const togglePasswordVisibility = () => {
@@ -56,90 +58,82 @@ const SignInForm = () => {
       <div className={css.container}>
         <div className={css.content}>
           <h2 className={css.title}>Sign In</h2>
-          <Formik
-            initialValues={initialValues}
-            validationSchema={validationSchema}
-            onSubmit={handleSubmit}
+          <form
+            className={css.form}
+            onSubmit={handleSubmit(onSubmit)}
+            autoComplete="off"
           >
-            {({ errors, touched, isSubmitting }) => (
-              <Form className={css.form} autoComplete="off">
-                <label className={css.label}>
-                  <span className={css.span}>Email</span>
-                  <Field
-                    className={`${css.input} ${
-                      errors.email && touched.email ? css.errorInput : ""
-                    }`}
-                    type="email"
-                    name="email"
-                    placeholder="Enter your email"
-                    autoComplete="email"
-                  />
-                  <ErrorMessage
-                    name="email"
-                    component="div"
-                    className={css.errorMessage}
-                  />
-                </label>
-                <label className={css.label}>
-                  <span className={css.span}>Password</span>
-                  <div className={css.passwordContainer}>
-                    <Field
-                      className={`${css.input} ${
-                        errors.password && touched.password
-                          ? css.errorInput
-                          : ""
-                      }`}
-                      type={showPassword ? "text" : "password"}
-                      name="password"
-                      placeholder="Enter your password"
-                      autoComplete="current-password"
-                    />
-                    <button
-                      type="button"
-                      className={css.toggleButton}
-                      onClick={togglePasswordVisibility}
-                      aria-label="Toggle password visibility"
-                    >
-                      <svg className={css.icon}>
-                        <use
-                          href={`${icons}#${
-                            showPassword ? "icon-view" : "icon-hide"
-                          }`}
-                        />
-                      </svg>
-                    </button>
-                  </div>
-                  <ErrorMessage
-                    name="password"
-                    component="div"
-                    className={css.errorMessage}
-                  />
-                </label>
+            <label className={css.label}>
+              <span className={css.span}>Email</span>
+              <input
+                className={`${css.input} ${errors.email ? css.errorInput : ""}`}
+                type="email"
+                placeholder="Enter your email"
+                autoComplete="email"
+                {...register("email")}
+              />
+              {errors.email && (
+                <div className={css.errorMessage}>{errors.email.message}</div>
+              )}
+            </label>
 
+            <label className={css.label}>
+              <span className={css.span}>Password</span>
+              <div className={css.passwordContainer}>
+                <input
+                  className={`${css.input} ${
+                    errors.password ? css.errorInput : ""
+                  }`}
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Enter your password"
+                  autoComplete="current-password"
+                  {...register("password")}
+                />
                 <button
-                  className={css.button}
-                  type="submit"
-                  disabled={isSubmitting}
+                  type="button"
+                  className={css.toggleButton}
+                  onClick={togglePasswordVisibility}
+                  aria-label="Toggle password visibility"
                 >
-                  {isSubmitting ? "Signing in..." : "Sign in"}
+                  <svg className={css.icon}>
+                    <use
+                      href={`${icons}#${
+                        showPassword ? "icon-view" : "icon-hide"
+                      }`}
+                    />
+                  </svg>
                 </button>
-              </Form>
-            )}
-          </Formik>
-          <div className={css.footerContent}>
-            <p className={css.text}>
-              Sign in with{" "}
-              <button className={css.googleButton}>
-                <div className={css.googleBox}>
-                  <span className={css.g}>G</span>
-                  <span className={css.o}>o</span>
-                  <span className={css.o2}>o</span>
-                  <span className={css.g2}>g</span>
-                  <span className={css.l}>l</span>
-                  <span className={css.e}>e</span>
+              </div>
+              {errors.password && (
+                <div className={css.errorMessage}>
+                  {errors.password.message}
                 </div>
-              </button>
+              )}
+            </label>
+
+            <button
+              className={css.button}
+              type="submit"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Signing in..." : "Sign in"}
+            </button>
+            <p className={css.text} style={{ textAlign: "center" }}>
+              or
             </p>
+            <button className={css.button}>
+              <span style={{ marginRight: "4px" }}>Sign in with</span>
+              <span style={{ color: "#4285f4" }}>G</span>
+              <span style={{ color: "#ea4335" }}>o</span>
+              <span style={{ color: "#fbbc05" }}>o</span>
+              <span style={{ color: "#4285f4" }}>g</span>
+              <span style={{ color: "#34a853" }}>l</span>
+              <span style={{ color: "#ea4335" }}>e</span>
+            </button>
+          </form>
+
+          <div className={css.footerContent}>
+            <p className={css.text}></p>
             <p className={css.text}>
               Don&apos;t have an account?{" "}
               <NavLink to="/signup" className={css.link}>

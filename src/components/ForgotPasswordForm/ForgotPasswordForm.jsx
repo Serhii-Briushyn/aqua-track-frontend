@@ -1,6 +1,7 @@
-import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { NavLink } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import toast from "react-hot-toast";
 import * as Yup from "yup";
 
@@ -10,11 +11,7 @@ import Loader from "../Loader/Loader.jsx";
 
 import css from "./ForgotPasswordForm.module.css";
 
-const initialValues = {
-  email: "",
-};
-
-const validationSchema = Yup.object({
+const ForgotPasswordSchema = Yup.object({
   email: Yup.string()
     .email("Invalid email address")
     .required("Email is required"),
@@ -24,18 +21,24 @@ const ForgotPasswordForm = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
 
-  const handleSubmit = (values, { setSubmitting, resetForm }) => {
-    dispatch(forgotPassword(values))
-      .unwrap()
-      .then(() => {
-        resetForm();
-      })
-      .catch((error) => {
-        toast.error(error);
-      })
-      .finally(() => {
-        setSubmitting(false);
-      });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm({
+    resolver: yupResolver(ForgotPasswordSchema),
+    mode: "onTouched",
+  });
+
+  const onSubmit = async (values) => {
+    try {
+      const response = await dispatch(forgotPassword(values)).unwrap();
+      toast.success(response.message || "Reset link sent to your email!");
+      reset();
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   return (
@@ -44,41 +47,33 @@ const ForgotPasswordForm = () => {
       <div className={css.container}>
         <div className={css.content}>
           <h2 className={css.title}>Forget Password</h2>
-          <Formik
-            initialValues={initialValues}
-            validationSchema={validationSchema}
-            onSubmit={handleSubmit}
+          <form
+            className={css.form}
+            onSubmit={handleSubmit(onSubmit)}
+            autoComplete="off"
           >
-            {({ errors, touched, isSubmitting }) => (
-              <Form className={css.form} autoComplete="off">
-                <label className={css.label}>
-                  <span className={css.span}>Email</span>
-                  <Field
-                    className={`${css.input} ${
-                      errors.email && touched.email ? css.errorInput : ""
-                    }`}
-                    type="email"
-                    name="email"
-                    placeholder="Enter your email"
-                    autoComplete="email"
-                  />
-                  <ErrorMessage
-                    name="email"
-                    component="div"
-                    className={css.errorMessage}
-                  />
-                </label>
+            <label className={css.label}>
+              <span className={css.span}>Email</span>
+              <input
+                className={`${css.input} ${errors.email ? css.errorInput : ""}`}
+                type="email"
+                placeholder="Enter your email"
+                autoComplete="email"
+                {...register("email")}
+              />
+              {errors.email && (
+                <div className={css.errorMessage}>{errors.email.message}</div>
+              )}
+            </label>
 
-                <button
-                  className={css.button}
-                  type="submit"
-                  disabled={isSubmitting}
-                >
-                  Reset
-                </button>
-              </Form>
-            )}
-          </Formik>
+            <button
+              className={css.button}
+              type="submit"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Submitting..." : "Reset"}
+            </button>
+          </form>
           <div className={css.footerContent}>
             <p className={css.text}>
               Don&apos;t have an account?{" "}

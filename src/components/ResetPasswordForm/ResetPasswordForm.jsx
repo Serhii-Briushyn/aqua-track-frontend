@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import toast from "react-hot-toast";
 import * as Yup from "yup";
 
@@ -9,14 +10,9 @@ import { selectIsLoading } from "../../redux/auth/selectors";
 import Loader from "../Loader/Loader";
 
 import icons from "../../assets/icons/icons.svg";
-import ccs from "./ResetPasswordForm.module.css";
+import css from "./ResetPasswordForm.module.css";
 
-const initialValues = {
-  password: "",
-  repeatPassword: "",
-};
-
-const validationSchema = Yup.object({
+const ResetPasswordSchema = Yup.object({
   password: Yup.string()
     .min(6, "Must contain at least 6 characters")
     .max(64, "Password can't be longer than 64 characters")
@@ -32,125 +28,123 @@ const ResetPasswordForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordRepeat, setShowPasswordRepeat] = useState(false);
 
-  const fullToken = new URLSearchParams(location.search).get("token");
-  const token = fullToken?.split("token=")[1] || fullToken;
+  const {
+    register: resetRegister,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm({
+    resolver: yupResolver(ResetPasswordSchema),
+    mode: "onTouched",
+  });
 
-  const handleSubmit = (values, { setSubmitting, resetForm }) => {
-    dispatch(resetPassword({ token, newPassword: values.password }))
-      .unwrap()
-      .then(() => {
-        resetForm();
-      })
-      .catch((error) => {
-        toast.error(error);
-      })
-      .finally(() => {
-        setSubmitting(false);
-      });
+  const onSubmit = async (values) => {
+    try {
+      const fullToken = new URLSearchParams(location.search).get("token");
+      const token = fullToken?.split("token=")[1] || fullToken;
+      const response = await dispatch(
+        resetPassword({ token, newPassword: values.password })
+      ).unwrap();
+      toast.success(response.message || "Password reset successfully!");
+      reset();
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
+    setShowPassword((prev) => !prev);
   };
 
   const togglePasswordRVisibility = () => {
-    setShowPasswordRepeat(!showPasswordRepeat);
+    setShowPasswordRepeat((prev) => !prev);
   };
+
   return (
     <>
       {isLoading && <Loader />}
-      <div className={ccs.container}>
-        <div className={ccs.content}>
-          <h2 className={ccs.title}>Reset Password</h2>
-          <Formik
-            initialValues={initialValues}
-            validationSchema={validationSchema}
-            onSubmit={handleSubmit}
+      <div className={css.container}>
+        <div className={css.content}>
+          <h2 className={css.title}>Reset Password</h2>
+          <form
+            className={css.form}
+            onSubmit={handleSubmit(onSubmit)}
+            autoComplete="off"
           >
-            {({ errors, touched, isSubmitting }) => (
-              <Form className={ccs.form} autoComplete="off">
-                <label className={ccs.label}>
-                  <span className={ccs.span}>New password</span>
-                  <div className={ccs.passwordContainer}>
-                    <Field
-                      className={`${ccs.input} ${
-                        errors.password && touched.password
-                          ? ccs.errorInput
-                          : ""
-                      }`}
-                      type={showPassword ? "text" : "password"}
-                      name="password"
-                      placeholder="Enter your password"
-                      autoComplete="password"
-                    />
-                    <button
-                      type="button"
-                      className={ccs.toggleButton}
-                      onClick={togglePasswordVisibility}
-                      aria-label="Toggle password visibility"
-                    >
-                      <svg className={ccs.icon}>
-                        <use
-                          href={`${icons}#${
-                            showPassword ? "icon-view" : "icon-hide"
-                          }`}
-                        />
-                      </svg>
-                    </button>
-                  </div>
-                  <ErrorMessage
-                    name="password"
-                    component="div"
-                    className={ccs.errorMessage}
-                  />
-                </label>
-
-                <label className={ccs.label}>
-                  <span className={ccs.span}>Repeat password</span>
-                  <div className={ccs.passwordContainer}>
-                    <Field
-                      className={`${ccs.input} ${
-                        errors.repeatPassword && touched.repeatPassword
-                          ? ccs.errorInput
-                          : ""
-                      }`}
-                      type={showPasswordRepeat ? "text" : "password"}
-                      name="repeatPassword"
-                      placeholder="Repeat password"
-                      autoComplete="repeatPassword"
-                    />
-                    <button
-                      type="button"
-                      className={ccs.toggleButton}
-                      onClick={togglePasswordRVisibility}
-                      aria-label="Toggle password visibility"
-                    >
-                      <svg className={ccs.icon}>
-                        <use
-                          href={`${icons}#${
-                            showPasswordRepeat ? "icon-view" : "icon-hide"
-                          }`}
-                        />
-                      </svg>
-                    </button>
-                  </div>
-                  <ErrorMessage
-                    name="repeatPassword"
-                    component="div"
-                    className={ccs.errorMessage}
-                  />
-                </label>
-
+            <label className={css.label}>
+              <span className={css.span}>New password</span>
+              <div className={css.passwordContainer}>
+                <input
+                  className={`${css.input} ${
+                    errors.password ? css.errorInput : ""
+                  }`}
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Enter your password"
+                  autoComplete="new-password"
+                  {...resetRegister("password")}
+                />
                 <button
-                  className={ccs.button}
-                  type="submit"
-                  disabled={isSubmitting}
+                  type="button"
+                  className={css.toggleButton}
+                  onClick={togglePasswordVisibility}
+                  aria-label="Toggle password visibility"
                 >
-                  Confirm
+                  <svg className={css.icon}>
+                    <use
+                      href={`${icons}#$
+                      {showPassword ? "icon-view" : "icon-hide"}`}
+                    />
+                  </svg>
                 </button>
-              </Form>
-            )}
-          </Formik>
+              </div>
+              {errors.password && (
+                <div className={css.errorMessage}>
+                  {errors.password.message}
+                </div>
+              )}
+            </label>
+
+            <label className={css.label}>
+              <span className={css.span}>Repeat password</span>
+              <div className={css.passwordContainer}>
+                <input
+                  className={`${css.input} ${
+                    errors.repeatPassword ? css.errorInput : ""
+                  }`}
+                  type={showPasswordRepeat ? "text" : "password"}
+                  placeholder="Repeat password"
+                  autoComplete="new-password"
+                  {...resetRegister("repeatPassword")}
+                />
+                <button
+                  type="button"
+                  className={css.toggleButton}
+                  onClick={togglePasswordRVisibility}
+                  aria-label="Toggle password visibility"
+                >
+                  <svg className={css.icon}>
+                    <use
+                      href={`${icons}#$
+                      {showPasswordRepeat ? "icon-view" : "icon-hide"}`}
+                    />
+                  </svg>
+                </button>
+              </div>
+              {errors.repeatPassword && (
+                <div className={css.errorMessage}>
+                  {errors.repeatPassword.message}
+                </div>
+              )}
+            </label>
+
+            <button
+              className={css.button}
+              type="submit"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Resetting..." : "Confirm"}
+            </button>
+          </form>
         </div>
       </div>
     </>

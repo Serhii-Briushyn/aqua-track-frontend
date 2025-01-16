@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import toast from "react-hot-toast";
 import * as Yup from "yup";
 
@@ -10,13 +11,7 @@ import { selectIsLoading } from "../../redux/auth/selectors";
 import Loader from "../Loader/Loader";
 
 import icons from "../../assets/icons/icons.svg";
-import s from "./SignUpForm.module.css";
-
-const initialValues = {
-  email: "",
-  password: "",
-  repeatPassword: "",
-};
+import css from "./SignUpForm.module.css";
 
 const validationSchema = Yup.object({
   email: Yup.string()
@@ -37,145 +32,142 @@ const SignUpForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordRepeat, setShowPasswordRepeat] = useState(false);
 
-  const handleSubmit = (values, { setSubmitting, resetForm }) => {
-    const requestData = { ...values }; 
-    delete requestData.repeatPassword;
+  const {
+    register: formRegister,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm({
+    resolver: yupResolver(validationSchema),
+    mode: "onTouched",
+  });
 
-    dispatch(register(requestData))
-      .unwrap()
-      .then(() => {
-        resetForm();
-      })
-      .catch((error) => {
-        toast.error(error);
-      })
-      .finally(() => {
-        setSubmitting(false);
-      });
+  const onSubmit = async (values) => {
+    try {
+      const requestData = { ...values };
+      delete requestData.repeatPassword;
+      const response = await dispatch(register(requestData)).unwrap();
+      toast.success(response.message || "User registered successfully!");
+      reset();
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
+    setShowPassword((prev) => !prev);
   };
 
   const togglePasswordRVisibility = () => {
-    setShowPasswordRepeat(!showPasswordRepeat);
+    setShowPasswordRepeat((prev) => !prev);
   };
+
   return (
     <>
       {isLoading && <Loader />}
-      <div className={s.container}>
-        <div className={s.content}>
-          <h2 className={s.title}>Sign Up</h2>
-          <Formik
-            initialValues={initialValues}
-            validationSchema={validationSchema}
-            onSubmit={handleSubmit}
+      <div className={css.container}>
+        <div className={css.content}>
+          <h2 className={css.title}>Sign Up</h2>
+          <form
+            className={css.form}
+            onSubmit={handleSubmit(onSubmit)}
+            autoComplete="off"
           >
-            {({ errors, touched, isSubmitting }) => (
-              <Form className={s.form} autoComplete="off">
-                <label className={s.label}>
-                  <span className={s.span}>Email</span>
-                  <Field
-                    className={`${s.input} ${
-                      errors.email && touched.email ? s.errorInput : ""
-                    }`}
-                    type="email"
-                    name="email"
-                    placeholder="Enter your email"
-                    autoComplete="email"
-                  />
-                  <ErrorMessage
-                    name="email"
-                    component="div"
-                    className={s.errorMessage}
-                  />
-                </label>
+            <label className={css.label}>
+              <span className={css.span}>Email</span>
+              <input
+                className={`${css.input} ${errors.email ? css.errorInput : ""}`}
+                type="email"
+                placeholder="Enter your email"
+                autoComplete="email"
+                {...formRegister("email")}
+              />
+              {errors.email && (
+                <div className={css.errorMessage}>{errors.email.message}</div>
+              )}
+            </label>
 
-                <label className={s.label}>
-                  <span className={s.span}>Password</span>
-                  <div className={s.passwordContainer}>
-                    <Field
-                      className={`${s.input} ${
-                        errors.password && touched.password ? s.errorInput : ""
-                      }`}
-                      type={showPassword ? "text" : "password"}
-                      name="password"
-                      placeholder="Enter your password"
-                      autoComplete="password"
-                    />
-                    <button
-                      type="button"
-                      className={s.toggleButton}
-                      onClick={togglePasswordVisibility}
-                      aria-label="Toggle password visibility"
-                    >
-                      <svg className={s.icon}>
-                        <use
-                          href={`${icons}#${
-                            showPassword ? "icon-view" : "icon-hide"
-                          }`}
-                        />
-                      </svg>
-                    </button>
-                  </div>
-                  <ErrorMessage
-                    name="password"
-                    component="div"
-                    className={s.errorMessage}
-                  />
-                </label>
-
-                <label className={s.label}>
-                  <span className={s.span}>Repeat password</span>
-                  <div className={s.passwordContainer}>
-                    <Field
-                      className={`${s.input} ${
-                        errors.repeatPassword && touched.repeatPassword
-                          ? s.errorInput
-                          : ""
-                      }`}
-                      type={showPasswordRepeat ? "text" : "password"}
-                      name="repeatPassword"
-                      placeholder="Repeat password"
-                      autoComplete="repeatPassword"
-                    />
-                    <button
-                      type="button"
-                      className={s.toggleButton}
-                      onClick={togglePasswordRVisibility}
-                      aria-label="Toggle password visibility"
-                    >
-                      <svg className={s.icon}>
-                        <use
-                          href={`${icons}#${
-                            showPasswordRepeat ? "icon-view" : "icon-hide"
-                          }`}
-                        />
-                      </svg>
-                    </button>
-                  </div>
-                  <ErrorMessage
-                    name="repeatPassword"
-                    component="div"
-                    className={s.errorMessage}
-                  />
-                </label>
-
+            <label className={css.label}>
+              <span className={css.span}>Password</span>
+              <div className={css.passwordContainer}>
+                <input
+                  className={`${css.input} ${
+                    errors.password ? css.errorInput : ""
+                  }`}
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Enter your password"
+                  autoComplete="password"
+                  {...formRegister("password")}
+                />
                 <button
-                  className={s.button}
-                  type="submit"
-                  disabled={isSubmitting}
+                  type="button"
+                  className={css.toggleButton}
+                  onClick={togglePasswordVisibility}
+                  aria-label="Toggle password visibility"
                 >
-                  Sing up
+                  <svg className={css.icon}>
+                    <use
+                      href={`${icons}#${
+                        showPassword ? "icon-view" : "icon-hide"
+                      }`}
+                    />
+                  </svg>
                 </button>
-              </Form>
-            )}
-          </Formik>
-          <div className={s.footerContent}>
-            <p className={s.text}>
-              Already have account?{" "}
-              <NavLink to="/signin" className={s.link} type="submit">
+              </div>
+              {errors.password && (
+                <div className={css.errorMessage}>
+                  {errors.password.message}
+                </div>
+              )}
+            </label>
+
+            <label className={css.label}>
+              <span className={css.span}>Repeat password</span>
+              <div className={css.passwordContainer}>
+                <input
+                  className={`${css.input} ${
+                    errors.repeatPassword ? css.errorInput : ""
+                  }`}
+                  type={showPasswordRepeat ? "text" : "password"}
+                  placeholder="Repeat password"
+                  autoComplete="repeat-password"
+                  {...formRegister("repeatPassword")}
+                />
+                <button
+                  type="button"
+                  className={css.toggleButton}
+                  onClick={togglePasswordRVisibility}
+                  aria-label="Toggle password visibility"
+                >
+                  <svg className={css.icon}>
+                    <use
+                      href={`${icons}#${
+                        showPasswordRepeat ? "icon-view" : "icon-hide"
+                      }`}
+                    />
+                  </svg>
+                </button>
+              </div>
+              {errors.repeatPassword && (
+                <div className={css.errorMessage}>
+                  {errors.repeatPassword.message}
+                </div>
+              )}
+            </label>
+
+            <button
+              className={css.button}
+              type="submit"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Signing up..." : "Sign up"}
+            </button>
+          </form>
+
+          <div className={css.footerContent}>
+            <p className={css.text}>
+              Already have an account?{" "}
+              <NavLink to="/signin" className={css.link}>
                 Sign In
               </NavLink>
             </p>
