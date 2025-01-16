@@ -302,3 +302,9 @@ input[type="radio"] {
   display: flex;
   column-gap: 12.69px;
 }
+
+fieldset {
+  padding: 0;
+  margin: 0;
+  border: none;
+}

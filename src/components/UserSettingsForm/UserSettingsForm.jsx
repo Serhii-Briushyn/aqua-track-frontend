@@ -7,7 +7,6 @@ import icons from "../../assets/icons/icons.svg";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
-
 const schema = yup.object().shape({
   name: yup.string().required("Name is required!"),
   email: yup.string().email("Email is invalid").required("Email is required!"),
@@ -49,7 +48,6 @@ const UserSettingsForm = () => {
     }
   }, [location]);
 
-  // Розрахунок норми води
   const calculateWaterNorm = (gender, weight, timeSports) => {
     if (gender && weight) {
       let water = 0;
@@ -58,7 +56,7 @@ const UserSettingsForm = () => {
       } else if (gender === "man") {
         water = weight * 0.04 + timeSports * 0.6;
       }
-      return Math.round(water * 100) / 100; // Округлення до 2 знаків
+      return Math.round(water * 100) / 100;
     }
     return 0;
   };
@@ -92,7 +90,7 @@ const UserSettingsForm = () => {
               <svg width="20" height="20">
                 <use href={`${icons}#icon-upload`} />
               </svg>
-              <span className={css.inputText}>Upload Photo</span>
+              <span className={css.inputText}>Upload a photo</span>
             </div>
             <input
               type="file"
@@ -106,7 +104,7 @@ const UserSettingsForm = () => {
         <div className={css.settingsForm}>
           <fieldset className={css.genderContainer}>
             <legend className={`${css.genderLegend} ${css.inputTitle}`}>
-              Your Gender Identity
+              Your gender identity
             </legend>
             <label className={`${css.genderLabel} ${css.inputText}`}>
               <input
@@ -134,7 +132,7 @@ const UserSettingsForm = () => {
           </fieldset>
           <div className={css.userInfoContainer}>
             <label className={`${css.userInfoLabel} ${css.inputTitle}`}>
-              Your Name
+              Your name
               <input
                 type="text"
                 name="name"
@@ -159,12 +157,34 @@ const UserSettingsForm = () => {
             </label>
           </div>
           <div className={css.userInfoContainer}>
-            <h3 className={`${css.inputTitle}`}>My Daily Norma</h3>
-            <div className={css.amountOfWaterContainer}>
-              <p className={`${css.amountOfWaterText} ${css.inputText}`}>
-                The required amount of water in liters per day:
+            <h3 className={`${css.inputTitle}`}>My daily norma</h3>
+            <div className={css.normaWaterContainer}>
+              <div>
+                <h4 className={`${css.normaGenderTitle} ${css.inputText}`}>
+                  For woman:
+                </h4>
+                <p className={css.greenText}>V=(M*0,03) + (T*0,4)</p>
+              </div>
+              <div>
+                <h4 className={`${css.normaGenderTitle} ${css.inputText}`}>
+                  For man:
+                </h4>
+                <p className={css.greenText}>V=(M*0,04) + (T*0,6)</p>
+              </div>
+            </div>
+            <div className={css.normaWaterTextContainer}>
+              <p className={`${css.normaWaterText} ${css.formulaDescription}`}>
+                <span className={css.greenText}>*</span> V is the volume of the
+                water norm in liters per day, M is your body weight, T is the
+                time of active sports, or another type of activity commensurate
+                in terms of loads (in the absence of these, you must set 0)
               </p>
-              <span className={css.amountOfWaterText}>{normaWater}L</span>
+            </div>
+            <div className={css.activeTimeContainer}>
+              <svg width="20" height="21">
+                <use href={`${icons}#icon-exclamation-mark`} />
+              </svg>
+              <p className={css.inputText}>Active time in hours</p>
             </div>
           </div>
           <div className={css.userInfoContainer}>
@@ -173,24 +193,51 @@ const UserSettingsForm = () => {
               <input
                 type="number"
                 name="weight"
-                {...register("weight")}
-                className={`${css.userInfoField} ${css.inputText}`}
+                {...register("weight", { min: 0, max: 300 })}
+                className={`${css.userInfoField} ${css.inputText} ${
+                  errors.weight && css.error
+                }`}
               />
               {errors.weight && (
-                <p className={`${css.error}`}>{errors.weight.message}</p>
-              )}{" "}
+                <p className={`${css.inputText} ${css.error}`}>
+                  {errors.weight.message}
+                </p>
+              )}
             </label>
             <label className={`${css.userInfoLabel} ${css.inputText}`}>
-              Active time in hours:
+              The time of active participation in sports:
               <input
                 type="number"
                 name="timeSports"
-                {...register("timeSports")}
-                className={`${css.userInfoField} ${css.inputText}`}
+                {...register("timeSports", { min: 0, max: 8 })}
+                className={`${css.userInfoField} ${css.inputText} ${
+                  errors.timeSports && css.error
+                }`}
               />
               {errors.timeSports && (
-                <p className={`${css.error}`}>{errors.timeSports.message}</p>
-              )}{" "}
+                <p className={`${css.inputText} ${css.error}`}>
+                  {errors.timeSports.message}
+                </p>
+              )}
+            </label>
+          </div>
+          <div className={css.userInfoContainer}>
+            <div className={css.amountOfWaterContainer}>
+              <p
+                className={`${css.amountOfWaterText} ${css.inputText} ${css.formulaDescriptionContainer}`}
+              >
+                The required amount of water in liters per day:
+              </p>
+              <span className={css.amountOfWaterText}>{normaWater}L</span>
+            </div>
+            <label className={`${css.userInfoLabel} ${css.inputTitle}`}>
+              Write down how much water you will drink:
+              <input
+                type="number"
+                name="waterRate"
+                {...register("waterRate")}
+                className={`${css.userInfoField} ${css.inputText}`}
+              />
             </label>
           </div>
         </div>
