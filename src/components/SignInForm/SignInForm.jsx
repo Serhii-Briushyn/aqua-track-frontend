@@ -6,7 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import toast from "react-hot-toast";
 import * as Yup from "yup";
 
-import { login } from "../../redux/auth/operations.js";
+import { getGoogleOAuthUrl, login } from "../../redux/auth/operations.js";
 import { selectIsLoading } from "../../redux/auth/selectors.js";
 import Loader from "../Loader/Loader.jsx";
 
@@ -43,6 +43,18 @@ const SignInForm = () => {
       const response = await dispatch(login(values)).unwrap();
       toast.success(response.message || "Login successful!");
       reset();
+    } catch (error) {
+      toast.error(error);
+    }
+  };
+
+  const handleGoogleSignIn = async () => {
+    try {
+      const response = await dispatch(getGoogleOAuthUrl()).unwrap();
+      const url = response?.data?.url;
+      if (url) {
+        window.location.href = url;
+      }
     } catch (error) {
       toast.error(error);
     }
@@ -121,7 +133,11 @@ const SignInForm = () => {
             <p className={css.text} style={{ textAlign: "center" }}>
               or
             </p>
-            <button className={css.button}>
+            <button
+              type="button"
+              className={css.button}
+              onClick={handleGoogleSignIn}
+            >
               <span style={{ marginRight: "4px" }}>Sign in with</span>
               <span style={{ color: "#4285f4" }}>G</span>
               <span style={{ color: "#ea4335" }}>o</span>

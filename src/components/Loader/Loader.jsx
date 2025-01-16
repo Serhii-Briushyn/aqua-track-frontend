@@ -1,4 +1,4 @@
-import { Oval } from "react-loader-spinner";
+import { ThreeDots } from "react-loader-spinner";
 
 import css from "./Loader.module.css";
 
@@ -7,12 +7,13 @@ const Loader = () => {
     <>
       <div className={css.overlay}></div>
       <div className={css.loader}>
-        <Oval
+        <ThreeDots
           visible={true}
           height="80"
           width="80"
-          color="#4fa94d"
-          ariaLabel="oval-loading"
+          color="#87d28d"
+          radius="9"
+          ariaLabel="three-dots-loading"
           wrapperStyle={{}}
           wrapperClass=""
         />
