@@ -4,7 +4,7 @@ import css from "./DeleteWaterModal.module.css";
 import Modal from "../Modal/Modal";
 import { deleteWaterOperation } from "../../redux/water/operations";
 
-const DeleteWaterModal = ({ isOpen, onClose, id }) => {
+const DeleteWaterModal = ({ isOpen, onClose, id, onSubmitSuccess }) => {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -16,6 +16,7 @@ const DeleteWaterModal = ({ isOpen, onClose, id }) => {
     try {
       await dispatch(deleteWaterOperation(id)).unwrap();
       onClose();
+      onSubmitSuccess?.();
     } catch (err) {
       setError("Please try again.");
     } finally {

@@ -1,10 +1,23 @@
-import s from "./WaterDailyNorma.module.css";
+import { useSelector } from "react-redux";
+import css from "./WaterDailyNorma.module.css";
+import { selectUser } from "../../redux/auth/selectors";
 
 const WaterDailyNorma = () => {
+  const user = useSelector(selectUser);
+
+  if (!user) {
+    return (
+      <div className={css.water_daily_norma_container}>
+        <h4 className={css.WaterDailyNorma}>1.5 L</h4>
+        <p className={css.WaterDailyNorma_p}>My daily norma</p>
+      </div>
+    );
+  }
+
   return (
-    <div className={s.water_daily_norma_container} data-tour="step-2">
-      <h4 className={s.WaterDailyNorma}>1.5 L</h4>
-      <p className={s.WaterDailyNorma_p}>My daily norma</p>
+    <div className={css.water_daily_norma_container} data-tour="step-2">
+      <h4 className={css.WaterDailyNorma}>{user.waterRate} L</h4>
+      <p className={css.WaterDailyNorma_p}>My daily norma</p>
     </div>
   );
 };

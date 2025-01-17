@@ -19,7 +19,6 @@ const initialState = {
   isLoading: false,
   isError: null,
   userCount: null,
-  googleAuthUrl: null,
 };
 
 const userSlice = createSlice({
@@ -174,9 +173,8 @@ const userSlice = createSlice({
         state.isLoading = true;
         state.isError = null;
       })
-      .addCase(getGoogleOAuthUrl.fulfilled, (state, action) => {
+      .addCase(getGoogleOAuthUrl.fulfilled, (state) => {
         state.isLoading = false;
-        state.googleAuthUrl = action.payload.data.url;
       })
       .addCase(getGoogleOAuthUrl.rejected, (state, action) => {
         state.isLoading = false;

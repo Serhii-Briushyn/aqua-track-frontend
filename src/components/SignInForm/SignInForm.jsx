@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
@@ -6,11 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import toast from "react-hot-toast";
 import * as Yup from "yup";
 
-import {
-  getGoogleOAuthUrl,
-  login,
-  loginWithGoogle,
-} from "../../redux/auth/operations.js";
+import { getGoogleOAuthUrl, login } from "../../redux/auth/operations.js";
 import { selectIsLoading } from "../../redux/auth/selectors.js";
 import Loader from "../Loader/Loader.jsx";
 
@@ -46,7 +42,6 @@ const SignInForm = () => {
     try {
       const response = await dispatch(login(values)).unwrap();
       toast.success(response.message || "Login successful!");
-      localStorage.setItem("accessToken", response.data.accessToken);
       reset();
     } catch (error) {
       toast.error(error);
@@ -56,32 +51,11 @@ const SignInForm = () => {
   const handleGoogleSignIn = async () => {
     try {
       const response = await dispatch(getGoogleOAuthUrl()).unwrap();
-      const url = response?.data?.url;
-      if (url) {
-        window.location.href = url;
-      }
+      window.location.href = response.data.url;
     } catch (error) {
       toast.error(error);
     }
   };
-
-  useEffect(() => {
-    const handleGoogleAuthRedirect = async () => {
-      const params = new URLSearchParams(window.location.search);
-      const code = params.get("code");
-
-      if (!code) return;
-
-      try {
-        await dispatch(loginWithGoogle(code)).unwrap();
-        toast.success("Login successful!");
-      } catch (error) {
-        toast.error(error.message);
-      }
-    };
-
-    handleGoogleAuthRedirect();
-  }, [dispatch]);
 
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);

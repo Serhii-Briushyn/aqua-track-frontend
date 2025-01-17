@@ -5,7 +5,6 @@ const Calendar = ({currentMonth, selectedDate, onDateSelect, monthValues}) => {
 
 	const monthDates = getMonthDates(currentMonth);
 
-
 	const handleDateClick = (date) => {
 		if (onDateSelect) {
 			onDateSelect(date);

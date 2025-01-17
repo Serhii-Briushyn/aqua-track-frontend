@@ -1,11 +1,13 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaUserCircle } from "react-icons/fa";
-import { useLocation } from "react-router-dom";
 import css from "./UserSettingsForm.module.css";
 import icons from "../../assets/icons/icons.svg";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useDispatch } from "react-redux";
+import { toast } from "react-hot-toast";
+import { updateUser } from "../../redux/auth/operations";
 
 const schema = yup.object().shape({
   name: yup.string().required("Name is required!"),
@@ -23,30 +25,50 @@ const schema = yup.object().shape({
     .min(0, "Active time must be greater or equal to 0 hours!")
     .max(8, "Active time must be less than 8 hours!")
     .required("Active time is required!"),
+  waterRate: yup
+    .number("Please, enter a number")
+    .typeError("Please, enter a number")
+    .min(0, "Daily norma greater or equal to 0 liters!")
+    .max(10, "Daily norma must be less than 10 liters!"),
 });
 
-const UserSettingsForm = () => {
+const UserSettingsForm = ({ user }) => {
   const [avatarURL, setAvatarURL] = useState(null);
-  const [isOpen, setIsOpen] = useState(false);
+  const [avatarFile, setAvatarFile] = useState(null);
   const [normaWater, setNormaWater] = useState(0);
-
-  const location = useLocation();
 
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
+    watch,
   } = useForm({
     resolver: yupResolver(schema),
   });
 
+  const watchFields = watch(["gender", "weight", "timeSports"]);
+
   useEffect(() => {
-    if (location.pathname === "/user-settings") {
-      setIsOpen(true);
-    } else {
-      setIsOpen(false);
+    if (user) {
+      setValue("name", user.name || "");
+      setValue("email", user.email || "");
+      setValue("weight", user.weight || "");
+      setValue("timeSports", user.timeSports || "");
+      setValue("gender", user.gender || "woman");
+      setValue("waterRate", user.waterRate || 1.8);
+
+      if (user.avatarUrl) {
+        setAvatarURL(user.avatarUrl);
+      }
     }
-  }, [location]);
+  }, [user, setValue]);
+
+  useEffect(() => {
+    const [gender, weight, timeSports] = watchFields;
+    const waterAmount = calculateWaterNorm(gender, weight, timeSports);
+    setNormaWater(waterAmount);
+  }, [watchFields]);
 
   const calculateWaterNorm = (gender, weight, timeSports) => {
     if (gender && weight) {
@@ -61,11 +83,30 @@ const UserSettingsForm = () => {
     return 0;
   };
 
-  const onSubmit = (data) => {
-    const { gender, weight, timeSports } = data;
-    const waterAmount = calculateWaterNorm(gender, weight, timeSports);
-    setNormaWater(waterAmount);
-    console.log(data);
+  const dispatch = useDispatch();
+
+  const onSubmit = async (data) => {
+    console.log("Submitting data:", data);
+
+    const formData = new FormData();
+    formData.append("name", data.name);
+    formData.append("email", data.email);
+    formData.append("gender", data.gender);
+    formData.append("weight", data.weight);
+    formData.append("timeSports", data.timeSports);
+    formData.append("waterRate", data.waterRate || 0);
+
+    if (avatarFile) {
+      formData.append("avatar", avatarFile);
+    }
+
+    try {
+      await dispatch(updateUser(formData)).unwrap();
+      toast.success("Data successfully updated!");
+    } catch (error) {
+      // console.error("Update error:", error);
+      toast.error(error.message || "Failed to update user data.");
+    }
   };
 
   const handleFileSelect = (event) => {
@@ -73,6 +114,7 @@ const UserSettingsForm = () => {
     if (file) {
       const avatarURL = URL.createObjectURL(file);
       setAvatarURL(avatarURL);
+      setAvatarFile(file);
     }
   };
 
@@ -127,7 +169,7 @@ const UserSettingsForm = () => {
               Man
             </label>
             {errors.gender && (
-              <p className={css.errorText}>{errors.gender.message}</p>
+              <p className={css.error}>{errors.gender.message}</p>
             )}{" "}
           </fieldset>
           <div className={css.userInfoContainer}>
@@ -224,8 +266,7 @@ const UserSettingsForm = () => {
           <div className={css.userInfoContainer}>
             <div className={css.amountOfWaterContainer}>
               <p
-                className={`${css.amountOfWaterText} ${css.inputText} ${css.formulaDescriptionContainer}`}
-              >
+                className={`${css.amountOfWaterText} ${css.inputText} ${css.formulaDescriptionContainer}`}>
                 The required amount of water in liters per day:
               </p>
               <span className={css.amountOfWaterText}>{normaWater}L</span>

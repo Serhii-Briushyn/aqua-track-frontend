@@ -5,32 +5,32 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import toast from "react-hot-toast";
 import * as Yup from "yup";
-
+import { useTranslation } from "react-i18next";
 import { register } from "../../redux/auth/operations";
 import { selectIsLoading } from "../../redux/auth/selectors";
 import Loader from "../Loader/Loader";
-
 import icons from "../../assets/icons/icons.svg";
 import css from "./SignUpForm.module.css";
-
-const validationSchema = Yup.object({
-  email: Yup.string()
-    .email("Invalid email address")
-    .required("Email is required"),
-  password: Yup.string()
-    .min(6, "Must contain at least 6 characters")
-    .max(64, "Password can't be longer than 64 characters")
-    .required("Password is required"),
-  repeatPassword: Yup.string()
-    .oneOf([Yup.ref("password"), null], "The passwords do not match")
-    .required("Repeat password is required"),
-});
 
 const SignUpForm = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordRepeat, setShowPasswordRepeat] = useState(false);
+  const { t } = useTranslation();
+
+  const validationSchema = Yup.object({
+    email: Yup.string()
+      .email(t("enterValidEmail"))
+      .required(t("emailRequired")),
+    password: Yup.string()
+      .min(6, t("passwordTooShort"))
+      .max(64, t("passwordTooLong"))
+      .required(t("passwordRequired")),
+    repeatPassword: Yup.string()
+      .oneOf([Yup.ref("password"), null], t("repeatPasswordMustMatch"))
+      .required(t("repeatPasswordRequired")),
+  });
 
   const {
     register: formRegister,
@@ -67,18 +67,18 @@ const SignUpForm = () => {
       {isLoading && <Loader />}
       <div className={css.container}>
         <div className={css.content}>
-          <h2 className={css.title}>Sign Up</h2>
+          <h2 className={css.title}>{t("signUpTitle")}</h2>
           <form
             className={css.form}
             onSubmit={handleSubmit(onSubmit)}
             autoComplete="off"
           >
             <label className={css.label}>
-              <span className={css.span}>Email</span>
+              <span className={css.span}>{t("email")}</span>
               <input
                 className={`${css.input} ${errors.email ? css.errorInput : ""}`}
                 type="email"
-                placeholder="Enter your email"
+                placeholder={t("enterEmail")}
                 autoComplete="email"
                 {...formRegister("email")}
               />
@@ -88,14 +88,14 @@ const SignUpForm = () => {
             </label>
 
             <label className={css.label}>
-              <span className={css.span}>Password</span>
+              <span className={css.span}>{t("password")}</span>
               <div className={css.passwordContainer}>
                 <input
                   className={`${css.input} ${
                     errors.password ? css.errorInput : ""
                   }`}
                   type={showPassword ? "text" : "password"}
-                  placeholder="Enter your password"
+                  placeholder={t("enterPassword")}
                   autoComplete="password"
                   {...formRegister("password")}
                 />
@@ -122,14 +122,14 @@ const SignUpForm = () => {
             </label>
 
             <label className={css.label}>
-              <span className={css.span}>Repeat password</span>
+              <span className={css.span}>{t("repeatPassword")}</span>
               <div className={css.passwordContainer}>
                 <input
                   className={`${css.input} ${
                     errors.repeatPassword ? css.errorInput : ""
                   }`}
                   type={showPasswordRepeat ? "text" : "password"}
-                  placeholder="Repeat password"
+                  placeholder={t("repeatPassword")}
                   autoComplete="repeat-password"
                   {...formRegister("repeatPassword")}
                 />
@@ -160,15 +160,15 @@ const SignUpForm = () => {
               type="submit"
               disabled={isSubmitting}
             >
-              {isSubmitting ? "Signing up..." : "Sign up"}
+              {isSubmitting ? "Signing up..." : t("signUp")}
             </button>
           </form>
 
           <div className={css.footerContent}>
             <p className={css.text}>
-              Already have an account?{" "}
+              {t("alreadyHaveAccount")}{" "}
               <NavLink to="/signin" className={css.link}>
-                Sign In
+                {t("signIn")}
               </NavLink>
             </p>
           </div>

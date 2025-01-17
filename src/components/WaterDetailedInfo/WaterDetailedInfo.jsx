@@ -15,6 +15,7 @@ import {
   selectIsLoading as selectWaterIsLoading
 } from "../../redux/water/selectors.js";
 import { formatToDateString } from "./utils/index.js";
+import {fetchUserDetails} from "../../redux/auth/operations.js";
 
 const WaterDetailedInfo = () => {
   const dispatch = useDispatch();
@@ -59,7 +60,7 @@ const WaterDetailedInfo = () => {
     setSelectedDate(
       isCurrentMonth
         ? today
-        : new Date(newDate.getFullYear(), newDate.getMonth(), 1) // First day of the month
+        : new Date(newDate.getFullYear(), newDate.getMonth(), 1)
     );
   };
 
@@ -68,18 +69,32 @@ const WaterDetailedInfo = () => {
     setSelectedDate(newSelectedDate);
   };
 
-  useEffect(() => {
-    fetchMonthly();
-  }, [fetchMonthly]);
+  const onSubmitSuccess = () => {
+    fetchDaily(formattedSelectedDate)
+    fetchMonthly()
+  }
 
   useEffect(() => {
-    fetchDaily(formattedSelectedDate);
-  }, [formattedSelectedDate, fetchDaily]);
+    user && fetchMonthly();
+  }, [fetchMonthly, dispatch, user]);
+
+  useEffect(() => {
+    user && fetchDaily(formattedSelectedDate);
+  }, [formattedSelectedDate, fetchDaily, user, dispatch]);
+
+  useEffect(() => {
+    !user && dispatch(fetchUserDetails())
+  }, [dispatch, user]);
 
   return (
     <div className={css.waterDetailedInfo}>
       {!isUserLoading && <UserPanel user={user} />}
-      <DailyInfo isLoading={isDataLoading} dailyData={dailyData} />
+      <DailyInfo
+        isLoading={isDataLoading}
+        dailyData={dailyData}
+        selectedDate={selectedDate}
+        onSubmitSuccess={onSubmitSuccess}
+      />
       <MonthInfo
         monthlyData={monthlyData}
         selectedDate={selectedDate}

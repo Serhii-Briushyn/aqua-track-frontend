@@ -27,7 +27,6 @@ export const chartOptions = {
 			borderRadius: 15,
 			borderColor: "#E0E0E0", // Border color
 		},
-
 	},
 
 	scales: {
@@ -52,11 +51,14 @@ export const chartOptions = {
 				drawBorder: false,
 			},
 			beginAtZero: true,
-			max: 2.5,
+			suggestedMax: 2.5, // Default max value
 			ticks: {
 				display: true,
 				font: {
 					size: 15,
+				},
+				callback: function (value) {
+					return `${value.toFixed(1)} L`; // Format Y-axis values
 				},
 			},
 			border: {

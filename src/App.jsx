@@ -12,6 +12,7 @@ import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 import { selectIsLoading } from "./redux/auth/selectors";
 
 import "./App.css";
+import GoogleRedirectHandler from "./pages/GoogleRedirectHandler/GoogleRedirectHandler";
 
 const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
 const SignInPage = lazy(() => import("./pages/SignInPage/SignInPage"));
@@ -76,6 +77,15 @@ function App() {
                 <RestrictedRoute
                   component={<ResetPasswordPage />}
                   redirectTo="/signup"
+                />
+              }
+            />
+            <Route
+              path="google-redirect"
+              element={
+                <RestrictedRoute
+                  component={<GoogleRedirectHandler />}
+                  redirectTo="/tracker"
                 />
               }
             />

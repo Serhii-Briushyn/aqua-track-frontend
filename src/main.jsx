@@ -7,6 +7,7 @@ import { HelmetProvider } from "react-helmet-async";
 import { TourProvider } from "@reactour/tour";
 import steps from "../src/tour/steps.js";
 import { styles } from "./tour/styles.js";
+import "./i18n";
 
 import App from "./App.jsx";
 import { persistor, store } from "./redux/store.js";
