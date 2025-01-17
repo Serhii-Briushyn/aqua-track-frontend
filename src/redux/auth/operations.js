@@ -235,6 +235,7 @@ export const loginWithGoogle = createAsyncThunk(
         localStorage.getItem("accessToken")
       );
       localStorage.setItem("testKey", "testValue");
+      localStorage.setItem("accessToken", response.data.data.accessToken);
       console.log("Test value:", localStorage.getItem("testKey"));
       return response.data;
     } catch (error) {
