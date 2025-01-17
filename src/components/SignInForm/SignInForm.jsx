@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -29,7 +29,6 @@ const validationSchema = Yup.object({
 
 const SignInForm = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const isLoading = useSelector(selectIsLoading);
   const [showPassword, setShowPassword] = useState(false);
 
@@ -47,8 +46,8 @@ const SignInForm = () => {
     try {
       const response = await dispatch(login(values)).unwrap();
       toast.success(response.message || "Login successful!");
+      localStorage.setItem("accessToken", response.data.accessToken);
       reset();
-      navigate("/tracker");
     } catch (error) {
       toast.error(error);
     }
@@ -71,20 +70,18 @@ const SignInForm = () => {
       const params = new URLSearchParams(window.location.search);
       const code = params.get("code");
 
-      if (!code) return; // Если code нет, ничего не делаем
+      if (!code) return;
 
       try {
-        // Отправляем code на сервер для обмена на токен
         await dispatch(loginWithGoogle(code)).unwrap();
         toast.success("Login successful!");
-        navigate("/tracker"); // Перенаправляем пользователя
       } catch (error) {
         toast.error(error);
       }
     };
 
     handleAuthRedirect();
-  }, [dispatch, navigate]);
+  }, [dispatch]);
 
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
