@@ -37,7 +37,7 @@ const MonthInfo = ({ monthlyData, selectedDate, currentMonth, onChangeMonth, onC
 					onDateSelect={(date) => onChangeDate(date)}
 				/>
 				:
-				<Chart/>
+				<Chart data={monthlyData} />
 			}
 		</div>
 	);
