@@ -6,7 +6,10 @@ import WaterModal from "../WaterModal/WaterModal";
 import { useState } from "react";
 import DeleteWaterModal from "../DeleteWaterModal/DeleteWaterModal";
 
-const WaterItem = () => {
+const WaterItem = ({item, onAddWaterSubmitSuccess}) => {
+
+  const { id, amount, date } = item;
+
   const [activeModal, setActiveModal] = useState(null);
   const [modalData, setModalData] = useState(null);
   const [waterData, setWaterData] = useState({
@@ -38,8 +41,12 @@ const WaterItem = () => {
         </svg>
 
         <div className={css.indicators}>
-          <span className={css.volume}>{waterData.volume} ml</span>
-          <span className={css.time}>{waterData.time}</span>
+          <span className={css.volume}>{amount} ml</span>
+          <span className={css.time}>
+            {String(new Date(date).getUTCHours()).padStart(2, '0')}
+            :
+            {String(new Date(date).getUTCMinutes()).padStart(2, '0')}
+          </span>
         </div>
         <div className={css.actions}>
           <button
@@ -64,11 +71,16 @@ const WaterItem = () => {
           source="EditWater"
           modalData={modalData}
           onValid={handleSave}
+          onSubmitSuccess={onAddWaterSubmitSuccess}
         />
       )}
 
       {activeModal === "DeleteWater" && (
-        <DeleteWaterModal isOpen={true} onClose={closeModal} id={modalData} />
+        <DeleteWaterModal
+          isOpen={true}
+          onClose={closeModal} id={id}
+          onSubmitSuccess={onAddWaterSubmitSuccess}
+        />
       )}
     </>
   );

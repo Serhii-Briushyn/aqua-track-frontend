@@ -18,7 +18,10 @@ const DailyInfo = ({ dailyData, isLoading, selectedDate, onAddWaterSubmitSuccess
           <CircularProgress color="#9be1a0" />
         </div>
       ) : (
-        <WaterList dailyData={dailyData} onAddWaterSubmitSuccess={onAddWaterSubmitSuccess} />
+        <WaterList
+          dailyData={dailyData}
+          onAddWaterSubmitSuccess={onAddWaterSubmitSuccess}
+        />
       )}
     </div>
   );

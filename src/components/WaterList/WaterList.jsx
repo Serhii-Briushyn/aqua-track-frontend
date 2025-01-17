@@ -5,7 +5,7 @@ import "./simplebar.lib.css";
 import SimpleBar from "simplebar-react";
 import css from "./WaterList.module.css";
 
-const WaterList = ({ dailyData }) => {
+const WaterList = ({ dailyData, onAddWaterSubmitSuccess }) => {
   const [resizeKey, setResizeKey] = useState(0);
 
   useEffect(() => {
@@ -27,9 +27,13 @@ const WaterList = ({ dailyData }) => {
       <SimpleBar key={resizeKey} autoHide={false}>
         <div className={css.waterItemsList}>
           {dailyData.length ? (
-            dailyData.map((_, index) => (
+            dailyData.map((item, index) => (
               <div key={index} className={css.scrollableItemContainer}>
-                <WaterItem index={index} key={index} />
+                <WaterItem
+                  item={item}
+                  index={index} key={index}
+                  onAddWaterSubmitSuccess={onAddWaterSubmitSuccess}
+                />
               </div>
             ))
           ) : (
