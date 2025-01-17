@@ -59,7 +59,7 @@ const WaterDetailedInfo = () => {
     setSelectedDate(
       isCurrentMonth
         ? today
-        : new Date(newDate.getFullYear(), newDate.getMonth(), 1) // First day of the month
+        : new Date(newDate.getFullYear(), newDate.getMonth(), 1)
     );
   };
 
@@ -67,6 +67,11 @@ const WaterDetailedInfo = () => {
     const newSelectedDate = new Date(date);
     setSelectedDate(newSelectedDate);
   };
+
+  const onAddWaterSubmitSuccess = () => {
+    fetchDaily(formattedSelectedDate)
+    fetchMonthly()
+  }
 
   useEffect(() => {
     fetchMonthly();
@@ -79,7 +84,11 @@ const WaterDetailedInfo = () => {
   return (
     <div className={css.waterDetailedInfo}>
       {!isUserLoading && <UserPanel user={user} />}
-      <DailyInfo isLoading={isDataLoading} dailyData={dailyData} />
+      <DailyInfo
+        isLoading={isDataLoading}
+        dailyData={dailyData}
+        onAddWaterSubmitSuccess={onAddWaterSubmitSuccess}
+      />
       <MonthInfo
         monthlyData={monthlyData}
         selectedDate={selectedDate}
