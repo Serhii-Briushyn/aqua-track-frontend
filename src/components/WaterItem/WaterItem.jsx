@@ -6,7 +6,7 @@ import WaterModal from "../WaterModal/WaterModal";
 import { useState } from "react";
 import DeleteWaterModal from "../DeleteWaterModal/DeleteWaterModal";
 
-const WaterItem = ({item, onAddWaterSubmitSuccess}) => {
+const WaterItem = ({item, onSubmitSuccess}) => {
 
   const { id, amount, date } = item;
 
@@ -71,7 +71,7 @@ const WaterItem = ({item, onAddWaterSubmitSuccess}) => {
           source="EditWater"
           modalData={modalData}
           onValid={handleSave}
-          onSubmitSuccess={onAddWaterSubmitSuccess}
+          onSubmitSuccess={onSubmitSuccess}
         />
       )}
 
@@ -79,7 +79,7 @@ const WaterItem = ({item, onAddWaterSubmitSuccess}) => {
         <DeleteWaterModal
           isOpen={true}
           onClose={closeModal} id={id}
-          onSubmitSuccess={onAddWaterSubmitSuccess}
+          onSubmitSuccess={onSubmitSuccess}
         />
       )}
     </>

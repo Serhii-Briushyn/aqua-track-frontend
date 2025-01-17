@@ -5,7 +5,7 @@ import "./simplebar.lib.css";
 import SimpleBar from "simplebar-react";
 import css from "./WaterList.module.css";
 
-const WaterList = ({ dailyData, onAddWaterSubmitSuccess }) => {
+const WaterList = ({ dailyData, onSubmitSuccess }) => {
   const [resizeKey, setResizeKey] = useState(0);
 
   useEffect(() => {
@@ -32,7 +32,7 @@ const WaterList = ({ dailyData, onAddWaterSubmitSuccess }) => {
                 <WaterItem
                   item={item}
                   index={index} key={index}
-                  onAddWaterSubmitSuccess={onAddWaterSubmitSuccess}
+                  onSubmitSuccess={onSubmitSuccess}
                 />
               </div>
             ))

@@ -68,7 +68,7 @@ const WaterDetailedInfo = () => {
     setSelectedDate(newSelectedDate);
   };
 
-  const onAddWaterSubmitSuccess = () => {
+  const onSubmitSuccess = () => {
     fetchDaily(formattedSelectedDate)
     fetchMonthly()
   }
@@ -88,7 +88,7 @@ const WaterDetailedInfo = () => {
         isLoading={isDataLoading}
         dailyData={dailyData}
         selectedDate={selectedDate}
-        onAddWaterSubmitSuccess={onAddWaterSubmitSuccess}
+        onSubmitSuccess={onSubmitSuccess}
       />
       <MonthInfo
         monthlyData={monthlyData}
