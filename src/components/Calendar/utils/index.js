@@ -13,16 +13,14 @@ export const getMonthDates = (date) => {
 };
 
 export const getDateBackgroundColor = (date, selectedDate, val) => {
-	if (!date) return '#fff'; // Default background color if the date is invalid
-
+	if (!date || (date && val === 100)) return '#fff';
 	const isSelected = date.toDateString() === selectedDate.toDateString();
-	const isVal100 = val === 100;
 
 	if (isSelected) {
 		return '#323F47';
 	}
 
-	return isVal100 ? '#fff' : 'rgba(50, 63, 71, 0.21)';
+	return `rgba(50, 63, 71, 0.20)`;
 };
 
 export const getDateTextColor = (date, selectedDate) => {

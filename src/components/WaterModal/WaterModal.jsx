@@ -2,7 +2,7 @@ import Modal from "../Modal/Modal";
 import WaterForm from "../WaterForm/WaterForm";
 import css from "./WaterModal.module.css";
 
-const WaterModal = ({ isOpen, onClose, source, modalData, onValid }) => {
+const WaterModal = ({ isOpen, onClose, source, modalData, onValid, selectedDate, onSubmitSuccess }) => {
   const handleSubmit = (data) => {
     if (onValid) {
       onValid(data);
@@ -23,6 +23,8 @@ const WaterModal = ({ isOpen, onClose, source, modalData, onValid }) => {
           source={source}
           isOpen={isOpen}
           onClose={onClose}
+          selectedDate={selectedDate}
+          onSubmitSuccess={onSubmitSuccess}
           modalData={modalData}
         />
       </div>
