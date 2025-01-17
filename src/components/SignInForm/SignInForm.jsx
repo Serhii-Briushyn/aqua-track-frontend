@@ -73,7 +73,9 @@ const SignInForm = () => {
       if (!code) return;
 
       try {
-        await dispatch(loginWithGoogle(code)).unwrap();
+        const response = await dispatch(loginWithGoogle(code)).unwrap();
+        console.log(response); // Убедитесь, что response содержит токен
+        localStorage.setItem("accessToken", response.data.data.accessToken);
         toast.success("Login successful!");
       } catch (error) {
         toast.error(error);
