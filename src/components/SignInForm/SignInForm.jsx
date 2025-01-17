@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
@@ -66,23 +66,21 @@ const SignInForm = () => {
   };
 
   useEffect(() => {
-    const handleAuthRedirect = async () => {
+    const handleGoogleAuthRedirect = async () => {
       const params = new URLSearchParams(window.location.search);
       const code = params.get("code");
 
       if (!code) return;
 
       try {
-        // const response =
-          await dispatch(loginWithGoogle(code)).unwrap();
-        // localStorage.setItem("accessToken", response.data.accessToken);
+        await dispatch(loginWithGoogle(code)).unwrap();
         toast.success("Login successful!");
       } catch (error) {
-        toast.error(error);
+        toast.error(error.message);
       }
     };
 
-    handleAuthRedirect();
+    handleGoogleAuthRedirect();
   }, [dispatch]);
 
   const togglePasswordVisibility = () => {
