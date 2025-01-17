@@ -84,7 +84,7 @@ const WaterDetailedInfo = () => {
 
   useEffect(() => {
     !user && dispatch(fetchUserDetails())
-  }, [dispatch, user]);
+  }, [user]);
 
   return (
     <div className={css.waterDetailedInfo}>
