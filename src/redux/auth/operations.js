@@ -53,7 +53,7 @@ aquaTrackApi.interceptors.response.use(
         return aquaTrackApi(originalRequest);
       } catch (refreshError) {
         console.error("Token refresh failed:", refreshError);
-        // localStorage.removeItem("accessToken");
+        localStorage.removeItem("accessToken");
         window.location.href = "/signin";
         return Promise.reject(refreshError);
       }
@@ -221,22 +221,8 @@ export const loginWithGoogle = createAsyncThunk(
   async (code, thunkAPI) => {
     try {
       const response = await aquaTrackApi.post("/users/google-login", { code });
-      console.log("Token received:", response.data.data.accessToken);
-      try {
-        localStorage.setItem("test", "testValue");
-        console.log("localStorage is available");
-        localStorage.removeItem("test");
-      } catch (error) {
-        console.error("localStorage is not available", error);
-      }
+      console.log(response);
       localStorage.setItem("accessToken", response.data.data.accessToken);
-      console.log(
-        "Token saved in localStorage:",
-        localStorage.getItem("accessToken")
-      );
-      localStorage.setItem("testKey", "testValue");
-      localStorage.setItem("accessToken", response.data.data.accessToken);
-      console.log("Test value:", localStorage.getItem("testKey"));
       return response.data;
     } catch (error) {
       return handleApiError(error, thunkAPI);
