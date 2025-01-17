@@ -1,5 +1,5 @@
 import css from "./NotFoundPage.module.css";
-import notFoundImage from "../assets/images/not-found-image.png";
+import notFoundImage from "../../assets/images/not-found-image.png";
 
 const NotFoundPage = () => {
   return (
