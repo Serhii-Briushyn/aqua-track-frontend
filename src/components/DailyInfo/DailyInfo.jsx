@@ -4,7 +4,7 @@ import css from "./DailyInfo.module.css";
 import { CircularProgress } from "@mui/material";
 const DailyInfo = ({ dailyData, isLoading }) => {
   return (
-    <div>
+    <div data-tour="step-5">
       <div className={css.infoHeader}>
         <h2 className={css.h2}>Today</h2>
         <AddWaterBtn type="waterDetail" />

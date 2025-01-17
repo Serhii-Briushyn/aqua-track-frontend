@@ -2,7 +2,7 @@ import s from "./WaterDailyNorma.module.css";
 
 const WaterDailyNorma = () => {
   return (
-    <div className={s.water_daily_norma_container}>
+    <div className={s.water_daily_norma_container} data-tour="step-2">
       <h4 className={s.WaterDailyNorma}>1.5 L</h4>
       <p className={s.WaterDailyNorma_p}>My daily norma</p>
     </div>

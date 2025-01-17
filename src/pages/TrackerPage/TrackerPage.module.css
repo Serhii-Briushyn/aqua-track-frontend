@@ -1,0 +1,53 @@
+/* .wrapperStyle {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+}
+
+.wrapperElement {
+  display: flex;
+  gap: 5px;
+}
+
+.btnInfo {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+
+  background-color: transparent;
+  border: none;
+  transform: scale(1);
+
+  transition: transform var(--animation);
+}
+
+.btnInfo:hover,
+.btnInfo:active {
+  transform: scale(1.2);
+}
+
+.wrapperTracker {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media screen and (min-width: 768px) {
+  .iconInfo {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .wrapperTracker {
+    flex-direction: row;
+    gap: 32px;
+  }
+
+  .iconInfo {
+    width: 30px;
+    height: 30px;
+  }
+} */

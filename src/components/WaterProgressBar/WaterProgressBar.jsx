@@ -47,7 +47,7 @@ const WaterProgressBar = ({ amount, norm, date }) => {
   }, [waterLevel]);
 
   return (
-    <div className={styles.swater_progress_bar_wrapper}>
+    <div className={styles.swater_progress_bar_wrapper} data-tour="step-3">
       <div className={styles.todayLabel}>{formattedDate}</div>
       <div className={styles.waterProgressBar}>
         <div className={styles.water} style={{ width: `${waterLevel}%` }} />

@@ -32,7 +32,7 @@ const WaterItem = () => {
 
   return (
     <>
-      <div className={css.waterItem}>
+      <div className={css.waterItem} data-tour="step-6">
         <svg width="45" height="45">
           <use href={`${icons}#icon-glass`} />
         </svg>

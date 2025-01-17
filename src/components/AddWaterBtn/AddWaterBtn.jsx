@@ -30,7 +30,7 @@ const AddWaterBtn = ({ type }) => {
 
   return (
     <div>
-      <button className={buttonClass} onClick={openModal}>
+      <button className={buttonClass} onClick={openModal} data-tour="step-4">
         <svg className={iconClass}>
           <use href={`${icons}#icon-plus`} />
         </svg>{" "}

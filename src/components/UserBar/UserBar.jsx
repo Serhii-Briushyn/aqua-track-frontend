@@ -14,7 +14,7 @@ const UserBar = ({ userName }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className={css.userBar}>
+    <div className={css.userBar} data-tour="step-7">
       <h2 className={css.h2}>{userName}</h2>
       <div className={css.userAvatar}>
         <img src={temporaryAvatar} alt="avatar" />
