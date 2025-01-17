@@ -4,7 +4,6 @@ import { useDispatch } from "react-redux";
 
 import { loginWithGoogle } from "../../redux/auth/operations";
 import Loader from "../../components/Loader/Loader";
-import { aquaTrackApi } from "../../services/apiClient";
 
 const GoogleRedirectHandler = () => {
   const dispatch = useDispatch();
@@ -15,15 +14,7 @@ const GoogleRedirectHandler = () => {
 
       if (code) {
         try {
-          const response = await dispatch(loginWithGoogle(code)).unwrap();
-
-          const accessToken = response.data.data.accessToken;
-
-          localStorage.setItem("accessToken", accessToken);
-
-          aquaTrackApi.defaults.headers.common[
-            "Authorization"
-          ] = `Bearer ${accessToken}`;
+          await dispatch(loginWithGoogle(code)).unwrap();
         } catch (error) {
           toast.error(error);
         }
