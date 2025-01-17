@@ -220,8 +220,8 @@ export const loginWithGoogle = createAsyncThunk(
   "user/loginWithGoogle",
   async (code, thunkAPI) => {
     try {
-      const response = await aquaTrackApi.post("/users/google-login", { code });
-      localStorage.setItem("accessToken", response.data.accessToken);
+      const response = await aquaTrackApi.get("/users/google-login", { code });
+      localStorage.setItem("accessToken", response.data.data.accessToken);
       return response.data;
     } catch (error) {
       return handleApiError(error, thunkAPI);
