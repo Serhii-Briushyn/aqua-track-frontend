@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 
 import { loginWithGoogle } from "../../redux/auth/operations";
 import Loader from "../../components/Loader/Loader";
@@ -9,7 +8,6 @@ import { aquaTrackApi } from "../../services/apiClient";
 
 const GoogleRedirectHandler = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   useEffect(() => {
     const handleGoogleLogin = async () => {
@@ -19,21 +17,22 @@ const GoogleRedirectHandler = () => {
         try {
           const response = await dispatch(loginWithGoogle(code)).unwrap();
 
+          const accessToken = response.data.data.accessToken;
+
+          localStorage.setItem("accessToken", accessToken);
+
           aquaTrackApi.defaults.headers.common[
             "Authorization"
-          ] = `Bearer ${response.data.data.accessToken}`;
-          navigate("/tracker");
+          ] = `Bearer ${accessToken}`;
         } catch (error) {
           toast.error(error);
-          navigate("/signin");
         }
       } else {
         toast.error("Authorization code missing");
-        navigate("/signin");
       }
     };
     handleGoogleLogin();
-  }, [dispatch, navigate]);
+  }, [dispatch]);
 
   return <Loader />;
 };
