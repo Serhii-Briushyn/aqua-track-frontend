@@ -1,12 +1,16 @@
-import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import toast from "react-hot-toast";
 import * as Yup from "yup";
 
-import { getGoogleOAuthUrl, login } from "../../redux/auth/operations.js";
+import {
+  getGoogleOAuthUrl,
+  login,
+  loginWithGoogle,
+} from "../../redux/auth/operations.js";
 import { selectIsLoading } from "../../redux/auth/selectors.js";
 import Loader from "../Loader/Loader.jsx";
 
@@ -25,6 +29,7 @@ const validationSchema = Yup.object({
 
 const SignInForm = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const isLoading = useSelector(selectIsLoading);
   const [showPassword, setShowPassword] = useState(false);
 
@@ -43,6 +48,7 @@ const SignInForm = () => {
       const response = await dispatch(login(values)).unwrap();
       toast.success(response.message || "Login successful!");
       reset();
+      navigate("/tracker");
     } catch (error) {
       toast.error(error);
     }
@@ -59,6 +65,26 @@ const SignInForm = () => {
       toast.error(error);
     }
   };
+
+  useEffect(() => {
+    const handleAuthRedirect = async () => {
+      const params = new URLSearchParams(window.location.search);
+      const code = params.get("code");
+
+      if (!code) return; // Если code нет, ничего не делаем
+
+      try {
+        // Отправляем code на сервер для обмена на токен
+        await dispatch(loginWithGoogle(code)).unwrap();
+        toast.success("Login successful!");
+        navigate("/tracker"); // Перенаправляем пользователя
+      } catch (error) {
+        toast.error(error);
+      }
+    };
+
+    handleAuthRedirect();
+  }, [dispatch, navigate]);
 
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);

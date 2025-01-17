@@ -54,7 +54,7 @@ aquaTrackApi.interceptors.response.use(
       } catch (refreshError) {
         console.error("Token refresh failed:", refreshError);
         localStorage.removeItem("accessToken");
-        window.location.href = "/login";
+        window.location.href = "/signin";
         return Promise.reject(refreshError);
       }
     }
@@ -221,6 +221,7 @@ export const loginWithGoogle = createAsyncThunk(
   async (code, thunkAPI) => {
     try {
       const response = await aquaTrackApi.post("/users/google-login", { code });
+      localStorage.setItem("accessToken", response.data.data.accessToken);
       return response.data;
     } catch (error) {
       return handleApiError(error, thunkAPI);

@@ -21,7 +21,7 @@ export function startTokenRefreshInterval() {
 
       stopTokenRefreshInterval();
       localStorage.removeItem("accessToken");
-      window.location.href = "/login";
+      window.location.href = "/signin";
     }
   }, REFRESH_INTERVAL);
 }
