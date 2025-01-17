@@ -87,6 +87,7 @@ const WaterDetailedInfo = () => {
       <DailyInfo
         isLoading={isDataLoading}
         dailyData={dailyData}
+        selectedDate={selectedDate}
         onAddWaterSubmitSuccess={onAddWaterSubmitSuccess}
       />
       <MonthInfo

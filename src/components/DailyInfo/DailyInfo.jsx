@@ -2,12 +2,16 @@ import AddWaterBtn from "../AddWaterBtn/AddWaterBtn";
 import WaterList from "../WaterList/WaterList";
 import css from "./DailyInfo.module.css";
 import { CircularProgress } from "@mui/material";
-const DailyInfo = ({ dailyData, isLoading, onAddWaterSubmitSuccess }) => {
+const DailyInfo = ({ dailyData, isLoading, selectedDate, onAddWaterSubmitSuccess }) => {
   return (
     <div>
       <div className={css.infoHeader}>
         <h2 className={css.h2}>Today</h2>
-        <AddWaterBtn type="waterDetail" onSubmitSuccess={onAddWaterSubmitSuccess} />
+        <AddWaterBtn
+          type="waterDetail"
+          selectedDate={selectedDate}
+          onSubmitSuccess={onAddWaterSubmitSuccess}
+        />
       </div>
       {isLoading ? (
         <div className={css.loaderWrapper}>

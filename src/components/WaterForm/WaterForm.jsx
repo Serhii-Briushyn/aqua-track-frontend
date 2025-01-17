@@ -19,7 +19,7 @@ const schema = yup.object().shape({
     .required("Time is required"),
 });
 
-const WaterForm = ({ source, isOpen, onClose, modalData, onSubmitSuccess }) => {
+const WaterForm = ({ source, isOpen, onClose, modalData, selectedDate, onSubmitSuccess }) => {
   const dispatch = useDispatch();
 
   const {
@@ -53,7 +53,7 @@ const WaterForm = ({ source, isOpen, onClose, modalData, onSubmitSuccess }) => {
 
   const onSubmit = (data) => {
     const [hours, minutes] = data.time.split(":");
-    const date = new Date();
+    const date = selectedDate || new Date();
     date.setHours(hours);
     date.setMinutes(minutes);
 
