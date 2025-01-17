@@ -7,4 +7,7 @@ export default defineConfig({
   build: {
     sourcemap: true,
   },
+  optimizeDeps: {
+    include: ["i18next-http-backend"],
+  },
 });
