@@ -1,11 +1,11 @@
-/* .wrapperStyle {
+.wrapperStyle {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   gap: 5px;
 }
 
-.wrapperElement {
+.wrapperBtn {
   display: flex;
   gap: 5px;
 }
@@ -19,12 +19,16 @@
   border: none;
   transform: scale(1);
 
-  transition: transform var(--animation);
+  transition: transform 0.3s ease-in-out;
 }
 
 .btnInfo:hover,
 .btnInfo:active {
   transform: scale(1.2);
+}
+
+.iconInfo {
+  fill: #323f47;
 }
 
 .wrapperTracker {
@@ -50,4 +54,4 @@
     width: 30px;
     height: 30px;
   }
-} */
+}

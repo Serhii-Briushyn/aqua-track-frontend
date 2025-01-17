@@ -8,7 +8,7 @@ import { fadeInScale } from "../../motion/motion.js";
 // import { startTokenRefreshInterval } from "../../utils/tokenRefresh";
 import { useTour } from "@reactour/tour";
 import s from "./TrackerPage.module.css";
-import icons from "../../assets/icons/icons.svg";
+// import icons from "../../assets/icons/icons.svg";
 
 export default function TrackerPage() {
   // useEffect(() => {
@@ -27,10 +27,8 @@ export default function TrackerPage() {
 
   return (
     <>
-      <DocumentTitle>AquaTrack</DocumentTitle>
-
       <div className={s.wrapperStyle}>
-        <div className={s.wrapperElement}>
+        {/* <div className={s.wrapperBtn}>
           <button className={s.btnInfo} onClick={() => setIsOpen(true)}>
             <svg
               width="18"
@@ -39,11 +37,12 @@ export default function TrackerPage() {
               focusable="false"
               className={s.iconInfo}
             >
-              <use xlinkHref={`${icons}#icon-circle`} />
+              <use xlinkHref={`${icons}#icon-question`} />
             </svg>
           </button>
-        </div>
+        </div> */}
         <div className={s.wrapperTracker} data-tour="step-1">
+          <DocumentTitle>AquaTrack</DocumentTitle>
           <motion.div
             initial="hidden"
             animate="visible"

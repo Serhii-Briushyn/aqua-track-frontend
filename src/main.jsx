@@ -6,6 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import { TourProvider } from "@reactour/tour";
 import steps from "../src/tour/steps.js";
+import { styles } from "./tour/styles.js";
 
 import App from "./App.jsx";
 import { persistor, store } from "./redux/store.js";
@@ -20,7 +21,7 @@ createRoot(document.getElementById("root")).render(
     <PersistGate loading={null} persistor={persistor}>
       <BrowserRouter>
         <HelmetProvider>
-          <TourProvider steps={steps}>
+          <TourProvider steps={steps} styles={styles}>
             <App />
           </TourProvider>
         </HelmetProvider>
