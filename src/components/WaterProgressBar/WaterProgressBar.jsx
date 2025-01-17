@@ -9,7 +9,7 @@ const WaterProgressBar = ({ amount, norm, date }) => {
   const [isMoving, setIsMoving] = useState(false);
 
   useEffect(() => {
-    const progress = ((amount / norm) * 100).toFixed(2);
+    const progress = (amount / norm) * 100;
     const boundedProgress = Math.min(progress, 100);
     setWaterLevel(boundedProgress);
 
@@ -39,7 +39,7 @@ const WaterProgressBar = ({ amount, norm, date }) => {
     setIsMoving(true);
     setTimeout(() => {
       setIsMoving(false);
-    }, 2000);
+    }, 2500);
   };
 
   useEffect(() => {
@@ -54,7 +54,7 @@ const WaterProgressBar = ({ amount, norm, date }) => {
         <div className={styles.movingCircleWrapper}>
           {isMoving && (
             <span className={styles.percentageText}>
-              {Math.round(waterLevel)}%
+              {Math.round(waterLevel.toFixed(1))}%
             </span>
           )}
           <div

@@ -10,6 +10,9 @@ import {
 
 const initialState = {
   waterData: [],
+  normaWater: 0,
+  totalWater: 0,
+  totalAmount: 0,
   dailyData: null,
   monthlyData: [],
   isLoading: false,
@@ -25,6 +28,31 @@ const waterSlice = createSlice({
     },
     clearCurrentItem: (state) => {
       state.currentItem = null;
+    },
+    setNormaWater: (state, action) => {
+      state.normaWater = action.payload;
+    },
+    clearNormaWater: (state) => {
+      state.normaWater = 0;
+    },
+    setWaterData: (state, action) => {
+      state.waterData.push(action.payload);
+    },
+
+    clearWaterData: (state) => {
+      state.waterData = [];
+    },
+    addWaterAmount: (state, action) => {
+      console.log("Before adding water:", state.totalWater);
+      state.totalWater += action.payload;
+      console.log("After adding water:", state.totalWater);
+    },
+
+    clearTotalWater: (state) => {
+      state.totalWater = 0; // Очищаємо загальну кількість
+    },
+    resetTotalAmount: (state) => {
+      state.totalAmount = 0; // Очищаємо накопичену кількість води
     },
   },
   extraReducers: (builder) => {
@@ -109,5 +137,15 @@ const waterSlice = createSlice({
   },
 });
 
-export const { setCurrentItem, clearCurrentItem } = waterSlice.actions;
+export const {
+  setCurrentItem,
+  clearCurrentItem,
+  setNormaWater,
+  clearNormaWater,
+  setWaterData,
+  clearWaterData,
+  addWaterAmount,
+  clearTotalWater,
+  resetTotalAmount,
+} = waterSlice.actions;
 export const waterReducer = waterSlice.reducer;

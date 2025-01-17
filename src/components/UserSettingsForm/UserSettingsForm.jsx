@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { FaUserCircle } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
@@ -6,7 +7,9 @@ import css from "./UserSettingsForm.module.css";
 import icons from "../../assets/icons/icons.svg";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-
+import { setNormaWater, clearNormaWater } from "../../redux/water/slice";
+import { selectNormaWater } from "../../redux/water/selectors";
+import { useSelector } from "react-redux";
 const schema = yup.object().shape({
   name: yup.string().required("Name is required!"),
   email: yup.string().email("Email is invalid").required("Email is required!"),
@@ -28,10 +31,10 @@ const schema = yup.object().shape({
 const UserSettingsForm = () => {
   const [avatarURL, setAvatarURL] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
-  const [normaWater, setNormaWater] = useState(0);
 
+  const dispatch = useDispatch();
   const location = useLocation();
-
+  const normaWater = useSelector(selectNormaWater);
   const {
     register,
     handleSubmit,
@@ -41,11 +44,7 @@ const UserSettingsForm = () => {
   });
 
   useEffect(() => {
-    if (location.pathname === "/user-settings") {
-      setIsOpen(true);
-    } else {
-      setIsOpen(false);
-    }
+    setIsOpen(location.pathname === "/user-settings");
   }, [location]);
 
   const calculateWaterNorm = (gender, weight, timeSports) => {
@@ -65,8 +64,15 @@ const UserSettingsForm = () => {
     const { gender, weight, timeSports } = data;
     const waterAmount = calculateWaterNorm(gender, weight, timeSports);
     setNormaWater(waterAmount);
+    dispatch(setNormaWater(waterAmount));
+
     console.log(data);
   };
+  useEffect(() => {
+    if (location.pathname !== "/user-settings") {
+      dispatch(clearNormaWater());
+    }
+  }, [location, dispatch]);
 
   const handleFileSelect = (event) => {
     const file = event.target.files[0];
