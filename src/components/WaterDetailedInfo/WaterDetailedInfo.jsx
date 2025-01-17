@@ -15,6 +15,7 @@ import {
   selectIsLoading as selectWaterIsLoading
 } from "../../redux/water/selectors.js";
 import { formatToDateString } from "./utils/index.js";
+import {fetchUserDetails} from "../../redux/auth/operations.js";
 
 const WaterDetailedInfo = () => {
   const dispatch = useDispatch();
@@ -74,12 +75,16 @@ const WaterDetailedInfo = () => {
   }
 
   useEffect(() => {
-    fetchMonthly();
-  }, [fetchMonthly]);
+    user && fetchMonthly();
+  }, [fetchMonthly, dispatch, user]);
 
   useEffect(() => {
-    fetchDaily(formattedSelectedDate);
-  }, [formattedSelectedDate, fetchDaily]);
+    user && fetchDaily(formattedSelectedDate);
+  }, [formattedSelectedDate, fetchDaily, user, dispatch]);
+
+  useEffect(() => {
+    !user && dispatch(fetchUserDetails())
+  }, [dispatch, user]);
 
   return (
     <div className={css.waterDetailedInfo}>
