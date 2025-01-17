@@ -66,7 +66,7 @@ const SignInForm = () => {
   };
 
   useEffect(() => {
-    const handleGoogleAuthRedirect = async () => {
+    const handleAuthRedirect = async () => {
       const params = new URLSearchParams(window.location.search);
       const code = params.get("code");
 
@@ -76,11 +76,11 @@ const SignInForm = () => {
         await dispatch(loginWithGoogle(code)).unwrap();
         toast.success("Login successful!");
       } catch (error) {
-        toast.error(error.message);
+        toast.error(error);
       }
     };
 
-    handleGoogleAuthRedirect();
+    handleAuthRedirect();
   }, [dispatch]);
 
   const togglePasswordVisibility = () => {
