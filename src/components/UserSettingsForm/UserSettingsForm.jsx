@@ -43,7 +43,7 @@ const UserSettingsForm = () => {
 
   const [avatarURL, setAvatarURL] = useState(null);
   const [avatarFile, setAvatarFile] = useState(null);
-  const [normaWater, setNormaWater] = useState(0); 
+  const [normaWater, setNormaWater] = useState(0);
 
   const {
     register,
@@ -88,7 +88,7 @@ const UserSettingsForm = () => {
   useEffect(() => {
     const [gender, weight, activeHours] = watchFields;
     const waterAmount = calculateWaterNorm(gender, weight, activeHours);
-    setNormaWater(waterAmount); 
+    setNormaWater(waterAmount);
   }, [watchFields]);
 
   useEffect(() => {
@@ -114,7 +114,7 @@ const UserSettingsForm = () => {
       formData.append("gender", data.gender);
       formData.append("weight", data.weight);
       formData.append("activeHours", data.activeHours);
-      formData.append("waterNorm", data.waterNorm * 1000); 
+      formData.append("waterNorm", data.waterNorm * 1000);
       if (avatarFile) {
         formData.append("avatar", avatarFile);
       }
@@ -145,7 +145,11 @@ const UserSettingsForm = () => {
         )}
         <button className={css.uploadPhotoBtn}>
           <div className={css.btnIconContainer}>
-            <svg width="20" height="20">
+            <svg
+              width="20"
+              height="20"
+              style={{ stroke: "#2F2F2F", fill: "none" }}
+            >
               <use href={`${icons}#icon-upload`} />
             </svg>
             <span className={css.inputText}>Upload a photo</span>
