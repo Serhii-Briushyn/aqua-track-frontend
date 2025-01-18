@@ -1,39 +1,42 @@
-// WaterProgressBar.jsx
-
+import { useSelector } from "react-redux";
 import styles from "./WaterProgressBar.module.css";
 import { useEffect, useState } from "react";
+import {
+  selectSelectedDate,
+  selectTotalPercentage,
+} from "../../redux/water/selectors";
 
-const WaterProgressBar = ({ amount, norm, date }) => {
+const WaterProgressBar = () => {
+  const totalPercentage = useSelector(selectTotalPercentage);
+  const selectedDate = useSelector(selectSelectedDate);
   const [waterLevel, setWaterLevel] = useState(0);
   const [formattedDate, setFormattedDate] = useState("");
   const [isMoving, setIsMoving] = useState(false);
 
   useEffect(() => {
-    const progress = ((amount / norm) * 100).toFixed(2);
-    const boundedProgress = Math.min(progress, 100);
+    const boundedProgress = Math.min(totalPercentage, 100);
     setWaterLevel(boundedProgress);
 
     const today = new Date();
-    const todayFormatted = today.toLocaleDateString(navigator.language, {
-      day: "numeric",
-      month: "long",
+    const todayFormatted = today.toLocaleDateString("default", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
     });
 
-    const inputDate = new Date(date);
-    const inputDateFormatted = inputDate.toLocaleDateString(
-      navigator.language,
-      {
-        day: "numeric",
-        month: "long",
-      }
-    );
+    const inputDate = new Date(selectedDate);
+    const inputDateFormatted = inputDate.toLocaleDateString("default", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    });
 
     if (inputDateFormatted === todayFormatted) {
       setFormattedDate("Today");
     } else {
-      setFormattedDate(inputDate.toLocaleDateString(navigator.language));
+      setFormattedDate(inputDateFormatted);
     }
-  }, [amount, norm, date]);
+  }, [totalPercentage, selectedDate]);
 
   const handleCircleMove = () => {
     setIsMoving(true);
@@ -47,7 +50,7 @@ const WaterProgressBar = ({ amount, norm, date }) => {
   }, [waterLevel]);
 
   return (
-    <div className={styles.swater_progress_bar_wrapper}>
+    <div className={styles.progressBarWrapper}>
       <div className={styles.todayLabel}>{formattedDate}</div>
       <div className={styles.waterProgressBar}>
         <div className={styles.water} style={{ width: `${waterLevel}%` }} />

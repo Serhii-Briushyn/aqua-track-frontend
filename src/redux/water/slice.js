@@ -1,4 +1,3 @@
-//src/redux/water/slice.js
 import { createSlice } from "@reduxjs/toolkit";
 import {
   createWaterOperation,
@@ -12,6 +11,9 @@ const initialState = {
   waterData: [],
   dailyData: null,
   monthlyData: [],
+  selectedDate: new Date().toISOString(),
+  totalAmount: null,
+  totalPercentage: null,
   isLoading: false,
   isError: null,
 };
@@ -25,6 +27,9 @@ const waterSlice = createSlice({
     },
     clearCurrentItem: (state) => {
       state.currentItem = null;
+    },
+    setSelectedDate(state, action) {
+      state.selectedDate = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -87,6 +92,8 @@ const waterSlice = createSlice({
       .addCase(getDailyWaterOperation.fulfilled, (state, action) => {
         state.isLoading = false;
         state.dailyData = action.payload.data;
+        state.totalAmount = action.payload.totalAmount;
+        state.totalPercentage = action.payload.totalPercentage;
       })
       .addCase(getDailyWaterOperation.rejected, (state, action) => {
         state.isLoading = false;
@@ -109,5 +116,6 @@ const waterSlice = createSlice({
   },
 });
 
-export const { setCurrentItem, clearCurrentItem } = waterSlice.actions;
+export const { setCurrentItem, clearCurrentItem, setSelectedDate } =
+  waterSlice.actions;
 export const waterReducer = waterSlice.reducer;
