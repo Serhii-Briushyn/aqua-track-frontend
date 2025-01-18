@@ -4,7 +4,9 @@ import { selectUser } from "../../redux/auth/selectors";
 
 const WaterDailyNorma = () => {
   const user = useSelector(selectUser);
-  const waterNorm = user?.waterNorm || "1.5";
+  const waterNorm = user?.waterNorm
+    ? (user.waterNorm / 1000).toFixed(1)
+    : "1.5";
 
   return (
     <div className={css.water_daily_norma_container}>

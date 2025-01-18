@@ -75,7 +75,11 @@
 
 @media screen and (min-width: 768px) {
   .window {
-    width: max-content;
+    width: min-content;
+  }
+
+  .userSettingsWindow {
+    width: 648px;
   }
 
   .button {
@@ -90,5 +94,19 @@
   .icon {
     width: 28px;
     height: 28px;
+  }
+
+  .userSettingsWindow::-webkit-scrollbar {
+    width: 40px;
+  }
+
+  .userSettingsWindow::-webkit-scrollbar-thumb {
+    border: 16px solid rgba(0, 0, 0, 0);
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .userSettingsWindow {
+    width: 920px;
   }
 }

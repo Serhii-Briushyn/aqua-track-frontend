@@ -105,6 +105,13 @@ input[type="radio"] {
   border: 1px solid rgba(47, 47, 47, 0.4);
 }
 
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+  display: none;
+}
+
 .genderLabel {
   display: inline-flex;
   gap: 10px;
@@ -141,10 +148,9 @@ input[type="radio"] {
 }
 
 .settingsForm {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: repeat(4, auto);
-  grid-row-gap: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
 .saveBtn {
@@ -271,6 +277,7 @@ input[type="radio"] {
 
 @media screen and (min-width: 1440px) {
   .settingsForm {
+    display: grid;
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 40px;
     grid-row-gap: 24px;
