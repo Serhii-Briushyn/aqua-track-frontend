@@ -38,7 +38,7 @@ const AdvantagesSection = () => {
         ) : (
           <div className={s.wrapperAvatar}>
             <div className={s.customer}>
-              <picture>
+              <picture className={s.pictureBox}>
                 <source
                   srcSet={`${cust1Tab} 1x, ${cust1Tab2x} 2x`}
                   media="(min-width: 768px)"
@@ -51,7 +51,7 @@ const AdvantagesSection = () => {
               </picture>
             </div>
             <div className={s.customer}>
-              <picture>
+              <picture className={s.pictureBox}>
                 <source
                   srcSet={`${cust2Tab} 1x, ${cust2Tab2x} 2x`}
                   media="(min-width: 768px)"
@@ -64,7 +64,7 @@ const AdvantagesSection = () => {
               </picture>
             </div>
             <div className={s.customer}>
-              <picture>
+              <picture className={s.pictureBox}>
                 <source
                   srcSet={`${cust3Tab} 1x, ${cust3Tab2x} 2x`}
                   media="(min-width: 768px)"
@@ -81,7 +81,11 @@ const AdvantagesSection = () => {
         )}
 
         <p className={s.text}>
-          Our <span className={s.coloredText}>happy</span> customers
+          Our{" "}
+          <span className={s.coloredText}>
+            happy <br />{" "}
+          </span>{" "}
+          customers
         </p>
       </div>
       <div className={s.benefits}>

@@ -6,19 +6,15 @@ const WelcomeSection = () => {
   const { t } = useTranslation();
   return (
     <div className={s.welcome_section}>
-      <div>
-        <div className={s.basic_container}>
-          <h2 className={s.h2}>{t("recordWater")}</h2>
-          <h1 className={s.h1}>{t("trackerTitle")}</h1>
-          <div className={s.link_container}>
-            <Link className={s.register_btn} to="/signup">
-              {t("tryTracker")}
-            </Link>
-            <Link className={s.login_btn} to="/signin">
-              {t("signIn")}
-            </Link>
-          </div>
-        </div>
+      <p className={s.text}>{t("recordWater")}</p>
+      <h1 className={s.h1}>{t("trackerTitle")}</h1>
+      <div className={s.link_container}>
+        <Link className={s.register_btn} to="/signup">
+          {t("tryTracker")}
+        </Link>
+        <Link className={s.login_btn} to="/signin">
+          {t("signIn")}
+        </Link>
       </div>
     </div>
   );
