@@ -12,20 +12,23 @@ import { updateUser } from "../../redux/auth/operations";
 const schema = yup.object().shape({
   name: yup.string().required("Name is required!"),
   email: yup.string().email("Email is invalid").required("Email is required!"),
-  gender: yup.string().oneOf(["man", "woman"]).required("Gender is required!"),
+  gender: yup
+    .string()
+    .oneOf(["male", "female"])
+    .required("Gender is required!"),
   weight: yup
     .number()
     .typeError("Please, enter a number")
     .min(0, "Weight must be greater or equal to 0 kg!")
     .max(200, "Weight must be less than 200 kg!")
     .required("Weight is required!"),
-  timeSports: yup
+  activeHours: yup
     .number()
     .typeError("Please, enter a number")
     .min(0, "Active time must be greater or equal to 0 hours!")
     .max(8, "Active time must be less than 8 hours!")
     .required("Active time is required!"),
-  waterRate: yup
+  waterNorm: yup
     .number("Please, enter a number")
     .typeError("Please, enter a number")
     .min(0, "Daily norma greater or equal to 0 liters!")
@@ -47,16 +50,16 @@ const UserSettingsForm = ({ user }) => {
     resolver: yupResolver(schema),
   });
 
-  const watchFields = watch(["gender", "weight", "timeSports"]);
+  const watchFields = watch(["gender", "weight", "activeHours"]);
 
   useEffect(() => {
     if (user) {
       setValue("name", user.name || "");
       setValue("email", user.email || "");
       setValue("weight", user.weight || "");
-      setValue("timeSports", user.timeSports || "");
+      setValue("activeHours", user.activeHours || "");
       setValue("gender", user.gender || "woman");
-      setValue("waterRate", user.waterRate || 1.8);
+      setValue("waterNorm", user.waterNorm || 1.8);
 
       if (user.avatarUrl) {
         setAvatarURL(user.avatarUrl);
@@ -65,18 +68,18 @@ const UserSettingsForm = ({ user }) => {
   }, [user, setValue]);
 
   useEffect(() => {
-    const [gender, weight, timeSports] = watchFields;
-    const waterAmount = calculateWaterNorm(gender, weight, timeSports);
+    const [gender, weight, activeHours] = watchFields;
+    const waterAmount = calculateWaterNorm(gender, weight, activeHours);
     setNormaWater(waterAmount);
   }, [watchFields]);
 
-  const calculateWaterNorm = (gender, weight, timeSports) => {
+  const calculateWaterNorm = (gender, weight, activeHours) => {
     if (gender && weight) {
       let water = 0;
       if (gender === "woman") {
-        water = weight * 0.03 + timeSports * 0.4;
+        water = weight * 0.03 + activeHours * 0.4;
       } else if (gender === "man") {
-        water = weight * 0.04 + timeSports * 0.6;
+        water = weight * 0.04 + activeHours * 0.6;
       }
       return Math.round(water * 100) / 100;
     }
@@ -93,8 +96,8 @@ const UserSettingsForm = ({ user }) => {
     formData.append("email", data.email);
     formData.append("gender", data.gender);
     formData.append("weight", data.weight);
-    formData.append("timeSports", data.timeSports);
-    formData.append("waterRate", data.waterRate || 0);
+    formData.append("activeHours", data.activeHours);
+    formData.append("waterNorm", data.waterNorm || 0);
 
     if (avatarFile) {
       formData.append("avatar", avatarFile);
@@ -152,7 +155,7 @@ const UserSettingsForm = ({ user }) => {
               <input
                 type="radio"
                 className={css.genderInput}
-                value="woman"
+                value="female"
                 name="gender"
                 {...register("gender")}
               />
@@ -162,7 +165,7 @@ const UserSettingsForm = ({ user }) => {
               <input
                 type="radio"
                 className={css.genderInput}
-                value="man"
+                value="male"
                 name="gender"
                 {...register("gender")}
               />
@@ -250,15 +253,15 @@ const UserSettingsForm = ({ user }) => {
               The time of active participation in sports:
               <input
                 type="number"
-                name="timeSports"
-                {...register("timeSports", { min: 0, max: 8 })}
+                name="activeHours"
+                {...register("activeHours", { min: 0, max: 8 })}
                 className={`${css.userInfoField} ${css.inputText} ${
-                  errors.timeSports && css.error
+                  errors.activeHours && css.error
                 }`}
               />
-              {errors.timeSports && (
+              {errors.activeHours && (
                 <p className={`${css.inputText} ${css.error}`}>
-                  {errors.timeSports.message}
+                  {errors.activeHours.message}
                 </p>
               )}
             </label>
@@ -275,8 +278,8 @@ const UserSettingsForm = ({ user }) => {
               Write down how much water you will drink:
               <input
                 type="number"
-                name="waterRate"
-                {...register("waterRate")}
+                name="waterNorm"
+                {...register("waterNorm")}
                 className={`${css.userInfoField} ${css.inputText}`}
               />
             </label>

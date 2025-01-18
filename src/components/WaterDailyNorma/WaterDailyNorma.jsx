@@ -16,7 +16,7 @@ const WaterDailyNorma = () => {
 
   return (
     <div className={css.water_daily_norma_container}>
-      <h4 className={css.WaterDailyNorma}>{user.waterRate} L</h4>
+      <h4 className={css.WaterDailyNorma}>{user.waterNorm} L</h4>
       <p className={css.WaterDailyNorma_p}>My daily norma</p>
     </div>
   );
