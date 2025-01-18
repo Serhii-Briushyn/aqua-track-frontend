@@ -121,10 +121,6 @@ input[type="number"]::-webkit-outer-spin-button {
   margin-right: 20px;
 }
 
-.genderLegend {
-  margin-bottom: 14px;
-}
-
 .userInfoContainer {
   display: flex;
   flex-direction: column;
@@ -147,23 +143,60 @@ input[type="number"]::-webkit-outer-spin-button {
   margin-bottom: 4px;
 }
 
+.userSettingsForm {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
 .settingsForm {
   display: flex;
   flex-direction: column;
   gap: 24px;
+  padding-left: 20px;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+  margin-bottom: 40px;
+}
+
+.settingsForm::-webkit-scrollbar {
+  width: 20px;
+}
+
+.settingsForm::-webkit-scrollbar-thumb {
+  background-color: #f0eff4;
+  border-radius: 30px;
+  border: 7px solid rgba(0, 0, 0, 0);
+  background-clip: padding-box;
+  cursor: pointer;
+}
+
+.settingsForm::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 .saveBtn {
-  padding: 14px 40px 14px 40px;
-  display: inline-flex;
-  flex-direction: row;
-  justify-content: center;
+  display: flex;
   align-items: center;
+  justify-content: center;
+  width: 116px;
+  min-height: 46px;
   border-radius: 30px;
-  background: rgb(155, 225, 160);
+  background-color: #9be1a0;
   border: none;
-  margin-top: 40px;
   cursor: pointer;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.28;
+  letter-spacing: -0.01em;
+  text-align: center;
+  color: #323f47;
+  margin-left: 20px;
+  transition: all 0.2s ease-in-out;
+}
+
+.saveBtn:hover {
+  background-color: #87d28d;
 }
 
 .userAvatarContainer {
@@ -215,12 +248,18 @@ input[type="number"]::-webkit-outer-spin-button {
   color: rgb(73, 72, 72);
 }
 
-.saveBtn:hover,
-.saveBtn:focus {
-  background: rgb(135, 210, 141);
-}
-
 @media screen and (min-width: 768px) {
+  .settingsForm {
+    padding-left: 40px;
+  }
+  .settingsForm::-webkit-scrollbar {
+    width: 40px;
+  }
+
+  .settingsForm::-webkit-scrollbar-thumb {
+    border: 16px solid rgba(0, 0, 0, 0);
+  }
+
   .inputText,
   .formulaDescription,
   .greenText {
@@ -243,7 +282,11 @@ input[type="number"]::-webkit-outer-spin-button {
   }
 
   .saveBtn {
-    padding: 16px 50px 16px 50px;
+    font-size: 16px;
+    line-height: 1.5;
+    width: 141px;
+    min-height: 56px;
+    margin-left: 40px;
   }
 
   .normaWaterContainer {
@@ -301,10 +344,7 @@ input[type="number"]::-webkit-outer-spin-button {
 .error {
   color: rgb(239, 80, 80);
 }
-/* svg {
-  fill: transparent;
-  stroke: currentColor;
-} */
+
 .activeTimeContainer {
   display: flex;
   column-gap: 12.69px;
