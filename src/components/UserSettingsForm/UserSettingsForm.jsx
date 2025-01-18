@@ -165,10 +165,10 @@ const UserSettingsForm = () => {
       </div>
       <div className={css.settingsForm}>
         <fieldset className={css.genderContainer}>
-          <legend className={`${css.genderLegend} ${css.inputTitle}`}>
+          <legend className={css.genderLegend}>
             Your gender identity
           </legend>
-          <label className={`${css.genderLabel} ${css.inputText}`}>
+          <label className={css.inputText}>
             <input
               type="radio"
               className={css.genderInput}
@@ -178,7 +178,7 @@ const UserSettingsForm = () => {
             />
             Woman
           </label>
-          <label className={`${css.genderLabel} ${css.inputText}`}>
+          <label className={css.genderLabel}>
             <input
               type="radio"
               className={css.genderInput}
@@ -193,12 +193,12 @@ const UserSettingsForm = () => {
           )}
         </fieldset>
         <div className={css.userInfoContainer}>
-          <label className={`${css.userInfoLabel} ${css.inputTitle}`}>
+          <label className={css.userInfoLabel}>
             Your name
             <input
               type="text"
               name="name"
-              className={`${css.userInfoField} ${css.inputText}`}
+              className={css.userInfoField}
               {...register("name")}
             />
             {errors.name && (
