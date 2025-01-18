@@ -76,9 +76,9 @@ const UserSettingsForm = ({ user }) => {
   const calculateWaterNorm = (gender, weight, activeHours) => {
     if (gender && weight) {
       let water = 0;
-      if (gender === "woman") {
+      if (gender === "female") {
         water = weight * 0.03 + activeHours * 0.4;
-      } else if (gender === "man") {
+      } else if (gender === "male") {
         water = weight * 0.04 + activeHours * 0.6;
       }
       return Math.round(water * 100) / 100;
@@ -107,7 +107,6 @@ const UserSettingsForm = ({ user }) => {
       await dispatch(updateUser(formData)).unwrap();
       toast.success("Data successfully updated!");
     } catch (error) {
-      // console.error("Update error:", error);
       toast.error(error.message || "Failed to update user data.");
     }
   };
@@ -269,7 +268,8 @@ const UserSettingsForm = ({ user }) => {
           <div className={css.userInfoContainer}>
             <div className={css.amountOfWaterContainer}>
               <p
-                className={`${css.amountOfWaterText} ${css.inputText} ${css.formulaDescriptionContainer}`}>
+                className={`${css.amountOfWaterText} ${css.inputText} ${css.formulaDescriptionContainer}`}
+              >
                 The required amount of water in liters per day:
               </p>
               <span className={css.amountOfWaterText}>{normaWater}L</span>
