@@ -1,20 +1,17 @@
 .welcome_section {
   border-radius: 30px;
   position: relative;
-  padding: 24px 16px 67px 16px;
+  padding: 118px 16px 67px 16px;
   max-width: 343px;
   background-color: #f0eff4;
+  min-height: 411px;
 }
 
-.basic_container {
-  margin-top: 74px;
-}
-
-.h2 {
+.text {
   margin-bottom: 16px;
   font-weight: 400;
   font-size: 14px;
-  line-height: 1.28571;
+  line-height: 1.28;
   letter-spacing: 0.06em;
   color: #2f2f2f;
 }
@@ -34,31 +31,39 @@
 }
 
 .register_btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 116px;
+  height: 46px;
   font-weight: 700;
   font-size: 14px;
-  line-height: 1.28571;
+  line-height: 1.28;
   letter-spacing: -0.01em;
   text-align: center;
   color: #323f47;
   border-radius: 30px;
-  padding: 14px 19px;
   background: #9be1a0;
   cursor: pointer;
-  transition: background-color 0.4s ease;
+  transition: all 0.2s ease-in-out;
 }
 
 .login_btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 104px;
+  height: 46px;
   font-weight: 700;
   font-size: 14px;
-  line-height: 1.28571;
+  line-height: 1.28;
   letter-spacing: -0.01em;
   text-align: center;
   color: #323f47;
   border-radius: 30px;
-  padding: 13px 27px;
   border: 1px solid #323f47;
   cursor: pointer;
-  transition: border 0.4s ease, color 0.4s ease;
+  transition: all 0.2s ease-in-out;
 }
 
 .login_btn:hover {
@@ -73,50 +78,47 @@
 @media screen and (min-width: 768px) {
   .welcome_section {
     max-width: 704px;
-    padding: 32px 32px 50px 32px;
+    padding: 106px 39px 50px 64px;
+    min-height: 498px;
   }
 
-  .basic_container {
-    margin-top: 50px;
-    padding-left: 32px;
-    padding-right: 61px;
-  }
-
-  .h2 {
+  .text {
     font-size: 16px;
     line-height: 1.5;
   }
 
   .h1 {
     font-size: 64px;
-    line-height: 1.09375;
+    line-height: 1.09;
+  }
+
+  .link_container {
+    gap: 16px;
   }
 
   .register_btn {
     font-size: 16px;
     line-height: 1.5;
-    padding: 18px 40px;
+    width: 169px;
+    height: 60px;
   }
 
   .login_btn {
     font-size: 16px;
     line-height: 1.5;
-    padding: 17px 39px;
+    width: 135px;
+    height: 60px;
   }
 }
 
 @media screen and (min-width: 1440px) {
   .welcome_section {
-    padding-bottom: 178px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 64px 61px 64px 64px;
     max-width: 672px;
-  }
-
-  .basic_container {
-    margin-top: 132px;
-    padding-right: 29px;
-  }
-
-  .h2 {
+    min-height: 736px;
   }
 
   .h1 {
