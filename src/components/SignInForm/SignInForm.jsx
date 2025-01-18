@@ -12,6 +12,7 @@ import Loader from "../Loader/Loader.jsx";
 
 import icons from "../../assets/icons/icons.svg";
 import css from "./SignInForm.module.css";
+import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher.jsx";
 
 const validationSchema = Yup.object({
   email: Yup.string()
@@ -161,6 +162,7 @@ const SignInForm = () => {
             </p>
           </div>
         </div>
+        <LanguageSwitcher />
       </div>
     </>
   );

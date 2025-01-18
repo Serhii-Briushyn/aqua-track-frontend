@@ -16,14 +16,7 @@
   .logo {
     font-size: 24px;
     line-height: 1;
-    top: 20px;
-    left: 33px;
-  }
-}
-@media screen and (min-width: 1440px) {
-  .logo {
-    font-size: 24px;
     top: 32px;
-    left: 33px;
+    left: 32px;
   }
 }

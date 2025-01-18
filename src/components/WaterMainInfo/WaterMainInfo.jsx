@@ -13,6 +13,7 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
 import { selectDailyData } from "../../redux/water/selectors.js";
+import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher.jsx";
 const getImageSource = () => {
   if (window.innerWidth >= 1440) {
     return bottleImageDesktop;
@@ -47,7 +48,8 @@ const WaterMainInfo = ({ payload }) => {
       <img src={imageSource} alt="water-icon" className={s.water_icon} />
       <WaterDailyNorma />
       <WaterProgressBar amount={waterData} norm={norm} date={date} />
-      <AddWaterBtn type="waterMain"/>
+      <AddWaterBtn type="waterMain" />
+      <LanguageSwitcher />
     </div>
   );
 };

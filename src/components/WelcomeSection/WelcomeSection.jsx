@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import s from "./WelcomeSection.module.css";
 import { useTranslation } from "react-i18next";
+import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher";
 
 const WelcomeSection = () => {
   const { t } = useTranslation();
@@ -16,6 +17,7 @@ const WelcomeSection = () => {
           {t("signIn")}
         </Link>
       </div>
+      <LanguageSwitcher />
     </div>
   );
 };

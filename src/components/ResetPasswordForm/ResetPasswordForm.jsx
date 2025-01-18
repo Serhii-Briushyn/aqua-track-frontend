@@ -11,6 +11,7 @@ import Loader from "../Loader/Loader";
 
 import icons from "../../assets/icons/icons.svg";
 import css from "./ResetPasswordForm.module.css";
+import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher";
 
 const ResetPasswordSchema = Yup.object({
   password: Yup.string()
@@ -146,6 +147,7 @@ const ResetPasswordForm = () => {
             </button>
           </form>
         </div>
+        <LanguageSwitcher />
       </div>
     </>
   );

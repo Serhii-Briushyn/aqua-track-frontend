@@ -10,6 +10,7 @@ import { selectIsLoading } from "../../redux/auth/selectors.js";
 import Loader from "../Loader/Loader.jsx";
 
 import css from "./ForgotPasswordForm.module.css";
+import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher.jsx";
 
 const ForgotPasswordSchema = Yup.object({
   email: Yup.string()
@@ -83,6 +84,7 @@ const ForgotPasswordForm = () => {
             </p>
           </div>
         </div>
+        <LanguageSwitcher />
       </div>
     </>
   );
