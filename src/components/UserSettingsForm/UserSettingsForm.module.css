@@ -1,20 +1,26 @@
-fieldset {
-  padding: 0;
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
   margin: 0;
-  border: none;
 }
 
-h2,
-h3,
-h4,
-p,
-legend {
-  margin: 0;
-  padding: 0;
+input[type="number"] {
+  -moz-appearance: textfield;
 }
 
-.amountOfWaterText {
-  margin-bottom: 5px;
+.userSettingsForm {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.userAvatarContainer {
+  width: auto;
+  margin: 0 auto 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .uploadPhotoBtn {
@@ -23,8 +29,25 @@ legend {
   border: none;
   background-color: transparent;
   cursor: pointer;
-  padding: 0;
   width: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.userAvatar {
+  width: 75px;
+  height: 75px;
+  border-radius: 100%;
+  object-fit: cover;
+}
+
+.iconUser {
+  width: 75px;
+  height: 75px;
+  color: rgb(73, 72, 72);
 }
 
 .btnIconContainer {
@@ -32,6 +55,13 @@ legend {
   justify-content: center;
   align-items: center;
   column-gap: 8px;
+}
+
+.uploadPhotoSvg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: #2f2f2f;
 }
 
 .fileInput {
@@ -42,6 +72,63 @@ legend {
   height: 100%;
   opacity: 0;
   cursor: pointer;
+  z-index: 1;
+}
+
+.settingsForm {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-left: 20px;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+  margin-bottom: 40px;
+}
+
+.settingsForm::-webkit-scrollbar {
+  width: 20px;
+}
+
+.settingsForm::-webkit-scrollbar-thumb {
+  background-color: #f0eff4;
+  border-radius: 30px;
+  border: 7px solid rgba(0, 0, 0, 0);
+  background-clip: padding-box;
+  cursor: pointer;
+}
+
+.settingsForm::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.genderLegend {
+  padding: 0;
+  margin: 0;
+  border: none;
+}
+
+.genderLegendText {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: #323f47;
+  margin-bottom: 14px;
+}
+
+.genderLabel {
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.28;
+  letter-spacing: -0.01em;
+  color: #2f2f2f;
+}
+
+.genderLabel:first-of-type {
+  margin-right: 20px;
 }
 
 .genderInput::before {
@@ -77,26 +164,43 @@ input[type="radio"] {
   outline: none;
 }
 
-.greenText {
-  color: rgb(155, 225, 160);
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 18px;
+.userInfoContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 
-.amountOfWaterText {
-  font-size: 14px;
+.userInfoBoldLabel {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
   font-weight: 700;
-  line-height: 18px;
-  letter-spacing: 0%;
-  color: rgb(155, 225, 160);
+  font-size: 16px;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: #323f47;
 }
 
-.formulaDescription {
-  font-size: 14px;
+.userInfoLabel {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
   font-weight: 400;
-  line-height: 18px;
-  color: rgba(47, 47, 47, 0.6);
+  font-size: 14px;
+  line-height: 1.28;
+  letter-spacing: -0.01em;
+  color: #2f2f2f;
+}
+
+.userInfoField {
+  border: 1px solid rgba(47, 47, 47, 0.15);
+  border-radius: 15px;
+  padding: 14px 16px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.28;
+  letter-spacing: -0.01em;
+  color: #2f2f2f;
 }
 
 .userInfoField:active,
@@ -105,32 +209,20 @@ input[type="radio"] {
   border: 1px solid rgba(47, 47, 47, 0.4);
 }
 
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-  display: none;
+.userInfoField.error {
+  border-color: rgb(239, 80, 80);
 }
 
-.genderLabel {
-  display: inline-flex;
-  gap: 10px;
-  align-items: center;
-}
-.genderLabel:first-of-type {
-  margin-right: 20px;
+.error {
+  color: rgb(239, 80, 80);
 }
 
-.userInfoContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.userInfoLabel {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+.inputTitle {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: #323f47;
 }
 
 .normaWaterContainer {
@@ -141,38 +233,56 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .normaGenderTitle {
   margin-bottom: 4px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.28;
+  letter-spacing: -0.01em;
+  color: #2f2f2f;
 }
 
-.userSettingsForm {
+.greenText {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.28;
+  letter-spacing: -0.01em;
+  color: #9be1a0;
+}
+
+.normaWaterTextContainer {
+  padding: 16px;
+  border: 1px solid rgba(47, 47, 47, 0.15);
+  border-radius: 15px;
+}
+
+.normaWaterText {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.28;
+  letter-spacing: -0.01em;
+  color: rgba(47, 47, 47, 0.6);
+}
+
+.activeTimeContainer {
   display: flex;
-  flex-direction: column;
-  overflow: hidden;
+  align-items: center;
+  column-gap: 4px;
 }
 
-.settingsForm {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  padding-left: 20px;
-  overflow-y: auto;
-  scrollbar-gutter: stable;
-  margin-bottom: 40px;
+.inputText {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.28;
+  letter-spacing: -0.01em;
+  color: #2f2f2f;
 }
 
-.settingsForm::-webkit-scrollbar {
-  width: 20px;
-}
-
-.settingsForm::-webkit-scrollbar-thumb {
-  background-color: #f0eff4;
-  border-radius: 30px;
-  border: 7px solid rgba(0, 0, 0, 0);
-  background-clip: padding-box;
-  cursor: pointer;
-}
-
-.settingsForm::-webkit-scrollbar-track {
-  background: transparent;
+.amountOfWaterText {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.28;
+  letter-spacing: -0.01em;
+  color: #2f2f2f;
+  margin-bottom: 5px;
 }
 
 .saveBtn {
@@ -188,7 +298,6 @@ input[type="number"]::-webkit-outer-spin-button {
   font-weight: 700;
   font-size: 14px;
   line-height: 1.28;
-  letter-spacing: -0.01em;
   text-align: center;
   color: #323f47;
   margin-left: 20px;
@@ -199,59 +308,22 @@ input[type="number"]::-webkit-outer-spin-button {
   background-color: #87d28d;
 }
 
-.userAvatarContainer {
-  width: auto;
-  height: 103px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 40px;
-}
-.formulaDescriptionContainer {
-  display: flex;
-  flex-direction: column;
-}
-
-.userAvatar {
-  width: 75px;
-  height: 75px;
-  border-radius: 100%;
-  border: 1px solid black;
-}
-
-.userInfoField {
-  border: 1px solid rgba(47, 47, 47, 0.15);
-  border-radius: 15px;
-  padding: 14px 0px 14px 16px;
-}
-
-.inputTitle {
-  color: rgb(50, 63, 71);
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 20px;
-}
-
-.inputText {
-  color: rgb(47, 47, 47);
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 18px;
-}
-
-.iconUser {
-  width: 75px;
-  height: 75px;
-  color: rgb(73, 72, 72);
-}
-
 @media screen and (min-width: 768px) {
+  .userAvatar,
+  .iconUser {
+    width: 100px;
+    height: 100px;
+  }
+
+  .uploadPhotoSvg {
+    width: 20px;
+    height: 20px;
+  }
+
   .settingsForm {
     padding-left: 40px;
   }
+
   .settingsForm::-webkit-scrollbar {
     width: 40px;
   }
@@ -260,25 +332,33 @@ input[type="number"]::-webkit-outer-spin-button {
     border: 16px solid rgba(0, 0, 0, 0);
   }
 
-  .inputText,
-  .formulaDescription,
-  .greenText {
-    font-size: 16px;
-    line-height: 24px;
+  .genderLegendText,
+  .inputTitle,
+  .userInfoBoldLabel {
+    font-size: 18px;
+    line-height: 1.33;
   }
 
-  .inputTitle {
-    font-size: 18px;
-    line-height: 24px;
+  .genderLabel,
+  .userInfoLabel,
+  .greenText,
+  .normaWaterText,
+  .inputText,
+  .normaGenderTitle,
+  .amountOfWaterText {
+    font-size: 16px;
+    line-height: 1.5;
   }
 
   .userInfoField {
-    padding: 16px 0px 16px 16px;
+    padding: 16px;
+    font-size: 16px;
+    line-height: 1.5;
   }
 
-  .amountOfWaterText {
-    font-size: 15px;
-    line-height: 22.4px;
+  .amountOfWaterContainer {
+    display: flex;
+    gap: 5px;
   }
 
   .saveBtn {
@@ -292,29 +372,6 @@ input[type="number"]::-webkit-outer-spin-button {
   .normaWaterContainer {
     flex-direction: row;
     gap: 28px;
-  }
-
-  .formulaDescriptionContainer {
-    display: block;
-  }
-  .amountOfWaterContainer {
-    display: flex;
-    align-items: end;
-    gap: 5px;
-  }
-
-  .userAvatarContainer {
-    height: 134px;
-  }
-
-  .userAvatar {
-    width: 100px;
-    height: 100px;
-  }
-
-  .iconUser {
-    width: 100px;
-    height: 100px;
   }
 }
 
@@ -331,27 +388,4 @@ input[type="number"]::-webkit-outer-spin-button {
   .settingsForm > div:nth-child(4) {
     grid-row: 2;
   }
-}
-.normaWaterTextContainer {
-  padding: 16px;
-  border: 1px solid rgba(47, 47, 47, 0.15);
-  border-radius: 15px;
-}
-.userInfoField.error {
-  border-color: rgb(239, 80, 80);
-}
-
-.error {
-  color: rgb(239, 80, 80);
-}
-
-.activeTimeContainer {
-  display: flex;
-  column-gap: 12.69px;
-}
-
-fieldset {
-  padding: 0;
-  margin: 0;
-  border: none;
 }

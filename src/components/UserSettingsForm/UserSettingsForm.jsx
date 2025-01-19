@@ -138,18 +138,18 @@ const UserSettingsForm = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={css.userSettingsForm}>
       <div className={css.userAvatarContainer}>
-        {avatarURL ? (
-          <img src={avatarURL} alt="User Avatar" className={css.userAvatar} />
-        ) : (
-          <FaUserCircle className={css.iconUser} />
-        )}
         <button className={css.uploadPhotoBtn}>
+          {avatarURL || user.avatar ? (
+            <img
+              src={avatarURL || user.avatar}
+              alt="User Avatar"
+              className={css.userAvatar}
+            />
+          ) : (
+            <FaUserCircle className={css.iconUser} />
+          )}
           <div className={css.btnIconContainer}>
-            <svg
-              width="20"
-              height="20"
-              style={{ stroke: "#2F2F2F", fill: "none" }}
-            >
+            <svg className={css.uploadPhotoSvg}>
               <use href={`${icons}#icon-upload`} />
             </svg>
             <span className={css.inputText}>Upload a photo</span>
@@ -164,11 +164,9 @@ const UserSettingsForm = () => {
         </button>
       </div>
       <div className={css.settingsForm}>
-        <fieldset className={css.genderContainer}>
-          <legend className={css.genderLegend}>
-            Your gender identity
-          </legend>
-          <label className={css.inputText}>
+        <fieldset className={css.genderLegend}>
+          <legend className={css.genderLegendText}>Your gender identity</legend>
+          <label className={css.genderLabel}>
             <input
               type="radio"
               className={css.genderInput}
@@ -193,7 +191,7 @@ const UserSettingsForm = () => {
           )}
         </fieldset>
         <div className={css.userInfoContainer}>
-          <label className={css.userInfoLabel}>
+          <label className={css.userInfoBoldLabel}>
             Your name
             <input
               type="text"
@@ -201,41 +199,35 @@ const UserSettingsForm = () => {
               className={css.userInfoField}
               {...register("name")}
             />
-            {errors.name && (
-              <p className={`${css.error}`}>{errors.name.message}</p>
-            )}
+            {errors.name && <p className={css.error}>{errors.name.message}</p>}
           </label>
-          <label className={`${css.userInfoLabel} ${css.inputTitle}`}>
+          <label className={css.userInfoBoldLabel}>
             Email
             <input
               type="email"
               name="email"
-              className={`${css.userInfoField} ${css.inputText}`}
+              className={css.userInfoField}
               {...register("email")}
             />
             {errors.email && (
-              <p className={`${css.error}`}>{errors.email.message}</p>
+              <p className={css.error}>{errors.email.message}</p>
             )}
           </label>
         </div>
         <div className={css.userInfoContainer}>
-          <h3 className={`${css.inputTitle}`}>My daily norma</h3>
+          <h3 className={css.inputTitle}>My daily norma</h3>
           <div className={css.normaWaterContainer}>
             <div>
-              <h4 className={`${css.normaGenderTitle} ${css.inputText}`}>
-                For woman:
-              </h4>
+              <h4 className={css.normaGenderTitle}>For woman:</h4>
               <p className={css.greenText}>V=(M*0,03) + (T*0,4)</p>
             </div>
             <div>
-              <h4 className={`${css.normaGenderTitle} ${css.inputText}`}>
-                For man:
-              </h4>
+              <h4 className={css.normaGenderTitle}>For man:</h4>
               <p className={css.greenText}>V=(M*0,04) + (T*0,6)</p>
             </div>
           </div>
           <div className={css.normaWaterTextContainer}>
-            <p className={`${css.normaWaterText} ${css.formulaDescription}`}>
+            <p className={css.normaWaterText}>
               <span className={css.greenText}>*</span> V is the volume of the
               water norm in liters per day, M is your body weight, T is the time
               of active sports, or another type of activity commensurate in
@@ -250,52 +242,50 @@ const UserSettingsForm = () => {
           </div>
         </div>
         <div className={css.userInfoContainer}>
-          <label className={`${css.userInfoLabel} ${css.inputText}`}>
+          <label className={css.userInfoLabel}>
             Your weight in kilograms:
             <input
               type="number"
               name="weight"
               {...register("weight")}
-              className={`${css.userInfoField} ${css.inputText}`}
+              className={css.userInfoField}
             />
             {errors.weight && (
-              <p className={`${css.error}`}>{errors.weight.message}</p>
+              <p className={css.error}>{errors.weight.message}</p>
             )}
           </label>
-          <label className={`${css.userInfoLabel} ${css.inputText}`}>
+          <label className={css.userInfoLabel}>
             The time of active participation in sports:
             <input
               type="number"
               name="activeHours"
               {...register("activeHours")}
-              className={`${css.userInfoField} ${css.inputText}`}
+              className={css.userInfoField}
             />
             {errors.activeHours && (
-              <p className={`${css.error}`}>{errors.activeHours.message}</p>
+              <p className={css.error}>{errors.activeHours.message}</p>
             )}
           </label>
         </div>
         <div className={css.userInfoContainer}>
           <div className={css.amountOfWaterContainer}>
-            <p
-              className={`${css.amountOfWaterText} ${css.inputText} ${css.formulaDescriptionContainer}`}
-            >
+            <p className={css.amountOfWaterText}>
               The required amount of water in liters per day:
             </p>
-            <span className={css.amountOfWaterText}>{normaWater}L</span>
+            <span className={css.greenText}>{normaWater}L</span>
           </div>
-          <label className={`${css.userInfoLabel} ${css.inputTitle}`}>
+          <label className={css.userInfoBoldLabel}>
             Write down how much water you will drink:
             <input
               type="number"
               name="waterNorm"
               {...register("waterNorm")}
-              className={`${css.userInfoField} ${css.inputText}`}
+              className={css.userInfoField}
             />
           </label>
         </div>
       </div>
-      <button type="submit" className={`${css.saveBtn} ${css.inputTitle}`}>
+      <button type="submit" className={css.saveBtn}>
         Save
       </button>
     </form>
