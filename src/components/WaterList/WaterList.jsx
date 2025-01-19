@@ -9,10 +9,8 @@ const WaterList = ({ dailyData, onSubmitSuccess }) => {
   const [resizeKey, setResizeKey] = useState(0);
 
   useEffect(() => {
-    // SimpleBar can't recalculate itself properly when the page size is reduced.
-
     const handleResize = () => {
-      setResizeKey((prev) => prev + 1); // Trigger re-render
+      setResizeKey((prev) => prev + 1);
     };
 
     window.addEventListener("resize", handleResize);
@@ -31,13 +29,17 @@ const WaterList = ({ dailyData, onSubmitSuccess }) => {
               <div key={index} className={css.scrollableItemContainer}>
                 <WaterItem
                   item={item}
-                  index={index} key={index}
+                  index={index}
+                  key={index}
                   onSubmitSuccess={onSubmitSuccess}
                 />
               </div>
             ))
           ) : (
-            <h3 className={css.h3}>Looks like there's nothing here yet! <br/> Tap 'Add Water' to start tracking for today.</h3>
+            <h3 className={css.h3}>
+              Looks like there&apos;s nothing here yet!
+              <br /> Tap &apos;Add Water&apos; to start tracking for today.
+            </h3>
           )}
         </div>
       </SimpleBar>

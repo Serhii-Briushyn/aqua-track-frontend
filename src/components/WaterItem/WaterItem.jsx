@@ -6,32 +6,29 @@ import WaterModal from "../WaterModal/WaterModal";
 import { useState } from "react";
 import DeleteWaterModal from "../DeleteWaterModal/DeleteWaterModal";
 
-const WaterItem = ({item, onSubmitSuccess}) => {
-
+const WaterItem = ({ item, onSubmitSuccess }) => {
   const { id, amount, date } = item;
 
   const [activeModal, setActiveModal] = useState(null);
-  const [modalData, setModalData] = useState(null);
-  const [waterData, setWaterData] = useState({
-    volume: 250,
-    time: "11:00",
-    id: 1,
-  });
 
-  const openModal = (modalType, data = null) => {
+  const openModal = (modalType) => {
     setActiveModal(modalType);
-    setModalData(data);
   };
 
   const closeModal = () => {
     setActiveModal(null);
-    setModalData(null);
   };
 
-  const handleSave = (updatedData) => {
-    setWaterData(updatedData);
+  const handleSave = () => {
     closeModal();
+    if (onSubmitSuccess) onSubmitSuccess();
   };
+
+  const localDate = new Date(date);
+  const localTime = `${localDate
+    .getHours()
+    .toString()
+    .padStart(2, "0")}:${localDate.getMinutes().toString().padStart(2, "0")}`;
 
   return (
     <>
@@ -42,23 +39,13 @@ const WaterItem = ({item, onSubmitSuccess}) => {
 
         <div className={css.indicators}>
           <span className={css.volume}>{amount} ml</span>
-          <span className={css.time}>
-            {String(new Date(date).getUTCHours()).padStart(2, '0')}
-            :
-            {String(new Date(date).getUTCMinutes()).padStart(2, '0')}
-          </span>
+          <span className={css.time}>{localTime}</span>
         </div>
         <div className={css.actions}>
-          <button
-            role="button"
-            onClick={() => openModal("EditWater", waterData)}
-          >
+          <button role="button" onClick={() => openModal("EditWater", id)}>
             <FiEdit2 style={{ color: "#323F47" }} />
           </button>
-          <button
-            role="button"
-            onClick={() => openModal("DeleteWater", waterData.id)}
-          >
+          <button role="button" onClick={() => openModal("DeleteWater", id)}>
             <FiTrash style={{ color: "#323F47" }} />
           </button>
         </div>
@@ -69,7 +56,7 @@ const WaterItem = ({item, onSubmitSuccess}) => {
           isOpen={true}
           onClose={closeModal}
           source="EditWater"
-          modalData={modalData}
+          modalData={item}
           onValid={handleSave}
           onSubmitSuccess={onSubmitSuccess}
         />
@@ -78,7 +65,8 @@ const WaterItem = ({item, onSubmitSuccess}) => {
       {activeModal === "DeleteWater" && (
         <DeleteWaterModal
           isOpen={true}
-          onClose={closeModal} id={id}
+          onClose={closeModal}
+          id={id}
           onSubmitSuccess={onSubmitSuccess}
         />
       )}

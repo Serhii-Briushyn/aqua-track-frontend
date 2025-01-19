@@ -1,36 +1,44 @@
+import { useSelector } from "react-redux";
+import { selectUser } from "../../redux/auth/selectors";
 import UserBarPopover from "../UserBarPopover/UserBarPopover";
 import css from "./UserBar.module.css";
 import { useState } from "react";
-import {
-  MdOutlineKeyboardArrowDown,
-  MdOutlineKeyboardArrowUp,
-} from "react-icons/md";
 
-const iconStyles = { color: "#fff", fontSize: 22 };
+import icons from "../../assets/icons/icons.svg";
 
 const UserBar = ({ userName }) => {
-  const temporaryAvatar = "https://www.w3schools.com/howto/img_avatar.png";
+  const user = useSelector(selectUser);
 
   const [isOpen, setIsOpen] = useState(false);
+
+  const getAvatarContent = () => {
+    if (user?.avatar) {
+      return <img src={user.avatar} alt="avatar" />;
+    }
+
+    const initial = userName ? userName[0].toUpperCase() : "U";
+    return <span className={css.initial}>{initial}</span>;
+  };
+
+  const handleToggle = (e) => {
+    e.stopPropagation();
+    setIsOpen((prev) => !prev);
+  };
 
   return (
     <div className={css.userBar}>
       <h2 className={css.h2}>{userName}</h2>
-      <div className={css.userAvatar}>
-        <img src={temporaryAvatar} alt="avatar" />
-      </div>
-      <button
-        role="button"
-        className={css.btn}
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        {isOpen ? (
-          <MdOutlineKeyboardArrowUp style={iconStyles} />
-        ) : (
-          <MdOutlineKeyboardArrowDown style={iconStyles} />
-        )}
+      <div className={css.userAvatar}>{getAvatarContent()}</div>
+      <button role="button" className={css.btn} onClick={handleToggle}>
+        <svg className={`${css.svg} ${isOpen ? css.rotated : ""}`}>
+          <use href={`${icons}#icon-arrow-down`} />
+        </svg>
       </button>
-      {isOpen && <UserBarPopover />}
+      {isOpen && (
+        <>
+          <UserBarPopover />
+        </>
+      )}
     </div>
   );
 };

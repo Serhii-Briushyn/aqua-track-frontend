@@ -134,5 +134,9 @@
   "septemberDay": "September",
   "octoberDay": "October",
   "novemberDay": "November",
-  "decemberDay": "December"
+  "decemberDay": "December",
+  "forgotpwd": "Forgot Password?",
+  "reset": "Reset",
+  "signinwith": "Sign in with",
+  "or": "or"
 }

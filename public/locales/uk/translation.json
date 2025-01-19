@@ -134,5 +134,9 @@
   "septemberDay": "Вересня",
   "octoberDay": "Жовтня",
   "novemberDay": "Листопада",
-  "decemberDay": "Грудня"
+  "decemberDay": "Грудня",
+  "forgotpwd": "Забули пароль?",
+  "reset": "Скинути",
+  "signinwith": "Увійти за допомогою",
+  "or": "або"
 }
