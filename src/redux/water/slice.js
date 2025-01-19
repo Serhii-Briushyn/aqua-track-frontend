@@ -5,17 +5,27 @@ import {
   deleteWaterOperation,
   getDailyWaterOperation,
   getMonthlyWaterOperation,
-} from "./operations.js";
+} from "./operations";
 
 const initialState = {
   waterData: [],
   dailyData: null,
   monthlyData: [],
   selectedDate: new Date().toISOString(),
-  totalAmount: null,
-  totalPercentage: null,
+  totalAmount: 0,
+  totalPercentage: 0,
   isLoading: false,
   isError: null,
+};
+
+const calculateTotalPercentage = (waterData, totalAmount) => {
+  const lastWaterData = waterData[waterData.length - 1];
+  const norm = lastWaterData?.norm;
+
+  if (norm) {
+    return Math.min((totalAmount / norm) * 100, 100);
+  }
+  return 0; // Якщо norm відсутня
 };
 
 const waterSlice = createSlice({
@@ -33,7 +43,6 @@ const waterSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    // -------------------- Create Water --------------------
     builder
       .addCase(createWaterOperation.pending, (state) => {
         state.isLoading = true;
@@ -42,13 +51,22 @@ const waterSlice = createSlice({
       .addCase(createWaterOperation.fulfilled, (state, action) => {
         state.isLoading = false;
         state.waterData.push(action.payload.data);
+
+        const totalAmount = state.waterData.reduce(
+          (sum, item) => sum + item.amount,
+          0
+        );
+        state.totalAmount = totalAmount;
+        state.totalPercentage = calculateTotalPercentage(
+          state.waterData,
+          totalAmount
+        );
       })
       .addCase(createWaterOperation.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = action.payload;
       });
 
-    // -------------------- Update Water --------------------
     builder
       .addCase(updateWaterOperation.pending, (state) => {
         state.isLoading = true;
@@ -62,12 +80,22 @@ const waterSlice = createSlice({
         if (index !== -1) {
           state.waterData[index] = action.payload.data;
         }
+
+        const totalAmount = state.waterData.reduce(
+          (sum, item) => sum + item.amount,
+          0
+        );
+        state.totalAmount = totalAmount;
+        state.totalPercentage = calculateTotalPercentage(
+          state.waterData,
+          totalAmount
+        );
       })
       .addCase(updateWaterOperation.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = action.payload;
       });
-    // -------------------- Delete Water --------------------
+
     builder
       .addCase(deleteWaterOperation.pending, (state) => {
         state.isLoading = true;
@@ -78,12 +106,22 @@ const waterSlice = createSlice({
         state.waterData = state.waterData.filter(
           (item) => item.id !== action.payload
         );
+
+        const totalAmount = state.waterData.reduce(
+          (sum, item) => sum + item.amount,
+          0
+        );
+        state.totalAmount = totalAmount;
+        state.totalPercentage = calculateTotalPercentage(
+          state.waterData,
+          totalAmount
+        );
       })
       .addCase(deleteWaterOperation.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = action.payload;
       });
-    // -------------------- Get Daily Water --------------------
+
     builder
       .addCase(getDailyWaterOperation.pending, (state) => {
         state.isLoading = true;
@@ -99,7 +137,7 @@ const waterSlice = createSlice({
         state.isLoading = false;
         state.isError = action.payload;
       });
-    // -------------------- Get Monthly Water --------------------
+
     builder
       .addCase(getMonthlyWaterOperation.pending, (state) => {
         state.isLoading = true;
