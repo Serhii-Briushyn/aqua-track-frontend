@@ -24,7 +24,7 @@ const waterPersistConfig = {
   key: "water",
   version: 1,
   storage,
-  whitelist: [],
+  whitelist: ["waterData", "dailyData"],
 };
 
 export const store = configureStore({
