@@ -158,7 +158,7 @@ const SignInForm = () => {
             <p className={css.text}>
               {t("forgotpwd")}{" "}
               <NavLink to="/forgot-password" className={css.link}>
-                {t(reset)}
+                {t("reset")}
               </NavLink>
             </p>
           </div>
