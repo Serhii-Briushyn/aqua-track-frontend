@@ -5,26 +5,30 @@
   margin-bottom: 40px;
 }
 
+.h1 {
+  font-family: "Gilroy", sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: #323f47;
+  margin-bottom: 20px;
+}
+
+.h1 span {
+  font-weight: 400;
+}
+
 @media screen and (min-width: 768px) {
   .userPanel {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
   }
-}
 
-.h1 {
-  font-size: 32px;
-  margin-bottom: 20px;
-}
-
-@media screen and (min-width: 768px) {
   .h1 {
-    font-size: 34px;
+    font-size: 36px;
+    line-height: 1.05;
     margin-bottom: 0;
   }
-}
-
-.h1 span {
-  font-weight: 400;
 }

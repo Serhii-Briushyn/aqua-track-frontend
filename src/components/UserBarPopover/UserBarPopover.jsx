@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { FiSettings, FiLogOut } from "react-icons/fi";
 
 import LogOutModal from "../LogOutModal/LogOutModal";
@@ -6,7 +6,7 @@ import UserSettingsModal from "../UserSettingsModal/UserSettingsModal";
 
 import css from "./UserBarPopover.module.css";
 
-const UserBarPopover = () => {
+const UserBarPopover = ({ onClose }) => {
   const [modalsState, setModalsState] = useState({
     isSettingsModalOpen: false,
     isLogOutModalOpen: false,
@@ -20,12 +20,32 @@ const UserBarPopover = () => {
   }, []);
 
   const closeSettingsModal = useCallback(() => {
-    toggleModal("isSettingsModalOpen");
-  }, [toggleModal]);
+    setModalsState((prevState) => ({
+      ...prevState,
+      isSettingsModalOpen: false,
+    }));
+  }, []);
 
   const closeLogOutModal = useCallback(() => {
-    toggleModal("isLogOutModalOpen");
-  }, [toggleModal]);
+    setModalsState((prevState) => ({
+      ...prevState,
+      isLogOutModalOpen: false,
+    }));
+  }, []);
+
+  useEffect(() => {
+    const handleOutsideClick = (e) => {
+      if (e.target.closest(`.${css.userBarPopover}`)) {
+        return;
+      }
+      onClose();
+    };
+
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, [onClose]);
 
   return (
     <div className={css.userBarPopover}>

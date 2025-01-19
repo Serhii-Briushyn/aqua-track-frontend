@@ -17,7 +17,7 @@ const DeleteWaterModal = ({ isOpen, onClose, id, onSubmitSuccess }) => {
       await dispatch(deleteWaterOperation(id)).unwrap();
       onClose();
       onSubmitSuccess?.();
-    } catch (err) {
+    } catch {
       setError("Please try again.");
     } finally {
       setIsLoading(false);

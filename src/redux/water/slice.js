@@ -6,6 +6,7 @@ import {
   getDailyWaterOperation,
   getMonthlyWaterOperation,
 } from "./operations.js";
+import { logout } from "../auth/operations.js";
 
 const initialState = {
   waterData: [],
@@ -113,6 +114,10 @@ const waterSlice = createSlice({
         state.isLoading = false;
         state.isError = action.payload;
       });
+    // -------------------- Logout operation --------------------
+    builder.addCase(logout.fulfilled, () => {
+      return initialState;
+    });
   },
 });
 
