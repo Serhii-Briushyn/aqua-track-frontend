@@ -1,12 +1,13 @@
 import { useCallback, useEffect, useState } from "react";
 import { FiSettings, FiLogOut } from "react-icons/fi";
-
+import { useTranslation } from "react-i18next";
 import LogOutModal from "../LogOutModal/LogOutModal";
 import UserSettingsModal from "../UserSettingsModal/UserSettingsModal";
 
 import css from "./UserBarPopover.module.css";
 
 const UserBarPopover = ({ onClose }) => {
+  const { t } = useTranslation();
   const [modalsState, setModalsState] = useState({
     isSettingsModalOpen: false,
     isLogOutModalOpen: false,
@@ -56,7 +57,7 @@ const UserBarPopover = ({ onClose }) => {
             onClick={() => toggleModal("isSettingsModalOpen")}
           >
             <FiSettings />
-            <span className={css.btnTxt}>Setting</span>
+            <span className={css.btnTxt}>{t("settings")}</span>
           </button>
         </li>
         <li>
@@ -65,7 +66,7 @@ const UserBarPopover = ({ onClose }) => {
             onClick={() => toggleModal("isLogOutModalOpen")}
           >
             <FiLogOut />
-            <span className={css.btnTxt}>Log out</span>
+            <span className={css.btnTxt}>{t("logout")}</span>
           </button>
         </li>
       </ul>
