@@ -34,7 +34,6 @@ const LanguageSwitcher = () => {
   const languages = [
     { code: "en", label: "EN" },
     { code: "uk", label: "UK" },
-    { code: "pl", label: "PL" },
   ];
 
   return (
