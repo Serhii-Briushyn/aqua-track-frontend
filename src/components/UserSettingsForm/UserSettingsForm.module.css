@@ -105,12 +105,12 @@ input[type="radio"] {
   border: 1px solid rgba(47, 47, 47, 0.4);
 }
 
-input[type="number"]::-webkit-inner-spin-button,
+/* input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
   display: none;
-}
+} */
 
 .genderLabel {
   display: inline-flex;
@@ -210,6 +210,7 @@ input[type="number"]::-webkit-outer-spin-button {
   gap: 10px;
   margin-bottom: 40px;
 }
+
 .formulaDescriptionContainer {
   display: flex;
   flex-direction: column;
@@ -246,6 +247,9 @@ input[type="number"]::-webkit-outer-spin-button {
   width: 75px;
   height: 75px;
   color: rgb(73, 72, 72);
+}
+.genderLegend {
+  margin-bottom: 14px;
 }
 
 @media screen and (min-width: 768px) {

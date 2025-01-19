@@ -148,8 +148,7 @@ const UserSettingsForm = () => {
             <svg
               width="20"
               height="20"
-              style={{ stroke: "#2F2F2F", fill: "none" }}
-            >
+              style={{ stroke: "#2F2F2F", fill: "none" }}>
               <use href={`${icons}#icon-upload`} />
             </svg>
             <span className={css.inputText}>Upload a photo</span>
@@ -165,10 +164,10 @@ const UserSettingsForm = () => {
       </div>
       <div className={css.settingsForm}>
         <fieldset className={css.genderContainer}>
-          <legend className={css.genderLegend}>
+          <legend className={`${css.genderLegend} ${css.inputTitle}`}>
             Your gender identity
           </legend>
-          <label className={css.inputText}>
+          <label className={`${css.genderLabel} ${css.inputText}`}>
             <input
               type="radio"
               className={css.genderInput}
@@ -193,7 +192,7 @@ const UserSettingsForm = () => {
           )}
         </fieldset>
         <div className={css.userInfoContainer}>
-          <label className={css.userInfoLabel}>
+          <label className={`${css.userInfoLabel} ${css.inputTitle}`}>
             Your name
             <input
               type="text"
@@ -278,8 +277,7 @@ const UserSettingsForm = () => {
         <div className={css.userInfoContainer}>
           <div className={css.amountOfWaterContainer}>
             <p
-              className={`${css.amountOfWaterText} ${css.inputText} ${css.formulaDescriptionContainer}`}
-            >
+              className={`${css.amountOfWaterText} ${css.inputText} ${css.formulaDescriptionContainer}`}>
               The required amount of water in liters per day:
             </p>
             <span className={css.amountOfWaterText}>{normaWater}L</span>
