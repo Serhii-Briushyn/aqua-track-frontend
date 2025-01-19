@@ -127,10 +127,10 @@ const SignInForm = () => {
               type="submit"
               disabled={isSubmitting}
             >
-              {isSubmitting ? "Signing in..." : t("signin")}
+              {t("signin")}
             </button>
             <p className={css.text} style={{ textAlign: "center" }}>
-              or
+              {t("or")}
             </p>
             <button
               type="button"
