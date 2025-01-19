@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { FiSettings, FiLogOut } from "react-icons/fi";
 import { useTranslation } from "react-i18next";
 import LogOutModal from "../LogOutModal/LogOutModal";
@@ -6,8 +6,9 @@ import UserSettingsModal from "../UserSettingsModal/UserSettingsModal";
 
 import css from "./UserBarPopover.module.css";
 
-const UserBarPopover = ({ onClose }) => {
+const UserBarPopover = () => {
   const { t } = useTranslation();
+
   const [modalsState, setModalsState] = useState({
     isSettingsModalOpen: false,
     isLogOutModalOpen: false,
@@ -33,20 +34,6 @@ const UserBarPopover = ({ onClose }) => {
       isLogOutModalOpen: false,
     }));
   }, []);
-
-  useEffect(() => {
-    const handleOutsideClick = (e) => {
-      if (e.target.closest(`.${css.userBarPopover}`)) {
-        return;
-      }
-      onClose();
-    };
-
-    document.addEventListener("mousedown", handleOutsideClick);
-    return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    };
-  }, [onClose]);
 
   return (
     <div className={css.userBarPopover}>
