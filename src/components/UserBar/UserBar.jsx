@@ -25,10 +25,6 @@ const UserBar = ({ userName }) => {
     setIsOpen((prev) => !prev);
   };
 
-  const handleClose = () => {
-    setIsOpen(false);
-  };
-
   return (
     <div className={css.userBar}>
       <h2 className={css.h2}>{userName}</h2>
@@ -40,7 +36,7 @@ const UserBar = ({ userName }) => {
       </button>
       {isOpen && (
         <>
-          <UserBarPopover onClose={handleClose} />
+          <UserBarPopover />
         </>
       )}
     </div>
