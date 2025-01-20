@@ -126,4 +126,7 @@ const waterSlice = createSlice({
 
 export const { setCurrentItem, clearCurrentItem, setSelectedDate } =
   waterSlice.actions;
+<<<<<<< Updated upstream
 export const waterReducer = waterSlice.reducer;
+=======
+>>>>>>> Stashed changes
