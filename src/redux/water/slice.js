@@ -10,6 +10,9 @@ import { logout } from "../auth/operations.js";
 
 const initialState = {
   waterData: [],
+  normaWater: 0,
+  totalWater: 0,
+  totalAmount: 0,
   dailyData: null,
   monthlyData: [],
   selectedDate: new Date().toISOString(),
@@ -123,4 +126,4 @@ const waterSlice = createSlice({
 
 export const { setCurrentItem, clearCurrentItem, setSelectedDate } =
   waterSlice.actions;
-export const waterReducer = waterSlice.reducer;
+

@@ -7,3 +7,4 @@ export const selectTotalPercentage = (state) => state.water.totalPercentage;
 export const selectIsLoading = (state) => state.water.isLoading;
 export const selectIsError = (state) => state.water.isError;
 export const selectCurrentItem = (state) => state.contacts.currentItem;
+export const selectNormaWater = (state) => state.water.normaWater;

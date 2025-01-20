@@ -2,13 +2,10 @@ import AddWaterBtn from "../AddWaterBtn/AddWaterBtn";
 import WaterDailyNorma from "../WaterDailyNorma/WaterDailyNorma";
 import WaterProgressBar from "../WaterProgressBar/WaterProgressBar";
 import s from "./WaterMainInfo.module.css";
-
 import bottleImageMobile from "../../assets/images/bottle-image-mob-min.png";
 import bottleImageTablet from "../../assets/images/bottle-image-tab-min.png";
 import bottleImageDesktop from "../../assets/images/bottle-image-desk-min.png";
-
 import { useState, useEffect } from "react";
-
 import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher.jsx";
 
 const getImageSource = () => {
@@ -21,8 +18,10 @@ const getImageSource = () => {
   }
 };
 
+
 const WaterMainInfo = () => {
   const [imageSource, setImageSource] = useState(getImageSource());
+
 
   useEffect(() => {
     const handleSize = () => {
@@ -43,6 +42,7 @@ const WaterMainInfo = () => {
       <WaterProgressBar />
       <AddWaterBtn type="waterMain" />
       <LanguageSwitcher />
+
     </div>
   );
 };

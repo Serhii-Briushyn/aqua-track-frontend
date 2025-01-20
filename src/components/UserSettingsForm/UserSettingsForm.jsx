@@ -1,4 +1,6 @@
+
 import { useEffect, useState } from "react";
+
 import { useForm } from "react-hook-form";
 import { FaUserCircle } from "react-icons/fa";
 import css from "./UserSettingsForm.module.css";
@@ -6,6 +8,7 @@ import icons from "../../assets/icons/icons.svg";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useTranslation } from "react-i18next";
 import * as yup from "yup";
+
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
 import { updateUser } from "../../redux/auth/operations";
@@ -48,6 +51,7 @@ const UserSettingsForm = () => {
       .nullable(),
   });
 
+
   const {
     register,
     handleSubmit,
@@ -68,6 +72,7 @@ const UserSettingsForm = () => {
     },
   });
 
+
   const calculateWaterNorm = (gender, weight, activeHours) => {
     if (!gender || !weight || !activeHours) {
       return 0;
@@ -79,6 +84,7 @@ const UserSettingsForm = () => {
     const coefficients = genderCoefficients[gender];
     if (!coefficients) {
       return 0;
+
     }
     const water =
       weight * coefficients.weightMultiplier +
@@ -92,6 +98,7 @@ const UserSettingsForm = () => {
     const [gender, weight, activeHours] = watchFields;
     const waterAmount = calculateWaterNorm(gender, weight, activeHours);
     setNormaWater(waterAmount);
+
   }, [watchFields]);
 
   useEffect(() => {
@@ -127,7 +134,13 @@ const UserSettingsForm = () => {
     } catch (error) {
       toast.error(error.message || "Failed to update user data.");
     }
+
   };
+  useEffect(() => {
+    if (location.pathname !== "/user-settings") {
+      dispatch(clearNormaWater());
+    }
+  }, [location, dispatch]);
 
   const handleFileSelect = (event) => {
     const file = event.target.files[0];
