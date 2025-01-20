@@ -2,14 +2,13 @@ import { useSelector } from "react-redux";
 import { selectUser } from "../../redux/auth/selectors";
 import UserBarPopover from "../UserBarPopover/UserBarPopover";
 import css from "./UserBar.module.css";
-import { useState } from "react";
-
+import { useState, useEffect, useRef } from "react";
 import icons from "../../assets/icons/icons.svg";
 
 const UserBar = ({ userName }) => {
   const user = useSelector(selectUser);
-
   const [isOpen, setIsOpen] = useState(false);
+  const userBarRef = useRef(null);
 
   const getAvatarContent = () => {
     if (user?.avatar) {
@@ -25,8 +24,21 @@ const UserBar = ({ userName }) => {
     setIsOpen((prev) => !prev);
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (userBarRef.current && !userBarRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div className={css.userBar}>
+    <div className={css.userBar} ref={userBarRef}>
       <h2 className={css.h2}>{userName}</h2>
       <div className={css.userAvatar}>{getAvatarContent()}</div>
       <button role="button" className={css.btn} onClick={handleToggle}>
@@ -34,11 +46,7 @@ const UserBar = ({ userName }) => {
           <use href={`${icons}#icon-arrow-down`} />
         </svg>
       </button>
-      {isOpen && (
-        <>
-          <UserBarPopover />
-        </>
-      )}
+      {isOpen && <UserBarPopover />}
     </div>
   );
 };
