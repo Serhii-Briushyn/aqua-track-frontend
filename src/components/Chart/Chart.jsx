@@ -18,25 +18,32 @@ const Chart = ({ data }) => {
 	const chartRef = useRef(null);
 	const [gradientBackground, setGradientBackground] = useState(null);
 
-	// get week number
+	// Группируем данные по неделям
+	const groupByWeek = (data) => {
+		const weeks = [];
+		data.forEach((item) => {
+			const date = new Date(item.date);
+			const weekNumber = getWeekNumber(date);
+			if (!weeks[weekNumber]) {
+				weeks[weekNumber] = { week: weekNumber, totalAmount: 0 };
+			}
+			weeks[weekNumber].totalAmount += item.amount;
+		});
+		return Object.values(weeks);
+	};
+
+	// Функция для получения номера недели
 	const getWeekNumber = (date) => {
 		const startDate = new Date(date.getFullYear(), 0, 1);
 		const days = Math.floor((date - startDate) / (24 * 60 * 60 * 1000));
 		return Math.ceil((days + 1) / 7);
 	};
 
-	// get current week
-	const getCurrentWeek = () => {
-		const currentDate = new Date();
-		return getWeekNumber(currentDate);
-	};
+	// Получаем данные за неделю
+	const weeklyData = groupByWeek(data);
 
-	// filter data current week
-	const currentWeek = getCurrentWeek();
-	const currentWeekData = data.filter(item => getWeekNumber(new Date(item.date)) === currentWeek);
-
-	const labels = currentWeekData.map(item => new Date(item.date).getDate()); // day off the month
-	const dataValues = currentWeekData.map(item => item.amount / 1000); // convert ml to liters
+	const labels = weeklyData.map((item) => `Week ${item.week}`);
+	const dataValues = weeklyData.map((item) => item.totalAmount / 1000); // Преобразуем в литры
 
 	const chartData = {
 		labels: labels,
