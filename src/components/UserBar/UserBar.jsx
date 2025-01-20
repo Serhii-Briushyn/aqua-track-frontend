@@ -39,14 +39,17 @@ const UserBar = ({ userName }) => {
 
   return (
     <div className={css.userBar} ref={userBarRef}>
-      <h2 className={css.h2}>{userName}</h2>
-      <div className={css.userAvatar}>{getAvatarContent()}</div>
-      <button role="button" className={css.btn} onClick={handleToggle}>
-        <svg className={`${css.svg} ${isOpen ? css.rotated : ""}`}>
-          <use href={`${icons}#icon-arrow-down`} />
-        </svg>
-      </button>
-      {isOpen && <UserBarPopover />}
+      <div className={css.container} onClick={handleToggle}>
+        <h2 className={css.h2}>{userName}</h2>
+        <div className={css.userAvatar}>{getAvatarContent()}</div>
+        <button role="button" className={css.btn}>
+          <svg className={`${css.svg} ${isOpen ? css.rotated : ""}`}>
+            <use href={`${icons}#icon-arrow-down`}/>
+          </svg>
+        </button>
+      </div>
+
+      {isOpen && <UserBarPopover/>}
     </div>
   );
 };
