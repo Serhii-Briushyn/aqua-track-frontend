@@ -13,8 +13,10 @@ const DailyInfo = ({ dailyData, isLoading, selectedDate, onSubmitSuccess }) => {
       return "Today";
     }
 
-    const options = { day: "numeric", month: "long" };
-    return new Intl.DateTimeFormat("en-US", options).format(selectedDate);
+    const day = new Intl.DateTimeFormat("en-US", { day: "numeric" }).format(selectedDate);
+    const month = new Intl.DateTimeFormat("en-US", { month: "long" }).format(selectedDate);
+
+    return `${day}, ${month}`;
   };
 
   return (
