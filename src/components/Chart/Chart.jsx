@@ -9,17 +9,34 @@ import {
 	Tooltip,
 	Filler,
 } from "chart.js";
-import {chartOptions} from "./utils/index.js";
+import { chartOptions } from "./utils/index.js";
 import css from "./Chart.module.css";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Filler);
 
-const Chart = ({data}) => {
+const Chart = ({ data }) => {
 	const chartRef = useRef(null);
 	const [gradientBackground, setGradientBackground] = useState(null);
 
-	const labels = data.map(item => new Date(item.date).getDate()); // Extract day of the month
-	const dataValues = data.map(item => item.amount / 1000); // Convert ml to liters
+	// get week number
+	const getWeekNumber = (date) => {
+		const startDate = new Date(date.getFullYear(), 0, 1);
+		const days = Math.floor((date - startDate) / (24 * 60 * 60 * 1000));
+		return Math.ceil((days + 1) / 7);
+	};
+
+	// get current week
+	const getCurrentWeek = () => {
+		const currentDate = new Date();
+		return getWeekNumber(currentDate);
+	};
+
+	// filter data current week
+	const currentWeek = getCurrentWeek();
+	const currentWeekData = data.filter(item => getWeekNumber(new Date(item.date)) === currentWeek);
+
+	const labels = currentWeekData.map(item => new Date(item.date).getDate()); // day off the month
+	const dataValues = currentWeekData.map(item => item.amount / 1000); // convert ml to liters
 
 	const chartData = {
 		labels: labels,
@@ -41,7 +58,6 @@ const Chart = ({data}) => {
 			},
 		],
 	};
-
 
 	useEffect(() => {
 		const chart = chartRef.current;
