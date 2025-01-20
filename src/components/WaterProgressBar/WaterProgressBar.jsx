@@ -5,14 +5,14 @@ import {
   selectSelectedDate,
   selectTotalPercentage,
 } from "../../redux/water/selectors";
-
+import { useTranslation } from "react-i18next";
 const WaterProgressBar = () => {
   const totalPercentage = useSelector(selectTotalPercentage);
   const selectedDate = useSelector(selectSelectedDate);
   const [waterLevel, setWaterLevel] = useState(0);
   const [formattedDate, setFormattedDate] = useState("");
   const [isMoving, setIsMoving] = useState(false);
-
+  const { t } = useTranslation();
   useEffect(() => {
     const boundedProgress = Math.min(totalPercentage, 100);
     setWaterLevel(boundedProgress);
@@ -32,11 +32,11 @@ const WaterProgressBar = () => {
     });
 
     if (inputDateFormatted === todayFormatted) {
-      setFormattedDate("Today");
+      setFormattedDate(t("today"));
     } else {
       setFormattedDate(inputDateFormatted);
     }
-  }, [totalPercentage, selectedDate]);
+  }, [totalPercentage, selectedDate, t]);
 
   const handleCircleMove = () => {
     setIsMoving(true);
