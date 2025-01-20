@@ -18,7 +18,7 @@ const Chart = ({ data }) => {
 	const chartRef = useRef(null);
 	const [gradientBackground, setGradientBackground] = useState(null);
 
-	// Группируем данные по неделям
+	// group data
 	const groupByWeek = (data) => {
 		const weeks = [];
 		data.forEach((item) => {
@@ -32,18 +32,18 @@ const Chart = ({ data }) => {
 		return Object.values(weeks);
 	};
 
-	// Функция для получения номера недели
+	// get week number
 	const getWeekNumber = (date) => {
 		const startDate = new Date(date.getFullYear(), 0, 1);
 		const days = Math.floor((date - startDate) / (24 * 60 * 60 * 1000));
 		return Math.ceil((days + 1) / 7);
 	};
 
-	// Получаем данные за неделю
+	// get data of week
 	const weeklyData = groupByWeek(data);
 
 	const labels = weeklyData.map((item) => `Week ${item.week}`);
-	const dataValues = weeklyData.map((item) => item.totalAmount / 1000); // Преобразуем в литры
+	const dataValues = weeklyData.map((item) => item.totalAmount / 1000); //convert ml to liters
 
 	const chartData = {
 		labels: labels,
