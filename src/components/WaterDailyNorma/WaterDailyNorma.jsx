@@ -6,7 +6,7 @@ const WaterDailyNorma = () => {
   const user = useSelector(selectUser);
   const waterNorm = user?.waterNorm
     ? (user.waterNorm / 1000).toFixed(1)
-    : "1.5";
+    : "1.8";
 
   return (
     <div className={css.water_daily_norma_container}>
