@@ -16,7 +16,7 @@ const initialState = {
   dailyData: null,
   monthlyData: [],
   selectedDate: new Date().toISOString(),
-  totalAmount: null,
+
   totalPercentage: null,
   isLoading: false,
   isError: null,
@@ -126,4 +126,3 @@ const waterSlice = createSlice({
 
 export const { setCurrentItem, clearCurrentItem, setSelectedDate } =
   waterSlice.actions;
-

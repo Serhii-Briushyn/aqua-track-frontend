@@ -10,8 +10,7 @@ import {
 import toast from "react-hot-toast";
 import css from "./WaterForm.module.css";
 import icons from "../../assets/icons/icons.svg";
-import { setWaterData } from "../../redux/water/slice";
-import { addWaterAmount } from "../../redux/water/slice";
+
 const schema = yup.object().shape({
   amount: yup
     .number()
@@ -65,7 +64,6 @@ const WaterForm = ({ source, isOpen, onClose, modalData, onSubmitSuccess }) => {
       date.setHours(hours);
       date.setMinutes(minutes);
 
-
       const waterData = {
         amount: data.amount,
         date: date.toISOString(),
@@ -75,7 +73,6 @@ const WaterForm = ({ source, isOpen, onClose, modalData, onSubmitSuccess }) => {
         source === "AddWater"
           ? createWaterOperation(waterData)
           : updateWaterOperation({ id: modalData.id, data: waterData });
-
 
       const { error } = await dispatch(action).unwrap();
 
@@ -141,7 +138,6 @@ const WaterForm = ({ source, isOpen, onClose, modalData, onSubmitSuccess }) => {
         control={control}
         render={({ field }) => (
           <input id="time" className={css.input} type="time" {...field} />
-
         )}
       />
       {errors.time && <p className={css.error}>{errors.time.message}</p>}
