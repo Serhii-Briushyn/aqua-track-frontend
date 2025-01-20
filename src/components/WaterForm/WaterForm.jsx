@@ -10,10 +10,7 @@ import {
 import toast from "react-hot-toast";
 import css from "./WaterForm.module.css";
 import icons from "../../assets/icons/icons.svg";
-<<<<<<< Updated upstream
 
-=======
->>>>>>> Stashed changes
 const schema = yup.object().shape({
   amount: yup
     .number()
