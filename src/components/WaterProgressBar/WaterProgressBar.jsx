@@ -43,11 +43,9 @@ const WaterProgressBar = () => {
       setIsMoving(false);
     }, 2500);
   };
-
   useEffect(() => {
     handleCircleMove();
   }, [waterLevel]);
-
   return (
     <div className={styles.progressBarWrapper}>
       <div className={styles.todayLabel}>{formattedDate}</div>
