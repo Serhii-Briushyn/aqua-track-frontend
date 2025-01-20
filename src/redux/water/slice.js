@@ -126,4 +126,5 @@ const waterSlice = createSlice({
 
 export const { setCurrentItem, clearCurrentItem, setSelectedDate } =
   waterSlice.actions;
+
 export const waterReducer = waterSlice.reducer;
