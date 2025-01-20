@@ -8,6 +8,7 @@
   background-color: #f0eff4;
   border-radius: 30px;
   padding: 16px;
+  position: relative;
 }
 
 .content {

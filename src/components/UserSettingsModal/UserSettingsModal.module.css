@@ -1,7 +1,10 @@
 .wrapper {
   width: 100%;
-  padding: 40px 20px;
+  padding: 40px 0px;
   text-align: left;
+  max-height: 95vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .title {
@@ -11,6 +14,7 @@
   letter-spacing: -0.01em;
   color: #323f47;
   margin-bottom: 20px;
+  padding: 0px 20px;
 }
 
 @media screen and (min-width: 375px) {
@@ -22,17 +26,16 @@
 @media screen and (min-width: 768px) {
   .wrapper {
     width: 648px;
-    padding: 40px;
   }
   .title {
     font-size: 28px;
     line-height: 1.14;
+    padding: 0px 40px;
   }
 }
 
 @media screen and (min-width: 1440px) {
   .wrapper {
     width: 920px;
-    padding: 40px;
   }
 }

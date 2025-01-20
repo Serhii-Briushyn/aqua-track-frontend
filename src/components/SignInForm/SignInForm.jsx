@@ -9,24 +9,26 @@ import * as Yup from "yup";
 import { getGoogleOAuthUrl, login } from "../../redux/auth/operations.js";
 import { selectIsLoading } from "../../redux/auth/selectors.js";
 import Loader from "../Loader/Loader.jsx";
-
+import { useTranslation } from "react-i18next";
 import icons from "../../assets/icons/icons.svg";
 import css from "./SignInForm.module.css";
-
-const validationSchema = Yup.object({
-  email: Yup.string()
-    .email("Invalid email address")
-    .required("Email is required"),
-  password: Yup.string()
-    .min(6, "Must contain at least 6 characters")
-    .max(64, "Password can't be longer than 64 characters")
-    .required("Password is required"),
-});
+import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher.jsx";
 
 const SignInForm = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
   const [showPassword, setShowPassword] = useState(false);
+  const { t } = useTranslation();
+
+  const validationSchema = Yup.object({
+    email: Yup.string()
+      .email(t("enterValidEmail"))
+      .required(t("emailRequired")),
+    password: Yup.string()
+      .min(6, t("passwordTooShort"))
+      .max(64, t("passwordTooLong"))
+      .required(t("passwordRequired")),
+  });
 
   const {
     register,
@@ -66,18 +68,18 @@ const SignInForm = () => {
       {isLoading && <Loader />}
       <div className={css.container}>
         <div className={css.content}>
-          <h2 className={css.title}>Sign In</h2>
+          <h2 className={css.title}>{t("signInTitle")}</h2>
           <form
             className={css.form}
             onSubmit={handleSubmit(onSubmit)}
             autoComplete="off"
           >
             <label className={css.label}>
-              <span className={css.span}>Email</span>
+              <span className={css.span}>{t("email")}</span>
               <input
                 className={`${css.input} ${errors.email ? css.errorInput : ""}`}
                 type="email"
-                placeholder="Enter your email"
+                placeholder={t("enterEmail")}
                 autoComplete="email"
                 {...register("email")}
               />
@@ -87,14 +89,14 @@ const SignInForm = () => {
             </label>
 
             <label className={css.label}>
-              <span className={css.span}>Password</span>
+              <span className={css.span}>{t("password")}</span>
               <div className={css.passwordContainer}>
                 <input
                   className={`${css.input} ${
                     errors.password ? css.errorInput : ""
                   }`}
                   type={showPassword ? "text" : "password"}
-                  placeholder="Enter your password"
+                  placeholder={t("enterPassword")}
                   autoComplete="current-password"
                   {...register("password")}
                 />
@@ -125,17 +127,17 @@ const SignInForm = () => {
               type="submit"
               disabled={isSubmitting}
             >
-              {isSubmitting ? "Signing in..." : "Sign in"}
+              {t("signIn")}
             </button>
             <p className={css.text} style={{ textAlign: "center" }}>
-              or
+              {t("or")}
             </p>
             <button
               type="button"
               className={css.button}
               onClick={handleGoogleSignIn}
             >
-              <span style={{ marginRight: "4px" }}>Sign in with</span>
+              <span style={{ marginRight: "4px" }}>{t("signinwith")}</span>
               <span style={{ color: "#4285f4" }}>G</span>
               <span style={{ color: "#ea4335" }}>o</span>
               <span style={{ color: "#fbbc05" }}>o</span>
@@ -148,19 +150,20 @@ const SignInForm = () => {
           <div className={css.footerContent}>
             <p className={css.text}></p>
             <p className={css.text}>
-              Don&apos;t have an account?{" "}
+              {t("noAccount")}{" "}
               <NavLink to="/signup" className={css.link}>
-                Sign Up
+                {t("signUp")}
               </NavLink>
             </p>
             <p className={css.text}>
-              Forgot Password?{" "}
+              {t("forgotpwd")}{" "}
               <NavLink to="/forgot-password" className={css.link}>
-                Reset
+                {t("reset")}
               </NavLink>
             </p>
           </div>
         </div>
+        <LanguageSwitcher />
       </div>
     </>
   );

@@ -11,6 +11,7 @@ import { selectIsLoading } from "../../redux/auth/selectors";
 import Loader from "../Loader/Loader";
 import icons from "../../assets/icons/icons.svg";
 import css from "./SignUpForm.module.css";
+import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher";
 
 const SignUpForm = () => {
   const dispatch = useDispatch();
@@ -173,6 +174,7 @@ const SignUpForm = () => {
             </p>
           </div>
         </div>
+        <LanguageSwitcher />
       </div>
     </>
   );

@@ -29,28 +29,6 @@
   overflow: hidden;
 }
 
-.userSettingsWindow {
-  max-height: 95vh;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-
-.userSettingsWindow::-webkit-scrollbar {
-  width: 20px;
-}
-
-.userSettingsWindow::-webkit-scrollbar-thumb {
-  background-color: #f0eff4;
-  border-radius: 30px;
-  border: 7px solid rgba(0, 0, 0, 0);
-  background-clip: padding-box;
-  cursor: pointer;
-}
-
-.userSettingsWindow::-webkit-scrollbar-track {
-  background: transparent;
-}
-
 .button,
 .userSettingsButton {
   position: absolute;
@@ -75,7 +53,11 @@
 
 @media screen and (min-width: 768px) {
   .window {
-    width: max-content;
+    width: min-content;
+  }
+
+  .userSettingsWindow {
+    width: 648px;
   }
 
   .button {

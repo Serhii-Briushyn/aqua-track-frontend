@@ -1,3 +1,15 @@
+.initial {
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
 .userBar {
   position: relative;
   display: flex;
@@ -8,13 +20,17 @@
 }
 
 .h2 {
-  font-size: 16px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.28;
+  letter-spacing: -0.01em;
+  text-align: center;
   color: #fff;
 }
 
 .userAvatar {
-  width: 44px;
-  height: 44px;
+  width: 38px;
+  height: 38px;
   margin: 0 10px;
   border-radius: 50%;
   overflow: hidden;
@@ -31,9 +47,37 @@
 }
 
 .btn {
-  width: 22px;
-  height: 22px;
   border: none;
   background: transparent;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.svg {
+  width: 16px;
+  height: 16px;
+  stroke: white;
+  fill: none;
+  transition: transform 0.3s ease;
+}
+
+.rotated {
+  transform: rotate(180deg);
+}
+
+@media screen and (min-width: 768px) {
+  .h2 {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  .userAvatar {
+    width: 44px;
+    height: 44px;
+  }
+  .svg {
+    width: 20px;
+    height: 20px;
+  }
 }

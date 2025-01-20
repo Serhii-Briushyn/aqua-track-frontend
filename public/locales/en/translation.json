@@ -7,7 +7,9 @@
   "signInTitle": "Sign In",
   "signIn": "Sign In",
   "continueWithGoogle": "Continue with Google",
-  "userCountText": "Our <span class=\"{{userCountTextColor}}\">{{count}} happy</span><br/> customers",
+  "userCountTextOur": "Our",
+  "userCountTextHappy": "happy",
+  "userCountTextCust": "customers",
   "habitDrive": "Habit drive",
   "viewStats": "View statistics",
   "personalRate": "Personal rate setting",
@@ -132,5 +134,9 @@
   "septemberDay": "September",
   "octoberDay": "October",
   "novemberDay": "November",
-  "decemberDay": "December"
+  "decemberDay": "December",
+  "forgotpwd": "Forgot Password?",
+  "reset": "Reset",
+  "signinwith": "Sign in with",
+  "or": "or"
 }
