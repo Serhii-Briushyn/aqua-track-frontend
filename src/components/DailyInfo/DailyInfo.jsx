@@ -2,7 +2,12 @@ import AddWaterBtn from "../AddWaterBtn/AddWaterBtn";
 import WaterList from "../WaterList/WaterList";
 import css from "./DailyInfo.module.css";
 import { CircularProgress } from "@mui/material";
-const DailyInfo = ({ dailyData, isLoading, selectedDate, onSubmitSuccess }) => {
+import {useSelector} from "react-redux";
+import {selectIsLoading as selectWaterIsLoading} from "../../redux/water/selectors.js";
+const DailyInfo = ({ dailyData, selectedDate, onSubmitSuccess }) => {
+
+  const isLoading = useSelector(selectWaterIsLoading);
+
   const getHeaderTitle = () => {
     const today = new Date();
     const isToday =
