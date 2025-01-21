@@ -17,6 +17,16 @@
   margin-bottom: 8px;
 }
 
+.textBold {
+  display: block;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: #323f47;
+  margin-bottom: 8px;
+}
+
 .amountWrapper {
   display: flex;
   justify-content: start;
@@ -67,6 +77,10 @@
   letter-spacing: -0.01em;
   color: #323f47;
   margin-bottom: 8px;
+}
+
+.inputBox {
+  position: relative;
 }
 
 .input {
@@ -122,9 +136,21 @@
   background-color: #87d28d;
 }
 
+.error {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.28;
+  letter-spacing: -0.01em;
+  color: #ef5050;
+  position: absolute;
+  bottom: -22px;
+  left: 0;
+}
+
 @media screen and (min-width: 768px) {
   .fieldSubtitle,
-  .amountSubtitle {
+  .amountSubtitle,
+  .textBold {
     font-size: 18px;
     line-height: 1.33;
   }
