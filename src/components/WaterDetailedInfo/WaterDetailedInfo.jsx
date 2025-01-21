@@ -87,7 +87,10 @@ const WaterDetailedInfo = () => {
   }, [formattedSelectedDate, fetchDaily, user]);
 
   useEffect(() => {
-    if (!user) dispatch(fetchUserDetails());
+    if (!user) {
+      dispatch(fetchUserDetails())
+      onChangeDate(new Date())
+    }
   }, [dispatch, user]);
 
   return (

@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useDispatch } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {
   createWaterOperation,
   updateWaterOperation,
@@ -10,6 +10,7 @@ import {
 import toast from "react-hot-toast";
 import css from "./WaterForm.module.css";
 import icons from "../../assets/icons/icons.svg";
+import {selectSelectedDate} from "../../redux/water/selectors.js";
 
 const schema = yup.object().shape({
   amount: yup
@@ -22,7 +23,6 @@ const schema = yup.object().shape({
 
 const WaterForm = ({ source, isOpen, onClose, modalData, onSubmitSuccess }) => {
   const dispatch = useDispatch();
-
   const {
     handleSubmit,
     control,
@@ -38,6 +38,7 @@ const WaterForm = ({ source, isOpen, onClose, modalData, onSubmitSuccess }) => {
   });
 
   const amount = watch("amount");
+  const selectedDate = useSelector(selectSelectedDate);
 
   useEffect(() => {
     if (isOpen) {
@@ -60,7 +61,11 @@ const WaterForm = ({ source, isOpen, onClose, modalData, onSubmitSuccess }) => {
   const onSubmit = async (data) => {
     try {
       const [hours, minutes] = data.time.split(":");
-      const date = modalData?.date ? new Date(modalData.date) : new Date();
+      const date = modalData
+        ? new Date(modalData.date)
+        : selectedDate
+          ? new Date(selectedDate)
+          : new Date();
       date.setHours(hours);
       date.setMinutes(minutes);
 
