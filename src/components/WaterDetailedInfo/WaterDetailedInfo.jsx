@@ -6,7 +6,6 @@ import {useSelector} from "react-redux";
 import {selectIsLoading as selectAuthIsLoading, selectUser} from "../../redux/auth/selectors.js";
 import {
   selectDailyData,
-  selectIsLoading as selectWaterIsLoading,
   selectMonthlyData,
   selectSelectedDate
 } from "../../redux/water/selectors.js";
