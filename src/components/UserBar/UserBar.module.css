@@ -12,11 +12,16 @@
 
 .userBar {
   position: relative;
+}
+
+.userBar .container {
+  position: relative;
   display: flex;
   align-items: center;
   padding: 6px 12px;
   background: #323f47;
   border-radius: 30px;
+  cursor: pointer;
 }
 
 .h2 {

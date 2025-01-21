@@ -1,46 +1,48 @@
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+
 import Calendar from "../Calendar/Calendar";
-import {useState} from "react";
-import css from "./MonthInfo.module.css";
 import CalendarPagination from "../CalendarPagination/CalendarPagination.jsx";
-import icons from "../../assets/icons/icons.svg";
 import Chart from "../Chart/Chart.jsx";
+import { getMonthlyWaterOperation } from "../../redux/water/operations.js";
 
-const MonthInfo = ({ monthlyData, selectedDate, currentMonth, onChangeMonth, onChangeDate }) => {
-	const [isCalendarView, setIsCalendarView] = useState(true);
+import icons from "../../assets/icons/icons.svg";
+import css from "./MonthInfo.module.css";
 
-	return (
-		<div className={css.monthInfo}>
-			<div className={css.headingPanel}>
-				<h2 className={css.h2}>{isCalendarView ? 'Month' : 'Statistics'}</h2>
-				<div className={css.infoNav}>
-					<CalendarPagination
-						selectedDate={selectedDate}
-						currentMonth={currentMonth}
-						handleMonthChange={onChangeMonth}
-					/>
-					<button
-						className={css.toggleView}
-						onClick={() => setIsCalendarView(!isCalendarView)}
-					>
-						<svg>
-							<use href={`${icons}#icon-chart`}/>
-						</svg>
-					</button>
-				</div>
-			</div>
-			{isCalendarView ?
-				<Calendar
-					currentMonth={currentMonth}
-					selectedDate={selectedDate}
-					changeMonth={onChangeMonth}
-					monthValues={monthlyData}
-					onDateSelect={(date) => onChangeDate(date)}
-				/>
-				:
-				<Chart data={monthlyData} />
-			}
-		</div>
-	);
+const MonthInfo = () => {
+  const [isCalendarView, setIsCalendarView] = useState(true);
+  const [currentMonth, setCurrentMonth] = useState(new Date());
+  const dispatch = useDispatch();
+
+  const handleMonthChange = (newDate) => {
+    setCurrentMonth(newDate);
+    const month = newDate.getMonth() + 1;
+    const year = newDate.getFullYear();
+    dispatch(getMonthlyWaterOperation({ month, year }));
+  };
+
+  return (
+    <div className={css.monthInfo}>
+      <div className={css.headingPanel}>
+        <h2 className={css.h2}>{isCalendarView ? "Month" : "Statistics"}</h2>
+        <div className={css.infoNav}>
+          <CalendarPagination
+            currentMonth={currentMonth}
+            onMonthChange={handleMonthChange}
+          />
+          <button
+            className={css.toggleView}
+            onClick={() => setIsCalendarView(!isCalendarView)}
+          >
+            <svg>
+              <use href={`${icons}#icon-chart`} />
+            </svg>
+          </button>
+        </div>
+      </div>
+      {isCalendarView ? <Calendar /> : <Chart />}
+    </div>
+  );
 };
 
 export default MonthInfo;

@@ -1,11 +1,12 @@
 .userBarPopover {
   position: absolute;
   right: 0;
+  left: 0;
   min-width: 156px;
   padding: 14px 20px;
   background: #fff;
   border-radius: 15px;
-  transform: translateY(100%);
+  transform: translateY(10%);
 }
 
 .setting,

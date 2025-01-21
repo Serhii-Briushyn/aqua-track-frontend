@@ -1,7 +1,11 @@
+import { useSelector } from "react-redux";
 import UserBar from "../UserBar/UserBar";
 import css from "./UserPanel.module.css";
+import { selectUser } from "../../redux/auth/selectors";
 
-const UserPanel = ({ user }) => {
+const UserPanel = () => {
+  const user = useSelector(selectUser);
+
   const getTrimmedName = (name, email) => {
     if (name) {
       const firstName = name.split(" ")[0];

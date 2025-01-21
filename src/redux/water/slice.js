@@ -10,11 +10,12 @@ import { logout } from "../auth/operations.js";
 
 const initialState = {
   waterData: [],
-  dailyData: null,
+  dailyData: [],
   monthlyData: [],
   selectedDate: new Date().toISOString(),
   totalAmount: null,
   totalPercentage: null,
+  refresh: false,
   isLoading: false,
   isError: null,
 };
@@ -31,6 +32,9 @@ const waterSlice = createSlice({
     },
     setSelectedDate(state, action) {
       state.selectedDate = action.payload;
+    },
+    setRefresh: (state, action) => {
+      state.refresh = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -121,6 +125,11 @@ const waterSlice = createSlice({
   },
 });
 
-export const { setCurrentItem, clearCurrentItem, setSelectedDate } =
-  waterSlice.actions;
+export const {
+  setCurrentItem,
+  clearCurrentItem,
+  setSelectedDate,
+  setRefresh,
+  selectedDate,
+} = waterSlice.actions;
 export const waterReducer = waterSlice.reducer;
