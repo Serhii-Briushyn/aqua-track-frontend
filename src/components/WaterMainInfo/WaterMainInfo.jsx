@@ -18,10 +18,8 @@ const getImageSource = () => {
   }
 };
 
-
-const WaterMainInfo = () => {
+const WaterMainInfo = ({ onSubmitSuccess }) => {
   const [imageSource, setImageSource] = useState(getImageSource());
-
 
   useEffect(() => {
     const handleSize = () => {
@@ -40,9 +38,8 @@ const WaterMainInfo = () => {
       <img src={imageSource} alt="water-icon" className={s.water_icon} />
       <WaterDailyNorma />
       <WaterProgressBar />
-      <AddWaterBtn type="waterMain" />
+      <AddWaterBtn type="waterMain" onSubmitSuccess={onSubmitSuccess} />
       <LanguageSwitcher />
-
     </div>
   );
 };

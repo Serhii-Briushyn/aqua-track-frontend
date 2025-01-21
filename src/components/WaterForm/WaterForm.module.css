@@ -17,6 +17,16 @@
   margin-bottom: 8px;
 }
 
+.textBold {
+  display: block;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: #323f47;
+  margin-bottom: 8px;
+}
+
 .amountWrapper {
   display: flex;
   justify-content: start;
@@ -69,6 +79,10 @@
   margin-bottom: 8px;
 }
 
+.inputBox {
+  position: relative;
+}
+
 .input {
   display: flex;
   align-items: center;
@@ -118,13 +132,31 @@
   cursor: pointer;
 }
 
-.submitButton:hover {
+.submitButton:not(.disabled):hover {
   background-color: #87d28d;
+}
+
+.disabled {
+  background-color: #e6e6e6;
+  color: #bcbcbc;
+  cursor: not-allowed;
+}
+
+.error {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.28;
+  letter-spacing: -0.01em;
+  color: #ef5050;
+  position: absolute;
+  bottom: -22px;
+  left: 0;
 }
 
 @media screen and (min-width: 768px) {
   .fieldSubtitle,
-  .amountSubtitle {
+  .amountSubtitle,
+  .textBold {
     font-size: 18px;
     line-height: 1.33;
   }
