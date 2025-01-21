@@ -9,17 +9,41 @@ import {
 	Tooltip,
 	Filler,
 } from "chart.js";
-import {chartOptions} from "./utils/index.js";
+import { chartOptions } from "./utils/index.js";
 import css from "./Chart.module.css";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Filler);
 
-const Chart = ({data}) => {
+const Chart = ({ data }) => {
 	const chartRef = useRef(null);
 	const [gradientBackground, setGradientBackground] = useState(null);
 
-	const labels = data.map(item => new Date(item.date).getDate()); // Extract day of the month
-	const dataValues = data.map(item => item.amount / 1000); // Convert ml to liters
+	// group data
+	const groupByWeek = (data) => {
+		const weeks = [];
+		data.forEach((item) => {
+			const date = new Date(item.date);
+			const weekNumber = getWeekNumber(date);
+			if (!weeks[weekNumber]) {
+				weeks[weekNumber] = { week: weekNumber, totalAmount: 0 };
+			}
+			weeks[weekNumber].totalAmount += item.amount;
+		});
+		return Object.values(weeks);
+	};
+
+	// get week number
+	const getWeekNumber = (date) => {
+		const startDate = new Date(date.getFullYear(), 0, 1);
+		const days = Math.floor((date - startDate) / (24 * 60 * 60 * 1000));
+		return Math.ceil((days + 1) / 7);
+	};
+
+	// get data of week
+	const weeklyData = groupByWeek(data);
+
+	const labels = weeklyData.map((item) => `Week ${item.week}`);
+	const dataValues = weeklyData.map((item) => item.totalAmount / 1000); //convert ml to liters
 
 	const chartData = {
 		labels: labels,
@@ -41,7 +65,6 @@ const Chart = ({data}) => {
 			},
 		],
 	};
-
 
 	useEffect(() => {
 		const chart = chartRef.current;
