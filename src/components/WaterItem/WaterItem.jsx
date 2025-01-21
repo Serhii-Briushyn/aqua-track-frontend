@@ -24,12 +24,14 @@ const WaterItem = ({ item, onSubmitSuccess }) => {
     if (onSubmitSuccess) onSubmitSuccess();
   };
 
-  const localDate = new Date(date);
-  const utcTime = `${localDate
-    .getUTCHours()
-    .toString()
-    .padStart(2, "0")}:${localDate.getUTCMinutes().toString().padStart(2, "0")}`;
+  const formatTimeUTC = (dateString) => {
+    const dateObject = new Date(dateString);
+    const hours = dateObject.getUTCHours().toString().padStart(2, "0");
+    const minutes = dateObject.getUTCMinutes().toString().padStart(2, "0");
+    return `${hours}:${minutes}`;
+  };
 
+  const time = formatTimeUTC(date);
   return (
     <>
       <div className={css.waterItem}>
@@ -39,7 +41,7 @@ const WaterItem = ({ item, onSubmitSuccess }) => {
 
         <div className={css.indicators}>
           <span className={css.volume}>{amount} ml</span>
-          <span className={css.time}>{utcTime}</span>
+          <span className={css.time}>{time}</span>
         </div>
         <div className={css.actions}>
           <button role="button" onClick={() => openModal("EditWater", id)}>
@@ -56,7 +58,7 @@ const WaterItem = ({ item, onSubmitSuccess }) => {
           isOpen={true}
           onClose={closeModal}
           source="EditWater"
-          modalData={item}
+          modalData={{ ...item, time }}
           onValid={handleSave}
           onSubmitSuccess={onSubmitSuccess}
         />

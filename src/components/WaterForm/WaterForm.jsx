@@ -49,11 +49,7 @@ const WaterForm = ({ source, isOpen, onClose, modalData, onSubmitSuccess }) => {
       } else if (source === "EditWater" && modalData) {
         const initialAmount = modalData.amount || 250;
 
-        const databaseTime = modalData.date
-          ? new Date(modalData.date).toTimeString().slice(0, 5)
-          : "";
-
-        setValue("time", databaseTime);
+        setValue("time", modalData.time);
         setValue("amount", initialAmount);
         setLocalAmount(initialAmount.toString());
       }
