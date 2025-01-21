@@ -10,7 +10,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
 import { updateUser } from "../../redux/auth/operations";
 import { selectUser } from "../../redux/auth/selectors";
-import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher";
 
 const UserSettingsForm = () => {
   const dispatch = useDispatch();
@@ -42,7 +41,10 @@ const UserSettingsForm = () => {
       .nullable(),
     waterNorm: yup
       .number()
-      .transform((value, originalValue) => (originalValue === "" ? 0 : value))
+      .transform((value, originalValue) => {
+        if (originalValue === "") return 0;
+        return parseFloat(originalValue.replace(",", "."));
+      })
       .min(0, t(""))
       .max(10, t("dailyWaterConsumption"))
       .nullable(),
@@ -282,6 +284,7 @@ const UserSettingsForm = () => {
             {t("recordWaterIntake")}
             <input
               type="number"
+              step="0.1"
               name="waterNorm"
               {...register("waterNorm")}
               className={css.userInfoField}
@@ -293,7 +296,6 @@ const UserSettingsForm = () => {
       <button type="submit" className={css.saveBtn}>
         {t("save")}
       </button>
-      <LanguageSwitcher />
     </form>
   );
 };
