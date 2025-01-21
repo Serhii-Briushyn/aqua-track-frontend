@@ -27,7 +27,7 @@ const Calendar = ({currentMonth, selectedDate, onDateSelect, monthValues}) => {
 						>
 							<div className={css.dateVal}>{date?.getDate()}</div>
 						</div>
-						<span className={css.val}>{Math.round(val)}%</span>
+						<span className={css.val}>{val}%</span>
 					</div>
 				);
 			})}
