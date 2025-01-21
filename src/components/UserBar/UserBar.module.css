@@ -1,5 +1,6 @@
 .initial {
   font-size: 18px;
+  line-height: 26px;
   font-weight: bold;
   color: #fff;
   background-color: #000;
@@ -17,6 +18,11 @@
   padding: 6px 12px;
   background: #323f47;
   border-radius: 30px;
+  cursor: pointer;
+}
+
+.relativeContainer {
+  position: relative;
 }
 
 .h2 {
