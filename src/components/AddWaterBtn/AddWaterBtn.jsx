@@ -1,5 +1,3 @@
-// AddWaterBtn.jsx
-
 import WaterModal from "../WaterModal/WaterModal";
 import { useState } from "react";
 
