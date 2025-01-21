@@ -10,7 +10,6 @@ import {
 import toast from "react-hot-toast";
 import css from "./WaterForm.module.css";
 import icons from "../../assets/icons/icons.svg";
-import { setRefresh } from "../../redux/water/slice";
 
 const schema = yup.object().shape({
   amount: yup
@@ -21,7 +20,7 @@ const schema = yup.object().shape({
   time: yup.string().required("Time is required"),
 });
 
-const WaterForm = ({ source, isOpen, onClose, modalData }) => {
+const WaterForm = ({ source, isOpen, onClose, modalData, onSubmitSuccess }) => {
   const dispatch = useDispatch();
 
   const {
@@ -50,7 +49,7 @@ const WaterForm = ({ source, isOpen, onClose, modalData }) => {
         setValue(
           "time",
           modalData.date
-            ? new Date(modalData.date).toISOString().split("T")[1].slice(0, 5)
+            ? new Date(modalData.date).toTimeString().slice(0, 5)
             : ""
         );
         setValue("amount", modalData.amount || 250);
@@ -64,13 +63,10 @@ const WaterForm = ({ source, isOpen, onClose, modalData }) => {
       const date = modalData?.date ? new Date(modalData.date) : new Date();
       date.setHours(hours);
       date.setMinutes(minutes);
-      const localDate = new Date(
-        date.getTime() - date.getTimezoneOffset() * 60000
-      );
 
       const waterData = {
         amount: data.amount,
-        date: localDate.toISOString(),
+        date: date.toISOString(),
       };
 
       const action =
@@ -88,7 +84,7 @@ const WaterForm = ({ source, isOpen, onClose, modalData }) => {
           : "Water entry successfully updated!"
       );
       onClose();
-      dispatch(setRefresh(true));
+      onSubmitSuccess?.();
     } catch (error) {
       toast.error(
         error.message || "Failed to perform the operation. Please try again."

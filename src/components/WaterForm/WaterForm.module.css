@@ -70,6 +70,9 @@
 }
 
 .input {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
   border: 1px solid rgba(47, 47, 47, 0.15);
   border-radius: 15px;
   padding: 0px 16px;

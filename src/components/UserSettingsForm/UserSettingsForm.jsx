@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
 import { updateUser } from "../../redux/auth/operations";
 import { selectUser } from "../../redux/auth/selectors";
+import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher";
 
 const UserSettingsForm = () => {
   const dispatch = useDispatch();
@@ -292,6 +293,7 @@ const UserSettingsForm = () => {
       <button type="submit" className={css.saveBtn}>
         {t("save")}
       </button>
+      <LanguageSwitcher />
     </form>
   );
 };

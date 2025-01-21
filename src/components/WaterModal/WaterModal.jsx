@@ -7,7 +7,14 @@ const WaterModal = ({
   onClose,
   source,
   modalData,
+  onValid,
+  onSubmitSuccess,
 }) => {
+  const handleSubmit = (data) => {
+    if (onValid) {
+      onValid(data);
+    }
+  };
 
   const getTitle = () => {
     if (source === "AddWater") return "Add water";
@@ -19,9 +26,11 @@ const WaterModal = ({
       <div className={css.wrapper}>
         <h2 className={css.title}>{getTitle()}</h2>
         <WaterForm
+          onSubmit={handleSubmit}
           source={source}
           isOpen={isOpen}
           onClose={onClose}
+          onSubmitSuccess={onSubmitSuccess}
           modalData={modalData}
         />
       </div>
