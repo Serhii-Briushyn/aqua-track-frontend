@@ -25,10 +25,10 @@ const WaterItem = ({ item, onSubmitSuccess }) => {
   };
 
   const localDate = new Date(date);
-  const localTime = `${localDate
-    .getHours()
+  const utcTime = `${localDate
+    .getUTCHours()
     .toString()
-    .padStart(2, "0")}:${localDate.getMinutes().toString().padStart(2, "0")}`;
+    .padStart(2, "0")}:${localDate.getUTCMinutes().toString().padStart(2, "0")}`;
 
   return (
     <>
@@ -39,7 +39,7 @@ const WaterItem = ({ item, onSubmitSuccess }) => {
 
         <div className={css.indicators}>
           <span className={css.volume}>{amount} ml</span>
-          <span className={css.time}>{localTime}</span>
+          <span className={css.time}>{utcTime}</span>
         </div>
         <div className={css.actions}>
           <button role="button" onClick={() => openModal("EditWater", id)}>

@@ -4,7 +4,7 @@ import { useState } from "react";
 import icons from "../../assets/icons/icons.svg";
 
 import s from "./AddWaterBtn.module.css";
-const AddWaterBtn = ({ type, selectedDate, onSubmitSuccess }) => {
+const AddWaterBtn = ({ type, onSubmitSuccess }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalSource, setModalSource] = useState("");
 
@@ -38,7 +38,6 @@ const AddWaterBtn = ({ type, selectedDate, onSubmitSuccess }) => {
         isOpen={isModalOpen}
         onClose={closeModal}
         source={modalSource}
-        selectedDate={selectedDate}
         onSubmitSuccess={onSubmitSuccess}
       />
     </div>
