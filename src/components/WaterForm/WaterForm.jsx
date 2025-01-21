@@ -22,6 +22,8 @@ const schema = yup.object().shape({
 
 const WaterForm = ({ source, isOpen, onClose, modalData, onSubmitSuccess }) => {
   const dispatch = useDispatch();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const {
     handleSubmit,
     control,
@@ -59,6 +61,8 @@ const WaterForm = ({ source, isOpen, onClose, modalData, onSubmitSuccess }) => {
   }, [isOpen, source, modalData, setValue]);
 
   const onSubmit = async (data) => {
+    setIsSubmitting(true);
+
     try {
       const waterData = {
         amount: data.amount,
@@ -171,7 +175,11 @@ const WaterForm = ({ source, isOpen, onClose, modalData, onSubmitSuccess }) => {
         {errors.amount && <p className={css.error}>{errors.amount.message}</p>}
       </div>
 
-      <button type="submit" className={css.submitButton}>
+      <button
+        type="submit"
+        className={`${css.submitButton} ${isSubmitting ? css.disabled : ""}`}
+        disabled={isSubmitting}
+      >
         Save
       </button>
     </form>
