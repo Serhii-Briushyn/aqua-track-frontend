@@ -1,38 +1,57 @@
-import {getDateBackgroundColor, getDateTextColor, getMonthDates} from './utils/index.js';
-import css from './Calendar.module.css';
+import { useDispatch, useSelector } from "react-redux";
 
-const Calendar = ({currentMonth, selectedDate, onDateSelect, monthValues}) => {
+import {
+  selectMonthlyData,
+  selectSelectedDate,
+} from "../../redux/water/selectors.js";
+import { getDailyWaterOperation } from "../../redux/water/operations.js";
+import { setSelectedDate } from "../../redux/water/slice.js";
+import {
+  getDateBackgroundColor,
+  getDateTextColor,
+} from "../../utils/dateUtils.js";
 
-	const monthDates = getMonthDates(currentMonth);
+import css from "./Calendar.module.css";
 
-	const handleDateClick = (date) => {
-		if (onDateSelect) {
-			onDateSelect(date);
-		}
-	};
+const Calendar = () => {
+  const dispatch = useDispatch();
+  const monthDates = useSelector(selectMonthlyData);
+  const selectedDate = useSelector(selectSelectedDate);
 
-	return (
-		<div className={css.calendar}>
-			{monthDates.map((date, index) => {
-				const val = monthValues[index] ? monthValues[index].percentage : 0;
-				return (
-					<div key={date} className={css.dateContainer}>
-						<div
-							className={css.date}
-							style={{
-								backgroundColor: getDateBackgroundColor(date, selectedDate, val),
-								color: getDateTextColor(date, selectedDate, val),
-							}}
-							onClick={() => handleDateClick(date)}
-						>
-							<div className={css.dateVal}>{date?.getDate()}</div>
-						</div>
-						<span className={css.val}>{val}%</span>
-					</div>
-				);
-			})}
-		</div>
-	);
+  const handleDateClick = (date) => {
+    const formattedDate = date.toISOString().split("T")[0];
+    dispatch(setSelectedDate(formattedDate));
+    dispatch(getDailyWaterOperation({ date: formattedDate }));
+  };
+
+  return (
+    <div className={css.calendar}>
+      {monthDates.map((dateObj) => {
+        const date = new Date(dateObj.date);
+        const percentage = (dateObj.percentage || 0).toFixed(0);
+
+        return (
+          <div key={date.toISOString()} className={css.dateContainer}>
+            <div
+              className={css.date}
+              style={{
+                backgroundColor: getDateBackgroundColor(
+                  date,
+                  selectedDate,
+                  percentage
+                ),
+                color: getDateTextColor(date, selectedDate),
+              }}
+              onClick={() => handleDateClick(date)}
+            >
+              <div className={css.dateVal}>{date.getDate()}</div>
+            </div>
+            <span className={css.val}>{percentage}%</span>
+          </div>
+        );
+      })}
+    </div>
+  );
 };
 
 export default Calendar;

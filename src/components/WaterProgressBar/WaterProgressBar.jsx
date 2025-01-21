@@ -17,23 +17,24 @@ const WaterProgressBar = () => {
     const boundedProgress = Math.min(totalPercentage, 100);
     setWaterLevel(boundedProgress);
     const today = new Date();
-    const todayFormatted = today.toLocaleDateString("default", {
+    const todayFormatted = today.toLocaleDateString("en-US", {
       day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
+      month: "long",
     });
 
     const inputDate = new Date(selectedDate);
-    const inputDateFormatted = inputDate.toLocaleDateString("default", {
+    const inputDateFormatted = inputDate.toLocaleDateString("en-US", {
       day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
+      month: "long",
     });
+
+    const [month, day] = inputDateFormatted.split(" ");
+    const formatted = `${day.replace(",", "")}, ${month}`;
 
     if (inputDateFormatted === todayFormatted) {
       setFormattedDate(t("today"));
     } else {
-      setFormattedDate(inputDateFormatted);
+      setFormattedDate(formatted);
     }
   }, [totalPercentage, selectedDate, t]);
 

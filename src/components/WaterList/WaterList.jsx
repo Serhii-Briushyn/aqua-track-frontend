@@ -4,9 +4,12 @@ import "simplebar-react/dist/simplebar.min.css";
 import "./simplebar.lib.css";
 import SimpleBar from "simplebar-react";
 import css from "./WaterList.module.css";
+import { selectDailyData } from "../../redux/water/selectors";
+import { useSelector } from "react-redux";
 
-const WaterList = ({ dailyData, onSubmitSuccess }) => {
+const WaterList = () => {
   const [resizeKey, setResizeKey] = useState(0);
+  const dailyData = useSelector(selectDailyData);
 
   useEffect(() => {
     const handleResize = () => {
@@ -27,12 +30,7 @@ const WaterList = ({ dailyData, onSubmitSuccess }) => {
           {dailyData.length ? (
             dailyData.map((item, index) => (
               <div key={index} className={css.scrollableItemContainer}>
-                <WaterItem
-                  item={item}
-                  index={index}
-                  key={index}
-                  onSubmitSuccess={onSubmitSuccess}
-                />
+                <WaterItem item={item} index={index} key={index} />
               </div>
             ))
           ) : (

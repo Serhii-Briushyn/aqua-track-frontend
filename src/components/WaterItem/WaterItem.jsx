@@ -6,7 +6,7 @@ import WaterModal from "../WaterModal/WaterModal";
 import { useState } from "react";
 import DeleteWaterModal from "../DeleteWaterModal/DeleteWaterModal";
 
-const WaterItem = ({ item, onSubmitSuccess }) => {
+const WaterItem = ({ item }) => {
   const { id, amount, date } = item;
 
   const [activeModal, setActiveModal] = useState(null);
@@ -19,16 +19,13 @@ const WaterItem = ({ item, onSubmitSuccess }) => {
     setActiveModal(null);
   };
 
-  const handleSave = () => {
-    closeModal();
-    if (onSubmitSuccess) onSubmitSuccess();
-  };
+  const serverDate = new Date(date);
+  let hours = serverDate.getUTCHours(); 
+  const minutes = serverDate.getUTCMinutes().toString().padStart(2, "0");
+  const amPm = hours >= 12 ? "PM" : "AM"; 
+  hours = hours % 12 || 12;
 
-  const localDate = new Date(date);
-  const localTime = `${localDate
-    .getHours()
-    .toString()
-    .padStart(2, "0")}:${localDate.getMinutes().toString().padStart(2, "0")}`;
+  const formattedTime = `${hours}:${minutes} ${amPm}`;
 
   return (
     <>
@@ -39,7 +36,7 @@ const WaterItem = ({ item, onSubmitSuccess }) => {
 
         <div className={css.indicators}>
           <span className={css.volume}>{amount} ml</span>
-          <span className={css.time}>{localTime}</span>
+          <span className={css.time}>{formattedTime}</span>
         </div>
         <div className={css.actions}>
           <button role="button" onClick={() => openModal("EditWater", id)}>
@@ -57,18 +54,11 @@ const WaterItem = ({ item, onSubmitSuccess }) => {
           onClose={closeModal}
           source="EditWater"
           modalData={item}
-          onValid={handleSave}
-          onSubmitSuccess={onSubmitSuccess}
         />
       )}
 
       {activeModal === "DeleteWater" && (
-        <DeleteWaterModal
-          isOpen={true}
-          onClose={closeModal}
-          id={id}
-          onSubmitSuccess={onSubmitSuccess}
-        />
+        <DeleteWaterModal isOpen={true} onClose={closeModal} id={id} />
       )}
     </>
   );
