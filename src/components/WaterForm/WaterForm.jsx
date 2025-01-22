@@ -11,10 +11,21 @@ import toast from "react-hot-toast";
 import css from "./WaterForm.module.css";
 import icons from "../../assets/icons/icons.svg";
 import { useTranslation } from "react-i18next";
+import { t } from "i18next";
 
 const WaterForm = ({ source, isOpen, onClose, modalData, onSubmitSuccess }) => {
   const dispatch = useDispatch();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { t } = useTranslation();
+
+  const schema = yup.object().shape({
+    amount: yup
+      .number()
+      .min(50, t("minimum"))
+      .max(5000, t("maximum"))
+      .required(t("amountrqd")),
+    time: yup.string().required(t("timerqd")),
+  });
 
   const {
     handleSubmit,
@@ -51,15 +62,12 @@ const WaterForm = ({ source, isOpen, onClose, modalData, onSubmitSuccess }) => {
   }, [isOpen, source, modalData, setValue]);
 
   const onSubmit = async (data) => {
-    try {
-      const [hours, minutes] = data.time.split(":");
-      const date = modalData?.date ? new Date(modalData.date) : new Date();
-      date.setHours(hours);
-      date.setMinutes(minutes);
+    setIsSubmitting(true);
 
+    try {
       const waterData = {
         amount: data.amount,
-        date: date.toISOString(),
+        date: `${new Date().toISOString().slice(0, 10)}T${data.time}:00`,
       };
 
       const action =
@@ -82,7 +90,7 @@ const WaterForm = ({ source, isOpen, onClose, modalData, onSubmitSuccess }) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={css.form}>
       <p className={css.amountSubtitle}>
-        {source === "AddWater" ? t("dailylog") : t(edditing)}
+        {source === "AddWater" ? t("dailylog") : t("edditing")}
       </p>
 
       <label className={css.text}>{t("waterAmount")}:</label>
@@ -121,7 +129,7 @@ const WaterForm = ({ source, isOpen, onClose, modalData, onSubmitSuccess }) => {
       />
       {errors.time && <p className={css.error}>{errors.time.message}</p>}
 
-      <label className={css.textBold}>Enter the value of the water used:</label>
+      <label className={css.textBold}>{t("enterWaterValue")}</label>
       <div className={css.inputBox}>
         <input
           type="number"
@@ -150,7 +158,7 @@ const WaterForm = ({ source, isOpen, onClose, modalData, onSubmitSuccess }) => {
         className={`${css.submitButton} ${isSubmitting ? css.disabled : ""}`}
         disabled={isSubmitting}
       >
-        Save
+        {t("save")}
       </button>
     </form>
   );
