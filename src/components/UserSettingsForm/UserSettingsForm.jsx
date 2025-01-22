@@ -42,8 +42,11 @@ const UserSettingsForm = () => {
     waterNorm: yup
       .number()
       .transform((value, originalValue) => {
-        if (originalValue === "") return 0;
-        return parseFloat(originalValue.replace(",", "."));
+        if (originalValue === "" || originalValue == null) return 0;
+        if (typeof originalValue === "string") {
+          return parseFloat(originalValue.replace(",", "."));
+        }
+        return originalValue;
       })
       .min(0, t(""))
       .max(10, t("dailyWaterConsumption"))
