@@ -34,7 +34,7 @@
   "addWaterTitle": "Додавання води",
   "addWater": "Додати воду",
   "SetBtn": "Встановіть свою норму",
-  "hello": "Привіт,",
+  "hello": "Привіт",
   "month": "Місяць",
   "january": "Січень",
   "february": "Лютий",
@@ -147,5 +147,7 @@
   "forgotPasswordTitle": "Забули пароль",
   "dontHaveAccount": "Немає облікового запису?",
   "submitting": "Відправлення...",
-  "repeatPasswordInput": "Підтвердіть свій пароль"
+  "repeatPasswordInput": "Підтвердіть свій пароль",
+  "noDataMessage": "Схоже, тут ще нічого немає!",
+  "addWaterPrompt": "Натисніть 'Додати воду', щоб почати відстежувати сьогоднішній день."
 }

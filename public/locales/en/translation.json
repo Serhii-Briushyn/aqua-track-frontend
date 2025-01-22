@@ -34,7 +34,7 @@
   "addWaterTitle": "Add water",
   "addWater": "Add water",
   "SetBtn": "Set your norm",
-  "hello": "Hello,",
+  "hello": "Hello",
   "month": "Month",
   "january": "January",
   "february": "February",
@@ -147,6 +147,7 @@
   "forgotPasswordTitle": "Forgot Password",
   "dontHaveAccount": "Don’t have an account?",
   "submitting": "Submitting...",
-  "repeatPasswordInput": "Confirm your password"
+  "repeatPasswordInput": "Confirm your password",
+  "noDataMessage": "Looks like there's nothing here yet!",
+  "addWaterPrompt": "Tap 'Add Water' to start tracking for today."
 }
-

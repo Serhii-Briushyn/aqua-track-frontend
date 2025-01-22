@@ -1,13 +1,16 @@
+import { useState } from "react";
 import { FiEdit2, FiTrash } from "react-icons/fi";
+import { useTranslation } from "react-i18next";
 
 import icons from "../../assets/icons/icons.svg";
-import css from "./WaterItem.module.css";
 import WaterModal from "../WaterModal/WaterModal";
-import { useState } from "react";
 import DeleteWaterModal from "../DeleteWaterModal/DeleteWaterModal";
+
+import css from "./WaterItem.module.css";
 
 const WaterItem = ({ item, onSubmitSuccess }) => {
   const { id, amount, date } = item;
+  const { t } = useTranslation();
 
   const [activeModal, setActiveModal] = useState(null);
 
@@ -40,7 +43,9 @@ const WaterItem = ({ item, onSubmitSuccess }) => {
         </svg>
 
         <div className={css.indicators}>
-          <span className={css.volume}>{amount} ml</span>
+          <span className={css.volume}>
+            {amount} {t("ml")}
+          </span>
           <span className={css.time}>{time}</span>
         </div>
         <div className={css.actions}>

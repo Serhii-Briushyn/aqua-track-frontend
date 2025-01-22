@@ -113,7 +113,7 @@ const UserSettingsForm = () => {
         setAvatarURL(user.avatarUrl);
       }
     }
-  }, [user, setValue]);
+  }, [user, setValue, watch]);
 
   const onSubmit = async (data) => {
     try {

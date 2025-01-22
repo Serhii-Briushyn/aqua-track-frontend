@@ -1,7 +1,11 @@
 import UserBar from "../UserBar/UserBar";
+import { useTranslation } from "react-i18next";
+
 import css from "./UserPanel.module.css";
 
 const UserPanel = ({ user }) => {
+  const { t } = useTranslation();
+
   const getTrimmedName = (name, email) => {
     if (name) {
       const firstName = name.split(" ")[0];
@@ -23,7 +27,7 @@ const UserPanel = ({ user }) => {
   return (
     <div className={css.userPanel}>
       <h1 className={css.h1}>
-        <span>Hello</span>, {trimmedName}!
+        <span>{t("hello")}</span>, {trimmedName}!
       </h1>
       <UserBar userName={trimmedName} />
     </div>

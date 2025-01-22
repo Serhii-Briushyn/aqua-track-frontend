@@ -1,12 +1,16 @@
-import WaterItem from "../WaterItem/WaterItem";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+
+import SimpleBar from "simplebar-react";
+import WaterItem from "../WaterItem/WaterItem";
+
 import "simplebar-react/dist/simplebar.min.css";
 import "./simplebar.lib.css";
-import SimpleBar from "simplebar-react";
 import css from "./WaterList.module.css";
 
 const WaterList = ({ dailyData, onSubmitSuccess }) => {
   const [resizeKey, setResizeKey] = useState(0);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const handleResize = () => {
@@ -37,8 +41,8 @@ const WaterList = ({ dailyData, onSubmitSuccess }) => {
             ))
           ) : (
             <h3 className={css.h3}>
-              Looks like there&apos;s nothing here yet!
-              <br /> Tap &apos;Add Water&apos; to start tracking for today.
+              {t("noDataMessage")}
+              <br /> {t("addWaterPrompt")}
             </h3>
           )}
         </div>

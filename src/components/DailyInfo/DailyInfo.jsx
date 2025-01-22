@@ -3,25 +3,44 @@ import WaterList from "../WaterList/WaterList";
 import css from "./DailyInfo.module.css";
 import { CircularProgress } from "@mui/material";
 import {useSelector} from "react-redux";
-import {selectIsLoading as selectWaterIsLoading} from "../../redux/water/selectors.js";
+import { selectIsLoading as selectWaterIsLoading } from "../../redux/water/selectors.js";
+import { useTranslation } from "react-i18next";
+import { ukMonthsGenitive } from "../../utils/monthsLocalization.js";
+
 const DailyInfo = ({ dailyData, selectedDate, onSubmitSuccess }) => {
 
   const isLoading = useSelector(selectWaterIsLoading);
+  const { t, i18n } = useTranslation();
 
-  const getHeaderTitle = () => {
-    const today = new Date();
-    const isToday =
-      today.toDateString() === new Date(selectedDate).toDateString();
+const getHeaderTitle = () => {
+      const today = new Date();
+      const isToday =
+        today.toDateString() === new Date(selectedDate).toDateString();
 
-    if (isToday) {
-      return "Today";
-    }
+      if (isToday) {
+        return t("today");
+      }
 
-    const day = new Intl.DateTimeFormat("en-US", { day: "numeric" }).format(selectedDate);
-    const month = new Intl.DateTimeFormat("en-US", { month: "long" }).format(selectedDate);
+      const inputDate = new Date(selectedDate);
+      if (isNaN(inputDate.getTime())) {
+        return t("Invalid Date");
+      }
 
-    return `${day}, ${month}`;
-  };
+      const day = new Intl.DateTimeFormat(i18n.language, {
+        day: "numeric",
+      }).format(inputDate);
+      let month = new Intl.DateTimeFormat(i18n.language, {
+        month: "long",
+      }).format(inputDate);
+
+      if (i18n.language === "uk" && ukMonthsGenitive[month.toLowerCase()]) {
+        month = ukMonthsGenitive[month.toLowerCase()];
+      }
+
+      month = month.charAt(0).toUpperCase() + month.slice(1);
+
+      return `${day}, ${month}`;
+    };
 
   return (
     <div>
