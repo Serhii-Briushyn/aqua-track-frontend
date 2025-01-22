@@ -13,17 +13,13 @@ import Loader from "../Loader/Loader.jsx";
 import css from "./ForgotPasswordForm.module.css";
 import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher.jsx";
 
-
-
 const ForgotPasswordForm = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
 
   const ForgotPasswordSchema = Yup.object({
-    email: Yup.string()
-      .email(t("invalidEmail"))
-      .required(t("emailRequired")),
+    email: Yup.string().email(t("invalidEmail")).required(t("emailRequired")),
   });
 
   const {
@@ -38,8 +34,8 @@ const ForgotPasswordForm = () => {
 
   const onSubmit = async (values) => {
     try {
-      const response = await dispatch(forgotPassword(values)).unwrap();
-      toast.success(response.message || "Reset link sent to your email!");
+      await dispatch(forgotPassword(values)).unwrap();
+      toast.success(t("checkEmailForReset"));
       reset();
     } catch (error) {
       toast.error(error);
@@ -67,7 +63,9 @@ const ForgotPasswordForm = () => {
                 {...register("email")}
               />
               {errors.email && (
-                <div className={css.errorMessage}>{t(errors.email.message)}</div>
+                <div className={css.errorMessage}>
+                  {t(errors.email.message)}
+                </div>
               )}
             </label>
 

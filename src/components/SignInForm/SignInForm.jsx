@@ -42,8 +42,8 @@ const SignInForm = () => {
 
   const onSubmit = async (values) => {
     try {
-      const response = await dispatch(login(values)).unwrap();
-      toast.success(response.message || "Login successful!");
+      await dispatch(login(values)).unwrap();
+      toast.success(t("loginSuccessful"));
       reset();
     } catch (error) {
       toast.error(error);

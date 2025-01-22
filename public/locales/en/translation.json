@@ -143,7 +143,6 @@
   "newPassword": "New password",
   "resetting": "Resetting...",
   "confirm": "Confirm",
-  "resetLinkSent": "Reset link sent to your email!",
   "forgotPasswordTitle": "Forgot Password",
   "dontHaveAccount": "Don’t have an account?",
   "submitting": "Submitting...",
@@ -153,5 +152,11 @@
   "amountrqd": "Amount is required",
   "timerqd": "Time is required",
   "noDataMessage": "Looks like there's nothing here yet!",
-  "addWaterPrompt": "Tap 'Add Water' to start tracking for today."
+  "addWaterPrompt": "Tap 'Add Water' to start tracking for today.",
+  "addition": "Water successfully added!",
+  "update": "Water successfully updated!",
+  "userRegistered": "User registered successfully!",
+  "loginSuccessful": "Login successful!",
+  "checkEmailForReset": "Please check your email to reset your password.",
+  "passwordUpdatedSuccess": "Password updated successfully!"
 }

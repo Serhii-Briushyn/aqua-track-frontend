@@ -46,10 +46,10 @@ const ResetPasswordForm = () => {
   const onSubmit = async (values) => {
     try {
       const token = new URLSearchParams(location.search).get("token");
-      const response = await dispatch(
+      await dispatch(
         resetPassword({ token, password: values.password })
       ).unwrap();
-      toast.success(response.message || t("passwordResetSuccess"));
+      toast.success(t("passwordUpdatedSuccess"));
       reset();
       navigate("/signin");
     } catch (error) {

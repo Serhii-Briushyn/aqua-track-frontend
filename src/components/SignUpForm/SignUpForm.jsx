@@ -47,8 +47,8 @@ const SignUpForm = () => {
     try {
       const requestData = { ...values };
       delete requestData.repeatPassword;
-      const response = await dispatch(register(requestData)).unwrap();
-      toast.success(response.message || "User registered successfully!");
+      await dispatch(register(requestData)).unwrap();
+      toast.success(t("userRegistered"));
       reset();
     } catch (error) {
       toast.error(error);
