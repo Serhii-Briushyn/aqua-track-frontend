@@ -1,13 +1,16 @@
+import { useState } from "react";
 import { FiEdit2, FiTrash } from "react-icons/fi";
+import { useTranslation } from "react-i18next";
 
 import icons from "../../assets/icons/icons.svg";
-import css from "./WaterItem.module.css";
 import WaterModal from "../WaterModal/WaterModal";
-import { useState } from "react";
 import DeleteWaterModal from "../DeleteWaterModal/DeleteWaterModal";
+
+import css from "./WaterItem.module.css";
 
 const WaterItem = ({ item, onSubmitSuccess }) => {
   const { id, amount, date } = item;
+  const { t } = useTranslation();
 
   const [activeModal, setActiveModal] = useState(null);
 
@@ -24,12 +27,14 @@ const WaterItem = ({ item, onSubmitSuccess }) => {
     if (onSubmitSuccess) onSubmitSuccess();
   };
 
-  const localDate = new Date(date);
-  const localTime = `${localDate
-    .getHours()
-    .toString()
-    .padStart(2, "0")}:${localDate.getMinutes().toString().padStart(2, "0")}`;
+  const formatTimeUTC = (dateString) => {
+    const dateObject = new Date(dateString);
+    const hours = dateObject.getUTCHours().toString().padStart(2, "0");
+    const minutes = dateObject.getUTCMinutes().toString().padStart(2, "0");
+    return `${hours}:${minutes}`;
+  };
 
+  const time = formatTimeUTC(date);
   return (
     <>
       <div className={css.waterItem}>
@@ -38,8 +43,10 @@ const WaterItem = ({ item, onSubmitSuccess }) => {
         </svg>
 
         <div className={css.indicators}>
-          <span className={css.volume}>{amount} ml</span>
-          <span className={css.time}>{localTime}</span>
+          <span className={css.volume}>
+            {amount} {t("ml")}
+          </span>
+          <span className={css.time}>{time}</span>
         </div>
         <div className={css.actions}>
           <button role="button" onClick={() => openModal("EditWater", id)}>
@@ -56,7 +63,7 @@ const WaterItem = ({ item, onSubmitSuccess }) => {
           isOpen={true}
           onClose={closeModal}
           source="EditWater"
-          modalData={item}
+          modalData={{ ...item, time }}
           onValid={handleSave}
           onSubmitSuccess={onSubmitSuccess}
         />

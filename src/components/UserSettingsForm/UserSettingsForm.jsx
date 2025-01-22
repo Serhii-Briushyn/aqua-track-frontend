@@ -10,7 +10,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-hot-toast";
 import { updateUser } from "../../redux/auth/operations";
 import { selectUser } from "../../redux/auth/selectors";
-import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher";
 
 const UserSettingsForm = () => {
   const dispatch = useDispatch();
@@ -42,7 +41,10 @@ const UserSettingsForm = () => {
       .nullable(),
     waterNorm: yup
       .number()
-      .transform((value, originalValue) => (originalValue === "" ? 0 : value))
+      .transform((value, originalValue) => {
+        if (originalValue === "") return 0;
+        return parseFloat(originalValue.replace(",", "."));
+      })
       .min(0, t(""))
       .max(10, t("dailyWaterConsumption"))
       .nullable(),
@@ -63,13 +65,13 @@ const UserSettingsForm = () => {
       email: "",
       gender: "female",
       weight: "",
-      activeHours: "",
-      waterNorm: "",
+      activeHours: 0,
+      waterNorm: 1.8,
     },
   });
 
-  const calculateWaterNorm = (gender, weight, activeHours) => {
-    if (!gender || !weight || !activeHours) {
+  const calculateWaterNorm = (gender, weight, activeHours = 0) => {
+    if (!gender || !weight) {
       return 0;
     }
     const genderCoefficients = {
@@ -90,6 +92,7 @@ const UserSettingsForm = () => {
 
   useEffect(() => {
     const [gender, weight, activeHours] = watchFields;
+
     const waterAmount = calculateWaterNorm(gender, weight, activeHours);
     setNormaWater(waterAmount);
   }, [watchFields]);
@@ -101,13 +104,16 @@ const UserSettingsForm = () => {
       setValue("gender", user.gender || "female");
       setValue("weight", user.weight || "");
       setValue("activeHours", user.activeHours || "");
-      setValue("waterNorm", user.waterNorm ? user.waterNorm / 1000 : "");
+      setValue(
+        "waterNorm",
+        user.waterNorm ? user.waterNorm / 1000 : watch("waterNorm") || "1.8"
+      );
 
       if (user.avatarUrl) {
         setAvatarURL(user.avatarUrl);
       }
     }
-  }, [user, setValue]);
+  }, [user, setValue, watch]);
 
   const onSubmit = async (data) => {
     try {
@@ -278,9 +284,11 @@ const UserSettingsForm = () => {
             {t("recordWaterIntake")}
             <input
               type="number"
+              step="0.1"
               name="waterNorm"
               {...register("waterNorm")}
               className={css.userInfoField}
+              defaultValue={1.8}
             />
           </label>
         </div>
@@ -288,7 +296,6 @@ const UserSettingsForm = () => {
       <button type="submit" className={css.saveBtn}>
         {t("save")}
       </button>
-      <LanguageSwitcher />
     </form>
   );
 };

@@ -14,19 +14,21 @@ import icons from "../../assets/icons/icons.svg";
 import css from "./SignInForm.module.css";
 import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher.jsx";
 
-const validationSchema = Yup.object({
-  email: Yup.string().email(t("enterValidEmail")).required(t("emailRequired")),
-  password: Yup.string()
-    .min(6, t("passwordTooShort"))
-    .max(64, t("passwordTooLong"))
-    .required(t("passwordRequired")),
-});
-
 const SignInForm = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
   const [showPassword, setShowPassword] = useState(false);
   const { t } = useTranslation();
+
+  const validationSchema = Yup.object({
+    email: Yup.string()
+      .email(t("enterValidEmail"))
+      .required(t("emailRequired")),
+    password: Yup.string()
+      .min(6, t("passwordTooShort"))
+      .max(64, t("passwordTooLong"))
+      .required(t("passwordRequired")),
+  });
 
   const {
     register,
@@ -125,17 +127,17 @@ const SignInForm = () => {
               type="submit"
               disabled={isSubmitting}
             >
-              {isSubmitting ? "Signing in..." : t("signin")}
+              {t("signIn")}
             </button>
             <p className={css.text} style={{ textAlign: "center" }}>
-              or
+              {t("or")}
             </p>
             <button
               type="button"
               className={css.button}
               onClick={handleGoogleSignIn}
             >
-              <span style={{ marginRight: "4px" }}>{t(signinwith)}</span>
+              <span style={{ marginRight: "4px" }}>{t("signinwith")}</span>
               <span style={{ color: "#4285f4" }}>G</span>
               <span style={{ color: "#ea4335" }}>o</span>
               <span style={{ color: "#fbbc05" }}>o</span>
@@ -156,7 +158,7 @@ const SignInForm = () => {
             <p className={css.text}>
               {t("forgotpwd")}{" "}
               <NavLink to="/forgot-password" className={css.link}>
-                {t(reset)}
+                {t("reset")}
               </NavLink>
             </p>
           </div>

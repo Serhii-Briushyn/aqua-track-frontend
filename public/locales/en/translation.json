@@ -7,6 +7,9 @@
   "signInTitle": "Sign In",
   "signIn": "Sign In",
   "continueWithGoogle": "Continue with Google",
+  "userCountTextOur": "Our",
+  "userCountTextHappy": "happy",
+  "userCountTextCust": "customers",
   "habitDrive": "Habit drive",
   "viewStats": "View statistics",
   "personalRate": "Personal rate setting",
@@ -31,7 +34,7 @@
   "addWaterTitle": "Add water",
   "addWater": "Add water",
   "SetBtn": "Set your norm",
-  "hello": "Hello,",
+  "hello": "Hello",
   "month": "Month",
   "january": "January",
   "february": "February",
@@ -149,4 +152,6 @@
   "maximum": "Maximum amount is 5000ml",
   "amountrqd": "Amount is required",
   "timerqd": "Time is required"
+  "noDataMessage": "Looks like there's nothing here yet!",
+  "addWaterPrompt": "Tap 'Add Water' to start tracking for today."
 }

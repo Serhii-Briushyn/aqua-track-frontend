@@ -5,7 +5,14 @@
   padding: 14px 20px;
   background: #fff;
   border-radius: 15px;
-  transform: translateY(100%);
+  transform: translateY(10%);
+}
+
+@media screen and (max-width: 768px) {
+  .userBarPopover {
+    left: 0;
+    right: auto;
+  }
 }
 
 .setting,

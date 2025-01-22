@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import toast from "react-hot-toast";
 import * as Yup from "yup";
+import { useTranslation } from "react-i18next";
 
 import { forgotPassword } from "../../redux/auth/operations.js";
 import { selectIsLoading } from "../../redux/auth/selectors.js";
@@ -12,15 +13,18 @@ import Loader from "../Loader/Loader.jsx";
 import css from "./ForgotPasswordForm.module.css";
 import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher.jsx";
 
-const ForgotPasswordSchema = Yup.object({
-  email: Yup.string()
-    .email("Invalid email address")
-    .required("Email is required"),
-});
+
 
 const ForgotPasswordForm = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
+
+  const ForgotPasswordSchema = Yup.object({
+    email: Yup.string()
+      .email(t("invalidEmail"))
+      .required(t("emailRequired")),
+  });
 
   const {
     register,
@@ -47,23 +51,23 @@ const ForgotPasswordForm = () => {
       {isLoading && <Loader />}
       <div className={css.container}>
         <div className={css.content}>
-          <h2 className={css.title}>Forget Password</h2>
+          <h2 className={css.title}>{t("resetPasswordTitle")}</h2>
           <form
             className={css.form}
             onSubmit={handleSubmit(onSubmit)}
             autoComplete="off"
           >
             <label className={css.label}>
-              <span className={css.span}>Email</span>
+              <span className={css.span}>{t("email")}</span>
               <input
                 className={`${css.input} ${errors.email ? css.errorInput : ""}`}
                 type="email"
-                placeholder="Enter your email"
+                placeholder={t("enterEmail")}
                 autoComplete="email"
                 {...register("email")}
               />
               {errors.email && (
-                <div className={css.errorMessage}>{errors.email.message}</div>
+                <div className={css.errorMessage}>{t(errors.email.message)}</div>
               )}
             </label>
 
@@ -72,14 +76,14 @@ const ForgotPasswordForm = () => {
               type="submit"
               disabled={isSubmitting}
             >
-              {isSubmitting ? "Submitting..." : "Reset"}
+              {isSubmitting ? t("submitting") : t("reset")}
             </button>
           </form>
           <div className={css.footerContent}>
             <p className={css.text}>
-              Don&apos;t have an account?{" "}
+              {t("dontHaveAccount")}{" "}
               <NavLink to="/signin" className={css.link}>
-                Sign In
+                {t("signIn")}
               </NavLink>
             </p>
           </div>

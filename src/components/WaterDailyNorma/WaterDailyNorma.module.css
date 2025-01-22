@@ -1,10 +1,9 @@
 .water_daily_norma_container {
   display: flex;
   flex-direction: column;
-
   border-radius: 15px;
   padding: 12px;
-  width: 102px;
+  width: auto;
   height: 54px;
   box-shadow: 0 4px 50px 0 rgba(0, 0, 0, 0.1);
   background: #fff;
@@ -31,7 +30,6 @@
   .water_daily_norma_container {
     border-radius: 15px;
     padding: 14px 18px;
-    width: 129px;
     height: 78px;
     top: 157px;
     left: 32px;
@@ -51,7 +49,6 @@
   .water_daily_norma_container {
     border-radius: 15px;
     padding: 14px 18px;
-    width: 129px;
     height: 78px;
     top: 157px;
     left: 64px;
