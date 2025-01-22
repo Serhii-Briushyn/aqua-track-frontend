@@ -10,18 +10,11 @@ import {
 import toast from "react-hot-toast";
 import css from "./WaterForm.module.css";
 import icons from "../../assets/icons/icons.svg";
-
-const schema = yup.object().shape({
-  amount: yup
-    .number()
-    .min(50, "Minimum amount is 50ml")
-    .max(5000, "Maximum amount is 5000ml")
-    .required("Amount is required"),
-  time: yup.string().required("Time is required"),
-});
+import { useTranslation } from "react-i18next";
 
 const WaterForm = ({ source, isOpen, onClose, modalData, onSubmitSuccess }) => {
   const dispatch = useDispatch();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const {
     handleSubmit,
@@ -78,29 +71,21 @@ const WaterForm = ({ source, isOpen, onClose, modalData, onSubmitSuccess }) => {
 
       if (error) throw new Error("Operation failed");
 
-      toast.success(
-        source === "AddWater"
-          ? "Water entry successfully added!"
-          : "Water entry successfully updated!"
-      );
+      toast.success(source === "AddWater" ? t("addition") : t("update"));
       onClose();
       onSubmitSuccess?.();
     } catch (error) {
-      toast.error(
-        error.message || "Failed to perform the operation. Please try again."
-      );
+      toast.error(error.message || t("failed"));
     }
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={css.form}>
       <p className={css.amountSubtitle}>
-        {source === "AddWater"
-          ? "Adding water to your daily log"
-          : "Editing water entry"}
+        {source === "AddWater" ? t("dailylog") : t(edditing)}
       </p>
 
-      <label className={css.text}>Amount of water:</label>
+      <label className={css.text}>{t("waterAmount")}:</label>
       <div className={css.amountWrapper}>
         <button
           type="button"
@@ -111,13 +96,7 @@ const WaterForm = ({ source, isOpen, onClose, modalData, onSubmitSuccess }) => {
             <use href={`${icons}#icon-minus-circle`} />
           </svg>
         </button>
-        <Controller
-          name="amount"
-          control={control}
-          render={({ field }) => (
-            <span className={css.amountValue}>{field.value} ml</span>
-          )}
-        />
+        <span className={css.amountValue}>{localAmount} ml</span>
         <button
           type="button"
           className={css.amountButton}
@@ -131,7 +110,7 @@ const WaterForm = ({ source, isOpen, onClose, modalData, onSubmitSuccess }) => {
       {errors.amount && <p className={css.error}>{errors.amount.message}</p>}
 
       <label className={css.text} htmlFor="time">
-        Recording time:
+        {t("recordTime")}
       </label>
       <Controller
         name="time"
@@ -142,7 +121,35 @@ const WaterForm = ({ source, isOpen, onClose, modalData, onSubmitSuccess }) => {
       />
       {errors.time && <p className={css.error}>{errors.time.message}</p>}
 
-      <button type="submit" className={css.submitButton}>
+      <label className={css.textBold}>Enter the value of the water used:</label>
+      <div className={css.inputBox}>
+        <input
+          type="number"
+          className={css.input}
+          value={localAmount}
+          onChange={(e) => {
+            const value = e.target.value;
+
+            if (value.length <= 4) {
+              setLocalAmount(
+                value === "" ? "" : Math.max(parseInt(value, 10), 0).toString()
+              );
+            }
+          }}
+          onBlur={() => {
+            const finalValue = Math.max(parseInt(localAmount || "0", 10), 0);
+            setValue("amount", finalValue);
+            setLocalAmount(finalValue.toString());
+          }}
+        />
+        {errors.amount && <p className={css.error}>{errors.amount.message}</p>}
+      </div>
+
+      <button
+        type="submit"
+        className={`${css.submitButton} ${isSubmitting ? css.disabled : ""}`}
+        disabled={isSubmitting}
+      >
         Save
       </button>
     </form>

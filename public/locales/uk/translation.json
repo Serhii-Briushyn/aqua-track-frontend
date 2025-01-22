@@ -52,7 +52,7 @@
   "correctData": "Виправити дані:",
   "waterAmount": "Кількість води:",
   "recordTime": "Час запису:",
-  "enterWaterValue": "Введіть обєм води:",
+  "enterWaterValue": "Введіть об'єм води:",
   "save": "Зберегти",
   "recordTimeRequired": "Час запису обов'язковий",
   "invalidTimeFormat": "Невалідний формат часу, використовуйте ГГ:ХХ",
@@ -134,5 +134,15 @@
   "decemberDay": "Грудня",
   "forgotpwd": "Забули пароль",
   "reset": "Скинути",
-  "signinwith": "Увійти за допомогою"
+  "signinwith": "Увійти за допомогою",
+  "or": "або",
+  "resetPasswordTitle": "Скидання паролю",
+  "newPassword": "Новий пароль",
+  "resetting": "Скидання...",
+  "confirm": "Підтвердити",
+  "resetLinkSent": "Посилання для скидання паролю надіслано на вашу пошту!",
+  "forgotPasswordTitle": "Забули пароль",
+  "dontHaveAccount": "Немає облікового запису?",
+  "submitting": "Відправлення...",
+  "repeatPasswordInput": "Підтвердіть свій пароль"
 }

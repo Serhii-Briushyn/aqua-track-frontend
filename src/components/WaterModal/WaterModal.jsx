@@ -1,6 +1,7 @@
 import Modal from "../Modal/Modal";
 import WaterForm from "../WaterForm/WaterForm";
 import css from "./WaterModal.module.css";
+import { useTranslation } from "react-i18next";
 
 const WaterModal = ({
   isOpen,
@@ -10,6 +11,7 @@ const WaterModal = ({
   onValid,
   onSubmitSuccess,
 }) => {
+  const { t } = useTranslation();
   const handleSubmit = (data) => {
     if (onValid) {
       onValid(data);
@@ -17,8 +19,8 @@ const WaterModal = ({
   };
 
   const getTitle = () => {
-    if (source === "AddWater") return "Add water";
-    if (source === "EditWater") return "Edit the entered amount of water";
+    if (source === "AddWater") return t("addWater");
+    if (source === "EditWater") return t("editWaterAmount");
   };
 
   return (
