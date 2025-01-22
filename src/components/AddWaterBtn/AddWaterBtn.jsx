@@ -5,10 +5,15 @@ import { useTranslation } from "react-i18next";
 import icons from "../../assets/icons/icons.svg";
 
 import s from "./AddWaterBtn.module.css";
+import {useSelector} from "react-redux";
+import {selectSelectedDate} from "../../redux/water/selectors.js";
+import {isDateToday} from "../../utils/isDateToday.js";
 const AddWaterBtn = ({ type, onSubmitSuccess }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalSource, setModalSource] = useState("");
   const { t } = useTranslation();
+
+  const date = useSelector(selectSelectedDate)
 
   const openModal = () => {
     setModalSource("AddWater");
@@ -30,7 +35,11 @@ const AddWaterBtn = ({ type, onSubmitSuccess }) => {
 
   return (
     <div>
-      <button className={buttonClass} onClick={openModal}>
+      <button
+        className={`${buttonClass} ${!isDateToday(date) ? s.buttonDisabled : ""}`}
+        onClick={openModal}
+        disabled={!isDateToday(date)}
+      >
         <svg className={iconClass}>
           <use href={`${icons}#icon-plus`} />
         </svg>{" "}
