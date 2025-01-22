@@ -11,7 +11,6 @@ import toast from "react-hot-toast";
 import css from "./WaterForm.module.css";
 import icons from "../../assets/icons/icons.svg";
 import { useTranslation } from "react-i18next";
-import { t } from "i18next";
 
 const WaterForm = ({ source, isOpen, onClose, modalData, onSubmitSuccess }) => {
   const dispatch = useDispatch();
