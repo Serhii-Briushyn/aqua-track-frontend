@@ -43,10 +43,12 @@ const ResetPasswordForm = () => {
 
   const onSubmit = async (values) => {
     try {
-      const fullToken = new URLSearchParams(location.search).get("token");
-      const token = fullToken?.split("token=")[1] || fullToken;
-      console.log("Submitted values:", values);
+      const token = new URLSearchParams(location.search).get("token");
       console.log("Extracted token:", token);
+      console.log("Submitted payload:", {
+        token,
+        newPassword: values.password,
+      });
       const response = await dispatch(
         resetPassword({ token, newPassword: values.password })
       ).unwrap();
