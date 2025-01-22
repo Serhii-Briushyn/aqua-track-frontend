@@ -76,7 +76,7 @@ function App() {
               element={
                 <RestrictedRoute
                   component={<ResetPasswordPage />}
-                  redirectTo="/signup"
+                  redirectTo="/signin"
                 />
               }
             />

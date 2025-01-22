@@ -14,8 +14,6 @@ import icons from "../../assets/icons/icons.svg";
 import css from "./ResetPasswordForm.module.css";
 import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher";
 
-
-
 const ResetPasswordForm = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -47,6 +45,8 @@ const ResetPasswordForm = () => {
     try {
       const fullToken = new URLSearchParams(location.search).get("token");
       const token = fullToken?.split("token=")[1] || fullToken;
+      console.log("Submitted values:", values);
+      console.log("Extracted token:", token);
       const response = await dispatch(
         resetPassword({ token, newPassword: values.password })
       ).unwrap();
@@ -80,8 +80,9 @@ const ResetPasswordForm = () => {
               <span className={css.span}>{t("newPassword")}</span>
               <div className={css.passwordContainer}>
                 <input
-                  className={`${css.input} ${errors.password ? css.errorInput : ""
-                    }`}
+                  className={`${css.input} ${
+                    errors.password ? css.errorInput : ""
+                  }`}
                   type={showPassword ? "text" : "password"}
                   placeholder={t("enterPassword")}
                   autoComplete="new-password"
@@ -112,8 +113,9 @@ const ResetPasswordForm = () => {
               <span className={css.span}>{t("repeatPassword")}</span>
               <div className={css.passwordContainer}>
                 <input
-                  className={`${css.input} ${errors.repeatPassword ? css.errorInput : ""
-                    }`}
+                  className={`${css.input} ${
+                    errors.repeatPassword ? css.errorInput : ""
+                  }`}
                   type={showPasswordRepeat ? "text" : "password"}
                   placeholder={t("repeatPasswordInput")}
                   autoComplete="new-password"
