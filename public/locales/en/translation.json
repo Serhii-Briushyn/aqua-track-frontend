@@ -138,5 +138,15 @@
   "forgotpwd": "Forgot Password?",
   "reset": "Reset",
   "signinwith": "Sign in with",
-  "or": "or"
+  "or": "or",
+  "resetPasswordTitle": "Reset Password",
+  "newPassword": "New password",
+  "resetting": "Resetting...",
+  "confirm": "Confirm",
+  "resetLinkSent": "Reset link sent to your email!",
+  "forgotPasswordTitle": "Forgot Password",
+  "dontHaveAccount": "Don’t have an account?",
+  "submitting": "Submitting...",
+  "repeatPasswordInput": "Confirm your password"
 }
+
