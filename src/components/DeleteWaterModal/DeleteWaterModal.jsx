@@ -3,11 +3,13 @@ import { useDispatch } from "react-redux";
 import css from "./DeleteWaterModal.module.css";
 import Modal from "../Modal/Modal";
 import { deleteWaterOperation } from "../../redux/water/operations";
+import { useTranslation } from "react-i18next";
 
 const DeleteWaterModal = ({ isOpen, onClose, id, onSubmitSuccess }) => {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const { t } = useTranslation();
 
   const handleDelete = async () => {
     setIsLoading(true);
@@ -27,10 +29,8 @@ const DeleteWaterModal = ({ isOpen, onClose, id, onSubmitSuccess }) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <div className={css.modalContent}>
-        <h2 className={css.titleDelete}>Delete entry</h2>
-        <p className={css.textDelete}>
-          Are you sure you want to delete the entry?
-        </p>
+        <h2 className={css.titleDelete}>{t("deleteEntry")}</h2>
+        <p className={css.textDelete}>{t("confirmDeleteEntry")}</p>
         {error && <p className={css.errorMessage}>{error}</p>}
         <div className={css.boxForBtn}>
           <button
@@ -39,10 +39,10 @@ const DeleteWaterModal = ({ isOpen, onClose, id, onSubmitSuccess }) => {
             onClick={handleDelete}
             disabled={isLoading}
           >
-            {isLoading ? "Deleting..." : "Delete"}
+            {isLoading ? t("deleting") : t("delete")}
           </button>
           <button type="button" className={css.btnCancel} onClick={onClose}>
-            Cancel
+            {t("cancel")}
           </button>
         </div>
       </div>
