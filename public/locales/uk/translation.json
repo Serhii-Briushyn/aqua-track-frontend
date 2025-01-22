@@ -20,7 +20,7 @@
   "noAccount": "Немає облікового запису? ",
   "signUpTitle": "Реєстрація",
   "signUp": "Зареєструватися",
-  "repeatPassword": "Повторіть пароль",
+  "repeatPassword": "Підтвердження пароля",
   "alreadyHaveAccount": "Вже маєте обліковий запис? ",
   "enterValidEmail": "Введіть дійсну адресу електронної пошти!",
   "emailRequired": "Електронна пошта є обов'язковою",
@@ -138,5 +138,14 @@
   "forgotpwd": "Забули пароль?",
   "reset": "Скинути",
   "signinwith": "Увійти за допомогою",
-  "or": "або"
+  "or": "або",
+  "resetPasswordTitle": "Скидання паролю",
+  "newPassword": "Новий пароль",
+  "resetting": "Скидання...",
+  "confirm": "Підтвердити",
+  "resetLinkSent": "Посилання для скидання паролю надіслано на вашу пошту!",
+  "forgotPasswordTitle": "Забули пароль",
+  "dontHaveAccount": "Немає облікового запису?",
+  "submitting": "Відправлення...",
+  "repeatPasswordInput": "Підтвердіть свій пароль"
 }
