@@ -1,12 +1,14 @@
 import WaterModal from "../WaterModal/WaterModal";
 import { useState } from "react";
 
+import { useTranslation } from "react-i18next";
 import icons from "../../assets/icons/icons.svg";
 
 import s from "./AddWaterBtn.module.css";
 const AddWaterBtn = ({ type, onSubmitSuccess }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalSource, setModalSource] = useState("");
+  const { t } = useTranslation();
 
   const openModal = () => {
     setModalSource("AddWater");
@@ -32,7 +34,7 @@ const AddWaterBtn = ({ type, onSubmitSuccess }) => {
         <svg className={iconClass}>
           <use href={`${icons}#icon-plus`} />
         </svg>{" "}
-        Add water
+        {t("addWater")}
       </button>
       <WaterModal
         isOpen={isModalOpen}

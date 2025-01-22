@@ -4,14 +4,17 @@ import DocumentTitle from "../../components/DocumentTitle";
 import WaterDetailedInfo from "../../components/WaterDetailedInfo/WaterDetailedInfo";
 import WaterMainInfo from "../../components/WaterMainInfo/WaterMainInfo";
 import { fadeInScale } from "../../motion/motion.js";
-import {fetchUserDetails} from "../../redux/auth/operations.js";
-import {useCallback, useEffect, useMemo, useState} from "react";
-import {setSelectedDate} from "../../redux/water/slice.js";
-import {getDailyWaterOperation, getMonthlyWaterOperation} from "../../redux/water/operations.js";
-import {formatToDateString} from "../../components/WaterDetailedInfo/utils/index.js";
-import {selectSelectedDate} from "../../redux/water/selectors.js";
-import {useDispatch, useSelector} from "react-redux";
-import {selectUser} from "../../redux/auth/selectors.js";
+import { fetchUserDetails } from "../../redux/auth/operations.js";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { setSelectedDate } from "../../redux/water/slice.js";
+import {
+  getDailyWaterOperation,
+  getMonthlyWaterOperation,
+} from "../../redux/water/operations.js";
+import { formatToDateString } from "../../components/WaterDetailedInfo/utils/index.js";
+import { selectSelectedDate } from "../../redux/water/selectors.js";
+import { useDispatch, useSelector } from "react-redux";
+import { selectUser } from "../../redux/auth/selectors.js";
 
 export default function TrackerPage() {
   const dispatch = useDispatch();
@@ -56,10 +59,13 @@ export default function TrackerPage() {
     dispatch(setSelectedDate(newSelectedDate.toISOString()));
   };
 
-  const onChangeDate = (date) => {
-    const newSelectedDate = new Date(date);
-    dispatch(setSelectedDate(newSelectedDate.toISOString()));
-  };
+  const onChangeDate = useCallback(
+    (date) => {
+      const newSelectedDate = new Date(date);
+      dispatch(setSelectedDate(newSelectedDate.toISOString()));
+    },
+    [dispatch]
+  );
 
   const onSubmitSuccess = () => {
     fetchDaily(formattedSelectedDate);
@@ -76,10 +82,10 @@ export default function TrackerPage() {
 
   useEffect(() => {
     if (!user) {
-      dispatch(fetchUserDetails())
-      onChangeDate(new Date())
+      dispatch(fetchUserDetails());
+      onChangeDate(new Date());
     }
-  }, [dispatch, user]);
+  }, [dispatch, user, onChangeDate]);
 
   return (
     <>
@@ -91,7 +97,7 @@ export default function TrackerPage() {
         exit="exit"
         variants={fadeInScale()}
       >
-        <WaterMainInfo onSubmitSuccess={onSubmitSuccess}/>
+        <WaterMainInfo onSubmitSuccess={onSubmitSuccess} />
       </motion.div>
 
       <motion.div

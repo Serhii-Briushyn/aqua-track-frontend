@@ -1,10 +1,14 @@
 import { useSelector } from "react-redux";
-import styles from "./WaterProgressBar.module.css";
 import { useEffect, useState } from "react";
+
 import {
   selectSelectedDate,
   selectTotalPercentage,
 } from "../../redux/water/selectors";
+import { useTranslation } from "react-i18next";
+
+import styles from "./WaterProgressBar.module.css";
+import { ukMonthsGenitive } from "../../utils/monthsLocalization";
 
 const WaterProgressBar = () => {
   const totalPercentage = useSelector(selectTotalPercentage);
@@ -12,37 +16,52 @@ const WaterProgressBar = () => {
   const [waterLevel, setWaterLevel] = useState(0);
   const [formattedDate, setFormattedDate] = useState("");
   const [isMoving, setIsMoving] = useState(false);
+  const { t, i18n } = useTranslation();
+
+  useEffect(() => {
+    const getHeaderTitle = () => {
+      const today = new Date();
+      const isToday =
+        today.toDateString() === new Date(selectedDate).toDateString();
+
+      if (isToday) {
+        return t("today");
+      }
+
+      const inputDate = new Date(selectedDate);
+      if (isNaN(inputDate.getTime())) {
+        return t("Invalid Date");
+      }
+
+      const day = new Intl.DateTimeFormat(i18n.language, {
+        day: "numeric",
+      }).format(inputDate);
+      let month = new Intl.DateTimeFormat(i18n.language, {
+        month: "long",
+      }).format(inputDate);
+
+      if (i18n.language === "uk" && ukMonthsGenitive[month.toLowerCase()]) {
+        month = ukMonthsGenitive[month.toLowerCase()];
+      }
+
+      month = month.charAt(0).toUpperCase() + month.slice(1);
+
+      return `${day}, ${month}`;
+    };
+
+    setFormattedDate(getHeaderTitle());
+  }, [selectedDate, totalPercentage, t, i18n.language]);
 
   useEffect(() => {
     const boundedProgress = Math.min(totalPercentage, 100);
     setWaterLevel(boundedProgress);
-
-    const today = new Date();
-    const todayFormatted = today.toLocaleDateString("default", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-    });
-
-    const inputDate = new Date(selectedDate);
-    const inputDateFormatted = inputDate.toLocaleDateString("default", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-    });
-
-    if (inputDateFormatted === todayFormatted) {
-      setFormattedDate("Today");
-    } else {
-      setFormattedDate(inputDateFormatted);
-    }
-  }, [totalPercentage, selectedDate]);
+  }, [totalPercentage]);
 
   const handleCircleMove = () => {
     setIsMoving(true);
     setTimeout(() => {
       setIsMoving(false);
-    }, 2000);
+    }, 2500);
   };
 
   useEffect(() => {
