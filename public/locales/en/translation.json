@@ -151,7 +151,7 @@
   "minimum": "Minimum amount is 50ml",
   "maximum": "Maximum amount is 5000ml",
   "amountrqd": "Amount is required",
-  "timerqd": "Time is required"
+  "timerqd": "Time is required",
   "noDataMessage": "Looks like there's nothing here yet!",
   "addWaterPrompt": "Tap 'Add Water' to start tracking for today."
 }
