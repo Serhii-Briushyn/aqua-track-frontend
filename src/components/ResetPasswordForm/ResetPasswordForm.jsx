@@ -5,6 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import toast from "react-hot-toast";
 import * as Yup from "yup";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 import { resetPassword } from "../../redux/auth/operations";
 import { selectIsLoading } from "../../redux/auth/selectors";
@@ -20,6 +21,7 @@ const ResetPasswordForm = () => {
   const isLoading = useSelector(selectIsLoading);
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordRepeat, setShowPasswordRepeat] = useState(false);
+  const navigate = useNavigate();
 
   const ResetPasswordSchema = Yup.object({
     password: Yup.string()
@@ -49,6 +51,7 @@ const ResetPasswordForm = () => {
       ).unwrap();
       toast.success(response.message || t("passwordResetSuccess"));
       reset();
+      navigate("/signin");
     } catch (error) {
       toast.error(error);
     }

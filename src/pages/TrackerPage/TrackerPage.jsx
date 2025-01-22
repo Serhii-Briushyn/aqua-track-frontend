@@ -15,6 +15,7 @@ import { formatToDateString } from "../../components/WaterDetailedInfo/utils/ind
 import { selectSelectedDate } from "../../redux/water/selectors.js";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser } from "../../redux/auth/selectors.js";
+import { startTokenRefreshInterval } from "../../utils/tokenRefresh.js";
 
 export default function TrackerPage() {
   const dispatch = useDispatch();
@@ -23,6 +24,10 @@ export default function TrackerPage() {
 
   const selectedDate = useSelector(selectSelectedDate);
   const [currentMonth, setCurrentMonth] = useState(new Date());
+
+  useEffect(() => {
+    startTokenRefreshInterval();
+  }, []);
 
   const formattedSelectedDate = useMemo(
     () => formatToDateString(selectedDate),

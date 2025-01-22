@@ -37,7 +37,12 @@ aquaTrackApi.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
-    if (error.response.status === 401 && !originalRequest._retry) {
+
+    if (
+      error.response.status === 401 &&
+      !originalRequest._retry &&
+      !originalRequest.url.includes("/users/login")
+    ) {
       originalRequest._retry = true;
       try {
         const response = await aquaTrackApi.post("/users/refresh");
@@ -58,9 +63,11 @@ aquaTrackApi.interceptors.response.use(
         return Promise.reject(refreshError);
       }
     }
+
     return Promise.reject(error);
   }
 );
+
 
 // -------------------- Register User Thunk --------------------
 
