@@ -187,11 +187,11 @@ export const forgotPassword = createAsyncThunk(
 
 export const resetPassword = createAsyncThunk(
   "user/resetPassword",
-  async ({ token, newPassword }, thunkAPI) => {
+  async ({ token, password }, thunkAPI) => {
     try {
       const response = await aquaTrackApi.post("/users/reset-password", {
         token,
-        newPassword,
+        password,
       });
       return response.data;
     } catch (error) {
