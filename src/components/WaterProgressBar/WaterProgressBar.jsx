@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useSelector } from "react-redux";
 import styles from "./WaterProgressBar.module.css";
 import { useEffect, useState } from "react";
@@ -6,36 +7,43 @@ import {
   selectTotalPercentage,
 } from "../../redux/water/selectors";
 import { useTranslation } from "react-i18next";
+
 const WaterProgressBar = () => {
   const totalPercentage = useSelector(selectTotalPercentage);
   const selectedDate = useSelector(selectSelectedDate);
   const [waterLevel, setWaterLevel] = useState(0);
-  const [formattedDate, setFormattedDate] = useState("");
   const [isMoving, setIsMoving] = useState(false);
-  const { t } = useTranslation();
+  const [formattedDate, setFormattedDate] = useState("");
+  const { t, i18n } = useTranslation();
+
   useEffect(() => {
     const boundedProgress = Math.min(totalPercentage, 100);
     setWaterLevel(boundedProgress);
+  }, [totalPercentage]);
+
+  const getHeaderTitle = () => {
     const today = new Date();
-    const todayFormatted = today.toLocaleDateString("default", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-    });
+    const isToday =
+      today.toDateString() === new Date(selectedDate).toDateString();
+
+    if (isToday) {
+      return t("today");
+    }
 
     const inputDate = new Date(selectedDate);
-    const inputDateFormatted = inputDate.toLocaleDateString("default", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric",
-    });
-
-    if (inputDateFormatted === todayFormatted) {
-      setFormattedDate(t("today"));
-    } else {
-      setFormattedDate(inputDateFormatted);
+    if (isNaN(inputDate.getTime())) {
+      return t("Invalid Date");
     }
-  }, [totalPercentage, selectedDate, t]);
+
+    const day = new Intl.DateTimeFormat(i18n.language, {
+      day: "numeric",
+    }).format(inputDate);
+    const month = new Intl.DateTimeFormat(i18n.language, {
+      month: "long",
+    }).format(inputDate);
+
+    return `${day}, ${month}`;
+  };
 
   const handleCircleMove = () => {
     setIsMoving(true);
@@ -43,9 +51,15 @@ const WaterProgressBar = () => {
       setIsMoving(false);
     }, 2500);
   };
+
   useEffect(() => {
     handleCircleMove();
   }, [waterLevel]);
+
+  useEffect(() => {
+    setFormattedDate(getHeaderTitle());
+  }, [selectedDate, totalPercentage, t, i18n.language]);
+
   return (
     <div className={styles.progressBarWrapper}>
       <div className={styles.todayLabel}>{formattedDate}</div>
@@ -54,7 +68,7 @@ const WaterProgressBar = () => {
         <div className={styles.movingCircleWrapper}>
           {isMoving && (
             <span className={styles.percentageText}>
-              {Math.round(waterLevel.toFixed(1))}%
+              {Math.round(waterLevel)}%
             </span>
           )}
           <div
