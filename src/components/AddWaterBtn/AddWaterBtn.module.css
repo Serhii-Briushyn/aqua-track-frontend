@@ -85,3 +85,9 @@
     height: 24px;
   }
 }
+
+.buttonDisabled {
+  filter: grayscale(100%);
+  cursor: not-allowed;
+  opacity: 0.6;
+}

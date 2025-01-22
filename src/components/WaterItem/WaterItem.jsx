@@ -7,10 +7,15 @@ import WaterModal from "../WaterModal/WaterModal";
 import DeleteWaterModal from "../DeleteWaterModal/DeleteWaterModal";
 
 import css from "./WaterItem.module.css";
+import {isDateToday} from "../../utils/isDateToday.js";
+import s from "../AddWaterBtn/AddWaterBtn.module.css";
+import {useSelector} from "react-redux";
+import {selectSelectedDate} from "../../redux/water/selectors.js";
 
 const WaterItem = ({ item, onSubmitSuccess }) => {
   const { id, amount, date } = item;
   const { t } = useTranslation();
+  const selectedDate = useSelector(selectSelectedDate)
 
   const [activeModal, setActiveModal] = useState(null);
 
@@ -49,7 +54,12 @@ const WaterItem = ({ item, onSubmitSuccess }) => {
           <span className={css.time}>{time}</span>
         </div>
         <div className={css.actions}>
-          <button role="button" onClick={() => openModal("EditWater", id)}>
+          <button
+            role="button"
+            onClick={() => openModal("EditWater", id)}
+            disabled={!isDateToday(selectedDate)}
+            className={`${!isDateToday(selectedDate) ? css.buttonDisabled : ""}`}
+          >
             <FiEdit2 style={{ color: "#323F47" }} />
           </button>
           <button role="button" onClick={() => openModal("DeleteWater", id)}>

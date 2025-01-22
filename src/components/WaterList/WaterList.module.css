@@ -10,6 +10,18 @@
   min-width: 208px;
 }
 
+@media screen and (max-width: 1440px) {
+  .scrollableItemContainer {
+    min-width: 224px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .scrollableItemContainer {
+    min-width: 154px;
+  }
+}
+
 
 @media screen and (max-width: 768px) {
   .waterList .h3 {
