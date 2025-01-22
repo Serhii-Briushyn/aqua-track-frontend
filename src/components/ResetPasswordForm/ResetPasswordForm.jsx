@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import toast from "react-hot-toast";
 import * as Yup from "yup";
+import { useTranslation } from "react-i18next";
 
 import { resetPassword } from "../../redux/auth/operations";
 import { selectIsLoading } from "../../redux/auth/selectors";
@@ -13,21 +14,24 @@ import icons from "../../assets/icons/icons.svg";
 import css from "./ResetPasswordForm.module.css";
 import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher";
 
-const ResetPasswordSchema = Yup.object({
-  password: Yup.string()
-    .min(6, "Must contain at least 6 characters")
-    .max(64, "Password can't be longer than 64 characters")
-    .required("Password is required"),
-  repeatPassword: Yup.string()
-    .oneOf([Yup.ref("password"), null], "The passwords do not match")
-    .required("Repeat password is required"),
-});
+
 
 const ResetPasswordForm = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordRepeat, setShowPasswordRepeat] = useState(false);
+
+  const ResetPasswordSchema = Yup.object({
+    password: Yup.string()
+      .min(6, t("passwordTooShort"))
+      .max(64, t("passwordTooLong"))
+      .required(t("passwordRequired")),
+    repeatPassword: Yup.string()
+      .oneOf([Yup.ref("password"), null], t("repeatPasswordMustMatch"))
+      .required(t("repeatPasswordRequired")),
+  });
 
   const {
     register: resetRegister,
@@ -46,7 +50,7 @@ const ResetPasswordForm = () => {
       const response = await dispatch(
         resetPassword({ token, newPassword: values.password })
       ).unwrap();
-      toast.success(response.message || "Password reset successfully!");
+      toast.success(response.message || t("passwordResetSuccess"));
       reset();
     } catch (error) {
       toast.error(error);
@@ -66,21 +70,20 @@ const ResetPasswordForm = () => {
       {isLoading && <Loader />}
       <div className={css.container}>
         <div className={css.content}>
-          <h2 className={css.title}>Reset Password</h2>
+          <h2 className={css.title}>{t("resetPasswordTitle")}</h2>
           <form
             className={css.form}
             onSubmit={handleSubmit(onSubmit)}
             autoComplete="off"
           >
             <label className={css.label}>
-              <span className={css.span}>New password</span>
+              <span className={css.span}>{t("newPassword")}</span>
               <div className={css.passwordContainer}>
                 <input
-                  className={`${css.input} ${
-                    errors.password ? css.errorInput : ""
-                  }`}
+                  className={`${css.input} ${errors.password ? css.errorInput : ""
+                    }`}
                   type={showPassword ? "text" : "password"}
-                  placeholder="Enter your password"
+                  placeholder={t("enterPassword")}
                   autoComplete="new-password"
                   {...resetRegister("password")}
                 />
@@ -106,14 +109,13 @@ const ResetPasswordForm = () => {
             </label>
 
             <label className={css.label}>
-              <span className={css.span}>Repeat password</span>
+              <span className={css.span}>{t("repeatPassword")}</span>
               <div className={css.passwordContainer}>
                 <input
-                  className={`${css.input} ${
-                    errors.repeatPassword ? css.errorInput : ""
-                  }`}
+                  className={`${css.input} ${errors.repeatPassword ? css.errorInput : ""
+                    }`}
                   type={showPasswordRepeat ? "text" : "password"}
-                  placeholder="Repeat password"
+                  placeholder={t("repeatPasswordInput")}
                   autoComplete="new-password"
                   {...resetRegister("repeatPassword")}
                 />
@@ -143,7 +145,7 @@ const ResetPasswordForm = () => {
               type="submit"
               disabled={isSubmitting}
             >
-              {isSubmitting ? "Resetting..." : "Confirm"}
+              {isSubmitting ? t("resetting") : t("confirm")}
             </button>
           </form>
         </div>
