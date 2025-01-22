@@ -87,7 +87,7 @@ const WaterForm = ({ source, isOpen, onClose, modalData, onSubmitSuccess }) => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={css.form}>
       <p className={css.amountSubtitle}>
-        {source === "AddWater" ? t("correctData") : t("chooseValue")}
+        {source === "AddWater" ? t("chooseValue") : t("correctData")}
       </p>
 
       <label className={css.text}>{t("waterAmount")}:</label>
