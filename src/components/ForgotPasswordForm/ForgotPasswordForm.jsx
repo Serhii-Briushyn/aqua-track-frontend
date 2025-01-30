@@ -1,25 +1,29 @@
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { useForm } from "react-hook-form";
+
 import { yupResolver } from "@hookform/resolvers/yup";
-import toast from "react-hot-toast";
 import * as Yup from "yup";
+import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 
 import { forgotPassword } from "../../redux/auth/operations.js";
 import { selectIsLoading } from "../../redux/auth/selectors.js";
-import Loader from "../Loader/Loader.jsx";
 
-import css from "./ForgotPasswordForm.module.css";
+import Loader from "../Loader/Loader.jsx";
 import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher.jsx";
 
+import css from "./ForgotPasswordForm.module.css";
+
 const ForgotPasswordForm = () => {
-  const { t } = useTranslation();
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
+  const { t } = useTranslation();
 
   const ForgotPasswordSchema = Yup.object({
-    email: Yup.string().email(t("invalidEmail")).required(t("emailRequired")),
+    email: Yup.string()
+      .email(t("invalidEmail"))
+      .required(t("emailRequired")),
   });
 
   const {
@@ -35,10 +39,10 @@ const ForgotPasswordForm = () => {
   const onSubmit = async (values) => {
     try {
       await dispatch(forgotPassword(values)).unwrap();
-      toast.success(t("checkEmailForReset"));
+      toast.success(t("checkEmail"));
       reset();
     } catch (error) {
-      toast.error(error);
+      toast.error(t(error));
     }
   };
 
@@ -47,7 +51,7 @@ const ForgotPasswordForm = () => {
       {isLoading && <Loader />}
       <div className={css.container}>
         <div className={css.content}>
-          <h2 className={css.title}>{t("resetPasswordTitle")}</h2>
+          <h2 className={css.title}>{t("resetPassword")}</h2>
           <form
             className={css.form}
             onSubmit={handleSubmit(onSubmit)}
@@ -74,14 +78,16 @@ const ForgotPasswordForm = () => {
               type="submit"
               disabled={isSubmitting}
             >
-              {isSubmitting ? t("submitting") : t("reset")}
+              {isSubmitting
+                ? t("submitting")
+                : t("reset")}
             </button>
           </form>
           <div className={css.footerContent}>
             <p className={css.text}>
-              {t("dontHaveAccount")}{" "}
-              <NavLink to="/signin" className={css.link}>
-                {t("signIn")}
+              {t("notAccount")}{" "}
+              <NavLink to="/signup" className={css.link}>
+                {t("signUp")}
               </NavLink>
             </p>
           </div>

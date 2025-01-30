@@ -1,7 +1,5 @@
-/*specific styles for simplebar lib*/
-
 .simplebar-content {
-  height: 118px;
+  height: 106px;
 }
 
 .simplebar-track {
@@ -52,4 +50,10 @@
   min-height: 0;
   min-width: 10px;
   width: auto;
+}
+
+@media screen and (min-width: 768px) {
+  .simplebar-content {
+    height: 118px;
+  }
 }

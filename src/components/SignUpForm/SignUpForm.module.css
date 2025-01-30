@@ -137,13 +137,14 @@
   transition: all 0.2s ease-in-out;
 }
 
-.button:disabled {
-  border: 1px solid #323f47;
-  opacity: 0.2;
+.button:not(:disabled):hover {
+  background-color: #87d28d;
 }
 
-.button:hover {
-  background-color: #87d28d;
+.button:disabled {
+  background-color: #e6e6e6;
+  color: #bcbcbc;
+  cursor: not-allowed;
 }
 
 .footerContent {
@@ -199,10 +200,6 @@
     font-size: 16px;
     line-height: 1.5;
     color: rgba(47, 47, 47, 0.6);
-  }
-  .errorMessage {
-    font-size: 16px;
-    line-height: 1.5;
   }
   .text {
     font-size: 16px;

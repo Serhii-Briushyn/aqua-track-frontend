@@ -1,42 +1,75 @@
 .userBarPopover {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
   position: absolute;
-  right: 0;
-  min-width: 156px;
+  left: 0;
+  right: auto;
+  min-width: 136px;
   padding: 14px 20px;
-  background: #fff;
+  box-shadow: 0 4px 50px 0 rgba(0, 0, 0, 0.1);
+  background-color: #fff;
   border-radius: 15px;
   transform: translateY(10%);
   z-index: 9;
-}
-
-@media screen and (max-width: 768px) {
-  .userBarPopover {
-    left: 0;
-    right: auto;
-  }
 }
 
 .setting,
 .logout {
   display: flex;
   align-items: center;
-  font-family: Poppins, sans-serif;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: 8px;
+  width: 100%;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.28;
+  cursor: pointer;
   background: none;
   border: none;
-  font-size: 15px;
-  font-weight: 700;
-  cursor: pointer;
 }
 
 .setting {
   color: #323f47;
-  margin-bottom: 8px;
 }
 
 .logout {
   color: rgba(50, 63, 71, 0.4);
+  transition: all 0.2s ease-in-out;
 }
 
-.btnTxt {
-  margin-left: 8px;
+.logout:hover {
+  color: #323f47;
+}
+
+.logout:hover .iconLogout {
+  stroke: #323f47;
+}
+
+.iconSettings,
+.iconLogout {
+  display: block;
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: rgba(50, 63, 71, 0.4);
+  transition: all 0.2s ease-in-out;
+}
+
+.iconSettings {
+  stroke: #323f47;
+}
+
+@media screen and (min-width: 768px) {
+  .userBarPopover {
+    right: 0;
+    left: auto;
+    min-width: 157px;
+  }
+  .setting,
+  .logout {
+    font-size: 15px;
+    line-height: 1.49;
+  }
 }

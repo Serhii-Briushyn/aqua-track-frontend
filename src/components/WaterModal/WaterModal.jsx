@@ -1,40 +1,34 @@
-import Modal from "../Modal/Modal";
-import WaterForm from "../WaterForm/WaterForm";
-import css from "./WaterModal.module.css";
 import { useTranslation } from "react-i18next";
 
-const WaterModal = ({
-  isOpen,
-  onClose,
-  source,
-  modalData,
-  onValid,
-  onSubmitSuccess,
-}) => {
+import Modal from "../Modal/Modal";
+import EditWaterForm from "../EditWaterForm/EditWaterForm";
+import AddWaterForm from "../AddWaterForm/AddWaterForm";
+
+import css from "./WaterModal.module.css";
+
+const WaterModal = ({ isOpen, onClose, source }) => {
   const { t } = useTranslation();
-  const handleSubmit = (data) => {
-    if (onValid) {
-      onValid(data);
-    }
-  };
 
   const getTitle = () => {
     if (source === "AddWater") return t("addWater");
-    if (source === "EditWater") return t("editWaterAmount");
+    if (source === "EditWater") return t("editWater");
+  };
+
+  const renderForm = () => {
+    if (source === "AddWater") {
+      return <AddWaterForm onClose={onClose} />;
+    }
+    if (source === "EditWater") {
+      return <EditWaterForm onClose={onClose} />;
+    }
+    return null;
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} type="addWater">
+    <Modal isOpen={isOpen} onClose={onClose}>
       <div className={css.wrapper}>
         <h2 className={css.title}>{getTitle()}</h2>
-        <WaterForm
-          onSubmit={handleSubmit}
-          source={source}
-          isOpen={isOpen}
-          onClose={onClose}
-          onSubmitSuccess={onSubmitSuccess}
-          modalData={modalData}
-        />
+        {renderForm()}
       </div>
     </Modal>
   );

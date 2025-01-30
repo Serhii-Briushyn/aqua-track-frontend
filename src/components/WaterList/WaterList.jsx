@@ -1,49 +1,48 @@
-import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
-
 import SimpleBar from "simplebar-react";
-import WaterItem from "../WaterItem/WaterItem";
-
 import "simplebar-react/dist/simplebar.min.css";
+
+import WaterItem from "../WaterItem/WaterItem";
+import {
+  selectCurrentDate,
+  selectDailyData,
+} from "../../redux/water/selectors";
+
 import "./simplebar.lib.css";
 import css from "./WaterList.module.css";
 
-const WaterList = ({ dailyData, onSubmitSuccess }) => {
-  const [resizeKey, setResizeKey] = useState(0);
+const WaterList = () => {
+  const dailyData = useSelector(selectDailyData);
   const { t } = useTranslation();
 
-  useEffect(() => {
-    const handleResize = () => {
-      setResizeKey((prev) => prev + 1);
-    };
+  const currentDate = useSelector(selectCurrentDate);
+  const today = new Date().toISOString().split("T")[0];
 
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+  const isFutureDate = currentDate > today;
 
   return (
     <div className={css.waterList}>
-      <SimpleBar key={resizeKey} autoHide={false}>
+      <SimpleBar autoHide={false}>
         <div className={css.waterItemsList}>
-          {dailyData.length ? (
+          {isFutureDate ? (
+            <p className={css.text}>
+              {t("futureMessagePart1")}
+              <br />
+              {t("futureMessagePart2")}
+            </p>
+          ) : dailyData.length ? (
             dailyData.map((item, index) => (
-              <div key={index} className={css.scrollableItemContainer}>
-                <WaterItem
-                  item={item}
-                  index={index}
-                  key={index}
-                  onSubmitSuccess={onSubmitSuccess}
-                />
+              <div key={index}>
+                <WaterItem item={item} />
               </div>
             ))
           ) : (
-            <h3 className={css.h3}>
-              {t("noDataMessage")}
-              <br /> {t("addWaterPrompt")}
-            </h3>
+            <p className={css.text}>
+              {t("messagePart1")}
+              <br />
+              {t("messagePart2")}
+            </p>
           )}
         </div>
       </SimpleBar>

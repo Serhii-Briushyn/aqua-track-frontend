@@ -1,15 +1,15 @@
+import { useState, useEffect } from "react";
+
 import AddWaterBtn from "../AddWaterBtn/AddWaterBtn";
 import WaterDailyNorma from "../WaterDailyNorma/WaterDailyNorma";
 import WaterProgressBar from "../WaterProgressBar/WaterProgressBar";
-import s from "./WaterMainInfo.module.css";
+import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher.jsx";
 
 import bottleImageMobile from "../../assets/images/bottle-image-mob-min.png";
 import bottleImageTablet from "../../assets/images/bottle-image-tab-min.png";
 import bottleImageDesktop from "../../assets/images/bottle-image-desk-min.png";
 
-import { useState, useEffect } from "react";
-
-import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher.jsx";
+import css from "./WaterMainInfo.module.css";
 
 const getImageSource = () => {
   if (window.innerWidth >= 1440) {
@@ -21,7 +21,7 @@ const getImageSource = () => {
   }
 };
 
-const WaterMainInfo = ({onSubmitSuccess}) => {
+const WaterMainInfo = () => {
   const [imageSource, setImageSource] = useState(getImageSource());
 
   useEffect(() => {
@@ -37,11 +37,11 @@ const WaterMainInfo = ({onSubmitSuccess}) => {
   }, []);
 
   return (
-    <div className={s.water_main_info}>
-      <img src={imageSource} alt="water-icon" className={s.water_icon} />
+    <div className={css.water_main_info}>
+      <img src={imageSource} alt="water-icon" className={css.water_icon} />
       <WaterDailyNorma />
       <WaterProgressBar />
-      <AddWaterBtn type="waterMain" onSubmitSuccess={onSubmitSuccess} />
+      <AddWaterBtn type="waterMain" />
       <LanguageSwitcher />
     </div>
   );

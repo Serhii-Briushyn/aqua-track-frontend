@@ -1,45 +1,66 @@
-.monthInfo .headingPanel {
+.monthInfo {
+  display: flex;
+  flex-direction: column;
+  
+  gap: 24px;
+}
+
+.weekInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.headingPanel {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 24px;
 }
 
-.headingPanel .infoNav{
+.subtitle {
   display: flex;
   align-items: center;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: #323f47;
 }
 
-.monthInfo .headingPanel .toggleView {
-  width: 24px;
-  height: 24px;
-  margin-left: 20px;
+.infoNav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.buttonMonth,
+.buttonWeek {
   background: none;
   border: none;
   cursor: pointer;
 }
 
-.monthInfo .headingPanel .toggleView svg {
-  width: 24px;
-  height: 24px;
+.buttonMonth svg,
+.buttonWeek svg {
+  width: 20px;
+  height: 20px;
 }
 
-.monthInfo .h2 {
-  font-family: "Poppins", sans-serif;
-  font-size: 28px;
-  color: #323f47;
+.buttonMonth svg {
+  opacity: 40%;
 }
 
-@media screen and (max-width: 768px) {
-  .monthInfo .h2 {
-    font-size: 20px;
+@media screen and (min-width: 768px) {
+  .weekInfo {
+    gap: 49px;
   }
 
-  .monthInfo .headingPanel .toggleView {
-    margin-left: 14px;
+  .subtitle {
+    font-size: 28px;
+    line-height: 1.14;
   }
 
-  .monthInfo .headingPanel .toggleView, .monthInfo .headingPanel .toggleView svg {
-    width: 20px;
-    height: 20px;
+  .buttonMonth svg {
+    width: 24px;
+    height: 24px;
   }
 }

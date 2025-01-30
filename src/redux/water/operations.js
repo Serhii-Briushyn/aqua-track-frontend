@@ -6,12 +6,20 @@ import { aquaTrackApi } from "../../services/apiClient";
 
 const handleApiError = (error, thunkAPI) => {
   if (error.response) {
-    const backendMessage =
-      error.response.data?.message || "An error occurred. Please try again.";
-    return thunkAPI.rejectWithValue(backendMessage);
+    const statusCode = error.response.status;
+
+    if (statusCode === 400) {
+      return thunkAPI.rejectWithValue("BadRequestError");
+    } else if (statusCode === 401) {
+      return thunkAPI.rejectWithValue("UnauthorizedError");
+    } else if (statusCode === 404) {
+      return thunkAPI.rejectWithValue("WaterNotFound");
+    } else if (statusCode === 500) {
+      return thunkAPI.rejectWithValue("SomethingWentWrong");
+    }
   }
 
-  return thunkAPI.rejectWithValue("Something went wrong. Please try again.");
+  return thunkAPI.rejectWithValue("defaultError");
 };
 
 // -------------------- Create Water --------------------
@@ -64,6 +72,22 @@ export const getDailyWaterOperation = createAsyncThunk(
     try {
       const response = await aquaTrackApi.get("/water/daily", {
         params: { date },
+      });
+      return response.data;
+    } catch (error) {
+      return handleApiError(error, thunkAPI);
+    }
+  }
+);
+
+// -------------------- Get Weekly Water --------------------
+
+export const getWeeklyWaterOperation = createAsyncThunk(
+  "water/getWeekly",
+  async ({ startDate }, thunkAPI) => {
+    try {
+      const response = await aquaTrackApi.get("/water/weekly", {
+        params: { startDate },
       });
       return response.data;
     } catch (error) {

@@ -70,6 +70,12 @@
   background-color: #323f47;
 }
 
+.waterMainButton:disabled,
+.waterDetailButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 @media (min-width: 768px) {
   .waterMainButton {
     width: 178px;

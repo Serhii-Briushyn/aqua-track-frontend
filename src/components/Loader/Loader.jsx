@@ -11,11 +11,9 @@ const Loader = () => {
           visible={true}
           height="80"
           width="80"
-          color="#87d28d"
+          color="#9be1a0"
           radius="9"
           ariaLabel="three-dots-loading"
-          wrapperStyle={{}}
-          wrapperClass=""
         />
       </div>
     </>

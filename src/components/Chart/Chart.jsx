@@ -1,87 +1,126 @@
-import { useRef, useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
 import { Line } from "react-chartjs-2";
 import {
-	Chart as ChartJS,
-	CategoryScale,
-	LinearScale,
-	PointElement,
-	LineElement,
-	Tooltip,
-	Filler,
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Tooltip,
+  Filler,
 } from "chart.js";
-import { chartOptions } from "./utils/index.js";
+import { useTranslation } from "react-i18next";
+
+import {
+  selectCurrentWeek,
+  selectIsLoadingWeekly,
+  selectWeeklyData,
+} from "../../redux/water/selectors";
+import { selectUser } from "../../redux/auth/selectors";
+
+import { chartOptions } from "../../utils/chartOptions";
+
 import css from "./Chart.module.css";
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Filler);
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Tooltip,
+  Filler
+);
 
-const Chart = ({ data }) => {
-	const chartRef = useRef(null);
-	const [gradientBackground, setGradientBackground] = useState(null);
+const Chart = () => {
+  const chartRef = useRef(null);
+  const [gradientBackground, setGradientBackground] = useState(null);
 
-	// group data
-	const groupByWeek = (data) => {
-		const weeks = [];
-		data.forEach((item) => {
-			const date = new Date(item.date);
-			const weekNumber = getWeekNumber(date);
-			if (!weeks[weekNumber]) {
-				weeks[weekNumber] = { week: weekNumber, totalAmount: 0 };
-			}
-			weeks[weekNumber].totalAmount += item.amount;
-		});
-		return Object.values(weeks);
-	};
+  const user = useSelector(selectUser);
+  const weeklyData = useSelector(selectWeeklyData);
+  const currentWeek = useSelector(selectCurrentWeek);
+  const isLoading = useSelector(selectIsLoadingWeekly);
+  const { t } = useTranslation();
 
-	// get week number
-	const getWeekNumber = (date) => {
-		const startDate = new Date(date.getFullYear(), 0, 1);
-		const days = Math.floor((date - startDate) / (24 * 60 * 60 * 1000));
-		return Math.ceil((days + 1) / 7);
-	};
+  useEffect(() => {
+    const chart = chartRef.current;
+    if (chart) {
+      const ctx = chart.ctx;
+      const gradient = ctx.createLinearGradient(0, chart.height, 0, 0);
+      gradient.addColorStop(0, "rgba(155, 225, 160, 0)");
+      gradient.addColorStop(1, "#9BE1A0");
 
-	// get data of week
-	const weeklyData = groupByWeek(data);
+      setGradientBackground(gradient);
+    }
+  }, []);
 
-	const labels = weeklyData.map((item) => `Week ${item.week}`);
-	const dataValues = weeklyData.map((item) => item.totalAmount / 1000); //convert ml to liters
+  const generateWeekLabels = () => {
+    const startDate = new Date(currentWeek.startDate);
+    const labels = [];
+    for (let i = 0; i < 7; i++) {
+      const day = new Date(startDate);
+      day.setDate(startDate.getDate() + i);
+      labels.push(String(day.getDate()).padStart(2, "0"));
+    }
+    return labels;
+  };
 
-	const chartData = {
-		labels: labels,
-		datasets: [
-			{
-				label: "Water Intake",
-				data: dataValues,
-				borderColor: "#9BE1A0",
-				borderWidth: 3,
-				tension: 0,
-				fill: true,
-				backgroundColor: gradientBackground || "rgba(155, 225, 160, 0)",
-				pointBackgroundColor: "#fff",
-				pointBorderColor: "#9BE1A0",
-				pointBorderWidth: 3,
-				pointRadius: 9,
-				pointHoverRadius: 11,
-				pointHoverBackgroundColor: "#fff",
-			},
-		],
-	};
+  const labels = generateWeekLabels();
 
-	useEffect(() => {
-		const chart = chartRef.current;
-		if (chart) {
-			const ctx = chart.ctx;
-			const gradient = ctx.createLinearGradient(0, 0, 0, chart.height);
-			gradient.addColorStop(0, "#9BE1A0");
-			gradient.addColorStop(1, "rgba(255, 225, 255, 0)");
-			setGradientBackground(gradient);
-		}
-	}, []);
+  const dataValues = labels.map((day) => {
+    const found = weeklyData.find(
+      (item) => new Date(item.date).getDate() === Number(day)
+    );
+    return found ? found.amount / 1000 : 0;
+  });
 
-	return (
-		<div className={css.chart}>
-			<Line ref={chartRef} data={chartData} options={chartOptions} />
-		</div>
-	);
+  const normValues = new Array(7).fill(user.waterNorm / 1000);
+
+  const chartData = {
+    labels: labels,
+    datasets: [
+      {
+        label: t("waterIntake"),
+        data: dataValues,
+        borderColor: "#9BE1A0",
+        borderWidth: 3,
+        tension: 0.4,
+        fill: true,
+        backgroundColor: gradientBackground || "rgba(155, 225, 160, 0.5)",
+        pointBackgroundColor: "#fff",
+        pointBorderColor: "#9BE1A0",
+        pointBorderWidth: 3,
+        pointRadius: 6,
+        pointHoverRadius: 8,
+        pointHoverBackgroundColor: "#fff",
+      },
+      {
+        label: t("norm"),
+        data: normValues,
+        borderColor: "#FF6384",
+        borderWidth: 2,
+        borderDash: [5, 5],
+        tension: 0.4,
+        fill: false,
+        pointBackgroundColor: "#FF6384",
+        pointBorderColor: "#FF6384",
+        pointBorderWidth: 2,
+        pointRadius: 4,
+        pointHoverRadius: 6,
+        pointHoverBackgroundColor: "#FF6384",
+      },
+    ],
+  };
+
+  return (
+    <div className={`${css.chart} ${isLoading ? css.loader : ""}`}>
+      <Line
+        ref={chartRef}
+        data={chartData}
+        options={chartOptions(setGradientBackground, t)}
+      />
+    </div>
+  );
 };
 
 export default Chart;

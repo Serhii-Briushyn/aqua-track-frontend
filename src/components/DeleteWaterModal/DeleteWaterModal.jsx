@@ -1,47 +1,61 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import css from "./DeleteWaterModal.module.css";
-import Modal from "../Modal/Modal";
-import { deleteWaterOperation } from "../../redux/water/operations";
+import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
+import toast from "react-hot-toast";
 
-const DeleteWaterModal = ({ isOpen, onClose, id, onSubmitSuccess }) => {
+import Modal from "../Modal/Modal";
+
+import { deleteWaterOperation } from "../../redux/water/operations";
+import { selectCurrentItem } from "../../redux/water/selectors";
+import { triggerRefetch } from "../../redux/water/slice";
+
+import css from "./DeleteWaterModal.module.css";
+
+
+const DeleteWaterModal = ({ isOpen, onClose }) => {
   const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const currentItem = useSelector(selectCurrentItem);
+  const [isDeleting, setIsDeleting] = useState(false);
   const { t } = useTranslation();
 
-  const handleDelete = async () => {
-    setIsLoading(true);
-    setError(null);
-
-    try {
-      await dispatch(deleteWaterOperation(id)).unwrap();
-      onClose();
-      onSubmitSuccess?.();
-    } catch {
-      setError("Please try again.");
-    } finally {
-      setIsLoading(false);
+  const handleConfirm = async () => {
+    if (currentItem) {
+      setIsDeleting(true);
+      try {
+        await dispatch(deleteWaterOperation(currentItem)).unwrap();
+        toast.success(t("successDelete"));
+        dispatch(triggerRefetch());
+        onClose();
+      } catch (error) {
+        toast.error(t(error));
+      } finally {
+        setIsDeleting(false);
+      }
     }
   };
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <div className={css.modalContent}>
-        <h2 className={css.titleDelete}>{t("deleteEntry")}</h2>
-        <p className={css.textDelete}>{t("confirmDeleteEntry")}</p>
-        {error && <p className={css.errorMessage}>{error}</p>}
+        <h2 className={css.titleDelete}>{t("deleteTitle")}</h2>
+        <p className={css.textDelete}>{t("deleteConfirm")}</p>
         <div className={css.boxForBtn}>
           <button
             type="button"
-            className={css.btnDelete}
-            onClick={handleDelete}
-            disabled={isLoading}
+            className={`${css.btnDelete} ${
+              isDeleting ? css.disabled : ""
+            }`}
+            onClick={handleConfirm}
+            disabled={isDeleting}
           >
-            {isLoading ? t("deleting") : t("delete")}
+            {t("deleteBtn")}
           </button>
-          <button type="button" className={css.btnCancel} onClick={onClose}>
+          <button
+            type="button"
+            className={css.btnCancel}
+            onClick={onClose}
+            disabled={isDeleting}
+          >
             {t("cancel")}
           </button>
         </div>

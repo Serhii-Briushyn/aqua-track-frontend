@@ -1,37 +1,29 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import Calendar from "../Calendar/Calendar";
 import CalendarPagination from "../CalendarPagination/CalendarPagination.jsx";
-import icons from "../../assets/icons/icons.svg";
+import WeekPagination from "../WeekPagination/WeekPagination.jsx";
+import Calendar from "../Calendar/Calendar.jsx";
 import Chart from "../Chart/Chart.jsx";
+
+import icons from "../../assets/icons/icons.svg";
 
 import css from "./MonthInfo.module.css";
 
-const MonthInfo = ({
-  monthlyData,
-  selectedDate,
-  currentMonth,
-  onChangeMonth,
-  onChangeDate,
-}) => {
+const MonthInfo = () => {
   const [isCalendarView, setIsCalendarView] = useState(true);
   const { t } = useTranslation();
 
   return (
-    <div className={css.monthInfo}>
+    <div className={isCalendarView ? css.monthInfo : css.weekInfo}>
       <div className={css.headingPanel}>
-        <h2 className={css.h2}>
+        <h2 className={css.subtitle}>
           {isCalendarView ? t("month") : t("statistics")}
         </h2>
         <div className={css.infoNav}>
-          <CalendarPagination
-            selectedDate={selectedDate}
-            currentMonth={currentMonth}
-            handleMonthChange={onChangeMonth}
-          />
+          {isCalendarView ? <CalendarPagination /> : <WeekPagination />}
           <button
-            className={css.toggleView}
+            className={isCalendarView ? css.buttonMonth : css.buttonWeek}
             onClick={() => setIsCalendarView(!isCalendarView)}
           >
             <svg>
@@ -40,17 +32,7 @@ const MonthInfo = ({
           </button>
         </div>
       </div>
-      {isCalendarView ? (
-        <Calendar
-          currentMonth={currentMonth}
-          selectedDate={selectedDate}
-          changeMonth={onChangeMonth}
-          monthValues={monthlyData}
-          onDateSelect={(date) => onChangeDate(date)}
-        />
-      ) : (
-        <Chart data={monthlyData} />
-      )}
+      {isCalendarView ? <Calendar /> : <Chart />}
     </div>
   );
 };

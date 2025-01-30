@@ -1,38 +1,73 @@
-import {getDateBackgroundColor, getDateTextColor, getMonthDates} from './utils/index.js';
-import css from './Calendar.module.css';
+import { useSelector, useDispatch } from "react-redux";
 
-const Calendar = ({currentMonth, selectedDate, onDateSelect, monthValues}) => {
+import {
+  selectCurrentDate,
+  selectCurrentMonth,
+  selectIsLoadingMonthly,
+  selectMonthlyData,
+} from "../../redux/water/selectors";
+import { setCurrentDate } from "../../redux/water/slice";
 
-	const monthDates = getMonthDates(currentMonth);
+import { getMonthDates } from "../../utils/getMonthDates";
 
-	const handleDateClick = (date) => {
-		if (onDateSelect) {
-			onDateSelect(date);
-		}
-	};
+import css from "./Calendar.module.css";
 
-	return (
-		<div className={css.calendar}>
-			{monthDates.map((date, index) => {
-				const val = monthValues[index] ? monthValues[index].percentage : 0;
-				return (
-					<div key={date} className={css.dateContainer}>
-						<div
-							className={css.date}
-							style={{
-								backgroundColor: getDateBackgroundColor(date, selectedDate, val),
-								color: getDateTextColor(date, selectedDate, val),
-							}}
-							onClick={() => handleDateClick(date)}
-						>
-							<div className={css.dateVal}>{date?.getDate()}</div>
-						</div>
-						<span className={css.val}>{val >= 100 ? '100' : Math.round(val)}%</span>
-					</div>
-				);
-			})}
-		</div>
-	);
+const Calendar = () => {
+  const dispatch = useDispatch();
+  const monthlyData = useSelector(selectMonthlyData);
+  const selectedDate = useSelector(selectCurrentDate);
+  const currentMonth = useSelector(selectCurrentMonth);
+  const isLoading = useSelector(selectIsLoadingMonthly);
+
+  const selectedMonth = getMonthDates(
+    currentMonth.year,
+    currentMonth.month
+  ).map((dateObj, index) => ({
+    ...dateObj,
+    ...monthlyData[index],
+  }));
+
+  const handleDateClick = (date) => {
+    dispatch(setCurrentDate(date));
+  };
+
+  return (
+    <div className={css.calendar}>
+      {selectedMonth.map((data, index) => {
+        const isoDate = data.date.split("T")[0];
+        const isSelected = selectedDate === isoDate;
+        const percentage = Math.min(data.percentage || 0, 100);
+        const dayNumber = index + 1;
+
+        return (
+          <div
+            key={index}
+            className={`${css.dateContainer} ${
+              isSelected ? css.selectedContainer : ""
+            }`}
+          >
+            <div
+              className={`${css.date} ${
+                isLoading
+                  ? css.loading
+                  : isSelected
+                  ? css.selected
+                  : percentage >= 100
+                  ? css.full
+                  : css.default
+              }`}
+              onClick={() => handleDateClick(isoDate)}
+            >
+              <div className={css.dateVal}>{dayNumber}</div>
+            </div>
+            <span className={css.percentage}>
+              {percentage > 0 ? `${Math.round(percentage)}%` : "0%"}
+            </span>
+          </div>
+        );
+      })}
+    </div>
+  );
 };
 
 export default Calendar;

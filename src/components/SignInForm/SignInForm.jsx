@@ -1,18 +1,21 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
 import { useForm } from "react-hook-form";
+
 import { yupResolver } from "@hookform/resolvers/yup";
-import toast from "react-hot-toast";
 import * as Yup from "yup";
+import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
 
 import { getGoogleOAuthUrl, login } from "../../redux/auth/operations.js";
 import { selectIsLoading } from "../../redux/auth/selectors.js";
+
 import Loader from "../Loader/Loader.jsx";
-import { useTranslation } from "react-i18next";
+import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher.jsx";
+
 import icons from "../../assets/icons/icons.svg";
 import css from "./SignInForm.module.css";
-import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher.jsx";
 
 const SignInForm = () => {
   const dispatch = useDispatch();
@@ -22,12 +25,12 @@ const SignInForm = () => {
 
   const validationSchema = Yup.object({
     email: Yup.string()
-      .email(t("enterValidEmail"))
+      .email(t("invalidEmail"))
       .required(t("emailRequired")),
     password: Yup.string()
-      .min(6, t("passwordTooShort"))
-      .max(64, t("passwordTooLong"))
-      .required(t("passwordRequired")),
+      .min(6, t("shortPwd"))
+      .max(64, t("longPwd"))
+      .required(t("requiredPwd")),
   });
 
   const {
@@ -43,10 +46,10 @@ const SignInForm = () => {
   const onSubmit = async (values) => {
     try {
       await dispatch(login(values)).unwrap();
-      toast.success(t("loginSuccessful"));
+      toast.success(t("loginSuccess"));
       reset();
     } catch (error) {
-      toast.error(error);
+      toast.error(t(error));
     }
   };
 
@@ -68,7 +71,7 @@ const SignInForm = () => {
       {isLoading && <Loader />}
       <div className={css.container}>
         <div className={css.content}>
-          <h2 className={css.title}>{t("signInTitle")}</h2>
+          <h2 className={css.title}>{t("signIn")}</h2>
           <form
             className={css.form}
             onSubmit={handleSubmit(onSubmit)}
@@ -96,7 +99,7 @@ const SignInForm = () => {
                     errors.password ? css.errorInput : ""
                   }`}
                   type={showPassword ? "text" : "password"}
-                  placeholder={t("enterPassword")}
+                  placeholder={t("enterPwd")}
                   autoComplete="current-password"
                   {...register("password")}
                 />
@@ -127,7 +130,9 @@ const SignInForm = () => {
               type="submit"
               disabled={isSubmitting}
             >
-              {t("signIn")}
+              {isSubmitting
+                ? t("submitting")
+                : t("signIn")}
             </button>
             <p className={css.text} style={{ textAlign: "center" }}>
               {t("or")}
@@ -136,8 +141,11 @@ const SignInForm = () => {
               type="button"
               className={css.button}
               onClick={handleGoogleSignIn}
+              disabled={isSubmitting}
             >
-              <span style={{ marginRight: "4px" }}>{t("signinwith")}</span>
+              <span style={{ marginRight: "4px" }}>
+                {t("signInWith")}
+              </span>
               <span style={{ color: "#4285f4" }}>G</span>
               <span style={{ color: "#ea4335" }}>o</span>
               <span style={{ color: "#fbbc05" }}>o</span>
@@ -156,7 +164,7 @@ const SignInForm = () => {
               </NavLink>
             </p>
             <p className={css.text}>
-              {t("forgotpwd")}{" "}
+              {t("forgotPwd")}{" "}
               <NavLink to="/forgot-password" className={css.link}>
                 {t("reset")}
               </NavLink>

@@ -2,16 +2,20 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
+
 import { yupResolver } from "@hookform/resolvers/yup";
-import toast from "react-hot-toast";
 import * as Yup from "yup";
+import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
+
 import { register } from "../../redux/auth/operations";
 import { selectIsLoading } from "../../redux/auth/selectors";
+
 import Loader from "../Loader/Loader";
+import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher";
+
 import icons from "../../assets/icons/icons.svg";
 import css from "./SignUpForm.module.css";
-import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher";
 
 const SignUpForm = () => {
   const dispatch = useDispatch();
@@ -22,15 +26,15 @@ const SignUpForm = () => {
 
   const validationSchema = Yup.object({
     email: Yup.string()
-      .email(t("enterValidEmail"))
-      .required(t("emailRequired")),
+      .email(t("invalidEmail"))
+      .required(t("requiredEmail")),
     password: Yup.string()
-      .min(6, t("passwordTooShort"))
-      .max(64, t("passwordTooLong"))
-      .required(t("passwordRequired")),
+      .min(6, t("shortPwd"))
+      .max(64, t("longPwd"))
+      .required(t("requiredPwd")),
     repeatPassword: Yup.string()
-      .oneOf([Yup.ref("password"), null], t("repeatPasswordMustMatch"))
-      .required(t("repeatPasswordRequired")),
+      .oneOf([Yup.ref("password"), null], t("pwdMismatch"))
+      .required(t("repeatPwdReq")),
   });
 
   const {
@@ -48,10 +52,10 @@ const SignUpForm = () => {
       const requestData = { ...values };
       delete requestData.repeatPassword;
       await dispatch(register(requestData)).unwrap();
-      toast.success(t("userRegistered"));
+      toast.success(t("registerSuccess"));
       reset();
     } catch (error) {
-      toast.error(error);
+      toast.error(t(error));
     }
   };
 
@@ -68,7 +72,7 @@ const SignUpForm = () => {
       {isLoading && <Loader />}
       <div className={css.container}>
         <div className={css.content}>
-          <h2 className={css.title}>{t("signUpTitle")}</h2>
+          <h2 className={css.title}>{t("signUp")}</h2>
           <form
             className={css.form}
             onSubmit={handleSubmit(onSubmit)}
@@ -96,7 +100,7 @@ const SignUpForm = () => {
                     errors.password ? css.errorInput : ""
                   }`}
                   type={showPassword ? "text" : "password"}
-                  placeholder={t("enterPassword")}
+                  placeholder={t("enterPwd")}
                   autoComplete="password"
                   {...formRegister("password")}
                 />
@@ -123,14 +127,14 @@ const SignUpForm = () => {
             </label>
 
             <label className={css.label}>
-              <span className={css.span}>{t("repeatPassword")}</span>
+              <span className={css.span}>{t("repeatPwd")}</span>
               <div className={css.passwordContainer}>
                 <input
                   className={`${css.input} ${
                     errors.repeatPassword ? css.errorInput : ""
                   }`}
                   type={showPasswordRepeat ? "text" : "password"}
-                  placeholder={t("repeatPassword")}
+                  placeholder={t("repeatPwd")}
                   autoComplete="repeat-password"
                   {...formRegister("repeatPassword")}
                 />
@@ -161,13 +165,15 @@ const SignUpForm = () => {
               type="submit"
               disabled={isSubmitting}
             >
-              {isSubmitting ? "Signing up..." : t("signUp")}
+              {isSubmitting
+                ? t("submitting")
+                : t("signUp")}
             </button>
           </form>
 
           <div className={css.footerContent}>
             <p className={css.text}>
-              {t("alreadyHaveAccount")}{" "}
+              {t("alreadyHaveAcc")}{" "}
               <NavLink to="/signin" className={css.link}>
                 {t("signIn")}
               </NavLink>

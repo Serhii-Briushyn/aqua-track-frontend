@@ -1,0 +1,189 @@
+.amountSubtitle {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: #323f47;
+  margin-bottom: 20px;
+}
+
+.text {
+  display: block;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.28;
+  letter-spacing: -0.01em;
+  color: #2f2f2f;
+  margin-bottom: 8px;
+}
+
+.textBold {
+  display: block;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: #323f47;
+  margin-bottom: 8px;
+}
+
+.amountWrapper {
+  display: flex;
+  justify-content: start;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.amountButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.icon {
+  width: 40px;
+  height: 40px;
+  stroke: #323f47;
+  fill: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.amountButton:hover .icon {
+  stroke: #9be1a0;
+}
+
+.amountValue {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #323f47;
+  min-width: 89px;
+  height: 40px;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.28;
+  color: #fff;
+}
+
+.fieldSubtitle {
+  display: block;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: #323f47;
+  margin-bottom: 8px;
+}
+
+.input {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border: 1px solid rgba(47, 47, 47, 0.15);
+  border-radius: 15px;
+  padding: 0px 16px;
+  width: 100%;
+  height: 46px;
+  transition: all 0.2s ease-in-out;
+  cursor: text;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.28;
+  letter-spacing: -0.01em;
+  color: #2f2f2f;
+  margin-bottom: 24px;
+}
+
+.input[type="time"]::-webkit-calendar-picker-indicator {
+  display: none;
+  -webkit-appearance: none;
+}
+
+.input:hover,
+.input:focus {
+  outline: none;
+  border-color: #9be1a0;
+}
+
+.submitButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 30px;
+  width: 116px;
+  height: 46px;
+  background-color: #9be1a0;
+  border: none;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.28;
+  letter-spacing: -0.01em;
+  text-align: center;
+  color: #323f47;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.submitButton:not(.disabled):hover {
+  background-color: #87d28d;
+}
+
+.submitButton.disabled {
+  background-color: #e6e6e6;
+  color: #bcbcbc;
+  cursor: not-allowed;
+}
+
+.errorMessage {
+  display: block;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.28;
+  letter-spacing: -0.01em;
+  color: #ef5050;
+  margin-top: 10px;
+  transition: all 0.2s ease-in-out;
+}
+
+@media screen and (min-width: 768px) {
+  .fieldSubtitle,
+  .amountSubtitle,
+  .textBold {
+    font-size: 18px;
+    line-height: 1.33;
+  }
+
+  .text {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .icon {
+    width: 43px;
+    height: 43px;
+  }
+
+  .amountValue {
+    min-width: 92px;
+    height: 43px;
+    font-size: 15px;
+    line-height: 1.49;
+  }
+  .submitButton {
+    width: 141px;
+    height: 60px;
+    border: none;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .input {
+    height: 56px;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+}

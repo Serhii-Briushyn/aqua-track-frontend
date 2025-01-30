@@ -1,91 +1,78 @@
 import { useState } from "react";
-import { FiEdit2, FiTrash } from "react-icons/fi";
+import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 
-import icons from "../../assets/icons/icons.svg";
 import WaterModal from "../WaterModal/WaterModal";
 import DeleteWaterModal from "../DeleteWaterModal/DeleteWaterModal";
 
+import { clearCurrentItem, setCurrentItem } from "../../redux/water/slice.js";
+
+import { formatTimeUTC } from "../../utils/formatTime.js";
+import { formatAmount } from "../../utils/formatAmount.js";
+
+import icons from "../../assets/icons/icons.svg";
+
 import css from "./WaterItem.module.css";
-import {isDateToday} from "../../utils/isDateToday.js";
-import s from "../AddWaterBtn/AddWaterBtn.module.css";
-import {useSelector} from "react-redux";
-import {selectSelectedDate} from "../../redux/water/selectors.js";
 
-const WaterItem = ({ item, onSubmitSuccess }) => {
-  const { id, amount, date } = item;
-  const { t } = useTranslation();
-  const selectedDate = useSelector(selectSelectedDate)
-
+const WaterItem = ({ item }) => {
+  const dispatch = useDispatch();
   const [activeModal, setActiveModal] = useState(null);
+  const { t } = useTranslation();
 
-  const openModal = (modalType) => {
-    setActiveModal(modalType);
+  const amount = formatAmount(item.amount, t);
+  const time = formatTimeUTC(item.date);
+
+  const handleEdit = () => {
+    dispatch(setCurrentItem(item));
+    setActiveModal("EditWater");
   };
 
-  const closeModal = () => {
+  const cancelEdit = () => {
+    dispatch(clearCurrentItem());
     setActiveModal(null);
   };
 
-  const handleSave = () => {
-    closeModal();
-    if (onSubmitSuccess) onSubmitSuccess();
+  const handleDelete = () => {
+    dispatch(setCurrentItem(item.id));
+    setActiveModal("DeleteWater");
   };
 
-  const formatTimeUTC = (dateString) => {
-    const dateObject = new Date(dateString);
-    const hours = dateObject.getUTCHours().toString().padStart(2, "0");
-    const minutes = dateObject.getUTCMinutes().toString().padStart(2, "0");
-    return `${hours}:${minutes}`;
+  const cancelDelete = () => {
+    dispatch(clearCurrentItem());
+    setActiveModal(null);
   };
 
-  const time = formatTimeUTC(date);
   return (
     <>
       <div className={css.waterItem}>
-        <svg width="45" height="45">
+        <svg className={css.iconColor}>
           <use href={`${icons}#icon-glass`} />
         </svg>
 
         <div className={css.indicators}>
-          <span className={css.volume}>
-            {amount} {t("ml")}
-          </span>
+          <span className={css.volume}>{amount}</span>
           <span className={css.time}>{time}</span>
         </div>
         <div className={css.actions}>
-          <button
-            role="button"
-            onClick={() => openModal("EditWater", id)}
-            disabled={!isDateToday(selectedDate)}
-            className={`${!isDateToday(selectedDate) ? css.buttonDisabled : ""}`}
-          >
-            <FiEdit2 style={{ color: "#323F47" }} />
+          <button className={css.button} role="button" onClick={handleEdit}>
+            <svg className={css.icon}>
+              <use href={`${icons}#icon-edit`} />
+            </svg>
           </button>
-          <button role="button" onClick={() => openModal("DeleteWater", id)}>
-            <FiTrash style={{ color: "#323F47" }} />
+          <button className={css.button} role="button" onClick={handleDelete}>
+            <svg className={css.icon}>
+              <use href={`${icons}#icon-delete`} />
+            </svg>
           </button>
         </div>
       </div>
 
       {activeModal === "EditWater" && (
-        <WaterModal
-          isOpen={true}
-          onClose={closeModal}
-          source="EditWater"
-          modalData={{ ...item, time }}
-          onValid={handleSave}
-          onSubmitSuccess={onSubmitSuccess}
-        />
+        <WaterModal isOpen={true} onClose={cancelEdit} source="EditWater" />
       )}
 
       {activeModal === "DeleteWater" && (
-        <DeleteWaterModal
-          isOpen={true}
-          onClose={closeModal}
-          id={id}
-          onSubmitSuccess={onSubmitSuccess}
-        />
+        <DeleteWaterModal isOpen={true} onClose={cancelDelete} />
       )}
     </>
   );

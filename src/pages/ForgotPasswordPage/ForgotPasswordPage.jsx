@@ -1,5 +1,5 @@
-import { useMediaQuery } from "@mui/material";
 import { motion } from "framer-motion";
+import { useMediaQuery } from "@mui/material";
 
 import DocumentTitle from "../../components/DocumentTitle.jsx";
 import AdvantagesSection from "../../components/AdvantagesSection/AdvantagesSection.jsx";
@@ -11,7 +11,7 @@ export default function ForgetPasswordPage() {
 
   return (
     <>
-      <DocumentTitle>Reset</DocumentTitle>
+      <DocumentTitle>Forget Password</DocumentTitle>
 
       <motion.div
         initial="hidden"

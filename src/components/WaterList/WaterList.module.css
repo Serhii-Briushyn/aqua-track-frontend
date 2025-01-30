@@ -4,28 +4,29 @@
 
 .waterItemsList {
   display: flex;
+  gap: 8px;
 }
 
-.scrollableItemContainer {
-  min-width: 208px;
+.text {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.28;
+  letter-spacing: 0.06em;
+  color: #2f2f2f;
 }
 
-@media screen and (max-width: 1440px) {
-  .scrollableItemContainer {
-    min-width: 224px;
+@media screen and (min-width: 768px) {
+  .waterItemsList {
+    gap: 32px;
+  }
+  .text {
+    font-size: 16px;
+    line-height: 1.5;
   }
 }
 
-@media screen and (max-width: 768px) {
-  .scrollableItemContainer {
-    min-width: 154px;
+@media screen and (min-width: 1440px) {
+  .waterItemsList {
+    gap: 16px;
   }
 }
-
-
-@media screen and (max-width: 768px) {
-  .waterList .h3 {
-    font-size: 12px;
-  }
-}
-

@@ -4,11 +4,11 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { BrowserRouter } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
-import "./i18n";
 
 import App from "./App.jsx";
 import { persistor, store } from "./redux/store.js";
 
+import "./i18n";
 import "modern-normalize";
 import "./index.css";
 import "./fonts.css";

@@ -1,96 +1,106 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
+import toast from "react-hot-toast";
 
 import DocumentTitle from "../../components/DocumentTitle";
 import WaterDetailedInfo from "../../components/WaterDetailedInfo/WaterDetailedInfo";
 import WaterMainInfo from "../../components/WaterMainInfo/WaterMainInfo";
-import { fadeInScale } from "../../motion/motion.js";
-import { fetchUserDetails } from "../../redux/auth/operations.js";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { setSelectedDate } from "../../redux/water/slice.js";
+
+import { selectIsLoggedIn, selectUser } from "../../redux/auth/selectors.js";
+import {
+  selectCurrentDate,
+  selectCurrentMonth,
+  selectCurrentWeek,
+  selectRefetchTrigger,
+} from "../../redux/water/selectors.js";
+
 import {
   getDailyWaterOperation,
   getMonthlyWaterOperation,
+  getWeeklyWaterOperation,
 } from "../../redux/water/operations.js";
-import { formatToDateString } from "../../components/WaterDetailedInfo/utils/index.js";
-import { selectSelectedDate } from "../../redux/water/selectors.js";
-import { useDispatch, useSelector } from "react-redux";
-import { selectUser } from "../../redux/auth/selectors.js";
-import { startTokenRefreshInterval } from "../../utils/tokenRefresh.js";
+import { fetchUserDetails } from "../../redux/auth/operations.js";
+
+import { fadeInScale } from "../../motion/motion.js";
 
 export default function TrackerPage() {
   const dispatch = useDispatch();
-
   const user = useSelector(selectUser);
-
-  const selectedDate = useSelector(selectSelectedDate);
-  const [currentMonth, setCurrentMonth] = useState(new Date());
-
-  useEffect(() => {
-    startTokenRefreshInterval();
-  }, []);
-
-  const formattedSelectedDate = useMemo(
-    () => formatToDateString(selectedDate),
-    [selectedDate]
-  );
-
-  const fetchDaily = useCallback(
-    (date) => {
-      dispatch(getDailyWaterOperation({ date }));
-    },
-    [dispatch]
-  );
-
-  const fetchMonthly = useCallback(() => {
-    const month = currentMonth.getMonth() + 1;
-    const year = currentMonth.getFullYear();
-    dispatch(getMonthlyWaterOperation({ month, year }));
-  }, [currentMonth, dispatch]);
-
-  const onChangeMonth = (direction) => {
-    const newDate = new Date(currentMonth);
-    newDate.setMonth(currentMonth.getMonth() + direction);
-    setCurrentMonth(newDate);
-
-    const today = new Date();
-    const isCurrentMonth =
-      newDate.getMonth() === today.getMonth() &&
-      newDate.getFullYear() === today.getFullYear();
-
-    const newSelectedDate = isCurrentMonth
-      ? today
-      : new Date(newDate.getFullYear(), newDate.getMonth(), 1);
-
-    dispatch(setSelectedDate(newSelectedDate.toISOString()));
-  };
-
-  const onChangeDate = useCallback(
-    (date) => {
-      const newSelectedDate = new Date(date);
-      dispatch(setSelectedDate(newSelectedDate.toISOString()));
-    },
-    [dispatch]
-  );
-
-  const onSubmitSuccess = () => {
-    fetchDaily(formattedSelectedDate);
-    fetchMonthly();
-  };
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const currentDate = useSelector(selectCurrentDate);
+  const currentMonth = useSelector(selectCurrentMonth);
+  const currentWeek = useSelector(selectCurrentWeek);
+  const refetchTrigger = useSelector(selectRefetchTrigger);
+  const { t } = useTranslation();
 
   useEffect(() => {
-    if (user) fetchMonthly();
-  }, [fetchMonthly, user]);
+    const fetchUser = async () => {
+      try {
+        if (isLoggedIn && !user) {
+          await dispatch(fetchUserDetails()).unwrap();
+        }
+      } catch {
+        toast.error(t("fetchError"));
+      }
+    };
+
+    fetchUser();
+  }, [isLoggedIn, user, dispatch, t]);
 
   useEffect(() => {
-    if (user) fetchDaily(formattedSelectedDate);
-  }, [formattedSelectedDate, fetchDaily, user]);
+    const fetchDailyWater = async () => {
+      try {
+        if (user) {
+          await dispatch(
+            getDailyWaterOperation({ date: currentDate })
+          ).unwrap();
+        }
+      } catch {
+        toast.error(t("fetchError"));
+      }
+    };
+
+    fetchDailyWater();
+  }, [user, currentDate, refetchTrigger, dispatch, t]);
 
   useEffect(() => {
-    if (!user) {
-      dispatch(fetchUserDetails());
-      onChangeDate(new Date());
-    }
-  }, [dispatch, user, onChangeDate]);
+    const fetchMonthlyWater = async () => {
+      try {
+        if (user) {
+          await dispatch(
+            getMonthlyWaterOperation({
+              month: currentMonth.month + 1,
+              year: currentMonth.year,
+            })
+          ).unwrap();
+        }
+      } catch {
+        toast.error(t("fetchError"));
+      }
+    };
+
+    fetchMonthlyWater();
+  }, [user, currentMonth, refetchTrigger, dispatch, t]);
+
+  useEffect(() => {
+    const fetchWeeklyWater = async () => {
+      try {
+        if (user) {
+          await dispatch(
+            getWeeklyWaterOperation({
+              startDate: currentWeek.startDate.split("T")[0],
+            })
+          ).unwrap();
+        }
+      } catch {
+        toast.error(t("fetchError"));
+      }
+    };
+
+    fetchWeeklyWater();
+  }, [user, currentWeek, refetchTrigger, dispatch, t]);
 
   return (
     <>
@@ -102,7 +112,7 @@ export default function TrackerPage() {
         exit="exit"
         variants={fadeInScale()}
       >
-        <WaterMainInfo onSubmitSuccess={onSubmitSuccess} />
+        <WaterMainInfo />
       </motion.div>
 
       <motion.div
@@ -111,12 +121,7 @@ export default function TrackerPage() {
         exit="exit"
         variants={fadeInScale()}
       >
-        <WaterDetailedInfo
-          onSubmitSuccess={onSubmitSuccess}
-          currentMonth={currentMonth}
-          onChangeMonth={onChangeMonth}
-          onChangeDate={onChangeDate}
-        />
+        <WaterDetailedInfo />
       </motion.div>
     </>
   );

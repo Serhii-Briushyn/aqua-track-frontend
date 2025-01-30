@@ -205,12 +205,25 @@ input[type="radio"] {
   border: 1px solid rgba(47, 47, 47, 0.4);
 }
 
-.userInfoField.error {
-  border-color: rgb(239, 80, 80);
+.inputBox {
+  position: relative;
 }
 
-.error {
-  color: rgb(239, 80, 80);
+.errorMessage {
+  display: block;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.28;
+  letter-spacing: -0.01em;
+  color: #ef5050;
+  margin-top: 10px;
+  transition: all 0.2s ease-in-out;
+}
+
+.errorInput {
+  border: 1px solid #ef5050;
+  color: #ef5050;
+  transition: all 0.2s ease-in-out;
 }
 
 .inputTitle {
@@ -300,8 +313,14 @@ input[type="radio"] {
   transition: all 0.2s ease-in-out;
 }
 
-.saveBtn:hover {
+.saveBtn:not(:disabled):hover {
   background-color: #87d28d;
+}
+
+.saveBtn:disabled {
+  background-color: #e6e6e6;
+  color: #bcbcbc;
+  cursor: not-allowed;
 }
 
 @media screen and (min-width: 768px) {

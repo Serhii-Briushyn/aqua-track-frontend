@@ -15,7 +15,8 @@ import {
 
 const initialState = {
   user: null,
-  isLoggedIn: false,
+  accessToken: localStorage.getItem("accessToken"),
+  isLoggedIn: !!localStorage.getItem("accessToken"),
   isLoading: false,
   isError: null,
   userCount: null,
@@ -25,12 +26,22 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    resetError(state) {
+    setAccessToken: (state, action) => {
+      state.accessToken = action.payload.accessToken;
+      state.isLoggedIn = true;
+      localStorage.setItem("accessToken", action.payload.accessToken);
+    },
+    clearAccessToken: (state) => {
+      state.accessToken = null;
+      state.isLoggedIn = false;
+      localStorage.removeItem("accessToken");
+    },
+    resetError: (state) => {
       state.isError = null;
     },
   },
   extraReducers: (builder) => {
-    // -------------------- Register --------------------
+    // -------------------- Register User --------------------
     builder
       .addCase(register.pending, (state) => {
         state.isLoading = true;
@@ -39,14 +50,13 @@ const userSlice = createSlice({
       .addCase(register.fulfilled, (state, action) => {
         state.isLoading = false;
         state.user = action.payload.data.user;
-        state.isLoggedIn = true;
       })
       .addCase(register.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = action.payload;
       });
 
-    // -------------------- Log In --------------------
+    // -------------------- Log In User --------------------
     builder
       .addCase(login.pending, (state) => {
         state.isLoading = true;
@@ -55,14 +65,13 @@ const userSlice = createSlice({
       .addCase(login.fulfilled, (state, action) => {
         state.isLoading = false;
         state.user = action.payload.data.user;
-        state.isLoggedIn = true;
       })
       .addCase(login.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = action.payload;
       });
 
-    // -------------------- Logout --------------------
+    // -------------------- Log Out User --------------------
     builder
       .addCase(logout.pending, (state) => {
         state.isLoading = true;
@@ -71,14 +80,13 @@ const userSlice = createSlice({
       .addCase(logout.fulfilled, (state) => {
         state.isLoading = false;
         state.user = null;
-        state.isLoggedIn = false;
       })
       .addCase(logout.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = action.payload;
       });
 
-    // -------------------- Fetch User --------------------
+    // -------------------- Fetch User Details --------------------
 
     builder
       .addCase(fetchUserDetails.pending, (state) => {
@@ -88,7 +96,6 @@ const userSlice = createSlice({
       .addCase(fetchUserDetails.fulfilled, (state, action) => {
         state.isLoading = false;
         state.user = action.payload.data;
-        state.isLoggedIn = true;
       })
       .addCase(fetchUserDetails.rejected, (state, action) => {
         state.isLoading = false;
@@ -110,14 +117,14 @@ const userSlice = createSlice({
         state.isError = action.payload;
       });
 
-    // -------------------- Update Password --------------------
+    // -------------------- Update User Password --------------------
     builder
       .addCase(updatePassword.pending, (state) => {
         state.isLoading = true;
         state.isError = null;
       })
       .addCase(updatePassword.fulfilled, (state) => {
-        state.isLoggedIn = false;
+        state.isLoading = false;
       })
       .addCase(updatePassword.rejected, (state, action) => {
         state.isLoading = false;
@@ -139,7 +146,7 @@ const userSlice = createSlice({
         state.isError = action.payload;
       });
 
-    // -------------------- Send Reset Password Email --------------------
+    // -------------------- Forgot Password --------------------
     builder
       .addCase(forgotPassword.pending, (state) => {
         state.isLoading = true;
@@ -181,7 +188,7 @@ const userSlice = createSlice({
         state.isError = action.payload;
       });
 
-    // -------------------- Login With Google --------------------
+    // -------------------- Log In With Google --------------------
     builder
       .addCase(loginWithGoogle.pending, (state) => {
         state.isLoading = true;
@@ -190,7 +197,6 @@ const userSlice = createSlice({
       .addCase(loginWithGoogle.fulfilled, (state, action) => {
         state.isLoading = false;
         state.user = action.payload.data.user;
-        state.isLoggedIn = true;
       })
       .addCase(loginWithGoogle.rejected, (state, action) => {
         state.isLoading = false;
@@ -199,6 +205,7 @@ const userSlice = createSlice({
   },
 });
 
-export const { resetError } = userSlice.actions;
+export const { setAccessToken, clearAccessToken, resetError } =
+  userSlice.actions;
 
 export const authReducer = userSlice.reducer;

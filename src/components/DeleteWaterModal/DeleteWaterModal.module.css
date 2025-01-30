@@ -68,6 +68,12 @@
   }
 }
 
+.btnDelete.disabled {
+  background-color: #e6e6e6;
+  color: #bcbcbc;
+  cursor: not-allowed;
+}
+
 @media screen and (min-width: 768px) {
   .modalContent {
     padding: 40px;

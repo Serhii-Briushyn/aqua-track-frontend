@@ -1,66 +1,29 @@
-import AddWaterBtn from "../AddWaterBtn/AddWaterBtn";
-import WaterList from "../WaterList/WaterList";
-import css from "./DailyInfo.module.css";
+import { useSelector } from "react-redux";
 import { CircularProgress } from "@mui/material";
-import {useSelector} from "react-redux";
-import { selectIsLoading as selectWaterIsLoading } from "../../redux/water/selectors.js";
-import { useTranslation } from "react-i18next";
-import { ukMonthsGenitive } from "../../utils/monthsLocalization.js";
 
-const DailyInfo = ({ dailyData, selectedDate, onSubmitSuccess }) => {
+import ChooseDate from "../ChooseDate/ChooseDate.jsx";
+import AddWaterBtn from "../AddWaterBtn/AddWaterBtn.jsx";
+import WaterList from "../WaterList/WaterList.jsx";
 
-  const isLoading = useSelector(selectWaterIsLoading);
-  const { t, i18n } = useTranslation();
+import { selectIsLoadingDaily } from "../../redux/water/selectors.js";
 
-const getHeaderTitle = () => {
-      const today = new Date();
-      const isToday =
-        today.toDateString() === new Date(selectedDate).toDateString();
+import css from "./DailyInfo.module.css";
 
-      if (isToday) {
-        return t("today");
-      }
-
-      const inputDate = new Date(selectedDate);
-      if (isNaN(inputDate.getTime())) {
-        return t("Invalid Date");
-      }
-
-      const day = new Intl.DateTimeFormat(i18n.language, {
-        day: "numeric",
-      }).format(inputDate);
-      let month = new Intl.DateTimeFormat(i18n.language, {
-        month: "long",
-      }).format(inputDate);
-
-      if (i18n.language === "uk" && ukMonthsGenitive[month.toLowerCase()]) {
-        month = ukMonthsGenitive[month.toLowerCase()];
-      }
-
-      month = month.charAt(0).toUpperCase() + month.slice(1);
-
-      return `${day}, ${month}`;
-    };
+const DailyInfo = () => {
+  const isLoading = useSelector(selectIsLoadingDaily);
 
   return (
     <div>
       <div className={css.infoHeader}>
-        <h2 className={css.h2}>{getHeaderTitle()}</h2>
-        <AddWaterBtn
-          type="waterDetail"
-          selectedDate={selectedDate}
-          onSubmitSuccess={onSubmitSuccess}
-        />
+        <ChooseDate />
+        <AddWaterBtn />
       </div>
       {isLoading ? (
         <div className={css.loaderWrapper}>
-          <CircularProgress color="#9be1a0" />
+          <CircularProgress sx={{ color: "#9be1a0" }} />
         </div>
       ) : (
-        <WaterList
-          dailyData={dailyData}
-          onSubmitSuccess={onSubmitSuccess}
-        />
+        <WaterList />
       )}
     </div>
   );

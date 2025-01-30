@@ -25,7 +25,7 @@
   position: relative;
 }
 
-.h2 {
+.subtitle {
   font-weight: 700;
   font-size: 14px;
   line-height: 1.28;
@@ -52,7 +52,7 @@
   object-fit: cover;
 }
 
-.btn {
+.button {
   border: none;
   background: transparent;
   cursor: pointer;
@@ -61,7 +61,7 @@
   justify-content: center;
 }
 
-.svg {
+.icon {
   width: 16px;
   height: 16px;
   stroke: white;
@@ -74,7 +74,7 @@
 }
 
 @media screen and (min-width: 768px) {
-  .h2 {
+  .subtitle {
     font-size: 16px;
     line-height: 1.5;
   }
@@ -82,7 +82,7 @@
     width: 44px;
     height: 44px;
   }
-  .svg {
+  .icon {
     width: 20px;
     height: 20px;
   }

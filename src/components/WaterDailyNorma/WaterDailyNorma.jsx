@@ -18,7 +18,7 @@ const WaterDailyNorma = () => {
       <h4 className={css.WaterDailyNorma}>
         {waterNorm} {t("l")}
       </h4>
-      <p className={css.WaterDailyNorma_p}>{t("dailyNorm")}</p>
+      <p className={css.WaterDailyNorma_p}>{t("dailyNorma")}</p>
     </div>
   );
 };

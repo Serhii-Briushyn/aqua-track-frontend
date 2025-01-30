@@ -1,8 +1,9 @@
-import { useTranslation } from "react-i18next";
 import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
+
 import s from "./LanguageSwitcher.module.css";
 
-const LanguageSwitcher = () => {
+const LanguageSwitcher = ({ source }) => {
   const { i18n } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
@@ -33,11 +34,16 @@ const LanguageSwitcher = () => {
 
   const languages = [
     { code: "en", label: "EN" },
-    { code: "uk", label: "UK" },
+    { code: "uk", label: "UA" },
+    { code: "pl", label: "PL" },
+    { code: "sk", label: "SK" },
   ];
 
+  const containerClass =
+    source === "UserSettings" ? s.settingsContainer : s.container;
+
   return (
-    <div className={s.container} ref={dropdownRef}>
+    <div className={containerClass} ref={dropdownRef}>
       <button className={s.dropdownButton} onClick={toggleDropdown}>
         {languages.find((lang) => lang.code === selectedLanguage)?.label ||
           "Select Language"}

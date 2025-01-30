@@ -1,56 +1,54 @@
-import WaterModal from "../WaterModal/WaterModal";
 import { useState } from "react";
-
+import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
+
+import WaterModal from "../WaterModal/WaterModal";
+
+import { selectCurrentDate } from "../../redux/water/selectors";
+
 import icons from "../../assets/icons/icons.svg";
 
-import s from "./AddWaterBtn.module.css";
-import {useSelector} from "react-redux";
-import {selectSelectedDate} from "../../redux/water/selectors.js";
-import {isDateToday} from "../../utils/isDateToday.js";
-const AddWaterBtn = ({ type, onSubmitSuccess }) => {
+import css from "./AddWaterBtn.module.css";
+
+const AddWaterBtn = ({ type }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalSource, setModalSource] = useState("");
   const { t } = useTranslation();
 
-  const date = useSelector(selectSelectedDate)
+  const currentDate = useSelector(selectCurrentDate);
+  const today = new Date().toISOString().split("T")[0];
+
+  const isDisabled = currentDate > today;
 
   const openModal = () => {
-    setModalSource("AddWater");
     setIsModalOpen(true);
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
-    setModalSource("");
   };
 
   const buttonClass = `${
-    type === "waterMain" ? s.waterMainButton : s.waterDetailButton
+    type === "waterMain" ? css.waterMainButton : css.waterDetailButton
   }`;
 
   const iconClass = `${
-    type === "waterMain" ? s.waterMainIcon : s.waterDetailIcon
+    type === "waterMain" ? css.waterMainIcon : css.waterDetailIcon
   }`;
 
   return (
     <div>
       <button
-        className={`${buttonClass} ${!isDateToday(date) ? s.buttonDisabled : ""}`}
+        className={buttonClass}
         onClick={openModal}
-        disabled={!isDateToday(date)}
+        disabled={isDisabled}
+        title={isDisabled ? t("disabledMessage") : ""}
       >
         <svg className={iconClass}>
           <use href={`${icons}#icon-plus`} />
         </svg>{" "}
         {t("addWater")}
       </button>
-      <WaterModal
-        isOpen={isModalOpen}
-        onClose={closeModal}
-        source={modalSource}
-        onSubmitSuccess={onSubmitSuccess}
-      />
+      <WaterModal isOpen={isModalOpen} onClose={closeModal} source="AddWater" />
     </div>
   );
 };

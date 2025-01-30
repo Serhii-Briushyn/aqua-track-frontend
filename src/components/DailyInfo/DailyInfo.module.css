@@ -17,14 +17,3 @@
   min-height: 158px;
 }
 
-.h2 {
-  font-family: "Poppins", sans-serif;
-  font-size: 28px;
-  color: #323f47;
-}
-
-@media screen and (max-width: 768px) {
-  .h2 {
-    font-size: 20px;
-  }
-}

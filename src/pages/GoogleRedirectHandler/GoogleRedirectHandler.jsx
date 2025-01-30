@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
+import toast from "react-hot-toast";
 
 import { loginWithGoogle } from "../../redux/auth/operations";
 import Loader from "../../components/Loader/Loader";

@@ -1,0 +1,72 @@
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 143px;
+}
+
+.date {
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.28;
+  letter-spacing: -0.01em;
+  text-align: center;
+  color: #323f47;
+}
+
+.arrowBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.arrowBtn:hover {
+  transform: scale(1.1);
+}
+
+.arrowBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.arrowBtn:not(:disabled):hover .icon {
+  transition: transform 0.2s ease-in-out;
+}
+
+.arrowBtn:not(:disabled):hover .icon {
+  transform: translateX(-5px);
+}
+
+.arrowBtn:last-of-type:hover .icon {
+  transform: translateX(5px);
+}
+
+.icon {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: #323f47;
+}
+
+@media screen and (min-width: 375px) {
+  .pagination {
+    min-width: 143px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .pagination {
+    min-width: 161px;
+  }
+
+  .date {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+}

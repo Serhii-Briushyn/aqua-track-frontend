@@ -40,7 +40,7 @@
   align-items: center;
 }
 
-.numberCust {
+.count {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -156,7 +156,7 @@
     margin-left: -19px;
   }
 
-  .numberCust {
+  .count {
     width: 25px;
     height: 25px;
     font-size: 14px;
@@ -168,7 +168,6 @@
   .text {
     font-size: 15px;
     line-height: 1.49;
-    width: 90px;
   }
 
   .benefits {

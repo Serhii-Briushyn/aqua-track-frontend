@@ -1,69 +1,98 @@
 .waterItem {
   display: flex;
-  justify-content: space-between;
-  width: 192px;
-  height: 86px;
-  padding: 20px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: 10px;
   border-radius: 15px;
+  width: 148px;
+  height: 74px;
+  backdrop-filter: blur(33.599998474121094px);
   background: #fff;
 }
 
-@media screen and (max-width: 768px) {
-  .waterItem {
-    width: 148px;
-    height: 74px;
-    padding: 18px 14px;
-  }
+.iconColor {
+  width: 38px;
+  height: 38px;
 }
 
-.waterItem .indicators,
-.waterItem .actions {
+.indicators {
   display: flex;
-  flex-direction: column;
-}
-
-.waterItem .actions button {
-  display: flex;
+  align-items: flex-start;
   justify-content: center;
-  align-items: center;
-  width: 20px;
-  height: 20px;
-  background: none;
-  border: none;
-  cursor: pointer;
+  flex-direction: column;
+  gap: 6px;
 }
 
-.waterItem .actions button:first-child {
-  margin-bottom: 4px;
-}
-
-.indicators .volume,
-.indicators.time {
-  font-family: "Poppins", sans-serif;
-  line-height: 23px;
-}
-
-.indicators .volume {
-  font-size: 15px;
+.volume {
   font-weight: 700;
+  font-size: 14px;
+  line-height: 1;
   color: #323f47;
 }
 
-.indicators .time {
-  margin-top: 4px;
-  font-size: 12px;
+.time {
   font-weight: 400;
+  font-size: 12px;
+  line-height: 1;
   color: rgba(47, 47, 47, 0.6);
 }
 
-.waterItem .actions .buttonDisabled {
-  filter: grayscale(100%);
-  cursor: not-allowed;
-  opacity: 0.6;
+.actions {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  gap: 8px;
 }
 
-@media screen and (max-width: 768px) {
-  .indicators .volume{
-    font-size: 13px;
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.icon {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: #323f47;
+}
+
+@media screen and (min-width: 768px) {
+  .waterItem {
+    gap: 20px;
+    width: 192px;
+    height: 86px;
+  }
+
+  .iconColor {
+    width: 44px;
+    height: 44px;
+  }
+
+  .indicators {
+    gap: 0;
+  }
+
+  .volume {
+    font-size: 15px;
+    line-height: 1.49;
+  }
+
+  .time {
+    line-height: 1.86;
+  }
+
+  .actions {
+    gap: 14px;
+  }
+
+  .icon {
+    width: 16px;
+    height: 16px;
   }
 }

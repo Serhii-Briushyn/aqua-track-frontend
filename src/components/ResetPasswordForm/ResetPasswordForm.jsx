@@ -1,36 +1,38 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+
 import { yupResolver } from "@hookform/resolvers/yup";
-import toast from "react-hot-toast";
 import * as Yup from "yup";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 import { resetPassword } from "../../redux/auth/operations";
 import { selectIsLoading } from "../../redux/auth/selectors";
+
 import Loader from "../Loader/Loader";
+import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher";
 
 import icons from "../../assets/icons/icons.svg";
 import css from "./ResetPasswordForm.module.css";
-import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher";
 
 const ResetPasswordForm = () => {
-  const { t } = useTranslation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const isLoading = useSelector(selectIsLoading);
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordRepeat, setShowPasswordRepeat] = useState(false);
-  const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const ResetPasswordSchema = Yup.object({
     password: Yup.string()
-      .min(6, t("passwordTooShort"))
-      .max(64, t("passwordTooLong"))
-      .required(t("passwordRequired")),
+      .min(6, t("shortPwd"))
+      .max(64, t("longPwd"))
+      .required(t("requiredPwd")),
     repeatPassword: Yup.string()
-      .oneOf([Yup.ref("password"), null], t("repeatPasswordMustMatch"))
-      .required(t("repeatPasswordRequired")),
+      .oneOf([Yup.ref("password"), null], t("pwdMismatch"))
+      .required(t("repeatPwdReq")),
   });
 
   const {
@@ -49,11 +51,11 @@ const ResetPasswordForm = () => {
       await dispatch(
         resetPassword({ token, password: values.password })
       ).unwrap();
-      toast.success(t("passwordUpdatedSuccess"));
+      toast.success(t("pwdUpdated"));
       reset();
       navigate("/signin");
     } catch (error) {
-      toast.error(error);
+      toast.error(t(error));
     }
   };
 
@@ -70,21 +72,21 @@ const ResetPasswordForm = () => {
       {isLoading && <Loader />}
       <div className={css.container}>
         <div className={css.content}>
-          <h2 className={css.title}>{t("resetPasswordTitle")}</h2>
+          <h2 className={css.title}>{t("resetPassword")}</h2>
           <form
             className={css.form}
             onSubmit={handleSubmit(onSubmit)}
             autoComplete="off"
           >
             <label className={css.label}>
-              <span className={css.span}>{t("newPassword")}</span>
+              <span className={css.span}>{t("newPwd")}</span>
               <div className={css.passwordContainer}>
                 <input
                   className={`${css.input} ${
                     errors.password ? css.errorInput : ""
                   }`}
                   type={showPassword ? "text" : "password"}
-                  placeholder={t("enterPassword")}
+                  placeholder={t("enterPwd")}
                   autoComplete="new-password"
                   {...resetRegister("password")}
                 />
@@ -96,8 +98,9 @@ const ResetPasswordForm = () => {
                 >
                   <svg className={css.icon}>
                     <use
-                      href={`${icons}#$
-                      {showPassword ? "icon-view" : "icon-hide"}`}
+                      href={`${icons}#${
+                        showPassword ? "icon-view" : "icon-hide"
+                      }`}
                     />
                   </svg>
                 </button>
@@ -110,14 +113,16 @@ const ResetPasswordForm = () => {
             </label>
 
             <label className={css.label}>
-              <span className={css.span}>{t("repeatPassword")}</span>
+              <span className={css.span}>
+                {t("repeatPwd")}
+              </span>
               <div className={css.passwordContainer}>
                 <input
                   className={`${css.input} ${
                     errors.repeatPassword ? css.errorInput : ""
                   }`}
                   type={showPasswordRepeat ? "text" : "password"}
-                  placeholder={t("repeatPasswordInput")}
+                  placeholder={t("confirmPwd")}
                   autoComplete="new-password"
                   {...resetRegister("repeatPassword")}
                 />
@@ -129,8 +134,9 @@ const ResetPasswordForm = () => {
                 >
                   <svg className={css.icon}>
                     <use
-                      href={`${icons}#$
-                      {showPasswordRepeat ? "icon-view" : "icon-hide"}`}
+                      href={`${icons}#${
+                        showPasswordRepeat ? "icon-view" : "icon-hide"
+                      }`}
                     />
                   </svg>
                 </button>
@@ -147,7 +153,9 @@ const ResetPasswordForm = () => {
               type="submit"
               disabled={isSubmitting}
             >
-              {isSubmitting ? t("resetting") : t("confirm")}
+              {isSubmitting
+                ? t("submitting")
+                : t("confirm")}
             </button>
           </form>
         </div>

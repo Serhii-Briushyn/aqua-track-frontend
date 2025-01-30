@@ -34,7 +34,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 116px;
+  padding-left: 14px;
+  padding-right: 14px;
+  min-width: 116px;
   height: 46px;
   font-weight: 700;
   font-size: 14px;
@@ -52,7 +54,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 104px;
+  padding-left: 14px;
+  padding-right: 14px;
+  min-width: 104px;
   height: 46px;
   font-weight: 700;
   font-size: 14px;

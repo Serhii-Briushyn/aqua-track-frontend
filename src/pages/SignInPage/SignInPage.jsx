@@ -1,5 +1,5 @@
-import { useMediaQuery } from "@mui/material";
 import { motion } from "framer-motion";
+import { useMediaQuery } from "@mui/material";
 
 import DocumentTitle from "../../components/DocumentTitle.jsx";
 import AdvantagesSection from "../../components/AdvantagesSection/AdvantagesSection";
