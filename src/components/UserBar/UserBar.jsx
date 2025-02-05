@@ -57,7 +57,11 @@ const UserBar = ({ userName }) => {
 
   return (
     <>
-      <div className={css.relativeContainer} ref={userBarRef}>
+      <div
+        className={css.relativeContainer}
+        ref={userBarRef}
+        data-tour="profile-settings"
+      >
         <div className={css.userBar} onClick={handleToggle}>
           <h2 className={css.subtitle}>{userName}</h2>
           <div className={css.userAvatar}>{getAvatarContent()}</div>

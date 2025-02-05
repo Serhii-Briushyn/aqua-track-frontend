@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { TourProvider } from "@reactour/tour";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 import toast from "react-hot-toast";
@@ -15,13 +16,14 @@ import {
   selectCurrentWeek,
   selectRefetchTrigger,
 } from "../../redux/water/selectors.js";
-
 import {
   getDailyWaterOperation,
   getMonthlyWaterOperation,
   getWeeklyWaterOperation,
 } from "../../redux/water/operations.js";
 import { fetchUserDetails } from "../../redux/auth/operations.js";
+
+import { steps } from "../../onboarding/Steps.jsx";
 
 import { fadeInScale } from "../../motion/motion.js";
 
@@ -105,24 +107,25 @@ export default function TrackerPage() {
   return (
     <>
       <DocumentTitle>AquaTrack</DocumentTitle>
+      <TourProvider steps={steps(t)}>
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          variants={fadeInScale()}
+        >
+          <WaterMainInfo />
+        </motion.div>
 
-      <motion.div
-        initial="hidden"
-        animate="visible"
-        exit="exit"
-        variants={fadeInScale()}
-      >
-        <WaterMainInfo />
-      </motion.div>
-
-      <motion.div
-        initial="hidden"
-        animate="visible"
-        exit="exit"
-        variants={fadeInScale()}
-      >
-        <WaterDetailedInfo />
-      </motion.div>
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          variants={fadeInScale()}
+        >
+          <WaterDetailedInfo />
+        </motion.div>
+      </TourProvider>
     </>
   );
 }

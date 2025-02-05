@@ -32,7 +32,7 @@ const Calendar = () => {
   };
 
   return (
-    <div className={css.calendar}>
+    <div className={css.calendar} data-tour="calendar-section">
       {selectedMonth.map((data, index) => {
         const isoDate = data.date.split("T")[0];
         const isSelected = selectedDate === isoDate;

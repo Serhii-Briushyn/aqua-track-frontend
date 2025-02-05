@@ -36,7 +36,7 @@ const WaterProgressBar = () => {
   }, [waterLevel]);
 
   return (
-    <div className={css.progressBarWrapper}>
+    <div className={css.progressBarWrapper} data-tour="today-progress">
       <div className={css.todayLabel}>
         {getLocalizedDate(currentDate, i18n.language, t)}
       </div>

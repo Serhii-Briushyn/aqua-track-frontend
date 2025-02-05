@@ -1,7 +1,6 @@
 .monthInfo {
   display: flex;
   flex-direction: column;
-  
   gap: 24px;
 }
 
@@ -59,7 +58,8 @@
     line-height: 1.14;
   }
 
-  .buttonMonth svg {
+  .buttonMonth svg,
+  .buttonWeek svg {
     width: 24px;
     height: 24px;
   }

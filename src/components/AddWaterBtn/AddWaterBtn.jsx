@@ -39,6 +39,7 @@ const AddWaterBtn = ({ type }) => {
     <div>
       <button
         className={buttonClass}
+        data-tour={type === "waterMain" ? "add-water-btn" : undefined}
         onClick={openModal}
         disabled={isDisabled}
         title={isDisabled ? t("disabledMessage") : ""}

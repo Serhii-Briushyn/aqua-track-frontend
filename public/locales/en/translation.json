@@ -105,5 +105,16 @@
   "sportsTime": "The time of active participation in sports:",
   "waterNeeded": "The required amount of water in liters per day:",
   "waterHowMuch": "Write down how much water you will drink:",
-  "saving": "Saving..."
+  "saving": "Saving...",
+  "welcomeTitle": "Welcome to AquaTrack!",
+  "welcomeText": "This app helps you track your water intake and maintain a healthy balance. Let's explore how to use it! 🚀",
+  "welcomeMessage": "Here you can see your name and welcome message.",
+  "dailyNorm": "This section shows your daily water consumption norm.",
+  "todayProgress": "This indicator shows how much water you have drunk today.",
+  "addWaterBtn": "Click this button to add your water intake.",
+  "calendarSection": "Here you can see your water consumption statistics for past days. Each day displays the percentage of the daily norm completed.",
+  "profileSettings": "This is where your profile settings are located.",
+  "waterHistory": "This section shows the history of water intake for today. You can see how many times and in what quantity water was added.",
+  "finalText": "Now you know how to use AquaTrack. Don't forget to log your water intake regularly and monitor your norm.",
+  "finalMotivation": "Let's start your journey to a healthy lifestyle!"
 }

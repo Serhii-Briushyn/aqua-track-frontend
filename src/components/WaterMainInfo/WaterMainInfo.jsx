@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { useTour } from "@reactour/tour";
+import { SlInfo } from "react-icons/sl";
 
 import AddWaterBtn from "../AddWaterBtn/AddWaterBtn";
 import WaterDailyNorma from "../WaterDailyNorma/WaterDailyNorma";
@@ -23,6 +25,7 @@ const getImageSource = () => {
 
 const WaterMainInfo = () => {
   const [imageSource, setImageSource] = useState(getImageSource());
+  const { setIsOpen, setCurrentStep } = useTour();
 
   useEffect(() => {
     const handleSize = () => {
@@ -36,6 +39,33 @@ const WaterMainInfo = () => {
     };
   }, []);
 
+  const startTour = () => {
+    setCurrentStep(0);
+    setIsOpen(true);
+  };
+
+  useEffect(() => {
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.addedNodes.length || mutation.removedNodes.length) {
+          const isTourActive = document.querySelector(".reactour__mask");
+          if (isTourActive) {
+            document.body.classList.add("no-scroll");
+          } else {
+            document.body.classList.remove("no-scroll");
+          }
+        }
+      });
+    });
+
+    const targetNode = document.body;
+    const config = { childList: true, subtree: true };
+
+    observer.observe(targetNode, config);
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div className={css.water_main_info}>
       <img src={imageSource} alt="water-icon" className={css.water_icon} />
@@ -43,6 +73,9 @@ const WaterMainInfo = () => {
       <WaterProgressBar />
       <AddWaterBtn type="waterMain" />
       <LanguageSwitcher />
+      <button className={css.button} onClick={startTour}>
+        <SlInfo className={css.icon} />
+      </button>
     </div>
   );
 };

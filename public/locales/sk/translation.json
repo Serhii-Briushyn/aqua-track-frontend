@@ -105,5 +105,16 @@
   "sportsTime": "Čas aktívnej účasti na športe:",
   "waterNeeded": "Požadované množstvo vody v litroch za deň:",
   "waterHowMuch": "Zaznamenajte, koľko vody ste vypili:",
-  "saving": "Ukladanie..."
+  "saving": "Ukladanie...",
+  "welcomeTitle": "Vitajte v AquaTrack!",
+  "welcomeText": "Táto aplikácia vám pomôže sledovať príjem vody a udržiavať zdravú rovnováhu. Poďme sa pozrieť, ako ju používať! 🚀",
+  "welcomeMessage": "Tu sa zobrazuje vaše meno a uvítacia správa.",
+  "dailyNorm": "Táto sekcia ukazuje vašu dennú normu príjmu vody.",
+  "todayProgress": "Tento indikátor ukazuje, koľko vody ste už dnes vypili.",
+  "addWaterBtn": "Kliknite na toto tlačidlo a pridajte vypitú vodu.",
+  "calendarSection": "Tu si môžete pozrieť štatistiky príjmu vody za predchádzajúce dni. Každý deň zobrazuje percento splnenej dennej normy.",
+  "profileSettings": "Tu sa nachádzajú nastavenia vášho profilu.",
+  "waterHistory": "Táto sekcia ukazuje históriu pridanej vody za dnešný deň. Môžete vidieť, koľkokrát a v akom množstve bola voda pridaná.",
+  "finalText": "Teraz už viete, ako používať AquaTrack. Nezabudnite si pravidelne zapisovať príjem vody a sledovať svoju normu.",
+  "finalMotivation": "Začnime vašu cestu k zdravému životnému štýlu!"
 }

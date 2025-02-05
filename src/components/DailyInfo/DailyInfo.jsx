@@ -13,7 +13,7 @@ const DailyInfo = () => {
   const isLoading = useSelector(selectIsLoadingDaily);
 
   return (
-    <div>
+    <div data-tour="water-history">
       <div className={css.infoHeader}>
         <ChooseDate />
         <AddWaterBtn />

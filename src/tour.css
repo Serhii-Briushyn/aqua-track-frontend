@@ -1,0 +1,94 @@
+.reactour__popover {
+  border-radius: 15px;
+  max-width: 89% !important;
+  padding: 40px 20px 20px 20px !important;
+  box-shadow: 0 4px 50px 0 rgba(0, 0, 0, 0.1) !important;
+  background-color: #fff !important;
+  span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.reactour__close-button {
+  top: 12px !important;
+  right: 12px !important;
+  width: 24px !important;
+  height: 24px !important;
+  padding: 6px !important;
+}
+
+.reactour__close-button > svg {
+  transition: all 0.2s ease;
+}
+
+.reactour__close-button:hover svg {
+  transform: scale(1.2);
+}
+
+.tour-step {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.tour-subtitle {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  text-align: center;
+  color: #323f47;
+}
+
+.tour-text {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.28;
+  letter-spacing: -0.01em;
+  color: #323f47;
+}
+
+.tour-span {
+  display: flex;
+  flex-direction: column;
+}
+
+.tour-image {
+  margin: 0 auto;
+  width: 64px;
+  height: 64px;
+}
+
+@media screen and (min-width: 375px) {
+  .reactour__popover {
+    max-width: 343px !important;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .reactour__popover {
+    max-width: 516px !important;
+    padding: 40px !important;
+  }
+
+  .reactour__close-button {
+    top: 16px !important;
+    right: 16px !important;
+  }
+
+  .tour-step {
+    gap: 24px;
+  }
+
+  .tour-subtitle {
+    font-size: 28px;
+    line-height: 1.14;
+  }
+
+  .tour-text {
+    font-size: 18px;
+    line-height: 1.33;
+  }
+}

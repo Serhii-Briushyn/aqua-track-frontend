@@ -14,7 +14,7 @@ const WaterDailyNorma = () => {
     : "1.8";
 
   return (
-    <div className={css.water_daily_norma_container}>
+    <div className={css.water_daily_norma_container} data-tour="daily-norm">
       <h4 className={css.WaterDailyNorma}>
         {waterNorm} {t("l")}
       </h4>

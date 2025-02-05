@@ -105,5 +105,16 @@
   "sportsTime": "Czas aktywnego uprawiania sportu:",
   "waterNeeded": "Wymagana ilość wody w litrach na dzień:",
   "waterHowMuch": "Zapisz, ile wody wypiłeś:",
-  "saving": "Zapisywanie..."
+  "saving": "Zapisywanie...",
+  "welcomeTitle": "Witamy w AquaTrack!",
+  "welcomeText": "Ta aplikacja pomoże Ci śledzić spożycie wody i utrzymać zdrową równowagę. Zobaczmy, jak z niej korzystać! 🚀",
+  "welcomeMessage": "Tutaj wyświetlane jest Twoje imię oraz wiadomość powitalna.",
+  "dailyNorm": "W tej sekcji pokazana jest Twoja dzienna norma spożycia wody.",
+  "todayProgress": "Ten wskaźnik pokazuje, ile wody już dziś wypiłeś.",
+  "addWaterBtn": "Kliknij ten przycisk, aby dodać wypitą wodę.",
+  "calendarSection": "Tutaj możesz zobaczyć statystyki spożycia wody z poprzednich dni. Każdy dzień pokazuje procent realizacji dziennej normy.",
+  "profileSettings": "Tutaj znajdują się ustawienia Twojego profilu.",
+  "waterHistory": "Ta sekcja pokazuje historię dodawania wody na dzisiejszy dzień. Możesz zobaczyć, ile razy i w jakiej ilości dodano wodę.",
+  "finalText": "Teraz wiesz, jak korzystać z AquaTrack. Nie zapomnij regularnie zapisywać swojego spożycia wody i monitorować normy.",
+  "finalMotivation": "Rozpocznijmy Twoją drogę do zdrowego stylu życia!"
 }

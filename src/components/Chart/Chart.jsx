@@ -113,7 +113,10 @@ const Chart = () => {
   };
 
   return (
-    <div className={`${css.chart} ${isLoading ? css.loader : ""}`}>
+    <div
+      className={`${css.chart} ${isLoading ? css.loader : ""}`}
+      data-tour="water-statistics"
+    >
       <Line
         ref={chartRef}
         data={chartData}

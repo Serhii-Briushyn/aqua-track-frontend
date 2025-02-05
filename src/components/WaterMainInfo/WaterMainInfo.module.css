@@ -40,15 +40,49 @@
   );
 }
 
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  position: absolute;
+  left: 16px;
+  bottom: 24px;
+}
+
+.icon {
+  width: 22px;
+  height: 22px;
+  transition: all 0.2s ease-in-out;
+}
+
+.button:hover .icon {
+  transform: scale(1.2);
+}
+
 @media (min-width: 768px) {
   .water_main_info {
     height: 578px;
   }
+
   .water_picture {
     top: 69px;
     left: 165px;
   }
+
+  .button {
+    left: 32px;
+    bottom: 32px;
+  }
+
+  .icon {
+    width: 28px;
+    height: 28px;
+  }
 }
+
 @media (min-width: 1440px) {
   .water_main_info {
     height: 736px;

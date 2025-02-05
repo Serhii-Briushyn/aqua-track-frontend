@@ -16,7 +16,7 @@ const UserPanel = () => {
 
   return (
     <div className={css.userPanel}>
-      <h1 className={css.title}>
+      <h1 className={css.title} data-tour="welcome-message">
         <span>{t("hello")}</span>, {userName}!
       </h1>
       <UserBar userName={userName} />
