@@ -34,6 +34,7 @@ const userSlice = createSlice({
     clearAccessToken: (state) => {
       state.accessToken = null;
       state.isLoggedIn = false;
+      state.user = null;
       localStorage.removeItem("accessToken");
     },
     resetError: (state) => {

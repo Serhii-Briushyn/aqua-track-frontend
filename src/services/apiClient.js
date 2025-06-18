@@ -23,8 +23,6 @@ const refreshAuthLogic = async (failedRequest) => {
     const storeModule = await import("../redux/store");
     const { clearAccessToken } = await import("../redux/auth/slice");
     storeModule.store.dispatch(clearAccessToken());
-    console.error("Refresh error → clearing auth", error);
-
     return Promise.reject(error);
   }
 };
