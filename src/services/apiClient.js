@@ -15,10 +15,13 @@ const refreshAuthLogic = async (failedRequest) => {
     failedRequest.response.config.headers[
       "Authorization"
     ] = `Bearer ${accessToken}`;
+    const storeModule = await import("@store/store");
+    const { setAccessToken } = await import("@store/users/slice");
+    storeModule.store.dispatch(setAccessToken({ accessToken }));
   } catch (error) {
-    console.error("Error refreshing token:", error);
-    localStorage.removeItem("accessToken");
-    window.location.href = "/signin";
+    const storeModule = await import("@store/store");
+    const { clearAccessToken } = await import("@store/users/slice");
+    storeModule.store.dispatch(clearAccessToken());
     throw error;
   }
 };
