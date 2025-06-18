@@ -15,12 +15,12 @@ const refreshAuthLogic = async (failedRequest) => {
     failedRequest.response.config.headers[
       "Authorization"
     ] = `Bearer ${accessToken}`;
-    const storeModule = await import("@store/store");
-    const { setAccessToken } = await import("@store/users/slice");
+    const storeModule = await import("../redux/store");
+    const { setAccessToken } = await import("../redux/auth/slice");
     storeModule.store.dispatch(setAccessToken({ accessToken }));
   } catch (error) {
-    const storeModule = await import("@store/store");
-    const { clearAccessToken } = await import("@store/users/slice");
+    const storeModule = await import("../redux/store");
+    const { clearAccessToken } = await import("../redux/auth/slice");
     storeModule.store.dispatch(clearAccessToken());
     throw error;
   }
