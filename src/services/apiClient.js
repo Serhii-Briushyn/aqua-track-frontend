@@ -10,12 +10,20 @@ export const aquaTrackApi = axios.create({
 const refreshAuthLogic = async (failedRequest) => {
   const originalUrl = failedRequest?.response?.config?.url ?? "";
 
+  let pathname = "";
+  try {
+    const urlObj = new URL(originalUrl);
+    pathname = urlObj.pathname;
+  } catch {
+    pathname = originalUrl;
+  }
+
   if (
-    originalUrl.includes("/users/login") ||
-    originalUrl.includes("/users/register") ||
-    originalUrl.includes("/users/refresh")
+    pathname === "/users/login" ||
+    pathname === "/users/register" ||
+    pathname === "/users/refresh"
   ) {
-    console.warn("Skipping refresh logic for:", originalUrl);
+    console.warn("❌ Skipping refresh for:", pathname);
     return Promise.reject(failedRequest);
   }
 
