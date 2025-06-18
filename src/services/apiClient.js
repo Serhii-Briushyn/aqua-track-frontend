@@ -7,6 +7,8 @@ export const aquaTrackApi = axios.create({
   headers: { "Content-Type": "application/json" },
 });
 
+let isRefreshing = false;
+
 const refreshAuthLogic = async (failedRequest) => {
   const originalUrl = failedRequest?.response?.config?.url ?? "";
   console.log("🔍 Refresh triggered for:", originalUrl);
@@ -27,6 +29,11 @@ const refreshAuthLogic = async (failedRequest) => {
     pathname === "/users/refresh"
   ) {
     console.warn("🚫 Skipping refresh for endpoint:", pathname);
+    return Promise.reject(failedRequest);
+  }
+
+  if (isRefreshing) {
+    console.warn("🔁 Already refreshing. Skipping retry.");
     return Promise.reject(failedRequest);
   }
 
