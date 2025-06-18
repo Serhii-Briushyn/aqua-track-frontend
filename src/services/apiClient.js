@@ -13,7 +13,7 @@ const refreshAuthLogic = async (failedRequest) => {
 
   let pathname = "";
   try {
-    const urlObj = new URL(originalUrl);
+    const urlObj = new URL(originalUrl, window.location.origin);
     pathname = urlObj.pathname;
     console.log("📎 Parsed pathname:", pathname);
   } catch {
