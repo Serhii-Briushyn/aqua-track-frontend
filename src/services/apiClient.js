@@ -8,6 +8,16 @@ export const aquaTrackApi = axios.create({
 });
 
 const refreshAuthLogic = async (failedRequest) => {
+  const originalUrl = failedRequest.response.config.url;
+
+  if (
+    originalUrl.includes("/users/login") ||
+    originalUrl.includes("/users/register") ||
+    originalUrl.includes("/users/refresh")
+  ) {
+    return Promise.reject(failedRequest);
+  }
+
   try {
     const response = await aquaTrackApi.post("/users/refresh");
     const { accessToken } = response.data.data;
