@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import { refreshAccessToken } from "../redux/auth/operations";
 import { clearAccessToken } from "../redux/auth/slice";
 
@@ -13,6 +14,7 @@ export const authRequest = async (axiosFn, thunkAPI) => {
         return await axiosFn();
       } catch {
         thunkAPI.dispatch(clearAccessToken());
+        toast.error("Session expired");
         return thunkAPI.rejectWithValue("Session expired");
       }
     }

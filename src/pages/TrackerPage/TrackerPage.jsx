@@ -37,7 +37,7 @@ export default function TrackerPage() {
   const refetchTrigger = useSelector(selectRefetchTrigger);
   const { t } = useTranslation();
 
-  const isReady = isLoggedIn && user;
+  const isReady = isLoggedIn && !!user;
 
   useEffect(() => {
     const fetchUser = async () => {

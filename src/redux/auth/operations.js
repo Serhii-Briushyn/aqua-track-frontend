@@ -33,9 +33,8 @@ export const register = createAsyncThunk(
   async (credentials, thunkAPI) => {
     try {
       const response = await aquaTrackApi.post("/users/register", credentials);
-      thunkAPI.dispatch(
-        setAccessToken({ accessToken: response.data.data.accessToken })
-      );
+      const accessToken = response.data.data.accessToken;
+      localStorage.setItem("accessToken", accessToken);
       return response.data;
     } catch (error) {
       return handleApiError(error, thunkAPI);
@@ -50,9 +49,8 @@ export const login = createAsyncThunk(
   async (credentials, thunkAPI) => {
     try {
       const response = await aquaTrackApi.post("/users/login", credentials);
-      thunkAPI.dispatch(
-        setAccessToken({ accessToken: response.data.data.accessToken })
-      );
+      const accessToken = response.data.data.accessToken;
+      localStorage.setItem("accessToken", accessToken);
       return response.data;
     } catch (error) {
       if (error.response?.status === 401) {
@@ -73,7 +71,6 @@ export const refreshAccessToken = createAsyncThunk(
       const response = await aquaTrackApi.post("/users/refresh");
       const { accessToken } = response.data.data;
       localStorage.setItem("accessToken", accessToken);
-      thunkAPI.dispatch(setAccessToken({ accessToken }));
       return accessToken;
     } catch (error) {
       thunkAPI.dispatch(clearAccessToken());

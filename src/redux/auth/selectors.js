@@ -1,5 +1,4 @@
 export const selectUser = (state) => state.user.user;
-export const selectAccessToken = (state) => state.user.accessToken;
 export const selectIsLoggedIn = (state) => state.user.isLoggedIn;
 export const selectIsLoading = (state) => state.user.isLoading;
 export const selectIsError = (state) => state.user.isError;

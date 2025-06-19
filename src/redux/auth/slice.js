@@ -11,12 +11,12 @@ import {
   getGoogleOAuthUrl,
   loginWithGoogle,
   fetchUserDetails,
+  refreshAccessToken,
 } from "./operations";
 
 const initialState = {
   user: null,
-  accessToken: localStorage.getItem("accessToken"),
-  isLoggedIn: !!localStorage.getItem("accessToken"),
+  isLoggedIn: false,
   isLoading: false,
   isError: null,
   userCount: null,
@@ -26,13 +26,7 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    setAccessToken: (state, action) => {
-      state.accessToken = action.payload.accessToken;
-      state.isLoggedIn = true;
-      localStorage.setItem("accessToken", action.payload.accessToken);
-    },
     clearAccessToken: (state) => {
-      state.accessToken = null;
       state.isLoggedIn = false;
       state.user = null;
       localStorage.removeItem("accessToken");
@@ -50,10 +44,14 @@ const userSlice = createSlice({
       })
       .addCase(register.fulfilled, (state, action) => {
         state.isLoading = false;
+        state.isLoggedIn = true;
         state.user = action.payload.data.user;
       })
       .addCase(register.rejected, (state, action) => {
         state.isLoading = false;
+        state.isLoggedIn = false;
+        state.user = null;
+        localStorage.removeItem("accessToken");
         state.isError = action.payload;
       });
 
@@ -65,11 +63,32 @@ const userSlice = createSlice({
       })
       .addCase(login.fulfilled, (state, action) => {
         state.isLoading = false;
+        state.isLoggedIn = true;
         state.user = action.payload.data.user;
       })
       .addCase(login.rejected, (state, action) => {
         state.isLoading = false;
+        state.isLoggedIn = false;
+        state.user = null;
+        localStorage.removeItem("accessToken");
         state.isError = action.payload;
+      });
+
+    // -------------------- Refresh Access Token --------------------
+    builder
+      .addCase(refreshAccessToken.pending, (state) => {
+        state.isLoading = true;
+        state.isError = null;
+      })
+      .addCase(refreshAccessToken.fulfilled, (state) => {
+        state.isLoading = false;
+        state.isLoggedIn = true;
+      })
+      .addCase(refreshAccessToken.rejected, (state) => {
+        state.isLoading = false;
+        state.isLoggedIn = false;
+        state.user = null;
+        localStorage.removeItem("accessToken");
       });
 
     // -------------------- Log Out User --------------------
@@ -80,11 +99,15 @@ const userSlice = createSlice({
       })
       .addCase(logout.fulfilled, (state) => {
         state.isLoading = false;
+        state.isLoggedIn = false;
         state.user = null;
       })
       .addCase(logout.rejected, (state, action) => {
         state.isLoading = false;
+        state.isLoggedIn = false;
+        state.user = null;
         state.isError = action.payload;
+        localStorage.removeItem("accessToken");
       });
 
     // -------------------- Fetch User Details --------------------
