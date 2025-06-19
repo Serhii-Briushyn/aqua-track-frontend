@@ -40,8 +40,9 @@ const refreshAuthLogic = async (failedRequest) => {
   try {
     console.log("🔄 Sending request to /users/refresh...");
     const response = await aquaTrackApi.post("/users/refresh");
+    console.log(response);
     const { accessToken } = response.data.data;
-
+    console.log(accessToken);
     console.log("✅ Refresh successful. New token:", accessToken);
 
     localStorage.setItem("accessToken", accessToken);
