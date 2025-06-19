@@ -37,6 +37,8 @@ export default function TrackerPage() {
   const refetchTrigger = useSelector(selectRefetchTrigger);
   const { t } = useTranslation();
 
+  const isReady = isLoggedIn && !!user && !!localStorage.getItem("accessToken");
+
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -52,57 +54,43 @@ export default function TrackerPage() {
   }, [isLoggedIn, user, dispatch, t]);
 
   useEffect(() => {
-    const fetchDailyWater = async () => {
-      try {
-        if (user) {
-          await dispatch(
-            getDailyWaterOperation({ date: currentDate })
-          ).unwrap();
+    const fetchWaterData = async () => {
+      if (!isReady) return;
+
+      const operations = [
+        dispatch(getDailyWaterOperation({ date: currentDate })).unwrap(),
+        dispatch(
+          getMonthlyWaterOperation({
+            month: currentMonth.month + 1,
+            year: currentMonth.year,
+          })
+        ).unwrap(),
+        dispatch(
+          getWeeklyWaterOperation({
+            startDate: currentWeek.startDate.split("T")[0],
+          })
+        ).unwrap(),
+      ];
+
+      const results = await Promise.allSettled(operations);
+
+      results.forEach((res) => {
+        if (res.status === "rejected") {
+          toast.error(t("fetchError"));
         }
-      } catch {
-        toast.error(t("fetchError"));
-      }
+      });
     };
 
-    fetchDailyWater();
-  }, [user, currentDate, refetchTrigger, dispatch, t]);
-
-  useEffect(() => {
-    const fetchMonthlyWater = async () => {
-      try {
-        if (user) {
-          await dispatch(
-            getMonthlyWaterOperation({
-              month: currentMonth.month + 1,
-              year: currentMonth.year,
-            })
-          ).unwrap();
-        }
-      } catch {
-        toast.error(t("fetchError"));
-      }
-    };
-
-    fetchMonthlyWater();
-  }, [user, currentMonth, refetchTrigger, dispatch, t]);
-
-  useEffect(() => {
-    const fetchWeeklyWater = async () => {
-      try {
-        if (user) {
-          await dispatch(
-            getWeeklyWaterOperation({
-              startDate: currentWeek.startDate.split("T")[0],
-            })
-          ).unwrap();
-        }
-      } catch {
-        toast.error(t("fetchError"));
-      }
-    };
-
-    fetchWeeklyWater();
-  }, [user, currentWeek, refetchTrigger, dispatch, t]);
+    fetchWaterData();
+  }, [
+    isReady,
+    currentDate,
+    currentMonth,
+    currentWeek,
+    refetchTrigger,
+    dispatch,
+    t,
+  ]);
 
   return (
     <>
