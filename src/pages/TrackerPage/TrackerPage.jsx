@@ -40,7 +40,7 @@ export default function TrackerPage() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        if (isLoggedIn) {
+        if (isLoggedIn && !user) {
           await dispatch(fetchUserDetails()).unwrap();
         }
       } catch {
@@ -49,7 +49,7 @@ export default function TrackerPage() {
     };
 
     fetchUser();
-  }, [isLoggedIn, dispatch, t]);
+  }, [isLoggedIn, user, dispatch, t]);
 
   useEffect(() => {
     if (!user) return;
