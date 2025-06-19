@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import { aquaTrackApi } from "../../services/apiClient";
 import { clearAccessToken, setAccessToken } from "./slice";
+import { authRequest } from "../../utils/authRequest";
 
 // -------------------- Error Handling Function --------------------
 
@@ -63,6 +64,24 @@ export const login = createAsyncThunk(
   }
 );
 
+// -------------------- Refresh Access Token Thunk --------------------
+
+export const refreshAccessToken = createAsyncThunk(
+  "auth/refreshAccessToken",
+  async (_, thunkAPI) => {
+    try {
+      const response = await aquaTrackApi.post("/users/refresh");
+      const { accessToken } = response.data.data;
+      localStorage.setItem("accessToken", accessToken);
+      thunkAPI.dispatch(setAccessToken({ accessToken }));
+      return accessToken;
+    } catch (error) {
+      thunkAPI.dispatch(clearAccessToken());
+      return handleApiError(error, thunkAPI);
+    }
+  }
+);
+
 // -------------------- Log Out User Thunk --------------------
 
 export const logout = createAsyncThunk("users/logout", async (_, thunkAPI) => {
@@ -80,7 +99,10 @@ export const fetchUserDetails = createAsyncThunk(
   "user/fetchDetails",
   async (_, thunkAPI) => {
     try {
-      const response = await aquaTrackApi.get("/users/me");
+      const response = await authRequest(
+        () => aquaTrackApi.get("/users/me"),
+        thunkAPI
+      );
       return response.data;
     } catch (error) {
       if (error.response?.status === 401) {
@@ -98,11 +120,13 @@ export const updateUser = createAsyncThunk(
   "user/update",
   async (formData, thunkAPI) => {
     try {
-      const response = await aquaTrackApi.put("/users/update-user", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const response = await authRequest(
+        () =>
+          aquaTrackApi.put("/users/update-user", formData, {
+            headers: { "Content-Type": "multipart/form-data" },
+          }),
+        thunkAPI
+      );
       return response.data;
     } catch (error) {
       if (error.response?.status === 401) {
@@ -120,10 +144,14 @@ export const updatePassword = createAsyncThunk(
   "user/updatePassword",
   async ({ oldPassword, newPassword }, thunkAPI) => {
     try {
-      const response = await aquaTrackApi.put("/users/update-password", {
-        oldPassword,
-        newPassword,
-      });
+      const response = await authRequest(
+        () =>
+          aquaTrackApi.put("/users/update-password", {
+            oldPassword,
+            newPassword,
+          }),
+        thunkAPI
+      );
       return response.data;
     } catch (error) {
       if (error.response?.status === 401) {
@@ -171,10 +199,14 @@ export const resetPassword = createAsyncThunk(
   "user/resetPassword",
   async ({ token, password }, thunkAPI) => {
     try {
-      const response = await aquaTrackApi.post("/users/reset-password", {
-        token,
-        password,
-      });
+      const response = await authRequest(
+        () =>
+          aquaTrackApi.post("/users/reset-password", {
+            token,
+            password,
+          }),
+        thunkAPI
+      );
       return response.data;
     } catch (error) {
       if (error.response?.status === 401) {
@@ -206,7 +238,10 @@ export const loginWithGoogle = createAsyncThunk(
   "user/loginWithGoogle",
   async (code, thunkAPI) => {
     try {
-      const response = await aquaTrackApi.post("/users/google-login", { code });
+      const response = await authRequest(
+        () => aquaTrackApi.post("/users/google-login", { code }),
+        thunkAPI
+      );
       thunkAPI.dispatch(
         setAccessToken({ accessToken: response.data.data.accessToken })
       );
