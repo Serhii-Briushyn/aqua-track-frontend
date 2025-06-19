@@ -45,6 +45,10 @@ export const updateWaterOperation = createAsyncThunk(
       const response = await aquaTrackApi.patch(`/water/${id}`, data);
       return response.data;
     } catch (error) {
+      if (error.response?.status === 401) {
+        throw error;
+      }
+
       return handleApiError(error, thunkAPI);
     }
   }
@@ -59,6 +63,10 @@ export const deleteWaterOperation = createAsyncThunk(
       await aquaTrackApi.delete(`/water/${id}`);
       return id;
     } catch (error) {
+      if (error.response?.status === 401) {
+        throw error;
+      }
+
       return handleApiError(error, thunkAPI);
     }
   }
@@ -75,6 +83,10 @@ export const getDailyWaterOperation = createAsyncThunk(
       });
       return response.data;
     } catch (error) {
+      if (error.response?.status === 401) {
+        throw error;
+      }
+
       return handleApiError(error, thunkAPI);
     }
   }
@@ -91,6 +103,10 @@ export const getWeeklyWaterOperation = createAsyncThunk(
       });
       return response.data;
     } catch (error) {
+      if (error.response?.status === 401) {
+        throw error;
+      }
+
       return handleApiError(error, thunkAPI);
     }
   }
@@ -107,6 +123,10 @@ export const getMonthlyWaterOperation = createAsyncThunk(
       });
       return response.data;
     } catch (error) {
+      if (error.response?.status === 401) {
+        throw error;
+      }
+
       return handleApiError(error, thunkAPI);
     }
   }
