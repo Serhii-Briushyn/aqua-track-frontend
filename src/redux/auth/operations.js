@@ -62,22 +62,19 @@ export const login = createAsyncThunk(
   }
 );
 
-// -------------------- Refresh Access Token Thunk --------------------
+// -------------------- Refresh User Thunk --------------------
 
-export const refreshAccessToken = createAsyncThunk(
-  "auth/refreshAccessToken",
-  async (_, thunkAPI) => {
-    try {
-      const response = await aquaTrackApi.post("/users/refresh");
-      const { accessToken } = response.data.data;
-      localStorage.setItem("accessToken", accessToken);
-      return accessToken;
-    } catch (error) {
-      thunkAPI.dispatch(clearAccessToken());
-      return handleApiError(error, thunkAPI);
-    }
+export const refresh = createAsyncThunk("auth/refresh", async (_, thunkAPI) => {
+  try {
+    const response = await aquaTrackApi.post("/users/refresh");
+    const { accessToken } = response.data.data;
+    localStorage.setItem("accessToken", accessToken);
+    return response.data;
+  } catch (error) {
+    thunkAPI.dispatch(clearAccessToken());
+    return handleApiError(error, thunkAPI);
   }
-);
+});
 
 // -------------------- Log Out User Thunk --------------------
 

@@ -11,7 +11,7 @@ import {
   getGoogleOAuthUrl,
   loginWithGoogle,
   fetchUserDetails,
-  refreshAccessToken,
+  refresh,
 } from "./operations";
 
 const initialState = {
@@ -76,15 +76,16 @@ const userSlice = createSlice({
 
     // -------------------- Refresh Access Token --------------------
     builder
-      .addCase(refreshAccessToken.pending, (state) => {
+      .addCase(refresh.pending, (state) => {
         state.isLoading = true;
         state.isError = null;
       })
-      .addCase(refreshAccessToken.fulfilled, (state) => {
+      .addCase(refresh.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isLoggedIn = true;
+        state.user = action.payload.data.user;
       })
-      .addCase(refreshAccessToken.rejected, (state) => {
+      .addCase(refresh.rejected, (state) => {
         state.isLoading = false;
         state.isLoggedIn = false;
         state.user = null;

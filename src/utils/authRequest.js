@@ -1,4 +1,4 @@
-import { refreshAccessToken } from "../redux/auth/operations";
+import { refresh } from "../redux/auth/operations";
 import { clearAccessToken } from "../redux/auth/slice";
 
 let isRefreshing = false;
@@ -14,7 +14,7 @@ export const authRequest = async (axiosFn, thunkAPI) => {
       if (!isRefreshing) {
         isRefreshing = true;
         refreshPromise = thunkAPI
-          .dispatch(refreshAccessToken())
+          .dispatch(refresh())
           .unwrap()
           .finally(() => {
             isRefreshing = false;
