@@ -52,7 +52,7 @@ export default function TrackerPage() {
   }, [isLoggedIn, user, dispatch, t]);
 
   useEffect(() => {
-    if (!user) return;
+    if (!isLoggedIn) return;
     const fetchDailyWater = async () => {
       try {
         await dispatch(getDailyWaterOperation({ date: currentDate })).unwrap();
@@ -62,10 +62,10 @@ export default function TrackerPage() {
     };
 
     fetchDailyWater();
-  }, [user, currentDate, refetchTrigger, dispatch, t]);
+  }, [isLoggedIn, currentDate, refetchTrigger, dispatch, t]);
 
   useEffect(() => {
-    if (!user) return;
+    if (!isLoggedIn) return;
     const fetchMonthlyWater = async () => {
       try {
         await dispatch(
@@ -80,10 +80,10 @@ export default function TrackerPage() {
     };
 
     fetchMonthlyWater();
-  }, [user, currentMonth, refetchTrigger, dispatch, t]);
+  }, [isLoggedIn, currentMonth, refetchTrigger, dispatch, t]);
 
   useEffect(() => {
-    if (!user) return;
+    if (!isLoggedIn) return;
     const fetchWeeklyWater = async () => {
       try {
         await dispatch(
@@ -97,7 +97,7 @@ export default function TrackerPage() {
     };
 
     fetchWeeklyWater();
-  }, [user, currentWeek, refetchTrigger, dispatch, t]);
+  }, [isLoggedIn, currentWeek, refetchTrigger, dispatch, t]);
 
   return (
     <>
