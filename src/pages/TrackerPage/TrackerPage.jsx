@@ -9,7 +9,11 @@ import DocumentTitle from "../../components/DocumentTitle";
 import WaterDetailedInfo from "../../components/WaterDetailedInfo/WaterDetailedInfo";
 import WaterMainInfo from "../../components/WaterMainInfo/WaterMainInfo";
 
-import { selectIsLoggedIn, selectUser } from "../../redux/auth/selectors.js";
+import {
+  selectIsFetched,
+  selectIsLoggedIn,
+  selectUser,
+} from "../../redux/auth/selectors.js";
 import {
   selectCurrentDate,
   selectCurrentMonth,
@@ -35,12 +39,13 @@ export default function TrackerPage() {
   const currentMonth = useSelector(selectCurrentMonth);
   const currentWeek = useSelector(selectCurrentWeek);
   const refetchTrigger = useSelector(selectRefetchTrigger);
+  const isFetched = useSelector(selectIsFetched);
   const { t } = useTranslation();
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        if (isLoggedIn && !user) {
+        if (isLoggedIn && !user && !isFetched) {
           await dispatch(fetchUserDetails()).unwrap();
         }
       } catch {
@@ -49,7 +54,7 @@ export default function TrackerPage() {
     };
 
     fetchUser();
-  }, [isLoggedIn, user, dispatch, t]);
+  }, [isLoggedIn, user, isFetched, dispatch, t]);
 
   useEffect(() => {
     if (!user) return;

@@ -20,6 +20,7 @@ const initialState = {
   isLoading: false,
   isError: null,
   userCount: null,
+  isFetched: false,
 };
 
 const userSlice = createSlice({
@@ -83,6 +84,7 @@ const userSlice = createSlice({
       .addCase(refresh.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isLoggedIn = true;
+        state.isFetched = true;
         state.user = action.payload.data.user;
       })
       .addCase(refresh.rejected, (state) => {
@@ -120,6 +122,7 @@ const userSlice = createSlice({
       })
       .addCase(fetchUserDetails.fulfilled, (state, action) => {
         state.isLoading = false;
+        state.isFetched = true;
         state.user = action.payload.data;
       })
       .addCase(fetchUserDetails.rejected, (state, action) => {
