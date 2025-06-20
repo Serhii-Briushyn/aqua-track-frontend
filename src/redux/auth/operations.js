@@ -53,10 +53,6 @@ export const login = createAsyncThunk(
       localStorage.setItem("accessToken", accessToken);
       return response.data;
     } catch (error) {
-      if (error.response?.status === 401) {
-        throw error;
-      }
-
       return handleApiError(error, thunkAPI);
     }
   }
@@ -99,10 +95,6 @@ export const fetchUserDetails = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      if (error.response?.status === 401) {
-        throw error;
-      }
-
       return handleApiError(error, thunkAPI);
     }
   }
@@ -123,10 +115,6 @@ export const updateUser = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      if (error.response?.status === 401) {
-        throw error;
-      }
-
       return handleApiError(error, thunkAPI);
     }
   }
@@ -148,10 +136,6 @@ export const updatePassword = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      if (error.response?.status === 401) {
-        throw error;
-      }
-
       return handleApiError(error, thunkAPI);
     }
   }
@@ -203,10 +187,6 @@ export const resetPassword = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      if (error.response?.status === 401) {
-        throw error;
-      }
-
       return handleApiError(error, thunkAPI);
     }
   }
@@ -241,10 +221,6 @@ export const loginWithGoogle = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      if (error.response?.status === 401) {
-        throw error;
-      }
-
       return handleApiError(error, thunkAPI);
     }
   }

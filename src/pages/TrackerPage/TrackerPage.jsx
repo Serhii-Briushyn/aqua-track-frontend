@@ -10,8 +10,8 @@ import WaterDetailedInfo from "../../components/WaterDetailedInfo/WaterDetailedI
 import WaterMainInfo from "../../components/WaterMainInfo/WaterMainInfo";
 
 import {
-  selectIsFetched,
   selectIsLoggedIn,
+  selectIsUserFetched,
   selectUser,
 } from "../../redux/auth/selectors.js";
 import {
@@ -39,13 +39,13 @@ export default function TrackerPage() {
   const currentMonth = useSelector(selectCurrentMonth);
   const currentWeek = useSelector(selectCurrentWeek);
   const refetchTrigger = useSelector(selectRefetchTrigger);
-  const isFetched = useSelector(selectIsFetched);
+  const isUserFetched = useSelector(selectIsUserFetched);
   const { t } = useTranslation();
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        if (isLoggedIn && !user && !isFetched) {
+        if (isLoggedIn && !user && !isUserFetched) {
           await dispatch(fetchUserDetails()).unwrap();
         }
       } catch {
@@ -54,10 +54,10 @@ export default function TrackerPage() {
     };
 
     fetchUser();
-  }, [isLoggedIn, user, isFetched, dispatch, t]);
+  }, [isLoggedIn, user, isUserFetched, dispatch, t]);
 
   useEffect(() => {
-    if (!user) return;
+    if (!user && !isUserFetched) return;
     const fetchDailyWater = async () => {
       try {
         await dispatch(getDailyWaterOperation({ date: currentDate })).unwrap();
@@ -67,10 +67,10 @@ export default function TrackerPage() {
     };
 
     fetchDailyWater();
-  }, [user, currentDate, refetchTrigger, dispatch, t]);
+  }, [user, isUserFetched, currentDate, refetchTrigger, dispatch, t]);
 
   useEffect(() => {
-    if (!user) return;
+    if (!user && !isUserFetched) return;
     const fetchMonthlyWater = async () => {
       try {
         await dispatch(
@@ -85,10 +85,10 @@ export default function TrackerPage() {
     };
 
     fetchMonthlyWater();
-  }, [user, currentMonth, refetchTrigger, dispatch, t]);
+  }, [user, isUserFetched, currentMonth, refetchTrigger, dispatch, t]);
 
   useEffect(() => {
-    if (!user) return;
+    if (!user && !isUserFetched) return;
     const fetchWeeklyWater = async () => {
       try {
         await dispatch(
@@ -102,7 +102,7 @@ export default function TrackerPage() {
     };
 
     fetchWeeklyWater();
-  }, [user, currentWeek, refetchTrigger, dispatch, t]);
+  }, [user, isUserFetched, currentWeek, refetchTrigger, dispatch, t]);
 
   return (
     <>
