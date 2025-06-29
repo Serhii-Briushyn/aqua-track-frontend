@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import { aquaTrackApi } from "../../services/apiClient";
-import { clearAccessToken, setAccessToken } from "./slice";
+import { clearAccessToken } from "./slice";
 import { authRequest } from "../../utils/authRequest";
 
 // -------------------- Error Handling Function --------------------
@@ -216,9 +216,8 @@ export const loginWithGoogle = createAsyncThunk(
         () => aquaTrackApi.post("/users/google-login", { code }),
         thunkAPI
       );
-      thunkAPI.dispatch(
-        setAccessToken({ accessToken: response.data.data.accessToken })
-      );
+      const accessToken = response.data.data.accessToken;
+      localStorage.setItem("accessToken", accessToken);
       return response.data;
     } catch (error) {
       return handleApiError(error, thunkAPI);
