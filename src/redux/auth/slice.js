@@ -90,9 +90,7 @@ const userSlice = createSlice({
     builder
       .addCase(logout.pending, setLoading)
       .addCase(logout.fulfilled, (state) => {
-        state.isLoading = false;
-        state.isLoggedIn = false;
-        state.user = null;
+        userSlice.caseReducers.clearAccessToken(state);
       })
       .addCase(logout.rejected, (state, action) => {
         setError(state, action);

@@ -38,7 +38,7 @@ export default function TrackerPage() {
   const { t } = useTranslation();
 
   useEffect(() => {
-    if (!isLoggedIn) return;
+    if (!isLoggedIn || user) return;
     const fetchUser = async () => {
       try {
         await dispatch(fetchUserDetails()).unwrap();
@@ -48,7 +48,7 @@ export default function TrackerPage() {
     };
 
     fetchUser();
-  }, [isLoggedIn, dispatch, t]);
+  }, [isLoggedIn, user, dispatch, t]);
 
   useEffect(() => {
     if (!user) return;
