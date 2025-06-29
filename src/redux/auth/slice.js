@@ -20,7 +20,6 @@ const initialState = {
   isLoading: false,
   isError: null,
   userCount: null,
-  isUserFetched: false,
 };
 
 const userSlice = createSlice({
@@ -42,21 +41,16 @@ const userSlice = createSlice({
       .addCase(register.pending, (state) => {
         state.isLoading = true;
         state.isError = null;
-        state.isUserFetched = false;
       })
       .addCase(register.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isLoggedIn = true;
-        state.isUserFetched = true;
         state.user = action.payload.data.user;
       })
       .addCase(register.rejected, (state, action) => {
         state.isLoading = false;
-        state.isLoggedIn = false;
-        state.isUserFetched = false;
-        state.user = null;
         state.isError = action.payload;
-        localStorage.removeItem("accessToken");
+        userSlice.caseReducers.clearAccessToken(state);
       });
 
     // -------------------- Log In User --------------------
@@ -64,21 +58,16 @@ const userSlice = createSlice({
       .addCase(login.pending, (state) => {
         state.isLoading = true;
         state.isError = null;
-        state.isUserFetched = false;
       })
       .addCase(login.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isLoggedIn = true;
-        state.isUserFetched = true;
         state.user = action.payload.data.user;
       })
       .addCase(login.rejected, (state, action) => {
         state.isLoading = false;
-        state.isLoggedIn = false;
-        state.user = null;
-        state.isUserFetched = false;
         state.isError = action.payload;
-        localStorage.removeItem("accessToken");
+        userSlice.caseReducers.clearAccessToken(state);
       });
 
     // -------------------- Refresh Access Token --------------------
@@ -86,20 +75,14 @@ const userSlice = createSlice({
       .addCase(refresh.pending, (state) => {
         state.isLoading = true;
         state.isError = null;
-        state.isUserFetched = false;
       })
-      .addCase(refresh.fulfilled, (state, action) => {
+      .addCase(refresh.fulfilled, (state) => {
         state.isLoading = false;
         state.isLoggedIn = true;
-        state.isUserFetched = true;
-        state.user = action.payload.data.user;
       })
       .addCase(refresh.rejected, (state) => {
         state.isLoading = false;
-        state.isLoggedIn = false;
-        state.user = null;
-        state.isUserFetched = false;
-        localStorage.removeItem("accessToken");
+        userSlice.caseReducers.clearAccessToken(state);
       });
 
     // -------------------- Log Out User --------------------
@@ -107,21 +90,16 @@ const userSlice = createSlice({
       .addCase(logout.pending, (state) => {
         state.isLoading = true;
         state.isError = null;
-        state.isUserFetched = false;
       })
       .addCase(logout.fulfilled, (state) => {
         state.isLoading = false;
         state.isLoggedIn = false;
         state.user = null;
-        state.isUserFetched = false;
       })
       .addCase(logout.rejected, (state, action) => {
         state.isLoading = false;
-        state.isLoggedIn = false;
-        state.user = null;
-        state.isUserFetched = false;
         state.isError = action.payload;
-        localStorage.removeItem("accessToken");
+        userSlice.caseReducers.clearAccessToken(state);
       });
 
     // -------------------- Fetch User Details --------------------
@@ -130,16 +108,13 @@ const userSlice = createSlice({
       .addCase(fetchUserDetails.pending, (state) => {
         state.isLoading = true;
         state.isError = null;
-        state.isUserFetched = false;
       })
       .addCase(fetchUserDetails.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.isUserFetched = true;
         state.user = action.payload.data;
       })
       .addCase(fetchUserDetails.rejected, (state, action) => {
         state.isLoading = false;
-        state.isUserFetched = false;
         state.isError = action.payload;
       });
 
