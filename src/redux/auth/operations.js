@@ -89,12 +89,14 @@ export const fetchUserDetails = createAsyncThunk(
   "user/fetchDetails",
   async (_, thunkAPI) => {
     try {
-      const response = await authRequest(
-        () => aquaTrackApi.get("/users/me"),
-        thunkAPI
-      );
+      const response = await aquaTrackApi.get("/users/me");
       return response.data;
     } catch (error) {
+      const status = error.response?.status;
+      if (status === 401) {
+        await thunkAPI.dispatch(refresh()).unwrap();
+        return await aquaTrackApi.get("/users/me");
+      }
       return handleApiError(error, thunkAPI);
     }
   }
