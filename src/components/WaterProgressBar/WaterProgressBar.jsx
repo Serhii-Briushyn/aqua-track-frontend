@@ -16,7 +16,6 @@ const WaterProgressBar = () => {
   const totalPercentage = useSelector(selectTotalPercentage);
   const currentDate = useSelector(selectCurrentDate);
   const [waterLevel, setWaterLevel] = useState(0);
-  const [isMoving, setIsMoving] = useState(false);
   const { t, i18n } = useTranslation();
 
   useEffect(() => {
@@ -25,10 +24,7 @@ const WaterProgressBar = () => {
   }, [totalPercentage]);
 
   const handleCircleMove = () => {
-    setIsMoving(true);
-    setTimeout(() => {
-      setIsMoving(false);
-    }, 2500);
+    setTimeout(() => {}, 2500);
   };
 
   useEffect(() => {
@@ -43,11 +39,8 @@ const WaterProgressBar = () => {
       <div className={css.waterProgressBar}>
         <div className={css.water} style={{ width: `${waterLevel}%` }} />
         <div className={css.movingCircleWrapper}>
-          {isMoving && (
-            <span className={css.percentageText}>
-              {Math.round(waterLevel)}%
-            </span>
-          )}
+          <span className={css.percentageText}>{Math.round(waterLevel)}%</span>
+
           <div
             className={css.movingCircle}
             style={{ left: `${waterLevel}%` }}
