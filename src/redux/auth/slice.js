@@ -75,15 +75,9 @@ const userSlice = createSlice({
       });
 
     // -------------------- Refresh Access Token --------------------
-    builder
-      // .addCase(refresh.pending, setLoading)
-      // .addCase(refresh.fulfilled, (state) => {
-      //   state.isLoading = false;
-      // })
-      .addCase(refresh.rejected, (state) => {
-        // setError(state, action);
-        userSlice.caseReducers.clearAccessToken(state);
-      });
+    builder.addCase(refresh.rejected, (state) => {
+      userSlice.caseReducers.clearAccessToken(state);
+    });
 
     // -------------------- Log Out User --------------------
     builder

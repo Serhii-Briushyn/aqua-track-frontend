@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { aquaTrackApi } from "../../services/apiClient";
-import { authRequest } from "../../utils/authRequest";
+import { withRefreshRetry } from "../../utils/withRefreshRetry";
 
 // -------------------- Error Handling Function --------------------
 
@@ -27,15 +27,11 @@ const handleApiError = (error, thunkAPI) => {
 export const createWaterOperation = createAsyncThunk(
   "water/create",
   async (data, thunkAPI) => {
-    try {
-      const response = await authRequest(
-        () => aquaTrackApi.post("/water", data),
-        thunkAPI
-      );
-      return response.data;
-    } catch (error) {
-      return handleApiError(error, thunkAPI);
-    }
+    return withRefreshRetry(
+      () => aquaTrackApi.post("/water", data),
+      thunkAPI,
+      handleApiError
+    );
   }
 );
 
@@ -44,15 +40,11 @@ export const createWaterOperation = createAsyncThunk(
 export const updateWaterOperation = createAsyncThunk(
   "water/update",
   async ({ id, data }, thunkAPI) => {
-    try {
-      const response = await authRequest(
-        () => aquaTrackApi.patch(`/water/${id}`, data),
-        thunkAPI
-      );
-      return response.data;
-    } catch (error) {
-      return handleApiError(error, thunkAPI);
-    }
+    return withRefreshRetry(
+      () => aquaTrackApi.patch(`/water/${id}`, data),
+      thunkAPI,
+      handleApiError
+    );
   }
 );
 
@@ -61,12 +53,11 @@ export const updateWaterOperation = createAsyncThunk(
 export const deleteWaterOperation = createAsyncThunk(
   "water/delete",
   async (id, thunkAPI) => {
-    try {
-      await authRequest(() => aquaTrackApi.delete(`/water/${id}`), thunkAPI);
-      return id;
-    } catch (error) {
-      return handleApiError(error, thunkAPI);
-    }
+    return withRefreshRetry(
+      () => aquaTrackApi.delete(`/water/${id}`),
+      thunkAPI,
+      handleApiError
+    );
   }
 );
 
@@ -75,15 +66,11 @@ export const deleteWaterOperation = createAsyncThunk(
 export const getDailyWaterOperation = createAsyncThunk(
   "water/getDaily",
   async ({ date }, thunkAPI) => {
-    try {
-      const response = await authRequest(
-        () => aquaTrackApi.get("/water/daily", { params: { date } }),
-        thunkAPI
-      );
-      return response.data;
-    } catch (error) {
-      return handleApiError(error, thunkAPI);
-    }
+    return withRefreshRetry(
+      () => aquaTrackApi.get("/water/daily", { params: { date } }),
+      thunkAPI,
+      handleApiError
+    );
   }
 );
 
@@ -92,15 +79,11 @@ export const getDailyWaterOperation = createAsyncThunk(
 export const getWeeklyWaterOperation = createAsyncThunk(
   "water/getWeekly",
   async ({ startDate }, thunkAPI) => {
-    try {
-      const response = await authRequest(
-        () => aquaTrackApi.get("/water/weekly", { params: { startDate } }),
-        thunkAPI
-      );
-      return response.data;
-    } catch (error) {
-      return handleApiError(error, thunkAPI);
-    }
+    return withRefreshRetry(
+      () => aquaTrackApi.get("/water/weekly", { params: { startDate } }),
+      thunkAPI,
+      handleApiError
+    );
   }
 );
 
@@ -109,14 +92,10 @@ export const getWeeklyWaterOperation = createAsyncThunk(
 export const getMonthlyWaterOperation = createAsyncThunk(
   "water/getMonthly",
   async ({ month, year }, thunkAPI) => {
-    try {
-      const response = await authRequest(
-        () => aquaTrackApi.get("/water/monthly", { params: { month, year } }),
-        thunkAPI
-      );
-      return response.data;
-    } catch (error) {
-      return handleApiError(error, thunkAPI);
-    }
+    return withRefreshRetry(
+      () => aquaTrackApi.get("/water/monthly", { params: { month, year } }),
+      thunkAPI,
+      handleApiError
+    );
   }
 );
