@@ -79,7 +79,6 @@ const userSlice = createSlice({
       .addCase(refresh.pending, setLoading)
       .addCase(refresh.fulfilled, (state) => {
         state.isLoading = false;
-        state.isLoggedIn = true;
       })
       .addCase(refresh.rejected, (state, action) => {
         setError(state, action);
@@ -103,7 +102,6 @@ const userSlice = createSlice({
       .addCase(fetchUserDetails.pending, setLoading)
       .addCase(fetchUserDetails.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.isLoggedIn = true;
         state.user = action.payload.data;
       })
       .addCase(fetchUserDetails.rejected, setError);
@@ -113,7 +111,6 @@ const userSlice = createSlice({
       .addCase(updateUser.pending, setLoading)
       .addCase(updateUser.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.isLoggedIn = true;
         state.user = action.payload.data.user;
       })
       .addCase(updateUser.rejected, setError);
