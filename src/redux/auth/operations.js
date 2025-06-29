@@ -95,7 +95,8 @@ export const fetchUserDetails = createAsyncThunk(
       const status = error.response?.status;
       if (status === 401) {
         await thunkAPI.dispatch(refresh()).unwrap();
-        return await aquaTrackApi.get("/users/me");
+        const response = await aquaTrackApi.get("/users/me");
+        return response.data;
       }
       return handleApiError(error, thunkAPI);
     }

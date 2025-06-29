@@ -76,12 +76,12 @@ const userSlice = createSlice({
 
     // -------------------- Refresh Access Token --------------------
     builder
-      .addCase(refresh.pending, setLoading)
-      .addCase(refresh.fulfilled, (state) => {
-        state.isLoading = false;
-      })
-      .addCase(refresh.rejected, (state, action) => {
-        setError(state, action);
+      // .addCase(refresh.pending, setLoading)
+      // .addCase(refresh.fulfilled, (state) => {
+      //   state.isLoading = false;
+      // })
+      .addCase(refresh.rejected, (state) => {
+        // setError(state, action);
         userSlice.caseReducers.clearAccessToken(state);
       });
 
