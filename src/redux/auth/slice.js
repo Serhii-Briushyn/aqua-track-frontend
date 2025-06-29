@@ -22,6 +22,16 @@ const initialState = {
   userCount: null,
 };
 
+const setLoading = (state) => {
+  state.isLoading = true;
+  state.isError = null;
+};
+
+const setError = (state, action) => {
+  state.isLoading = false;
+  state.isError = action.payload;
+};
+
 const userSlice = createSlice({
   name: "user",
   initialState,
@@ -29,7 +39,9 @@ const userSlice = createSlice({
     clearAccessToken: (state) => {
       state.isLoggedIn = false;
       state.user = null;
-      localStorage.removeItem("accessToken");
+      if (typeof localStorage !== "undefined") {
+        localStorage.removeItem("accessToken");
+      }
     },
     resetError: (state) => {
       state.isError = null;
@@ -38,190 +50,129 @@ const userSlice = createSlice({
   extraReducers: (builder) => {
     // -------------------- Register User --------------------
     builder
-      .addCase(register.pending, (state) => {
-        state.isLoading = true;
-        state.isError = null;
-      })
+      .addCase(register.pending, setLoading)
       .addCase(register.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isLoggedIn = true;
         state.user = action.payload.data.user;
       })
       .addCase(register.rejected, (state, action) => {
-        state.isLoading = false;
-        state.isError = action.payload;
+        setError(state, action);
         userSlice.caseReducers.clearAccessToken(state);
       });
 
     // -------------------- Log In User --------------------
     builder
-      .addCase(login.pending, (state) => {
-        state.isLoading = true;
-        state.isError = null;
-      })
+      .addCase(login.pending, setLoading)
       .addCase(login.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isLoggedIn = true;
         state.user = action.payload.data.user;
       })
       .addCase(login.rejected, (state, action) => {
-        state.isLoading = false;
-        state.isError = action.payload;
+        setError(state, action);
         userSlice.caseReducers.clearAccessToken(state);
       });
 
     // -------------------- Refresh Access Token --------------------
     builder
-      .addCase(refresh.pending, (state) => {
-        state.isLoading = true;
-        state.isError = null;
-      })
+      .addCase(refresh.pending, setLoading)
       .addCase(refresh.fulfilled, (state) => {
         state.isLoading = false;
         state.isLoggedIn = true;
       })
-      .addCase(refresh.rejected, (state) => {
-        state.isLoading = false;
+      .addCase(refresh.rejected, (state, action) => {
+        setError(state, action);
         userSlice.caseReducers.clearAccessToken(state);
       });
 
     // -------------------- Log Out User --------------------
     builder
-      .addCase(logout.pending, (state) => {
-        state.isLoading = true;
-        state.isError = null;
-      })
+      .addCase(logout.pending, setLoading)
       .addCase(logout.fulfilled, (state) => {
         state.isLoading = false;
         state.isLoggedIn = false;
         state.user = null;
       })
       .addCase(logout.rejected, (state, action) => {
-        state.isLoading = false;
-        state.isError = action.payload;
+        setError(state, action);
         userSlice.caseReducers.clearAccessToken(state);
       });
 
     // -------------------- Fetch User Details --------------------
 
     builder
-      .addCase(fetchUserDetails.pending, (state) => {
-        state.isLoading = true;
-        state.isError = null;
-      })
+      .addCase(fetchUserDetails.pending, setLoading)
       .addCase(fetchUserDetails.fulfilled, (state, action) => {
         state.isLoading = false;
+        state.isLoggedIn = true;
         state.user = action.payload.data;
       })
-      .addCase(fetchUserDetails.rejected, (state, action) => {
-        state.isLoading = false;
-        state.isError = action.payload;
-      });
+      .addCase(fetchUserDetails.rejected, setError);
 
     // -------------------- Update User --------------------
     builder
-      .addCase(updateUser.pending, (state) => {
-        state.isLoading = true;
-        state.isError = null;
-      })
+      .addCase(updateUser.pending, setLoading)
       .addCase(updateUser.fulfilled, (state, action) => {
         state.isLoading = false;
+        state.isLoggedIn = true;
         state.user = action.payload.data.user;
       })
-      .addCase(updateUser.rejected, (state, action) => {
-        state.isLoading = false;
-        state.isError = action.payload;
-      });
+      .addCase(updateUser.rejected, setError);
 
     // -------------------- Update User Password --------------------
     builder
-      .addCase(updatePassword.pending, (state) => {
-        state.isLoading = true;
-        state.isError = null;
-      })
+      .addCase(updatePassword.pending, setLoading)
       .addCase(updatePassword.fulfilled, (state) => {
         state.isLoading = false;
       })
-      .addCase(updatePassword.rejected, (state, action) => {
-        state.isLoading = false;
-        state.isError = action.payload;
-      });
+      .addCase(updatePassword.rejected, setError);
 
     // -------------------- Get User Count --------------------
     builder
-      .addCase(getUserCount.pending, (state) => {
-        state.isLoading = true;
-        state.isError = null;
-      })
+      .addCase(getUserCount.pending, setLoading)
       .addCase(getUserCount.fulfilled, (state, action) => {
         state.isLoading = false;
         state.userCount = action.payload.data.userCount;
       })
-      .addCase(getUserCount.rejected, (state, action) => {
-        state.isLoading = false;
-        state.isError = action.payload;
-      });
+      .addCase(getUserCount.rejected, setError);
 
     // -------------------- Forgot Password --------------------
     builder
-      .addCase(forgotPassword.pending, (state) => {
-        state.isLoading = true;
-        state.isError = null;
-      })
+      .addCase(forgotPassword.pending, setLoading)
       .addCase(forgotPassword.fulfilled, (state) => {
         state.isLoading = false;
       })
-      .addCase(forgotPassword.rejected, (state, action) => {
-        state.isLoading = false;
-        state.isError = action.payload;
-      });
+      .addCase(forgotPassword.rejected, setError);
 
     // -------------------- Reset Password --------------------
     builder
-      .addCase(resetPassword.pending, (state) => {
-        state.isLoading = true;
-        state.isError = null;
-      })
+      .addCase(resetPassword.pending, setLoading)
       .addCase(resetPassword.fulfilled, (state) => {
         state.isLoading = false;
       })
-      .addCase(resetPassword.rejected, (state, action) => {
-        state.isLoading = false;
-        state.isError = action.payload;
-      });
+      .addCase(resetPassword.rejected, setError);
 
     // -------------------- Get Google OAuth URL --------------------
     builder
-      .addCase(getGoogleOAuthUrl.pending, (state) => {
-        state.isLoading = true;
-        state.isError = null;
-      })
+      .addCase(getGoogleOAuthUrl.pending, setLoading)
       .addCase(getGoogleOAuthUrl.fulfilled, (state) => {
         state.isLoading = false;
       })
-      .addCase(getGoogleOAuthUrl.rejected, (state, action) => {
-        state.isLoading = false;
-        state.isError = action.payload;
-      });
+      .addCase(getGoogleOAuthUrl.rejected, setError);
 
     // -------------------- Log In With Google --------------------
     builder
-      .addCase(loginWithGoogle.pending, (state) => {
-        state.isLoading = true;
-        state.isError = null;
-      })
+      .addCase(loginWithGoogle.pending, setLoading)
       .addCase(loginWithGoogle.fulfilled, (state, action) => {
         state.isLoading = false;
+        state.isLoggedIn = true;
         state.user = action.payload.data.user;
       })
-      .addCase(loginWithGoogle.rejected, (state, action) => {
-        state.isLoading = false;
-        state.isError = action.payload;
-      });
+      .addCase(loginWithGoogle.rejected, setError);
   },
 });
 
-export const { setAccessToken, clearAccessToken, resetError } =
-  userSlice.actions;
+export const { clearAccessToken, resetError } = userSlice.actions;
 
 export const authReducer = userSlice.reducer;
